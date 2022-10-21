@@ -20,8 +20,8 @@ public class TestFrame extends javax.swing.JFrame {
      */
     public TestFrame() {
         initComponents();
-        EmployeeProfilePanel profile = new EmployeeProfilePanel();
-        this.add(profile);
+//        EmployeeProfilePanel profile = new EmployeeProfilePanel();
+  //      this.add(profile);
        
     }
 
