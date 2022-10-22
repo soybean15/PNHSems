@@ -10,9 +10,10 @@ import java.sql.Timestamp;
  *
  * @author root
  */
-public class ServiceCredits {
+public class ServiceCredit {
     int id;
     String orderNo;
+    String title;
     String memorandum;
     int numberOfDays;
     java.sql.Timestamp created_at;
@@ -34,6 +35,15 @@ public class ServiceCredits {
         this.orderNo = orderNo;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    
     public String getMemorandum() {
         return memorandum;
     }

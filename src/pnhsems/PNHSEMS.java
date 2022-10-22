@@ -7,6 +7,7 @@ package pnhsems;
 import config.Config;
 import otherclasses.UtilClass;
 import data.controllers.EmployeeController;
+import data.controllers.ServiceCreditController;
 import data.database.DbConnection;
 import static data.database.DbConnection.dropDatabase;
 import static data.database.DbConnection.getConnection;
@@ -15,6 +16,7 @@ import data.model.Employee_PersonalInfo;
 import data.model.Position;
 import data.model.User;
 import data.dao.implement.UserDaoImplement;
+import data.model.ServiceCredit;
 import frames.LoginFrame;
 import frames.MainFrame;
 import java.sql.SQLException;
@@ -60,10 +62,44 @@ static    int counter;
             e.printStackTrace();
 
         }
-  addPositions();
+        addPositions();
         addEmployee();
         addEmployee();
         addEmployee();
+    }
+    
+    static void addServiceCredit(){
+        
+        ServiceCreditController controller = new ServiceCreditController();
+        ServiceCredit serviceCredit = new ServiceCredit();
+        
+        serviceCredit.setMemorandum("Division Memorandum No. 2 S. 2022");
+        serviceCredit.setOrderNo("SO-1 Series 2022");
+        serviceCredit.setTitle("Brigada Eskwela");
+        serviceCredit.setNumberOfDays(5);
+        
+        ServiceCredit serviceCredit2 = new ServiceCredit();
+        
+        serviceCredit.setMemorandum("Deped Memo No. 5 s. 2022");
+        serviceCredit.setOrderNo("SO-2");
+        serviceCredit.setTitle("Brigada Eskwela");
+        serviceCredit.setNumberOfDays(5);
+        
+        try{
+              controller.addServiceCredit(serviceCredit);
+              controller.addServiceCredit(serviceCredit2);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
 
     static void addEmployee() {
@@ -127,7 +163,8 @@ static    int counter;
 
     public static void main(String[] args) {
 //       
-       start();
+       //start();
+       addServiceCredit();
 //       
 //       
 //            

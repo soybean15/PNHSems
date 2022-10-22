@@ -111,6 +111,7 @@ public class Table {
                 .addField("order_no varchar(50) not null")
                 .addField("memorandum varchar(255) not null")
                 .addField("no_of_days int(10) not null")
+                .addField("title varchar(255) not null")
                 .addField("created_at timestamp NOT NULL DEFAULT current_timestamp()")
                 .addField("updated_at timestamp NOT NULL DEFAULT current_timestamp()")
                 .setPK("id");

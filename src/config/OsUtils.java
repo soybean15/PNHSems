@@ -11,7 +11,7 @@ package config;
 
 public  final class OsUtils {
      public enum OS{
-        WINDOWS, LINUX, SAMPLE
+        WINDOWS, LINUX
         
         
   }
