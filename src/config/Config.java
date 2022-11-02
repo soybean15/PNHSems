@@ -15,20 +15,28 @@ import java.io.File;
 public class Config {
     private static final String imagePath=null;
    
+//    
+//    public static String getImagePath(){
+//        if (imagePath == null) {
+//            if (OsUtils.getOs() == OsUtils.OS.WINDOWS) {
+//                return System.getProperty("user.dir")+"/assets/image";
+//            } else if (OsUtils.getOs() == OsUtils.OS.LINUX) {
+//               return System.getProperty("user.dir");
+//            }
+//        }
+//        
+//        return imagePath;
+//    }
     
-    public static String getImagePath(){
-        if (imagePath == null) {
-            if (OsUtils.getOs() == OsUtils.OS.WINDOWS) {
-                return System.getProperty("user.dir")+"/asset/image";
-            } else if (OsUtils.getOs() == OsUtils.OS.LINUX) {
-               return System.getProperty("user.dir");
-            }
-        }
+    
         
-        return imagePath;
+    public static String getImagePath(){
+       
+        return System.getProperty("user.dir")+"/assets/image";
+           
     }
-    
     public static void createImageDIR(String path){
+        System.out.println(path);
         File dir = new File(path);
         if(!dir.isDirectory()){
             dir.mkdirs();
@@ -37,5 +45,8 @@ public class Config {
             System.out.println("Directory not Created");
         }
         
+    }
+    public static void main(String[] args) {
+        createImageDIR(getImagePath());
     }
 }

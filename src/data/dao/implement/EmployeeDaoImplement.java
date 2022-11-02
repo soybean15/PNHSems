@@ -231,7 +231,8 @@ public class EmployeeDaoImplement implements EmployeeDao {
             employee.setGender(rs.getString("gender"));
             employee.setBirthDate(rs.getDate("birthdate"));
             employee.setPlaceOfBirth(rs.getString("place_of_birth"));
-            employee.setImage("image");
+            employee.setImage(rs.getString("image"));
+           
             employee.setCreated_at(rs.getTimestamp("created_at"));
             employee.setLast_updated(rs.getTimestamp("updated_at"));
             
@@ -349,7 +350,7 @@ public class EmployeeDaoImplement implements EmployeeDao {
             employee.setGender(rs.getString("gender"));
             employee.setBirthDate(rs.getDate("birthdate"));
             employee.setPlaceOfBirth(rs.getString("place_of_birth"));
-            employee.setImage("image");
+            employee.setImage(rs.getString("image"));
             employee.setCreated_at(rs.getTimestamp("created_at"));
             employee.setLast_updated(rs.getTimestamp("updated_at"));
             

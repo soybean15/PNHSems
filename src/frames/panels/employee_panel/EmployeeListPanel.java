@@ -16,6 +16,7 @@ import themes.Theme;
 import java.sql.SQLException;
 import javax.swing.border.MatteBorder;
 import frames.listener.MainPanelListener;
+import otherclasses.ImageHandler;
 
 /**
  *
@@ -92,6 +93,8 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
         lblBday.setText(String.valueOf(employee.getBirthDate()));
         lblPob.setText(employee.getPlaceOfBirth());
         lblDateCreated.setText(String.valueOf(employee.getCreated_at()));
+        
+        lblImage.setIcon(ImageHandler.getImage(190, 190, ImageHandler.getImagePath(employee.getImage())));
 
     }
 
@@ -108,7 +111,8 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
-        jPanel15 = new javax.swing.JPanel();
+        panelImage = new javax.swing.JPanel();
+        lblImage = new javax.swing.JLabel();
         lblId = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -172,20 +176,13 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
         jPanel14.setBackground(Theme.PRIMARY.COLOR.background_secondary);
         jPanel14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel15.setBackground(new java.awt.Color(255, 204, 204));
+        panelImage.setBackground(new java.awt.Color(255, 204, 204));
+        panelImage.setLayout(new java.awt.GridLayout());
 
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 190, Short.MAX_VALUE)
-        );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 190, Short.MAX_VALUE)
-        );
+        lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panelImage.add(lblImage);
 
-        jPanel14.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 190, 190));
+        jPanel14.add(panelImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 190, 190));
 
         lblId.setFont(Theme.PRIMARY.FONT.tableFontBig(10)
         );
@@ -547,7 +544,6 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
@@ -574,12 +570,14 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
     private javax.swing.JLabel lblGender;
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblId3;
+    private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblLastname;
     private javax.swing.JLabel lblMiddlename;
     private javax.swing.JLabel lblName2;
     private javax.swing.JLabel lblName4;
     private javax.swing.JLabel lblPob;
     private javax.swing.JLabel lblPosition3;
+    private javax.swing.JPanel panelImage;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 

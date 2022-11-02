@@ -14,6 +14,7 @@ import frames.panels.employee_panel.profile.EmployeeLeaveLogsPanel;
 import frames.panels.employee_panel.profile.EmployeeServiceCreditsPanel;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
+import otherclasses.ImageHandler;
 
 /**
  *
@@ -63,8 +64,11 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         
     }
     
-    private void setDisplay(){
+    public void setDisplay(){
+        
         lblEmployeeName.setText(employee.getFirstName()+"'s Profile");
+       
+        lblImage.setIcon(ImageHandler.getImage(150, 150, ImageHandler.getImagePath(employee.getImage())));
     }
 
     /**
@@ -81,7 +85,7 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         lblEmployeeName = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
+        lblImage = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -124,11 +128,10 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         jPanel8.setOpaque(false);
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel12.setBackground(new java.awt.Color(102, 255, 204));
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Image");
-        jLabel12.setOpaque(true);
-        jPanel8.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 150, 150));
+        lblImage.setBackground(new java.awt.Color(102, 255, 204));
+        lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImage.setOpaque(true);
+        jPanel8.add(lblImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 150, 150));
 
         jPanel1.add(jPanel8, java.awt.BorderLayout.CENTER);
 
@@ -337,7 +340,7 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
       
         AddEmployeePanel add= (AddEmployeePanel) listener.onEditEmployeeListener(btnEdit.getText(), employee);
-        add.setButton(btnEdit);
+        add.setComponents(btnEdit, lblImage);
         if (btnEdit.getText().equals("Edit")) {
             activePanel.setVisible(false);
             btnEdit.setText("Back");
@@ -353,7 +356,6 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -367,6 +369,7 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JLabel lblEmployeeName;
     private javax.swing.JLabel lblExit;
+    private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblLeaveLogs;
     private javax.swing.JLabel lblProfile;
     private javax.swing.JLabel lblServiceCredit;

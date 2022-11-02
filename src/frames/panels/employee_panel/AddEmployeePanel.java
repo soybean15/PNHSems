@@ -10,11 +10,14 @@ import data.model.Employee;
 import data.model.Employee_PersonalInfo;
 import data.model.Position;
 import frames.listener.SidePanelListener;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import otherclasses.ImageHandler;
 import otherclasses.UtilClass;
 import pnhsems.InvalidInputException;
 import themes.Theme;
@@ -29,6 +32,7 @@ public class AddEmployeePanel extends javax.swing.JPanel {
      * Creates new form AddEmployeePanel
      */
     private String id;
+    
     EmployeeController employeeController = new EmployeeController();
     private Employee employee;
     private Employee_PersonalInfo personalInfo;
@@ -38,9 +42,12 @@ public class AddEmployeePanel extends javax.swing.JPanel {
     List<Position> positions;
     SidePanelListener listener ;
     JButton editButton;
+    JLabel imageLabel;
     
+
+     
     boolean onEdit;
-    
+    String imageSource =null;
    // @param employee set null if add new
     public AddEmployeePanel(  SidePanelListener listener ,Employee employee) {
         initComponents();
@@ -83,6 +90,7 @@ public class AddEmployeePanel extends javax.swing.JPanel {
         }else{
             onEdit=true;
             personalInfo =employee.getPersonalInfo();
+            id = employee.getId();
             lblId.setText("ID: " + employee.getId() + " ");
             setFields();
             
@@ -184,11 +192,15 @@ public class AddEmployeePanel extends javax.swing.JPanel {
         cmbPosition.setSelectedItem(employee.getPosition().getName());
         cmbStatus.setSelectedItem(personalInfo.getCivilStatus());
         
-        
+        if(employee.getImage() !=null){
+            System.out.println(ImageHandler.getImagePath(employee.getImage()));
+            btnUpload.setIcon(ImageHandler.getImage(50, 50, ImageHandler.getImagePath(employee.getImage())));
+        }
     }
     
-    public void setButton(JButton button){
+    public void setComponents(JButton button,JLabel imageLabel){
         this.editButton = button;
+        this.imageLabel =imageLabel;
     }
             
 
@@ -275,7 +287,7 @@ public class AddEmployeePanel extends javax.swing.JPanel {
         jSplitPane8 = new javax.swing.JSplitPane();
         jLabel18 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        btnUpload = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jPanel32 = new javax.swing.JPanel();
@@ -607,7 +619,6 @@ public class AddEmployeePanel extends javax.swing.JPanel {
 
         txtMonth.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         txtMonth.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtMonth.setText("");
         txtMonth.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtMonthFocusGained(evt);
@@ -628,7 +639,6 @@ public class AddEmployeePanel extends javax.swing.JPanel {
 
         txtDay.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         txtDay.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtDay.setText("");
         txtDay.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtDayFocusGained(evt);
@@ -646,7 +656,6 @@ public class AddEmployeePanel extends javax.swing.JPanel {
 
         txtYear.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         txtYear.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtYear.setText("");
         txtYear.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtYearFocusLost(evt);
@@ -750,8 +759,13 @@ public class AddEmployeePanel extends javax.swing.JPanel {
         jPanel7.setOpaque(false);
         jPanel7.setLayout(new java.awt.GridLayout(1, 3));
 
-        jButton2.setText("Upload");
-        jPanel7.add(jButton2);
+        btnUpload.setText("Upload");
+        btnUpload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUploadActionPerformed(evt);
+            }
+        });
+        jPanel7.add(btnUpload);
         jPanel7.add(jLabel3);
         jPanel7.add(jLabel6);
 
@@ -1062,7 +1076,7 @@ public class AddEmployeePanel extends javax.swing.JPanel {
         jPanel49.add(jLabel57);
 
         jPanel50.setOpaque(false);
-        jPanel50.setLayout(new java.awt.GridLayout());
+        jPanel50.setLayout(new java.awt.GridLayout(1, 0));
 
         jButton3.setBackground(new java.awt.Color(0, 153, 0));
         jButton3.setFont(Theme.PRIMARY.FONT.tableFontDefault(17)
@@ -1378,13 +1392,11 @@ public class AddEmployeePanel extends javax.swing.JPanel {
                 
                
                
-                editButton.setText("Edit");
-
+                
             } else {
                 if (employeeController.addEmployee(employee) == 1) {
-
+                   
                     JOptionPane.showMessageDialog(this, employee.getId() + " Added");
-
                     //reset
                     employee = null;
                     personalInfo = null;
@@ -1395,26 +1407,51 @@ public class AddEmployeePanel extends javax.swing.JPanel {
                     throw new InvalidInputException("Please fill required fields");
                 }
             }
+            
+            if (imageSource != null);
+            ImageHandler.copyToTargetFolder(imageSource, employee.getImage());
+            
+            editButton.setText("Edit");
+            imageLabel.setIcon(ImageHandler.getImage(150, 150, ImageHandler.getImagePath(employee.getImage())));
+
+
            
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, e.getMessage());
         } catch (InvalidInputException iie) {
             JOptionPane.showMessageDialog(null, iie.getMessage());
+        } catch(IOException ioe){
+            
         }
 
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadActionPerformed
+       try{
+           imageSource = ImageHandler.upload();
+           ImageIcon imgIcon = ImageHandler.getImage(50, 50, imageSource);
+           employee.setImage(ImageHandler.getName(id));
+           
+           
+           btnUpload.setIcon(imgIcon);
+           
+       }catch(NullPointerException npe){
+           
+          //do nothing
+       }
+    }//GEN-LAST:event_btnUploadActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel MainContainer;
     private javax.swing.JPanel PanelAdditionalInfo;
     private javax.swing.JPanel PanelBasicInfo;
+    private javax.swing.JButton btnUpload;
     private javax.swing.JComboBox<String> cmbGender;
     private javax.swing.JComboBox<String> cmbPosition;
     private javax.swing.JComboBox<String> cmbStatus;
     private javax.swing.JLabel gender_warning;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
