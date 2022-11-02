@@ -68,7 +68,7 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         
         lblEmployeeName.setText(employee.getFirstName()+"'s Profile");
        
-        lblImage.setIcon(ImageHandler.getImage(150, 150, ImageHandler.getImagePath(employee.getImage())));
+        lblImage.setIcon(ImageHandler.getImage(150, 150, employee));
     }
 
     /**
@@ -87,12 +87,14 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         jPanel8 = new javax.swing.JPanel();
         lblImage = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         btnEdit = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
         panelProfile = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         lblProfile = new javax.swing.JLabel();
@@ -140,6 +142,9 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         jPanel2.setOpaque(false);
         jPanel2.setLayout(new java.awt.GridLayout(10, 0));
 
+        jPanel5.setOpaque(false);
+        jPanel2.add(jPanel5);
+
         jPanel3.setOpaque(false);
         jPanel3.setLayout(new java.awt.BorderLayout());
 
@@ -170,6 +175,9 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         jPanel3.add(jPanel4, java.awt.BorderLayout.CENTER);
 
         jPanel2.add(jPanel3);
+
+        jPanel6.setOpaque(false);
+        jPanel2.add(jPanel6);
 
         panelProfile.setBackground(new java.awt.Color(255, 204, 204));
         panelProfile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -366,6 +374,8 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JLabel lblEmployeeName;
     private javax.swing.JLabel lblExit;

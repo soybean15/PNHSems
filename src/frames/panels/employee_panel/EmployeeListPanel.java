@@ -94,7 +94,7 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
         lblPob.setText(employee.getPlaceOfBirth());
         lblDateCreated.setText(String.valueOf(employee.getCreated_at()));
         
-        lblImage.setIcon(ImageHandler.getImage(190, 190, ImageHandler.getImagePath(employee.getImage())));
+        lblImage.setIcon(ImageHandler.getImage(190, 190, employee));
 
     }
 

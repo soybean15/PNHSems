@@ -5,6 +5,7 @@
 package otherclasses;
 
 import config.Config;
+import data.model.Employee;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileFilter;
@@ -22,7 +23,16 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author root
  */
 public class ImageHandler {
-   
+    
+      //String defaultImage_m =  this.getClass().getClassLoader().getResource("img/app_image/male-default-img.png").toString();
+      
+      
+//    
+//     static String defaultImage_f = this.getClass().getClassLoader().getResource("img/app_image/female-default-img.png").toString();
+//   
+    
+      ImageIcon male_default = new ImageIcon(this.getClass().getClassLoader().getResource("img/app_img/male-default-img.jpg"));
+     ImageIcon female_default = new ImageIcon(this.getClass().getClassLoader().getResource("img/app_img/female-default-img.jpg"));
 
     public static String upload()throws NullPointerException {
         JFileChooser chooser = new JFileChooser();
@@ -55,13 +65,24 @@ public class ImageHandler {
      
      
      
-     public static ImageIcon getImage(int width, int height,String path){
-        return new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT)); //100, 100 add your own size
+     public static ImageIcon getImage(int width, int height,Employee employee){
+         if(employee.getImage()==null){
+            return getDefaultImage( width,  height, employee.getGender());           
+         }
+        return new ImageIcon(new ImageIcon(getImagePath(employee.getImage())).getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT)); //100, 100 add your own size
      }
 
-    static String delete() {
-        return "";
+    private static ImageIcon getDefaultImage(int width, int height, String gender) {
+        ImageHandler ih = new ImageHandler();
+        System.out.println("default "+ih.female_default);
+        if (gender.equals("Male")) {
+            return new ImageIcon( ih.male_default.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+        } else {
+            return new ImageIcon( ih.female_default.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+        }
+
     }
+
 
     public static void main(String[] args) {
         try{
