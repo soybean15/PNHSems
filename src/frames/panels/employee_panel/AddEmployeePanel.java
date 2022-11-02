@@ -1408,8 +1408,10 @@ public class AddEmployeePanel extends javax.swing.JPanel {
                 }
             }
             
-            if (imageSource != null);
-            ImageHandler.copyToTargetFolder(imageSource, employee.getImage());
+            if (imageSource != null){
+                ImageHandler.copyToTargetFolder(imageSource, employee.getImage());
+            }
+            
             
             editButton.setText("Edit");
             imageLabel.setIcon(ImageHandler.getImage(150, 150, employee));
@@ -1430,7 +1432,7 @@ public class AddEmployeePanel extends javax.swing.JPanel {
     private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadActionPerformed
        try{
            imageSource = ImageHandler.upload();
-           ImageIcon imgIcon = ImageHandler.getImage(50, 50, employee);
+           ImageIcon imgIcon = ImageHandler.getImage(50, 50, imageSource);
            employee.setImage(ImageHandler.getName(id));
            
            

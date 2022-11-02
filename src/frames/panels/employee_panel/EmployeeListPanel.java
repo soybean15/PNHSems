@@ -176,8 +176,8 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
         jPanel14.setBackground(Theme.PRIMARY.COLOR.background_secondary);
         jPanel14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panelImage.setBackground(new java.awt.Color(255, 204, 204));
-        panelImage.setLayout(new java.awt.GridLayout());
+        panelImage.setBackground(new java.awt.Color(204, 204, 204));
+        panelImage.setLayout(new java.awt.GridLayout(1, 0));
 
         lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panelImage.add(lblImage);

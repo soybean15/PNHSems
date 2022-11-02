@@ -132,7 +132,6 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
 
         lblImage.setBackground(new java.awt.Color(102, 255, 204));
         lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblImage.setOpaque(true);
         jPanel8.add(lblImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 150, 150));
 
         jPanel1.add(jPanel8, java.awt.BorderLayout.CENTER);

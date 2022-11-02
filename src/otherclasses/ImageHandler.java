@@ -71,6 +71,11 @@ public class ImageHandler {
          }
         return new ImageIcon(new ImageIcon(getImagePath(employee.getImage())).getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT)); //100, 100 add your own size
      }
+     
+     public static ImageIcon getImage(int width, int height,String path){
+     
+        return new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT)); //100, 100 add your own size
+     }
 
     private static ImageIcon getDefaultImage(int width, int height, String gender) {
         ImageHandler ih = new ImageHandler();
