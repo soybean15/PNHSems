@@ -103,7 +103,9 @@
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="jLabel4">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value=" Icon    "/>
+                        <Property name="horizontalAlignment" type="int" value="11"/>
+                        <Property name="text" type="java.lang.String" value="        "/>
+                        <Property name="toolTipText" type="java.lang.String" value="   "/>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -113,6 +115,9 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="sideLabelEmployee">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/img/icons/employees(1).png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Employee"/>
                       </Properties>
                       <Constraints>
@@ -134,7 +139,7 @@
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="jLabel5">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value=" Icon    "/>
+                        <Property name="text" type="java.lang.String" value="        "/>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -144,6 +149,9 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="sideLabelServiceCreds">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/img/icons/credit-card.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Service Credits"/>
                       </Properties>
                       <Constraints>
@@ -165,7 +173,7 @@
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="jLabel6">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value=" Icon    "/>
+                        <Property name="text" type="java.lang.String" value="        "/>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -175,6 +183,9 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="sideLabelPersonnel">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/img/icons/networking.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Personnels"/>
                       </Properties>
                       <Constraints>
@@ -196,7 +207,7 @@
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="jLabel7">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value=" Icon    "/>
+                        <Property name="text" type="java.lang.String" value="        "/>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -206,6 +217,9 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="sideLabelAccountSettings">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/img/icons/settings.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Account Settings"/>
                       </Properties>
                       <Constraints>
@@ -227,7 +241,7 @@
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="jLabel8">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value=" Icon    "/>
+                        <Property name="text" type="java.lang.String" value="        "/>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -237,6 +251,9 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="sideLabelUsers">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/img/icons/software-engineer.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Users"/>
                       </Properties>
                       <Constraints>
@@ -257,7 +274,7 @@
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="jLabel9">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value=" Icon    "/>
+                        <Property name="text" type="java.lang.String" value="        "/>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -267,6 +284,9 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="sideLabeLogOut">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/img/icons/log-out.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Log Out"/>
                       </Properties>
                       <Constraints>
