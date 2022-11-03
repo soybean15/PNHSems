@@ -23,29 +23,34 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author root
  */
 public class ImageHandler {
-    
-      //String defaultImage_m =  this.getClass().getClassLoader().getResource("img/app_image/male-default-img.png").toString();
-      
-      
+
+    //String defaultImage_m =  this.getClass().getClassLoader().getResource("img/app_image/male-default-img.png").toString();
 //    
 //     static String defaultImage_f = this.getClass().getClassLoader().getResource("img/app_image/female-default-img.png").toString();
 //   
-    
-      ImageIcon male_default = new ImageIcon(this.getClass().getClassLoader().getResource("img/app_img/male-default-img.jpg"));
-     ImageIcon female_default = new ImageIcon(this.getClass().getClassLoader().getResource("img/app_img/female-default-img.jpg"));
+    ImageIcon male_default = new ImageIcon(this.getClass().getClassLoader().getResource("img/app_img/male-default-img.jpg"));
+    ImageIcon female_default = new ImageIcon(this.getClass().getClassLoader().getResource("img/app_img/female-default-img.jpg"));
+    ImageIcon app_logo = new ImageIcon(this.getClass().getClassLoader().getResource("img/app_img/pnhs_logo.png"));
+    public static ImageIcon getDefault(int width, int height) {
+        ImageHandler ih = new ImageHandler();
+         return new ImageIcon(ih.male_default.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+    }
+     public static ImageIcon getLogo(int width, int height) {
+        ImageHandler ih = new ImageHandler();
+         return new ImageIcon(ih.app_logo.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+    }
 
-    public static String upload()throws NullPointerException {
+    public static String upload() throws NullPointerException {
         JFileChooser chooser = new JFileChooser();
         chooser.setFileFilter(new FileNameExtensionFilter("Image Files", "jpg", "png"));
-
 
         chooser.showOpenDialog(null);
         File f = chooser.getSelectedFile();
         return f.getAbsolutePath();
 
     }
-    
-     public static void copyToTargetFolder(String sourcePath, String name)throws IOException {
+
+    public static void copyToTargetFolder(String sourcePath, String name) throws IOException {
         Path source = Paths.get(sourcePath);
         Path targetDir = Paths.get(Config.getImagePath());
         Files.createDirectories(targetDir);
@@ -54,48 +59,44 @@ public class ImageHandler {
         System.out.println("copying into " + target);
         Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
     }
-     
-    public static String getName(String id){
-        return "employee_"+id;
+
+    public static String getName(String id) {
+        return "employee_" + id;
     }
-    
-    public static String getImagePath(String name){
-        return Config.getImagePath()+"/"+name;
+
+    public static String getImagePath(String name) {
+        return Config.getImagePath() + "/" + name;
     }
-     
-     
-     
-     public static ImageIcon getImage(int width, int height,Employee employee){
-         if(employee.getImage()==null){
-            return getDefaultImage( width,  height, employee.getGender());           
-         }
+
+    public static ImageIcon getImage(int width, int height, Employee employee) {
+        if (employee.getImage() == null) {
+            return getDefaultImage(width, height, employee.getGender());
+        }
         return new ImageIcon(new ImageIcon(getImagePath(employee.getImage())).getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT)); //100, 100 add your own size
-     }
-     
-     public static ImageIcon getImage(int width, int height,String path){
-     
+    }
+
+    public static ImageIcon getImage(int width, int height, String path) {
+
         return new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT)); //100, 100 add your own size
-     }
+    }
 
     private static ImageIcon getDefaultImage(int width, int height, String gender) {
         ImageHandler ih = new ImageHandler();
-        System.out.println("default "+ih.female_default);
+        
         if (gender.equals("Male")) {
-            return new ImageIcon( ih.male_default.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+            return new ImageIcon(ih.male_default.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
         } else {
-            return new ImageIcon( ih.female_default.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+            return new ImageIcon(ih.female_default.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
         }
 
     }
 
-
     public static void main(String[] args) {
-        try{
-             System.out.println(upload());
-        }catch(NullPointerException e){
-            
+        try {
+            System.out.println(upload());
+        } catch (NullPointerException e) {
+
         }
-       
 
     }
 

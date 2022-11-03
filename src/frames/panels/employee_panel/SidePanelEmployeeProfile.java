@@ -194,12 +194,13 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         });
         panelProfile.setLayout(new java.awt.BorderLayout());
 
-        jLabel4.setText("jLabel4");
+        jLabel4.setText("      ");
         panelProfile.add(jLabel4, java.awt.BorderLayout.LINE_START);
 
         lblProfile.setFont(primary.FONT.defaultFont(15)
         );
         lblProfile.setForeground(primary.COLOR.foreground_primary);
+        lblProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/user.png"))); // NOI18N
         lblProfile.setText("Profile");
         panelProfile.add(lblProfile, java.awt.BorderLayout.CENTER);
 
@@ -221,12 +222,13 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         });
         panelServiceCredit.setLayout(new java.awt.BorderLayout());
 
-        jLabel6.setText("jLabel4");
+        jLabel6.setText("      ");
         panelServiceCredit.add(jLabel6, java.awt.BorderLayout.LINE_START);
 
         lblServiceCredit.setFont(primary.FONT.defaultFont(15)
         );
         lblServiceCredit.setForeground(primary.COLOR.foreground_primary);
+        lblServiceCredit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/credit-card(1).png"))); // NOI18N
         lblServiceCredit.setText("Service Credits");
         panelServiceCredit.add(lblServiceCredit, java.awt.BorderLayout.CENTER);
 
@@ -248,12 +250,13 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         });
         panelLeaveLogs.setLayout(new java.awt.BorderLayout());
 
-        jLabel8.setText("jLabel4");
+        jLabel8.setText("      ");
         panelLeaveLogs.add(jLabel8, java.awt.BorderLayout.LINE_START);
 
         lblLeaveLogs.setFont(primary.FONT.defaultFont(15)
         );
         lblLeaveLogs.setForeground(primary.COLOR.foreground_primary);
+        lblLeaveLogs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/log-in.png"))); // NOI18N
         lblLeaveLogs.setText("Leave Logs");
         panelLeaveLogs.add(lblLeaveLogs, java.awt.BorderLayout.CENTER);
 
@@ -275,12 +278,13 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         });
         panelExit.setLayout(new java.awt.BorderLayout());
 
-        jLabel10.setText("jLabel4");
+        jLabel10.setText("      ");
         panelExit.add(jLabel10, java.awt.BorderLayout.LINE_START);
 
         lblExit.setFont(primary.FONT.defaultFont(15)
         );
         lblExit.setForeground(primary.COLOR.foreground_primary);
+        lblExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-logout-rounded-24.png"))); // NOI18N
         lblExit.setText("Exit");
         panelExit.add(lblExit, java.awt.BorderLayout.CENTER);
 
@@ -290,10 +294,11 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void panelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelExitMouseClicked
-        activePanel(employeeProfile,lblExit);
-    
-        
-        listener.onEmployeeProfileExit();
+        if(activePanel(employeeProfile,lblExit)==0)    {
+               listener.onEmployeeProfileExit();
+               
+        }   
+         
     }//GEN-LAST:event_panelExitMouseClicked
 
     private void panelProfileMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelProfileMouseEntered
@@ -400,16 +405,18 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
        
     }
      
-    private void activePanel( JPanel panel,JLabel label){ 
+    private int activePanel( JPanel panel,JLabel label){ 
        
         if(btnEdit.getText().equals("Back")){
             int option = JOptionPane.showConfirmDialog(panel, "Are you sure you want to cancel Editing?","Leave Cancel profile",JOptionPane.YES_NO_OPTION);
             if(option == JOptionPane.NO_OPTION){
-                return;
+                return 1;
             }else{
                 btnEdit.setText("Edit");
             }
         }
+        
+        
          if(activeLabel !=null){
             activeLabel.setFont(Theme.PRIMARY.FONT.defaultFont(13));
             
@@ -421,6 +428,7 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         activePanel = panel;
         listener.onSelectedPanelListener(panel);
         
+        return 0;
         
     }
         

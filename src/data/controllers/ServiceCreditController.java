@@ -7,6 +7,7 @@ package data.controllers;
 import data.model.ServiceCredit;
 import data.services.impl.ServiceCreditService;
 import java.sql.SQLException;
+import java.util.List;
 /**
  *
  * @author root
@@ -18,6 +19,10 @@ public class ServiceCreditController {
     public int addServiceCredit(ServiceCredit serviceCredit)throws SQLException{
         return service.add(serviceCredit);
         
+    }
+    
+    public List<ServiceCredit> getAllServiceCredits()throws SQLException{
+        return service.getAll();
     }
     
 }

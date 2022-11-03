@@ -80,10 +80,10 @@ static    int counter;
         
         ServiceCredit serviceCredit2 = new ServiceCredit();
         
-        serviceCredit.setMemorandum("Deped Memo No. 5 s. 2022");
-        serviceCredit.setOrderNo("SO-2");
-        serviceCredit.setTitle("Brigada Eskwela");
-        serviceCredit.setNumberOfDays(5);
+        serviceCredit2.setMemorandum("Deped Memo No. 5 s. 2022");
+        serviceCredit2.setOrderNo("SO-2");
+        serviceCredit2.setTitle("Brigada Eskwela");
+        serviceCredit2.setNumberOfDays(5);
         
         try{
               controller.addServiceCredit(serviceCredit);

@@ -25,6 +25,7 @@ import frames.panels.employee_panel.profile.EmployeeLeaveLogsPanel;
 import frames.panels.employee_panel.profile.EmployeeServiceCreditsPanel;
 import java.util.HashMap;
 import javax.swing.JButton;
+import otherclasses.ImageHandler;
 
 /**
  *
@@ -110,6 +111,10 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
     private void initComponents() {
 
         topPanel = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         sideContainer = new javax.swing.JPanel();
         sidePanelMenu = new javax.swing.JPanel();
@@ -138,17 +143,25 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
         setPreferredSize(new java.awt.Dimension(1100, 700));
 
         topPanel.setBackground(new java.awt.Color(153, 153, 255));
+        topPanel.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout topPanelLayout = new javax.swing.GroupLayout(topPanel);
-        topPanel.setLayout(topPanelLayout);
-        topPanelLayout.setHorizontalGroup(
-            topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1043, Short.MAX_VALUE)
+        jPanel2.setOpaque(false);
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
+        jLabel1.setText("       ");
+        jPanel2.add(jLabel1, java.awt.BorderLayout.WEST);
+
+        jLabel2.setIcon(ImageHandler.getLogo(130, 130)
         );
-        topPanelLayout.setVerticalGroup(
-            topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        jPanel2.add(jLabel2, java.awt.BorderLayout.CENTER);
+
+        topPanel.add(jPanel2, java.awt.BorderLayout.WEST);
+
+        jLabel3.setFont(primary.FONT.big(25)
         );
+        jLabel3.setForeground(primary.COLOR.foreground_primary);
+        jLabel3.setText("PNHS Employee Management System(E-Service Credits)");
+        topPanel.add(jLabel3, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(topPanel, java.awt.BorderLayout.PAGE_START);
 
@@ -417,6 +430,9 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -424,6 +440,7 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel mainContainer;
     private javax.swing.JPanel sideContainer;
     private javax.swing.JLabel sideLabeLogOut;

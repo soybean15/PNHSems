@@ -44,6 +44,7 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
        this.listener = listener;
 
         txtSearch.setBorder(new MatteBorder(1, 1, 1, 1, Color.BLACK));
+        lblImage.setIcon(ImageHandler.getDefault(190,190));
 
     }
     
@@ -180,6 +181,7 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
         panelImage.setLayout(new java.awt.GridLayout(1, 0));
 
         lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/app_img/male-default-img.jpg"))); // NOI18N
         panelImage.add(lblImage);
 
         jPanel14.add(panelImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 190, 190));

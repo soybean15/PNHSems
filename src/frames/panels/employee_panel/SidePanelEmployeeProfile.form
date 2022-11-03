@@ -221,7 +221,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jLabel4"/>
+                <Property name="text" type="java.lang.String" value="      "/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -236,6 +236,9 @@
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="primary.COLOR.foreground_primary" type="code"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/img/icons/user.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Profile"/>
               </Properties>
@@ -267,7 +270,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jLabel4"/>
+                <Property name="text" type="java.lang.String" value="      "/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -282,6 +285,9 @@
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="primary.COLOR.foreground_primary" type="code"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/img/icons/credit-card(1).png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Service Credits"/>
               </Properties>
@@ -313,7 +319,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jLabel4"/>
+                <Property name="text" type="java.lang.String" value="      "/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -328,6 +334,9 @@
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="primary.COLOR.foreground_primary" type="code"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/img/icons/log-in.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Leave Logs"/>
               </Properties>
@@ -359,7 +368,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel10">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jLabel4"/>
+                <Property name="text" type="java.lang.String" value="      "/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -374,6 +383,9 @@
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="primary.COLOR.foreground_primary" type="code"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/img/icons/icons8-logout-rounded-24.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Exit"/>
               </Properties>

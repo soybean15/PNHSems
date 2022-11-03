@@ -18,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ServiceCreditDaoImplement implements ServiceCreditsDao{
     
@@ -48,7 +49,24 @@ public class ServiceCreditDaoImplement implements ServiceCreditsDao{
 
     @Override
     public List<ServiceCredit> getAll() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+      String query="Select * from service_credits";
+      PreparedStatement pst = conn.prepareStatement(query);
+      ResultSet rs = pst.executeQuery();
+      
+      List<ServiceCredit> serviceCredits = new ArrayList<>();
+      while(rs.next()){
+          ServiceCredit serviceCredit = new ServiceCredit();
+          serviceCredit.setOrderNo(rs.getString("order_no"));
+          serviceCredit.setMemorandum(rs.getString("memorandum"));
+          serviceCredit.setTitle(rs.getString("title"));
+          serviceCredit.setNumberOfDays(rs.getInt("no_of_days"));
+          serviceCredit.setCreated_at(rs.getTimestamp("created_at"));
+          serviceCredit.setUpdated_at(rs.getTimestamp("updated_at"));
+          
+          serviceCredits.add(serviceCredit);
+      }
+      
+      return serviceCredits;
     }
 
     @Override

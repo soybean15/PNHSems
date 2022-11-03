@@ -4,6 +4,13 @@
  */
 package frames.panels;
 
+import data.controllers.ServiceCreditController;
+import data.model.ServiceCredit;
+import frames.components.ServiceCreditItem;
+import java.awt.GridLayout;
+import java.util.List;
+import java.sql.SQLException;
+
 /**
  *
  * @author root
@@ -13,9 +20,46 @@ public class ServiceCreditPanel extends javax.swing.JPanel {
     /**
      * Creates new form ServiceCreditPanel
      */
+    
+    ServiceCreditController controller  = new ServiceCreditController();
+    List<ServiceCredit> serviceCredits;
+    
     public ServiceCreditPanel() {
         initComponents();
+        
+        try{
+             serviceCredits = controller.getAllServiceCredits();
+             displayServiceCredits(serviceCredits);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        
+       
     }
+    
+    private void displayServiceCredits(List<ServiceCredit> serviceCredits){
+        serviceCreditsList.removeAll();
+        serviceCreditsList.repaint();
+        serviceCreditsList.revalidate();
+        
+        int size = serviceCredits.size();
+        int row =size;
+        if(size<8){
+            row=8;
+        }
+      
+        serviceCreditsList.setLayout(new GridLayout(row,0));
+        
+        int index =0;
+        for(ServiceCredit serviceCredit : serviceCredits){
+          
+            
+            serviceCreditsList.add(new ServiceCreditItem(index,serviceCredit) );
+             index++;
+        }
+      
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,21 +70,59 @@ public class ServiceCreditPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setBackground(new java.awt.Color(51, 51, 255));
+        jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        serviceCreditsList = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        setBackground(new java.awt.Color(51, 51, 255));
+        setLayout(new java.awt.GridLayout(1, 2));
+
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 360, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_START);
+
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        serviceCreditsList.setLayout(new java.awt.GridLayout());
+        jScrollPane1.setViewportView(serviceCreditsList);
+
+        jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        add(jPanel1);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 360, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 300, Short.MAX_VALUE)
         );
+
+        add(jPanel2);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel serviceCreditsList;
     // End of variables declaration//GEN-END:variables
 }
