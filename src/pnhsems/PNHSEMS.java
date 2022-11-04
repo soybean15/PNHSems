@@ -90,6 +90,8 @@ static    int counter;
               controller.addServiceCredit(serviceCredit2);
         }catch(SQLException e){
             e.printStackTrace();
+        }catch(InvalidInputException e){
+            e.printStackTrace();
         }
         
         

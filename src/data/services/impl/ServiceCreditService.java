@@ -9,35 +9,47 @@ import data.dao.implement.ServiceCreditDaoImplement;
 import data.model.ServiceCredit;
 import java.sql.SQLException;
 import java.util.List;
+import pnhsems.InvalidInputException;
 
 /**
  *
  * @author root
  */
-public class ServiceCreditService implements ServiceCreditsDao{
+public class ServiceCreditService {
     
     ServiceCreditDaoImplement serviceCreditDao = new ServiceCreditDaoImplement();
     
-    public int add(ServiceCredit serviceCredit)throws SQLException{
-        return serviceCreditDao.add(serviceCredit);
+    
+    public int add(ServiceCredit serviceCredit)throws SQLException, InvalidInputException{
+        if (serviceCredit.validate()){
+            
+           return serviceCreditDao.add(serviceCredit);
+        }else{
+            throw new InvalidInputException("Please Fill all Fields");
+        }
+        
     }
 
-    @Override
-    public int update(ServiceCredit serviceCredit) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int update(ServiceCredit serviceCredit) throws SQLException, InvalidInputException {
+        if (serviceCredit.validate()) {
+
+            return serviceCreditDao.update(serviceCredit);
+        } else {
+            throw new InvalidInputException("Please Fill all Fields");
+        }
     }
 
-    @Override
+    
     public int delete(ServiceCredit serviceCredit) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+     return 0;
     }
 
-    @Override
+    
     public List<ServiceCredit> getAll() throws SQLException {
         return serviceCreditDao.getAll();
     }
 
-    @Override
+    
     public ServiceCredit get() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }

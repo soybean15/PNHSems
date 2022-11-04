@@ -39,7 +39,17 @@ public class ServiceCreditDaoImplement implements ServiceCreditsDao{
 
     @Override
     public int update(ServiceCredit serviceCredit) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String query = "update service_credits set order_no =?, memorandum =?, title =?, no_of_days =?, updated_at =CURRENT_TIMESTAMP where id =?";
+         
+        System.out.println("id->"+serviceCredit.getId());
+        System.out.println("order_no->"+serviceCredit.getOrderNo());
+        PreparedStatement ps = conn.prepareStatement(query);
+        ps.setString(1, serviceCredit.getOrderNo());
+        ps.setString(2, serviceCredit.getMemorandum());
+        ps.setString(3, serviceCredit.getTitle());
+        ps.setInt(4, serviceCredit.getNumberOfDays());
+        ps.setInt(5   , serviceCredit.getId());
+        return ps.executeUpdate();
     }
 
     @Override
@@ -55,7 +65,9 @@ public class ServiceCreditDaoImplement implements ServiceCreditsDao{
       
       List<ServiceCredit> serviceCredits = new ArrayList<>();
       while(rs.next()){
+          
           ServiceCredit serviceCredit = new ServiceCredit();
+          serviceCredit.setId(rs.getInt("id"));
           serviceCredit.setOrderNo(rs.getString("order_no"));
           serviceCredit.setMemorandum(rs.getString("memorandum"));
           serviceCredit.setTitle(rs.getString("title"));

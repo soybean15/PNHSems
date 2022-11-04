@@ -77,5 +77,13 @@ public class ServiceCredit {
     }
     
     
+    public boolean validate(){
+        return orderNo != null &&
+                memorandum != null &&
+                title != null &&
+                numberOfDays >=0;
+    }
+    
+    
     
 }

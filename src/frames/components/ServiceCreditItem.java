@@ -5,6 +5,7 @@
 package frames.components;
 
 import data.model.ServiceCredit;
+import frames.listener.ServiceCreditItemListener;
 import java.awt.Color;
 import themes.Theme;
 
@@ -20,13 +21,15 @@ public class ServiceCreditItem extends javax.swing.JPanel {
     
     private final ServiceCredit serviceCredit;
     private final int index;
+    private final ServiceCreditItemListener listener;
     
     
-    public ServiceCreditItem(int index, ServiceCredit serviceCredit) {
+    public ServiceCreditItem(int index, ServiceCredit serviceCredit,ServiceCreditItemListener listener) {
         initComponents();
         
         this.serviceCredit = serviceCredit;
         this.index = index;
+        this.listener =listener;
         
         setDisplay();
     }
@@ -34,6 +37,7 @@ public class ServiceCreditItem extends javax.swing.JPanel {
     private void setDisplay(){
         lbl1.setText(" "+serviceCredit.getOrderNo());
         lbl2.setText("  "+serviceCredit.getMemorandum());
+        //lbl2.setText("<html>For me, the layout is wrong every other time when I decrease the window; increasing works better but if it goes wrong, it's also incorrect every other time. I tried debugging and printing values to console; it seems that view.getLayout().preferredLayoutSize( view ) depends not only on view.setPreferredSize but also on the current size of the panel and scrollpane. The code of GridBagLayout is too complicated to dive into.</html>");
         
         if(index%2==1){
             this.setBackground(Theme.PRIMARY.COLOR.background_secondary);
@@ -57,6 +61,12 @@ public class ServiceCreditItem extends javax.swing.JPanel {
         lbl1 = new javax.swing.JLabel();
         lbl2 = new javax.swing.JLabel();
 
+        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
         setLayout(new java.awt.BorderLayout());
 
         lbl1.setFont(Theme.PRIMARY.FONT.tableFontDefault(12)
@@ -70,9 +80,13 @@ public class ServiceCreditItem extends javax.swing.JPanel {
 
         lbl2.setFont(Theme.PRIMARY.FONT.tableFontDefault(12)
         );
-        lbl2.setText("Memorandum");
+        lbl2.setText("For me, the layout is wrong every other time when I decrease the window; increasing works better but if it goes wrong, it's also incorrect every other time. I tried debugging and printing values to console; it seems that view.getLayout().preferredLayoutSize( view ) depends not only on view.setPreferredSize but also on the current size of the panel and scrollpane. The code of GridBagLayout is too complicated to dive into.");
         add(lbl2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+       this.listener.setDetails(serviceCredit);
+    }//GEN-LAST:event_formMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

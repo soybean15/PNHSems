@@ -35,7 +35,7 @@ public class Config {
         return System.getProperty("user.dir")+"/assets/image";
            
     }
-    public static void createImageDIR(String path){
+    public static void createDIR(String path){
         System.out.println(path);
         File dir = new File(path);
         if(!dir.isDirectory()){
@@ -47,6 +47,6 @@ public class Config {
         
     }
     public static void main(String[] args) {
-        createImageDIR(getImagePath());
+        createDIR(getImagePath());
     }
 }
