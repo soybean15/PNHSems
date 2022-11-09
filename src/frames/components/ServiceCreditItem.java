@@ -48,6 +48,15 @@ public class ServiceCreditItem extends javax.swing.JPanel {
         }
         
     }
+    
+    public void defaultFont(){
+        lbl1.setFont(Theme.PRIMARY.FONT.tableFontDefault(12));
+        lbl2.setFont(Theme.PRIMARY.FONT.tableFontDefault(12));
+    }
+    public void bigFont(){
+          lbl1.setFont(Theme.PRIMARY.FONT.tableFontBig(12));
+        lbl2.setFont(Theme.PRIMARY.FONT.tableFontBig(12));
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -86,6 +95,7 @@ public class ServiceCreditItem extends javax.swing.JPanel {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
        this.listener.setDetails(serviceCredit);
+       this.listener.onItemSelected(this);
     }//GEN-LAST:event_formMouseClicked
 
 

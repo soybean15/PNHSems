@@ -33,6 +33,7 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
     ServiceCreditValidation serviceCreditValidation = new ServiceCreditValidation();
 
     private ServiceCredit selected;
+    private ServiceCreditItem activeItem;
 
     public ServiceCreditPanel() {
         initComponents();
@@ -726,5 +727,14 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
         lblDays.setText(String.valueOf(serviceCredit.getNumberOfDays()));
         this.selected = serviceCredit;
 
+    }
+
+    @Override
+    public void onItemSelected(ServiceCreditItem serviceCreditItem) {
+        if(activeItem !=null ){
+            activeItem.defaultFont();
+        }
+        serviceCreditItem.bigFont();
+        activeItem = serviceCreditItem;
     }
 }

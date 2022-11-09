@@ -5,6 +5,7 @@
 package frames.listener;
 
 import data.model.ServiceCredit;
+import frames.components.ServiceCreditItem;
 
 /**
  *
@@ -13,5 +14,6 @@ import data.model.ServiceCredit;
 public interface ServiceCreditItemListener {
     
     public void setDetails(ServiceCredit serviceCredit);
+    public void onItemSelected(ServiceCreditItem serviceCreditItem);
     
 }
