@@ -19,36 +19,32 @@ public class ServiceCreditService {
     
     ServiceCreditDaoImplement serviceCreditDao = new ServiceCreditDaoImplement();
     
-    
-    public int add(ServiceCredit serviceCredit)throws SQLException, InvalidInputException{
-        if (serviceCredit.validate()){
+    public int add(ServiceCredit serviceCredit) throws SQLException, InvalidInputException {
+        if (serviceCredit.validate()) {
             
-           return serviceCreditDao.add(serviceCredit);
-        }else{
+            return serviceCreditDao.add(serviceCredit);
+        } else {
             throw new InvalidInputException("Please Fill all Fields");
         }
         
     }
-
+    
     public int update(ServiceCredit serviceCredit) throws SQLException, InvalidInputException {
         if (serviceCredit.validate()) {
-
+            
             return serviceCreditDao.update(serviceCredit);
         } else {
             throw new InvalidInputException("Please Fill all Fields");
         }
     }
-
     
     public int delete(ServiceCredit serviceCredit) throws SQLException {
-     return 0;
+        return serviceCreditDao.delete(serviceCredit);
     }
-
     
     public List<ServiceCredit> getAll() throws SQLException {
         return serviceCreditDao.getAll();
     }
-
     
     public ServiceCredit get() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

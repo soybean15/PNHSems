@@ -31,4 +31,10 @@ public class ServiceCreditController {
         return service.getAll();
     }
     
+    public int deleteServiceCredit(ServiceCredit serviceCredit)throws SQLException{
+        int n =  service.delete(serviceCredit);
+        System.out.println(n);
+        return n;
+    }
+    
 }

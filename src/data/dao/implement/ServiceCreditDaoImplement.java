@@ -54,7 +54,11 @@ public class ServiceCreditDaoImplement implements ServiceCreditsDao{
 
     @Override
     public int delete(ServiceCredit serviceCredit) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       String query = " delete from service_credits where id =?";
+       PreparedStatement ps= conn.prepareStatement(query);
+       ps.setInt(1, serviceCredit.getId());
+        return ps.executeUpdate();
+       
     }
 
     @Override

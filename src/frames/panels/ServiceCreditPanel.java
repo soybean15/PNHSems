@@ -9,6 +9,7 @@ import data.controllers.form.ServiceCreditValidation;
 import data.model.ServiceCredit;
 import frames.components.ServiceCreditItem;
 import frames.listener.ServiceCreditItemListener;
+import java.awt.Color;
 
 import java.awt.GridLayout;
 import java.util.List;
@@ -21,178 +22,200 @@ import themes.Theme;
  *
  * @author root
  */
-public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCreditItemListener{
+public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCreditItemListener {
 
     /**
      * Creates new form ServiceCreditPanel
      */
-    
-    ServiceCreditController controller  = new ServiceCreditController();
+    ServiceCreditController controller = new ServiceCreditController();
     List<ServiceCredit> serviceCredits;
-    
-     ServiceCreditValidation serviceCreditValidation = new ServiceCreditValidation();
 
-    private ServiceCredit serviceCredit;
-    
-    private boolean onEdit;
-    private boolean onAdd;
-    
+    ServiceCreditValidation serviceCreditValidation = new ServiceCreditValidation();
+
+    private ServiceCredit selected;
+
     public ServiceCreditPanel() {
         initComponents();
-        
+
         init();
-         
-        
-       
+
     }
-    
-    private void onEditExit(){
+
+    private void exit() {
         btn1.setText("Edit");
+        btn1.setBackground(new Color(0,51,255));
+        
         btn2.setText("Delete");
+        btn2.setBackground(new Color(255,0,0));
         viewDetailsPanel.setVisible(true);
         addEditDetailPanel.setVisible(false);
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Details"));
         resetTextFields();
-        
+
     }
-    
-    private void onEdit(){
+
+    private void onExit() {
+        if (isEdit()) {
+            String msg = "Want to exit Editing?";
+            if (!jButton2.isVisible()) {
+                msg = "Exit Adding?";
+            }
+            int option = JOptionPane.showConfirmDialog(this, msg, "Exit", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
+                exit();
+
+            }
+        }
+    }
+
+    private void onEdit() {
         btn1.setText("Save");
+        btn1.setBackground(new Color(0,204,0));
         btn2.setText("Cancel");
+        btn2.setBackground(new Color(255,51,0));
         viewDetailsPanel.setVisible(false);
 
         addEditDetailPanel.setVisible(true);
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Edit Details"));
         setTextFields();
     }
-    
-    private void onAdd(){
+
+    private void onAdd() {
         btn1.setText("Save");
+         btn1.setBackground(new Color(0,204,0));
         btn2.setText("Cancel");
+        btn2.setBackground(new Color(255,51,0));
         viewDetailsPanel.setVisible(false);
 
         addEditDetailPanel.setVisible(true);
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Add Service Credit"));
-        setTextFields();
+
     }
-     private void onAddExit(){
-        onEditExit();
+
+    private boolean isEdit() {
+        return btn1.getText().equals("Save");
     }
-    
+
     private void setTextFields() {
 
-        if (onEdit) {
-            txtOrderNumber.setText(lblOrderNumber.getText());
-            txtMemorandum.setText(lblMemorandum.getText());
-            txtTitle.setText(lblTitle.getText());
-            txtDays.setText(lblDays.getText());
-        } else {
-            resetTextFields();
-        }
+        txtOrderNumber.setText(lblOrderNumber.getText());
+        txtMemorandum.setText(lblMemorandum.getText());
+        txtTitle.setText(lblTitle.getText());
+        txtDays.setText(lblDays.getText());
 
     }
 
     private void resetTextFields() {
-  
+        lblOrderNumber.setText(txtOrderNumber.getText());
+        lblMemorandum.setText(txtMemorandum.getText());
+        lblTitle.setText(txtTitle.getText());
+        lblDays.setText(txtDays.getText());
+
         txtOrderNumber.setText("");
         txtMemorandum.setText("");
         txtTitle.setText("");
         txtDays.setText("");
-    }
-    
 
-    
-    private void init(){
-         lblOrderNumber.setText("<html>Following example showcase how to add title to border of a JPanel in a Java Swing application.</html>");
-        
-         //display serviceCredits
-        try{
-             serviceCredits = controller.getAllServiceCredits();
-             displayServiceCredits(serviceCredits);
-        }catch(SQLException e){
+    }
+
+    private void init() {
+      
+
+        //display serviceCredits
+        try {
+            serviceCredits = controller.getAllServiceCredits();
+            displayServiceCredits(serviceCredits);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         addEditDetailPanel.setVisible(false);
-        
+
     }
-    
-    private void reloadList(){
-          try{
-             serviceCredits = controller.getAllServiceCredits();
-             displayServiceCredits(serviceCredits);
-        }catch(SQLException e){
+
+    private void reloadList() {
+        try {
+            serviceCredits = controller.getAllServiceCredits();
+            displayServiceCredits(serviceCredits);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
     }
-    
-    private void displayServiceCredits(List<ServiceCredit> serviceCredits){
+
+    private void displayServiceCredits(List<ServiceCredit> serviceCredits) {
         serviceCreditsList.removeAll();
         serviceCreditsList.repaint();
         serviceCreditsList.revalidate();
-        
+
         int size = serviceCredits.size();
-        int row =size;
-        if(size<8){
-            row=8;
+        int row = size;
+        if (size < 8) {
+            row = 8;
         }
-      
-        serviceCreditsList.setLayout(new GridLayout(row,0));
-        
-        int index =0;
-        for(ServiceCredit serviceCredit : serviceCredits){
-          
-            
-            serviceCreditsList.add(new ServiceCreditItem(index,serviceCredit,this) );
-             index++;
+
+        serviceCreditsList.setLayout(new GridLayout(row, 0));
+
+        int index = 0;
+        for (ServiceCredit serviceCredit : serviceCredits) {
+
+            serviceCreditsList.add(new ServiceCreditItem(index, serviceCredit, this));
+            index++;
         }
-      
+
     }
-    
-    
-    private int addServiceCredit(){
+
+    private int addServiceCredit() {
         ServiceCredit _serviceCredit = new ServiceCredit();
-        
+
         _serviceCredit.setOrderNo(serviceCreditValidation.checkField(txtOrderNumber.getText()));
         _serviceCredit.setMemorandum(serviceCreditValidation.checkField(txtMemorandum.getText()));
         _serviceCredit.setTitle(serviceCreditValidation.checkField(txtTitle.getText()));
         _serviceCredit.setNumberOfDays(serviceCreditValidation.checkInt(txtDays.getText()));
-        
-        try{
-            return controller.addServiceCredit(serviceCredit);
-        }catch(SQLException e){
+
+        try {
+            return controller.addServiceCredit(_serviceCredit);
+        } catch (SQLException e) {
             e.printStackTrace();
             return 0;
-        }catch(InvalidInputException iie){
+        } catch (InvalidInputException iie) {
             JOptionPane.showMessageDialog(this, iie.getMessage());
-             return 0;
+            return 0;
         }
-        
-        
+
     }
-    
-    private int updateServiceCredit(){
-       
-        
-        serviceCredit.setOrderNo(serviceCreditValidation.checkField(txtOrderNumber.getText()));
-        serviceCredit.setMemorandum(serviceCreditValidation.checkField(txtMemorandum.getText()));
-        serviceCredit.setTitle(serviceCreditValidation.checkField(txtTitle.getText()));
-        serviceCredit.setNumberOfDays(serviceCreditValidation.checkInt(txtDays.getText()));
-        
-        try{
-            return controller.updateServiceCredit(serviceCredit);
-        }catch(SQLException e){
+
+    private int updateServiceCredit() {
+
+        selected.setOrderNo(serviceCreditValidation.checkField(txtOrderNumber.getText()));
+        selected.setMemorandum(serviceCreditValidation.checkField(txtMemorandum.getText()));
+        selected.setTitle(serviceCreditValidation.checkField(txtTitle.getText()));
+        selected.setNumberOfDays(serviceCreditValidation.checkInt(txtDays.getText()));
+
+        try {
+            return controller.updateServiceCredit(selected);
+        } catch (SQLException e) {
             e.printStackTrace();
             return 0;
-        }catch(InvalidInputException iie){
+        } catch (InvalidInputException iie) {
             JOptionPane.showMessageDialog(this, iie.getMessage());
-             return 0;
+            return 0;
         }
-        
-        
+
     }
     
+    private void delete(){
+         try {
+                if (controller.deleteServiceCredit(selected) == 1) {
+
+                    JOptionPane.showMessageDialog(this, selected.getOrderNo() + " deleted");
+                    reloadList();
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -203,7 +226,6 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         detailContainer = new javax.swing.JPanel();
@@ -237,6 +259,7 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
         jPanel14 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
+        jPanel21 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
@@ -251,35 +274,36 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
         jButton3 = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
 
-        jButton1.setText("jButton1");
-
-        setBackground(new java.awt.Color(51, 51, 255));
+        setBackground(Theme.PRIMARY.COLOR.background_secondary);
         setLayout(new java.awt.BorderLayout());
 
+        jPanel1.setOpaque(false);
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Details"));
         jPanel3.setMaximumSize(new java.awt.Dimension(350, 32767));
+        jPanel3.setOpaque(false);
         jPanel3.setPreferredSize(new java.awt.Dimension(350, 257));
         jPanel3.setLayout(new java.awt.GridLayout(2, 0));
 
+        detailContainer.setOpaque(false);
         detailContainer.setLayout(new javax.swing.OverlayLayout(detailContainer));
 
+        viewDetailsPanel.setOpaque(false);
         viewDetailsPanel.setLayout(new java.awt.GridLayout(4, 0));
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 255));
         jPanel4.setOpaque(false);
         jPanel4.setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setFont(Theme.PRIMARY.FONT.tableFontBig(10)
+        jLabel1.setFont(Theme.PRIMARY.FONT.tableFontBig(12)
         );
         jLabel1.setText("Order No.:");
         jLabel1.setPreferredSize(new java.awt.Dimension(120, 17));
         jPanel4.add(jLabel1, java.awt.BorderLayout.NORTH);
 
-        lblOrderNumber.setFont(Theme.PRIMARY.FONT.defaultFont(13)
+        lblOrderNumber.setFont(Theme.PRIMARY.FONT.tableFontDefault(13)
         );
-        lblOrderNumber.setText("lbl");
         jPanel4.add(lblOrderNumber, java.awt.BorderLayout.CENTER);
 
         viewDetailsPanel.add(jPanel4);
@@ -288,15 +312,14 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
         jPanel5.setOpaque(false);
         jPanel5.setLayout(new java.awt.BorderLayout());
 
-        jLabel2.setFont(Theme.PRIMARY.FONT.tableFontBig(10)
+        jLabel2.setFont(Theme.PRIMARY.FONT.tableFontBig(12)
         );
         jLabel2.setText("Memorandum:");
         jLabel2.setPreferredSize(new java.awt.Dimension(120, 17));
         jPanel5.add(jLabel2, java.awt.BorderLayout.NORTH);
 
-        lblMemorandum.setFont(Theme.PRIMARY.FONT.defaultFont(13)
+        lblMemorandum.setFont(Theme.PRIMARY.FONT.tableFontDefault(13)
         );
-        lblMemorandum.setText("jLabel2");
         jPanel5.add(lblMemorandum, java.awt.BorderLayout.CENTER);
 
         viewDetailsPanel.add(jPanel5);
@@ -305,15 +328,14 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
         jPanel6.setOpaque(false);
         jPanel6.setLayout(new java.awt.BorderLayout());
 
-        jLabel3.setFont(Theme.PRIMARY.FONT.tableFontBig(10)
+        jLabel3.setFont(Theme.PRIMARY.FONT.tableFontBig(12)
         );
         jLabel3.setText("Title:");
         jLabel3.setPreferredSize(new java.awt.Dimension(120, 17));
         jPanel6.add(jLabel3, java.awt.BorderLayout.NORTH);
 
-        lblTitle.setFont(Theme.PRIMARY.FONT.defaultFont(13)
+        lblTitle.setFont(Theme.PRIMARY.FONT.tableFontDefault(13)
         );
-        lblTitle.setText("jLabel2");
         jPanel6.add(lblTitle, java.awt.BorderLayout.CENTER);
 
         viewDetailsPanel.add(jPanel6);
@@ -322,21 +344,21 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
         jPanel7.setOpaque(false);
         jPanel7.setLayout(new java.awt.BorderLayout());
 
-        jLabel4.setFont(Theme.PRIMARY.FONT.tableFontBig(10)
+        jLabel4.setFont(Theme.PRIMARY.FONT.tableFontBig(12)
         );
         jLabel4.setText("Number of Days:");
         jLabel4.setPreferredSize(new java.awt.Dimension(120, 17));
         jPanel7.add(jLabel4, java.awt.BorderLayout.NORTH);
 
-        lblDays.setFont(Theme.PRIMARY.FONT.defaultFont(13)
+        lblDays.setFont(Theme.PRIMARY.FONT.tableFontDefault(13)
         );
-        lblDays.setText("jLabel2");
         jPanel7.add(lblDays, java.awt.BorderLayout.CENTER);
 
         viewDetailsPanel.add(jPanel7);
 
         detailContainer.add(viewDetailsPanel);
 
+        addEditDetailPanel.setOpaque(false);
         addEditDetailPanel.setLayout(new java.awt.GridLayout(4, 0));
 
         jPanel12.setBackground(new java.awt.Color(204, 204, 255));
@@ -399,6 +421,8 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
         jPanel10.setOpaque(false);
         jPanel10.setLayout(new java.awt.GridLayout(5, 0));
 
+        jPanel14.setOpaque(false);
+
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
@@ -411,6 +435,8 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
         );
 
         jPanel10.add(jPanel14);
+
+        jPanel8.setOpaque(false);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -425,6 +451,8 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
 
         jPanel10.add(jPanel8);
 
+        jPanel9.setOpaque(false);
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -438,7 +466,25 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
 
         jPanel10.add(jPanel9);
 
+        jPanel21.setOpaque(false);
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 340, Short.MAX_VALUE)
+        );
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 27, Short.MAX_VALUE)
+        );
+
+        jPanel10.add(jPanel21);
+
+        jPanel15.setOpaque(false);
         jPanel15.setLayout(new java.awt.GridLayout(1, 2));
+
+        jPanel16.setOpaque(false);
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
@@ -453,8 +499,13 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
 
         jPanel15.add(jPanel16);
 
+        jPanel17.setOpaque(false);
         jPanel17.setLayout(new java.awt.GridLayout(1, 2));
 
+        btn1.setBackground(new java.awt.Color(0, 51, 255));
+        btn1.setFont(Theme.PRIMARY.FONT.tableFontBig(10)
+        );
+        btn1.setForeground(Theme.PRIMARY.COLOR.foreground_primary);
         btn1.setText("Edit");
         btn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -463,7 +514,16 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
         });
         jPanel17.add(btn1);
 
+        btn2.setBackground(new java.awt.Color(255, 0, 0));
+        btn2.setFont(Theme.PRIMARY.FONT.tableFontBig(10)
+        );
+        btn2.setForeground(Theme.PRIMARY.COLOR.foreground_primary);
         btn2.setText("Delete");
+        btn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn2ActionPerformed(evt);
+            }
+        });
         jPanel17.add(btn2);
 
         jPanel15.add(jPanel17);
@@ -474,9 +534,12 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.EAST);
 
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setBorder(null);
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setOpaque(false);
 
+        serviceCreditsList.setBackground(Theme.PRIMARY.COLOR.background_secondary);
         serviceCreditsList.setBorder(javax.swing.BorderFactory.createTitledBorder("Service Credits"));
         serviceCreditsList.setLayout(new java.awt.GridLayout(1, 0));
         jScrollPane1.setViewportView(serviceCreditsList);
@@ -485,6 +548,7 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
 
         add(jPanel1, java.awt.BorderLayout.CENTER);
 
+        jPanel2.setOpaque(false);
         jPanel2.setPreferredSize(new java.awt.Dimension(670, 50));
         jPanel2.setLayout(new java.awt.BorderLayout());
 
@@ -498,6 +562,7 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
 
         jPanel20.setMinimumSize(new java.awt.Dimension(350, 50));
         jPanel20.setName(""); // NOI18N
+        jPanel20.setOpaque(false);
         jPanel20.setPreferredSize(new java.awt.Dimension(350, 50));
         jPanel20.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -512,6 +577,7 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
 
         add(jPanel2, java.awt.BorderLayout.NORTH);
 
+        jPanel11.setOpaque(false);
         jPanel11.setPreferredSize(new java.awt.Dimension(670, 50));
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
@@ -529,50 +595,65 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
-        onEdit = !onEdit;
-        if (onEdit) {
 
-            onEdit();
- 
+        if (!jButton2.isVisible()) {
+
+            if (addServiceCredit() == 1) {
+
+                JOptionPane.showMessageDialog(this, "New Service Credit Added");
+                reloadList();
+
+                jButton2.setVisible(true);
+                exit();
+
+            }
         } else {
+            if (!isEdit()) {
 
-            if (onAdd) {
-
-                if (addServiceCredit() == 1) {
-                    JOptionPane.showMessageDialog(this, "New Service Credit Added");
-                    reloadList();
-                    onAdd = false;
-                } else {
+                if (selected == null) {
                     return;
                 }
+
+                onEdit();
+
             } else {
+
                 if (updateServiceCredit() == 1) {
                     JOptionPane.showMessageDialog(this, "Service Credit updated");
                     reloadList();
-                  
-                } else {
-                    return;
+
+                    exit();
+
                 }
 
             }
-
-            onEditExit();
         }
+
+
     }//GEN-LAST:event_btn1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        onAdd = true;
-          onAdd();
-//           onEdit = false;
-//
-//        if (onAdd) {
-//            onAdd();
-//           onEdit = false;
-//       }else{
-//            onAddExit();
-//            onAdd = false;
-//       }
+
+        resetTextFields();
+        onAdd();
+        jButton2.setVisible(false);
+
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
+        if (btn2.getText().equals("Cancel")) {
+            onExit();
+        } else {
+             int option = JOptionPane.showConfirmDialog(this, "Delete Item?", "Exit", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
+                delete();
+
+                
+            }
+           
+        }
+
+    }//GEN-LAST:event_btn2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -580,7 +661,6 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
     private javax.swing.JButton btn1;
     private javax.swing.JButton btn2;
     private javax.swing.JPanel detailContainer;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -604,6 +684,7 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -627,20 +708,23 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
 
     @Override
     public void setDetails(ServiceCredit serviceCredit) {
-        if(onEdit){
-            int option = JOptionPane.showConfirmDialog(this, "Want to exit Editing?", "Exit", JOptionPane.YES_NO_OPTION);
-            if(option==JOptionPane.YES_OPTION){
-                onEditExit();
-                onEdit = !onEdit;
+        if (isEdit()) {
+            String msg = "Want to exit Editing?";
+            if (!jButton2.isVisible()) {
+                msg = "Exit Adding?";
+            }
+            int option = JOptionPane.showConfirmDialog(this, msg, "Exit", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
+                exit();
+
                 return;
             }
         }
         lblOrderNumber.setText(serviceCredit.getOrderNo());
-            lblMemorandum.setText(serviceCredit.getMemorandum());
-            lblTitle.setText(serviceCredit.getTitle());
-            lblDays.setText(String.valueOf(serviceCredit.getNumberOfDays()));
-            this.serviceCredit = serviceCredit;
-        
-        
+        lblMemorandum.setText(serviceCredit.getMemorandum());
+        lblTitle.setText(serviceCredit.getTitle());
+        lblDays.setText(String.valueOf(serviceCredit.getNumberOfDays()));
+        this.selected = serviceCredit;
+
     }
 }
