@@ -193,7 +193,7 @@ static    int counter;
       //start();
        //addServiceCredit();
      // addServiceCreditOnEmployee();
-       showServiceCredits();
+      // showServiceCredits();
 //       
 //       
 //            
@@ -201,7 +201,7 @@ static    int counter;
 //       main.show();
 //      
 
-      // Config.createImageDIR(Config.getImagePath()+"/asset/employee_image");
+       Config.getImagePath();
        
     }
 
