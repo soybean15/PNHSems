@@ -5,7 +5,9 @@
 package data.dao;
 
 import data.model.Employee;
+
 import data.model.Position;
+import data.model.ServiceCredit;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -23,30 +25,26 @@ public interface EmployeeDao {
 
     public int delete(Employee employee)
             throws SQLException;
-    
+
     public List<Employee> getAll()
             throws SQLException;
-    
+
     public List<Employee> search(String item)
             throws SQLException;
-    
+
     public Employee getEmployee(String id)
             throws SQLException;
-    
+
     public String getLastId()
             throws SQLException;
-    
+
     public int addPosition(Position position)
-             throws SQLException;
-    
+            throws SQLException;
+
     public Position getPosition(int id)
-             throws SQLException;
-    
+            throws SQLException;
+
     public List<Position> getPositions()
-             throws SQLException;
-    
-  
-    
-    
+            throws SQLException;
 
 }

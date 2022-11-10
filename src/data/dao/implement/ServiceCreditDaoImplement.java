@@ -86,8 +86,23 @@ public class ServiceCreditDaoImplement implements ServiceCreditsDao{
     }
 
     @Override
-    public ServiceCredit get() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public ServiceCredit get(int id) throws SQLException {
+        String query = "Select * from service_credits where id = ?";
+        PreparedStatement pst = conn.prepareStatement(query);
+        pst.setInt(1, id);
+        
+        ResultSet rs = pst.executeQuery();
+        ServiceCredit serviceCredit = new ServiceCredit();
+        if(rs.next()){
+            serviceCredit.setId(rs.getInt("id"));
+            serviceCredit.setOrderNo("order_no ");
+            serviceCredit.setMemorandum(rs.getString("memorandum"));
+            serviceCredit.setTitle("title");
+            serviceCredit.setNumberOfDays(rs.getInt("no_of_days"));
+            serviceCredit.setCreated_at(rs.getTimestamp("created_at"));
+            serviceCredit.setUpdated_at(rs.getTimestamp("updated_at"));
+        }
+        return serviceCredit;
     }
     
 }

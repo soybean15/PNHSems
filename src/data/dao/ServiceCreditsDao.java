@@ -24,7 +24,7 @@ public interface ServiceCreditsDao {
    public List<ServiceCredit> getAll()      
             throws SQLException ;
    
-   public ServiceCredit get()
+   public ServiceCredit get(int id)
              throws SQLException ;
    
     

@@ -117,8 +117,9 @@ public class Table {
                 .setPK("id");
         
         Table employeeAndServiceCredits = new Table("employee_and_service_credits")
-                .addField("employeeId")
-                .addField("service_credits_id");
+                .addField("employeeId varchar(12) not null")
+                .addField("service_credits_id int(11) not null")
+                .addField("no_of_days varchar(12) not null");
 
        
 
@@ -127,6 +128,7 @@ public class Table {
         addToDatabase(employeeInfo);
         addToDatabase(position);
         addToDatabase(serviceCredits);
+        addToDatabase(employeeAndServiceCredits);
   
 
     }

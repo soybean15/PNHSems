@@ -4,10 +4,11 @@
  */
 package data.controllers;
 
-import otherclasses.UtilClass;
 import data.model.Employee;
+import data.model.EmployeeServiceCredit;
 import data.model.Position;
-import data.dao.implement.EmployeeDaoImplement;
+import data.model.ServiceCredit;
+
 import data.services.impl.EmployeeServices;
 import java.sql.SQLException;
 import java.util.List;
@@ -61,4 +62,11 @@ public class EmployeeController {
 
     }
 
+    public int addServiceCredit(String employeeId, int serviceCreditId) throws SQLException{
+        return service.addServiceCredit(employeeId, serviceCreditId);
+    }
+    
+    public List<EmployeeServiceCredit> getEmployeeServiceCredits(String employeeId)throws SQLException{
+        return service.getEmployeeServiceCredits(employeeId);
+    }
 }

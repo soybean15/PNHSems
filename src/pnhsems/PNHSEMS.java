@@ -16,11 +16,13 @@ import data.model.Employee_PersonalInfo;
 import data.model.Position;
 import data.model.User;
 import data.dao.implement.UserDaoImplement;
+import data.model.EmployeeServiceCredit;
 import data.model.ServiceCredit;
 import frames.LoginFrame;
 import frames.MainFrame;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 import themes.Colour;
 import themes.Theme;
 
@@ -83,7 +85,7 @@ static    int counter;
         serviceCredit2.setMemorandum("Deped Memo No. 5 s. 2022");
         serviceCredit2.setOrderNo("SO-2");
         serviceCredit2.setTitle("Brigada Eskwela");
-        serviceCredit2.setNumberOfDays(5);
+        serviceCredit2.setNumberOfDays(10);
         
         try{
               controller.addServiceCredit(serviceCredit);
@@ -96,11 +98,34 @@ static    int counter;
         
         
         
+      
         
+    }
+    static void addServiceCreditOnEmployee(){
+            EmployeeController employeeController = new EmployeeController();
+            try{
+                employeeController.addServiceCredit("PEN-220001", 1);
+                employeeController.addServiceCredit("PEN-220002", 1);
+                employeeController.addServiceCredit("PEN-220003", 1);
+                employeeController.addServiceCredit("PEN-220002", 2);
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
         
-        
-        
-        
+    }
+    
+    static public void showServiceCredits(){
+         EmployeeController employeeController = new EmployeeController();
+         try{
+             List<EmployeeServiceCredit> serviceCredits = employeeController.getEmployeeServiceCredits("PEN-220002");
+             
+             for(EmployeeServiceCredit item :serviceCredits){
+                 System.out.println(item.getNo_of_days());
+                 System.out.println(item.getServiceCredit().getMemorandum());
+             }
+         }catch(SQLException e){
+             e.printStackTrace();
+         }
         
     }
 
@@ -165,8 +190,10 @@ static    int counter;
 
     public static void main(String[] args) {
 //       
-       //start();
-       addServiceCredit();
+      //start();
+       //addServiceCredit();
+     // addServiceCreditOnEmployee();
+       showServiceCredits();
 //       
 //       
 //            

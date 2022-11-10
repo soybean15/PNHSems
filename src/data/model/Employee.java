@@ -6,6 +6,7 @@ package data.model;
 
 
 import java.sql.Date;
+import java.util.List;
 
 
 /**
@@ -27,6 +28,8 @@ public class Employee {
     private Employee_PersonalInfo personalInfo;
     private java.sql.Timestamp created_at;
     private java.sql.Timestamp last_updated;
+
+    
    
 
     public String getId() {
