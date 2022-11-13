@@ -69,4 +69,8 @@ public class EmployeeController {
     public List<EmployeeServiceCredit> getEmployeeServiceCredits(String employeeId)throws SQLException{
         return service.getEmployeeServiceCredits(employeeId);
     }
+    
+    public List<ServiceCredit> getAvailableServiceCredit(String employeeId) throws SQLException{
+        return service.getAvailableServiceCredit(employeeId);
+    }
 }

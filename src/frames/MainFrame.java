@@ -566,7 +566,7 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
         HashMap<String, JPanel> employeePanels = new HashMap<>();
         employeeProfilePanel = new EmployeeProfilePanel(employee);
         employeePanels.put("employee_profile", employeeProfilePanel);
-        employeeServiceCreditsPanel = new EmployeeServiceCreditsPanel();
+        employeeServiceCreditsPanel = new EmployeeServiceCreditsPanel(employee);
         employeePanels.put("employee_service_credits", employeeServiceCreditsPanel);
         employeeLeaveLogsPanel = new EmployeeLeaveLogsPanel();
         employeePanels.put("employee_leave_logs", employeeLeaveLogsPanel);

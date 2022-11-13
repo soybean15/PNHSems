@@ -4,13 +4,14 @@
  */
 package data.services.impl;
 
-import data.dao.implement.EmployeeAndServiceCreditsDaoImplement;
+
 import data.dao.implement.EmployeeDaoImplement;
 import data.model.Employee;
 import data.model.EmployeeServiceCredit;
 import data.model.Position;
 import data.model.ServiceCredit;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import otherclasses.UtilClass;
 
@@ -21,7 +22,9 @@ import otherclasses.UtilClass;
 public class EmployeeServices {
     
     EmployeeDaoImplement employeeDao = new EmployeeDaoImplement();
-    EmployeeAndServiceCreditsDaoImplement employeeAndServiceCreditDao = new EmployeeAndServiceCreditsDaoImplement();
+    
+    EmployeeAndServiceCreditService employeeAndServiceCreditService = new EmployeeAndServiceCreditService();
+
 
     public String generateId() throws SQLException {
 
@@ -75,12 +78,18 @@ public class EmployeeServices {
     
     
     public int addServiceCredit(String employeeId, int serviceCreditId)throws SQLException {
-        return employeeAndServiceCreditDao.addServiceCredit(employeeId, serviceCreditId);
+        return employeeAndServiceCreditService.addServiceCredit(employeeId, serviceCreditId);
     }
     
     public List<EmployeeServiceCredit> getEmployeeServiceCredits(String employeeId)throws SQLException{
-       return employeeAndServiceCreditDao.getEmployeeServiceCredits(employeeId);
+       return employeeAndServiceCreditService.getEmployeeServiceCredits(employeeId);
        
+    }
+    
+    public List<ServiceCredit> getAvailableServiceCredit(String employeeId)throws SQLException{
+                
+        return employeeAndServiceCreditService.getAvailableServiceCredits(employeeId);
+        
     }
     
     

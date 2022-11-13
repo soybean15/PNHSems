@@ -12,7 +12,8 @@ package data.model;
 public class EmployeeServiceCredit {
    private  String employeeId;
    private ServiceCredit serviceCredit;
-    private int no_of_days;
+   private int no_of_days;
+   
 
     
     public String getEmployeeId() {

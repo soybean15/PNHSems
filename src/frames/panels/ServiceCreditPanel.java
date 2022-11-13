@@ -59,10 +59,12 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
         if (isEdit()) {
             String msg = "Want to exit Editing?";
             if (!jButton2.isVisible()) {
-                msg = "Exit Adding?";
+                msg = "Cancel Adding?";
             }
             int option = JOptionPane.showConfirmDialog(this, msg, "Exit", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
+                jButton2.setVisible(true);
+                selected =null;
                 exit();
 
             }
@@ -735,6 +737,6 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
             activeItem.defaultFont();
         }
         serviceCreditItem.bigFont();
-        activeItem = serviceCreditItem;
+        activeItem = serviceCreditItem; 
     }
 }

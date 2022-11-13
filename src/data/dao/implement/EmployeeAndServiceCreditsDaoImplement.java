@@ -49,7 +49,7 @@ public class EmployeeAndServiceCreditsDaoImplement implements EmployeeAndService
         while (rs.next()) {
             ServiceCredit serviceCredit = new ServiceCredit();
             serviceCredit.setId(rs.getInt("id"));
-            serviceCredit.setOrderNo("order_no ");
+            serviceCredit.setOrderNo(rs.getString("order_no"));
             serviceCredit.setMemorandum(rs.getString("memorandum"));
 
             serviceCredit.setTitle("title");

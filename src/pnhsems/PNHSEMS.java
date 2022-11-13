@@ -203,6 +203,20 @@ static    int counter;
 
        Config.getImagePath();
        
+       EmployeeController employeeController = new EmployeeController();
+       
+       try{
+           List<ServiceCredit> list = employeeController.getAvailableServiceCredit("PEN-220001");
+              System.out.println("from main");
+           for(ServiceCredit i :list){
+            
+               System.out.println(i.getMemorandum());
+           }
+           
+       }catch(SQLException e){
+           
+       }
+       
     }
 
     static void addPositions() {

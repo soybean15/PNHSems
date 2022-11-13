@@ -47,8 +47,8 @@ public class ServiceCreditService {
         return serviceCreditDao.getAll();
     }
 
-    public ServiceCredit get(String id) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public ServiceCredit get(int id) throws SQLException {
+        return serviceCreditDao.get(id);
     }
 
  

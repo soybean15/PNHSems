@@ -119,7 +119,7 @@ public class Table {
         Table employeeAndServiceCredits = new Table("employee_and_service_credits")
                 .addField("employeeId varchar(12) not null")
                 .addField("service_credits_id int(11) not null")
-                .addField("no_of_days varchar(12) not null");
+                .addField("no_of_days int(11) not null");
 
        
 

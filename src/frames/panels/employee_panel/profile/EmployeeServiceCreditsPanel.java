@@ -4,6 +4,15 @@
  */
 package frames.panels.employee_panel.profile;
 
+import data.controllers.EmployeeController;
+import data.model.Employee;
+import data.model.EmployeeServiceCredit;
+import frames.components.EmployeeServiceCreditItem;
+import java.awt.GridLayout;
+import java.util.List;
+import java.sql.SQLException;
+import themes.Theme;
+
 /**
  *
  * @author root
@@ -13,8 +22,35 @@ public class EmployeeServiceCreditsPanel extends javax.swing.JPanel {
     /**
      * Creates new form EmployeeServiceCreditsPanel
      */
-    public EmployeeServiceCreditsPanel() {
+    private Employee employee;
+    EmployeeController controller = new EmployeeController();
+    List<EmployeeServiceCredit> employeesWithServiceCredits;
+    public EmployeeServiceCreditsPanel(Employee employee) {
         initComponents();
+        this.employee = employee;
+        
+        try{
+            employeesWithServiceCredits = controller.getEmployeeServiceCredits(this.employee.getId());
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        display( employeesWithServiceCredits);
+    }
+    
+    private void display(List<EmployeeServiceCredit> employeesWithServiceCredits){
+        int size = employeesWithServiceCredits.size();
+        int row = size;
+        if(row <9){
+            row =8;
+        }
+        serviceCreditList.setLayout(new GridLayout(row,0));
+        
+        int index=0;
+        for(EmployeeServiceCredit item :employeesWithServiceCredits){
+            serviceCreditList.add(new EmployeeServiceCreditItem(index, item));
+            index++;
+        }
+        
     }
 
     /**
@@ -26,21 +62,92 @@ public class EmployeeServiceCreditsPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setBackground(new java.awt.Color(0, 204, 204));
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        serviceCreditList = new javax.swing.JPanel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        setBackground(Theme.PRIMARY.COLOR.background_secondary);
+        setLayout(new java.awt.BorderLayout());
+
+        jPanel1.setBackground(new java.awt.Color(255, 153, 153));
+        jPanel1.setOpaque(false);
+        jPanel1.setPreferredSize(new java.awt.Dimension(20, 324));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 174, Short.MAX_VALUE)
+        );
+
+        add(jPanel1, java.awt.BorderLayout.LINE_START);
+
+        jPanel2.setBackground(new java.awt.Color(255, 153, 153));
+        jPanel2.setOpaque(false);
+        jPanel2.setPreferredSize(new java.awt.Dimension(20, 324));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 174, Short.MAX_VALUE)
+        );
+
+        add(jPanel2, java.awt.BorderLayout.LINE_END);
+
+        jPanel3.setOpaque(false);
+        jPanel3.setPreferredSize(new java.awt.Dimension(668, 150));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 668, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 324, Short.MAX_VALUE)
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
         );
+
+        add(jPanel3, java.awt.BorderLayout.PAGE_START);
+
+        jScrollPane1.setBackground(new java.awt.Color(102, 0, 102));
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("ServiceCredits"));
+
+        serviceCreditList.setBackground(Theme.PRIMARY.COLOR.background_secondary);
+
+        javax.swing.GroupLayout serviceCreditListLayout = new javax.swing.GroupLayout(serviceCreditList);
+        serviceCreditList.setLayout(serviceCreditListLayout);
+        serviceCreditListLayout.setHorizontalGroup(
+            serviceCreditListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 626, Short.MAX_VALUE)
+        );
+        serviceCreditListLayout.setVerticalGroup(
+            serviceCreditListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 172, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setViewportView(serviceCreditList);
+
+        add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel serviceCreditList;
     // End of variables declaration//GEN-END:variables
 }
