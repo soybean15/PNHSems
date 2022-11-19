@@ -92,8 +92,10 @@ public class EmployeeServices {
         
     }
     
+   
     
-    
+     public int deleteEmployeeServiceCredits(String employeeId, int serviceCreditId) throws SQLException {
+        return employeeAndServiceCreditService.deleteEmployeeServiceCredits(employeeId, serviceCreditId);
+    }
 
-    
 }

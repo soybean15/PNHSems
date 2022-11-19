@@ -2,6 +2,7 @@
 import frames.panels.employee_panel.SidePanelEmployeeProfile;
 import frames.panels.UserPanel;
 import frames.panels.employee_panel.EmployeeListPanel;
+import frames.panels.employee_panel.LeaveFormPanel;
 import frames.panels.employee_panel.profile.EmployeeProfilePanel;
 
 /*
@@ -20,8 +21,8 @@ public class TestFrame extends javax.swing.JFrame {
      */
     public TestFrame() {
         initComponents();
-//        EmployeeProfilePanel profile = new EmployeeProfilePanel();
-  //      this.add(profile);
+        LeaveFormPanel form = new LeaveFormPanel();
+        this.add(form);
        
     }
 

@@ -120,7 +120,14 @@ public class Table {
                 .addField("employeeId varchar(12) not null")
                 .addField("service_credits_id int(11) not null")
                 .addField("no_of_days int(11) not null");
+        
+        Table typeOfLeave = new Table("leave_type ")
+                .addField("id int(11) not null auto_increment")
+                .addField("name varchar(255) not null")
+                .addField("reference text not null")
+                .setPK("id");
 
+ //       Table leave
        
 
         addToDatabase(user);
@@ -129,6 +136,7 @@ public class Table {
         addToDatabase(position);
         addToDatabase(serviceCredits);
         addToDatabase(employeeAndServiceCredits);
+        addToDatabase(typeOfLeave);
   
 
     }

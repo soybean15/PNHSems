@@ -8,6 +8,8 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import static java.time.temporal.TemporalQueries.localDate;
 
 /**
  *
@@ -39,6 +41,7 @@ public class UtilClass {
 
     public static String convertDate(Date date) {
         DateFormat df = new SimpleDateFormat("MMMM dd, YYYY");
+          
 
         return df.format(date);
     }
@@ -48,6 +51,11 @@ public class UtilClass {
         
         return Integer.parseInt(split[index]);
         
+    }
+    
+    public static String getCurrent(){
+       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, YYYY");
+       return String.valueOf(formatter.format(currentDate));
     }
 
 }

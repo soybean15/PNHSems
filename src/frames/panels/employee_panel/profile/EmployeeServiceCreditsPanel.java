@@ -11,17 +11,18 @@ import data.model.ServiceCredit;
 import frames.MainFrame;
 import frames.components.EmployeeServiceCreditItem;
 import frames.components.windows.AddServiceCreditWindow;
+import frames.listener.EmployeeServiceCreditListener;
 import java.awt.GridLayout;
 import java.util.List;
 import java.sql.SQLException;
-import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import themes.Theme;
 
 /**
  *
  * @author root
  */
-public class EmployeeServiceCreditsPanel extends javax.swing.JPanel {
+public class EmployeeServiceCreditsPanel extends javax.swing.JPanel implements EmployeeServiceCreditListener {
 
     /**
      * Creates new form EmployeeServiceCreditsPanel
@@ -29,52 +30,56 @@ public class EmployeeServiceCreditsPanel extends javax.swing.JPanel {
     private Employee employee;
     EmployeeController controller = new EmployeeController();
     List<EmployeeServiceCredit> employeesWithServiceCredits;
-     MainFrame frame;
+    MainFrame frame;
+
     public EmployeeServiceCreditsPanel(MainFrame frame, Employee employee) {
         this.employee = employee;
-        this.frame=frame;
+        this.frame = frame;
         initComponents();
-        
-        
-        try{
+
+        try {
             employeesWithServiceCredits = controller.getEmployeeServiceCredits(this.employee.getId());
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        display( employeesWithServiceCredits);
+        display(employeesWithServiceCredits);
     }
-    
-    private void display(List<EmployeeServiceCredit> employeesWithServiceCredits){
+
+    private void display(List<EmployeeServiceCredit> employeesWithServiceCredits) {
         serviceCreditList.removeAll();
         serviceCreditList.repaint();
         serviceCreditList.revalidate();
         int size = employeesWithServiceCredits.size();
         int row = size;
-        if(row <9){
-            row =8;
+        if (row < 9) {
+            row = 8;
         }
-        serviceCreditList.setLayout(new GridLayout(row,0));
-        
-        int index=0;
-        for(EmployeeServiceCredit item :employeesWithServiceCredits){
-            serviceCreditList.add(new EmployeeServiceCreditItem(index, item));
+        serviceCreditList.setLayout(new GridLayout(row, 0));
+
+        int index = 0;
+        for (EmployeeServiceCredit item : employeesWithServiceCredits) {
+            serviceCreditList.add(new EmployeeServiceCreditItem(this, index, item));
             index++;
         }
-        
+
     }
-    
+
     public int addServiceCredit(int serviceCreditId) {
         try {
             int n = controller.addServiceCredit(employee.getId(), serviceCreditId);
+            refreshList();
 
-            employeesWithServiceCredits = controller.getEmployeeServiceCredits(this.employee.getId());
-            display(employeesWithServiceCredits);
             return n;
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-       return 0;
+        return 0;
+    }
+
+    private void refreshList() throws SQLException {
+        employeesWithServiceCredits = controller.getEmployeeServiceCredits(this.employee.getId());
+        display(employeesWithServiceCredits);
     }
 
     /**
@@ -295,22 +300,19 @@ public class EmployeeServiceCreditsPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       try{
-            List<ServiceCredit> availableServiceCredits  = controller.getAvailableServiceCredit(employee.getId());
-            
-         
-            
+        try {
+            List<ServiceCredit> availableServiceCredits = controller.getAvailableServiceCredit(employee.getId());
+
             AddServiceCreditWindow serviceCreditWindow = new AddServiceCreditWindow();
-             serviceCreditWindow.setFrame(frame,this, availableServiceCredits);
+            serviceCreditWindow.setFrame(frame, this, availableServiceCredits);
             frame.setEnabled(false);
-           //  JDialog modal = new JDialog(serviceCreditWindow, "This is a modal!", true);
-           
-           
+            //  JDialog modal = new JDialog(serviceCreditWindow, "This is a modal!", true);
+
             serviceCreditWindow.setVisible(true);
-       }catch(SQLException e){
-           e.printStackTrace();
-       }
-       
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -336,4 +338,30 @@ public class EmployeeServiceCreditsPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblOrderNo;
     private javax.swing.JPanel serviceCreditList;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void use() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void delete(EmployeeServiceCredit employeeServiceCredit) {
+        try {
+
+            String employeeId = employeeServiceCredit.getEmployeeId();
+            String memorandum = employeeServiceCredit.getServiceCredit().getMemorandum();
+            int serviceCreditId = employeeServiceCredit.getServiceCredit().getId();
+
+            int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to remove " + memorandum, "Remove Service Credit", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
+                if (controller.deleteServiceCredit(employeeId, serviceCreditId) == 1) {
+                    JOptionPane.showMessageDialog(this, "Item Deleted");
+                    refreshList();
+                }
+            }
+
+        } catch (SQLException e) {
+
+        }
+    }
 }

@@ -20,5 +20,9 @@ public interface EmployeeAndServiceCreditsDao {
 
     public List<EmployeeServiceCredit> getEmployeeServiceCredits(String employeeId)
             throws SQLException;
+    
+
+    public int delete(String employeeId, int serviceCreditId)
+            throws SQLException;
 
 }

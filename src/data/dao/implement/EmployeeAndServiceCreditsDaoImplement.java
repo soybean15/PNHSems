@@ -69,4 +69,14 @@ public class EmployeeAndServiceCreditsDaoImplement implements EmployeeAndService
         return employeeServiceCredits;
     }
 
+    @Override
+    public int delete(String employeeId, int serviceCreditId) throws SQLException {
+        String query = "Delete from employee_and_service_credits where employeeId =? and service_credits_id =?";
+        PreparedStatement pst = conn.prepareStatement(query);
+        pst.setString(1, employeeId);
+        pst.setInt(2, serviceCreditId);
+        
+        return pst.executeUpdate();
+    }
+
 }

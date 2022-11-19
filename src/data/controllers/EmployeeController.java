@@ -73,4 +73,9 @@ public class EmployeeController {
     public List<ServiceCredit> getAvailableServiceCredit(String employeeId) throws SQLException{
         return service.getAvailableServiceCredit(employeeId);
     }
+    
+       public int deleteServiceCredit(String employeeId, int serviceCreditId) throws SQLException{
+        return service.deleteEmployeeServiceCredits(employeeId, serviceCreditId);
+    }
+     
 }

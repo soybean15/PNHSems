@@ -4,16 +4,15 @@
  */
 package frames.listener;
 
-import data.model.Employee;
+import data.model.EmployeeServiceCredit;
 
 /**
  *
  * @author root
  */
-public interface MainPanelListener {
-    public void onAddEmployeeClick();
-    public void onEmployeeProfileClick(Employee employee);
+public interface EmployeeServiceCreditListener {
     
-   
+    public void use();
+    public void delete(EmployeeServiceCredit employeeServiceCredit);
     
 }

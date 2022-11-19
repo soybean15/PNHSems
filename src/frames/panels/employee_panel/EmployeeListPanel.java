@@ -6,7 +6,7 @@ package frames.panels.employee_panel;
 
 import data.controllers.EmployeeController;
 import data.model.Employee;
-import data.model.Position;
+
 import frames.components.EmployeeItem;
 import frames.listener.EmployeeItemListener;
 import java.awt.Color;
@@ -29,6 +29,7 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
     EmployeeItem activeItem;
 
     
+  
     MainPanelListener listener ;
 
     /**

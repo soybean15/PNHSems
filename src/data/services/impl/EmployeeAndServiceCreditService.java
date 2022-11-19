@@ -58,4 +58,7 @@ public class EmployeeAndServiceCreditService {
         return ids;
     }
 
+    public int deleteEmployeeServiceCredits(String employeeId, int serviceCreditId) throws SQLException {
+        return dao.delete(employeeId, serviceCreditId);
+    }
 }

@@ -2,18 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package frames.listener;
-
-import data.model.Employee;
+package data.dao;
+import data.model.LeaveType;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
  * @author root
  */
-public interface MainPanelListener {
-    public void onAddEmployeeClick();
-    public void onEmployeeProfileClick(Employee employee);
+public interface LeaveDao {
     
-   
+    
+    public List<LeaveType> getAllLeaveTypes()
+            throws SQLException;
     
 }
