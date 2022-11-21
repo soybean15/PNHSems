@@ -45,6 +45,16 @@ public class LeaveDaoImplement implements LeaveDao{
         
     }
 
+    @Override
+    public int addLeaveType(LeaveType leaveType) throws SQLException {
+        String query ="insert into leave_type(name , reference) values(?,?)";
+        PreparedStatement pst = conn.prepareStatement(query);
+        pst.setString(1, leaveType.getName());
+        pst.setString(2, leaveType.getReference());
+        
+        return pst.executeUpdate();
+    }
+
 
     
     

@@ -4,25 +4,85 @@
  */
 package frames.panels.employee_panel;
 
+import data.controllers.LeaveFormController;
+import data.model.Employee;
+import data.model.LeaveType;
+import java.awt.GridLayout;
+import java.util.List;
+import java.sql.SQLException;
+import javax.swing.JRadioButton;
 import otherclasses.UtilClass;
-
-/**
- *
+import themes.Theme;
+/*
  * @author root
  */
 public class LeaveFormPanel extends javax.swing.JPanel {
 
+    private Employee employee;
+    List<LeaveType> leaveTypes;
+    LeaveFormController controller = new LeaveFormController();
+    
+
     /**
      * Creates new form LeaveFormPanel
      */
-    public LeaveFormPanel() {
+    public LeaveFormPanel(Employee employee) {
         initComponents();
+        
+        
+        
+        this.employee=employee;
         init();
     }
     
-    private void init(){
-        lblDateOfFiling.setText(UtilClass.getCurrent());
+    private void getLeaveTypes(){
+        try{
+            this.leaveTypes = controller.getLeaveTypes();
+        }catch(SQLException e){
+            
+        }
     }
+    
+    private void init(){
+        
+        
+        
+        lblDateOfFiling.setText(" "+UtilClass.getCurrent());
+        lblFirstName.setText(employee.getFirstName());
+        lblLastName.setText(employee.getLastName());
+        lblMiddleName.setText(employee.getMiddleName());
+        lblPosition.setText(" "+employee.getPosition().getName());
+        
+        
+         getLeaveTypes();
+         showLeaveTypes();
+         
+         specifyPanel.setVisible(false);
+         
+       
+    }
+    
+    public void showLeaveTypes(){
+        int row = leaveTypes.size();
+        
+        leaveTypeList.setLayout(new GridLayout(row,0));
+        
+        for(LeaveType leaveType:leaveTypes){
+            JRadioButton radio = new JRadioButton();
+            String text = "<html><b>"+leaveType.getName()+"</b><font size=2>("+leaveType.getReference()+")</font></html>";
+            
+            
+            radio.setText(text);
+            radio.setFont(Theme.PRIMARY.FONT.tableFontDefault(12));
+            leaveTypeList.add(radio);
+            btnGroupLeaveType.add(radio);
+            
+        }
+        
+        btnGroupLeaveType.add(radioOthers);
+    }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,6 +93,7 @@ public class LeaveFormPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGroupLeaveType = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -44,16 +105,54 @@ public class LeaveFormPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         lblDateOfFiling = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jPanel13 = new javax.swing.JPanel();
+        lblLastName = new javax.swing.JLabel();
+        lblFirstName = new javax.swing.JLabel();
+        lblMiddleName = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        lblPosition = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jPanel15 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jPanel18 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        leaveTypeList = new javax.swing.JPanel();
+        othersPanel = new javax.swing.JPanel();
+        radioOthers = new javax.swing.JRadioButton();
+        specifyPanel = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jPanel16 = new javax.swing.JPanel();
+        jPanel17 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jPanel14 = new javax.swing.JPanel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new java.awt.BorderLayout());
 
+        jPanel1.setBackground(Theme.PRIMARY.COLOR.background_secondary);
         jPanel1.setMinimumSize(new java.awt.Dimension(613, 100));
+        jPanel1.setOpaque(false);
         jPanel1.setPreferredSize(new java.awt.Dimension(613, 120));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
+        jPanel2.setOpaque(false);
         jPanel2.setPreferredSize(new java.awt.Dimension(613, 20));
-        jPanel2.setLayout(new java.awt.GridLayout());
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Norasi", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("APPLICATION FOR LEAVE");
@@ -61,61 +160,276 @@ public class LeaveFormPanel extends javax.swing.JPanel {
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.NORTH);
 
+        jPanel3.setOpaque(false);
         jPanel3.setPreferredSize(new java.awt.Dimension(250, 100));
         jPanel3.setLayout(new java.awt.GridLayout(2, 0));
 
+        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jPanel5.setOpaque(false);
         jPanel5.setLayout(new java.awt.GridLayout(2, 0));
 
         jLabel2.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         jLabel2.setText("1. Office/Department");
+        jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jPanel5.add(jLabel2);
 
         jLabel3.setFont(new java.awt.Font("Liberation Sans", 0, 15)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jPanel5.add(jLabel3);
 
         jPanel3.add(jPanel5);
 
+        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jPanel6.setOpaque(false);
         jPanel6.setLayout(new java.awt.GridLayout(2, 0));
 
         jLabel4.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         jLabel4.setText("3.Date of Filing");
+        jLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jPanel6.add(jLabel4);
 
         lblDateOfFiling.setFont(new java.awt.Font("Liberation Sans", 0, 15)); // NOI18N
+        lblDateOfFiling.setForeground(new java.awt.Color(51, 51, 51));
         jPanel6.add(lblDateOfFiling);
 
         jPanel3.add(jPanel6);
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.WEST);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        jPanel4.setOpaque(false);
+        jPanel4.setLayout(new java.awt.GridLayout(2, 0));
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jPanel7.setForeground(new java.awt.Color(153, 153, 153));
+        jPanel7.setOpaque(false);
+        jPanel7.setLayout(new java.awt.GridLayout(2, 0));
+
+        jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jPanel9.setOpaque(false);
+        jPanel9.setLayout(new java.awt.BorderLayout());
+
+        jLabel13.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
+        jLabel13.setText("1. Name");
+        jLabel13.setPreferredSize(new java.awt.Dimension(60, 20));
+        jPanel9.add(jLabel13, java.awt.BorderLayout.WEST);
+
+        jPanel11.setOpaque(false);
+        jPanel11.setLayout(new java.awt.GridLayout(1, 3));
+
+        jLabel6.setText("(Last)");
+        jPanel11.add(jLabel6);
+
+        jLabel5.setText("(First)");
+        jPanel11.add(jLabel5);
+
+        jLabel7.setText("(Middle)");
+        jPanel11.add(jLabel7);
+
+        jPanel9.add(jPanel11, java.awt.BorderLayout.CENTER);
+
+        jPanel7.add(jPanel9);
+
+        jPanel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jPanel12.setOpaque(false);
+        jPanel12.setLayout(new java.awt.BorderLayout());
+
+        jLabel14.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
+        jLabel14.setText(" ");
+        jLabel14.setPreferredSize(new java.awt.Dimension(60, 20));
+        jPanel12.add(jLabel14, java.awt.BorderLayout.WEST);
+
+        jPanel13.setOpaque(false);
+        jPanel13.setLayout(new java.awt.GridLayout(1, 3));
+
+        lblLastName.setForeground(new java.awt.Color(51, 51, 51));
+        jPanel13.add(lblLastName);
+
+        lblFirstName.setForeground(new java.awt.Color(51, 51, 51));
+        jPanel13.add(lblFirstName);
+
+        lblMiddleName.setForeground(new java.awt.Color(51, 51, 51));
+        jPanel13.add(lblMiddleName);
+
+        jPanel12.add(jPanel13, java.awt.BorderLayout.CENTER);
+
+        jPanel7.add(jPanel12);
+
+        jPanel4.add(jPanel7);
+
+        jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jPanel8.setForeground(new java.awt.Color(153, 153, 153));
+        jPanel8.setOpaque(false);
+        jPanel8.setLayout(new java.awt.GridLayout(2, 4));
+
+        jLabel8.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
+        jLabel8.setText("4. Position");
+        jLabel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jPanel8.add(jLabel8);
+
+        jLabel9.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
+        jLabel9.setText("5. Salary");
+        jLabel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jPanel8.add(jLabel9);
+
+        lblPosition.setForeground(new java.awt.Color(51, 51, 51));
+        lblPosition.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jPanel8.add(lblPosition);
+
+        jLabel11.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jPanel8.add(jLabel11);
+
+        jPanel4.add(jPanel8);
 
         jPanel1.add(jPanel4, java.awt.BorderLayout.CENTER);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
+
+        jPanel10.setOpaque(false);
+        jPanel10.setLayout(new java.awt.BorderLayout());
+
+        jPanel15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jPanel15.setOpaque(false);
+        jPanel15.setLayout(new java.awt.BorderLayout());
+
+        jLabel12.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
+        jLabel12.setText("3. Type of leave to be availed of");
+        jLabel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jPanel15.add(jLabel12, java.awt.BorderLayout.NORTH);
+
+        jPanel18.setOpaque(false);
+        jPanel18.setLayout(new java.awt.BorderLayout());
+
+        jLabel15.setText(" ");
+        jPanel18.add(jLabel15, java.awt.BorderLayout.PAGE_START);
+
+        leaveTypeList.setOpaque(false);
+        jPanel18.add(leaveTypeList, java.awt.BorderLayout.CENTER);
+
+        othersPanel.setOpaque(false);
+        othersPanel.setPreferredSize(new java.awt.Dimension(100, 30));
+        othersPanel.setLayout(new java.awt.BorderLayout());
+
+        radioOthers.setFont(Theme.PRIMARY.FONT.tableFontBig(10)
+        );
+        radioOthers.setText("Others");
+        radioOthers.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                radioOthersStateChanged(evt);
+            }
+        });
+        radioOthers.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                radioOthersFocusLost(evt);
+            }
+        });
+        radioOthers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioOthersActionPerformed(evt);
+            }
+        });
+        othersPanel.add(radioOthers, java.awt.BorderLayout.WEST);
+
+        specifyPanel.setOpaque(false);
+        specifyPanel.setLayout(new java.awt.BorderLayout());
+
+        jLabel16.setText(" Specify: ");
+        specifyPanel.add(jLabel16, java.awt.BorderLayout.LINE_START);
+        specifyPanel.add(jTextField1, java.awt.BorderLayout.CENTER);
+
+        othersPanel.add(specifyPanel, java.awt.BorderLayout.CENTER);
+
+        jPanel18.add(othersPanel, java.awt.BorderLayout.SOUTH);
+
+        jPanel15.add(jPanel18, java.awt.BorderLayout.CENTER);
+
+        jPanel10.add(jPanel15, java.awt.BorderLayout.CENTER);
+
+        jPanel16.setOpaque(false);
+        jPanel16.setPreferredSize(new java.awt.Dimension(350, 100));
+        jPanel16.setRequestFocusEnabled(false);
+        jPanel10.add(jPanel16, java.awt.BorderLayout.EAST);
+
+        jPanel17.setOpaque(false);
+        jPanel17.setLayout(new java.awt.GridLayout());
+
+        jLabel10.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("6. DETAILS OF APPLICATION");
+        jLabel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jPanel17.add(jLabel10);
+
+        jPanel10.add(jPanel17, java.awt.BorderLayout.NORTH);
+
+        add(jPanel10, java.awt.BorderLayout.CENTER);
+
+        jPanel14.setOpaque(false);
+        jPanel14.setPreferredSize(new java.awt.Dimension(100, 30));
+        add(jPanel14, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void radioOthersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioOthersActionPerformed
+        
+    }//GEN-LAST:event_radioOthersActionPerformed
+
+    private void radioOthersFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_radioOthersFocusLost
+      
+    }//GEN-LAST:event_radioOthersFocusLost
+
+    private void radioOthersStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_radioOthersStateChanged
+        if(radioOthers.isSelected()){
+             specifyPanel.setVisible(true);
+        }else{
+            specifyPanel.setVisible(false);
+        }
+    }//GEN-LAST:event_radioOthersStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup btnGroupLeaveType;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblDateOfFiling;
+    private javax.swing.JLabel lblFirstName;
+    private javax.swing.JLabel lblLastName;
+    private javax.swing.JLabel lblMiddleName;
+    private javax.swing.JLabel lblPosition;
+    private javax.swing.JPanel leaveTypeList;
+    private javax.swing.JPanel othersPanel;
+    private javax.swing.JRadioButton radioOthers;
+    private javax.swing.JPanel specifyPanel;
     // End of variables declaration//GEN-END:variables
 }

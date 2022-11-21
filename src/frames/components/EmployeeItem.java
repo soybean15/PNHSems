@@ -160,7 +160,8 @@ public class EmployeeItem extends javax.swing.JPanel {
         });
         jPanel1.add(jButton3);
 
-        jButton4.setText("Add");
+        jButton4.setText("Apply");
+        jButton4.setToolTipText("Leave Application");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -180,7 +181,8 @@ public class EmployeeItem extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+     
+        listener.onApplyLeaveClick(employee);
     }//GEN-LAST:event_jButton4ActionPerformed
 
 

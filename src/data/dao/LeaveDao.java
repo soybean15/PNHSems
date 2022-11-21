@@ -17,4 +17,7 @@ public interface LeaveDao {
     public List<LeaveType> getAllLeaveTypes()
             throws SQLException;
     
+    public int addLeaveType(LeaveType leaveType)
+            throws SQLException;
+    
 }

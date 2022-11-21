@@ -12,9 +12,12 @@ import frames.components.EmployeeItem;
  * @author root
  */
 public interface EmployeeItemListener {
+    
     void onEmployeeItemClick(EmployeeItem employeeItem);
     
     void onViewEmployeeClick(Employee employee);
+    
+    void onApplyLeaveClick(Employee employee);
     
     
 }

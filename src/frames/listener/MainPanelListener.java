@@ -5,6 +5,8 @@
 package frames.listener;
 
 import data.model.Employee;
+import frames.panels.employee_panel.LeaveFormPanel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -13,6 +15,8 @@ import data.model.Employee;
 public interface MainPanelListener {
     public void onAddEmployeeClick();
     public void onEmployeeProfileClick(Employee employee);
+    
+    public void onOpeningLeaveForm(Employee employee);
     
    
     

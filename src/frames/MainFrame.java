@@ -21,10 +21,11 @@ import javax.swing.JPanel;
 import themes.Theme;
 import frames.listener.MainPanelListener;
 import frames.listener.SidePanelListener;
+import frames.panels.employee_panel.LeaveFormPanel;
 import frames.panels.employee_panel.profile.EmployeeLeaveLogsPanel;
 import frames.panels.employee_panel.profile.EmployeeServiceCreditsPanel;
+import java.awt.Panel;
 import java.util.HashMap;
-import javax.swing.JButton;
 import otherclasses.ImageHandler;
 
 /**
@@ -41,7 +42,7 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
     PersonnelPanel personnelPanel = new PersonnelPanel();
     ServiceCreditPanel serviceCreditPanel = new ServiceCreditPanel();
     AccountSettingPanel accountSettingPanel = new AccountSettingPanel();
-    AddEmployeePanel addEmployeePanel = new AddEmployeePanel(this,null);
+    AddEmployeePanel addEmployeePanel = new AddEmployeePanel(this, null);
     EmployeeListPanel employeeListPanel = new EmployeeListPanel(this);
 
     //profile Panels
@@ -49,11 +50,12 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
     EmployeeProfilePanel employeeProfilePanel;
     EmployeeServiceCreditsPanel employeeServiceCreditsPanel;
     EmployeeLeaveLogsPanel employeeLeaveLogsPanel;
+    LeaveFormPanel leaveFormPanel;
 
     JPanel activeMainPanel;
     JPanel activeSidePanel;
     JPanel activeProfilePanel;
-   
+
     User user = UserController.getUser();
 
     /**
@@ -78,7 +80,6 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
         mainContainer.add(addEmployeePanel).setVisible(false);
         mainContainer.add(employeeListPanel).setVisible(false);
 
-      
         //sidePanel.remove(splitPanelUsers);
         //set up sidePanel
         topPanel.setBackground(primary.COLOR.background_primary);
@@ -92,11 +93,9 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
         setSidePanelItem(sidePanelAccountSettings, sideLabelAccountSettings);
 
         setSidePanelItem(sidePanelLogOut, sideLabeLogOut);
-        
-        
-          //first pop-up panel on main container
-        selectedPanel(employeeListPanel.displayAll(), sidePanelEmployee, sideLabelEmployee);
 
+        //first pop-up panel on main container
+        selectedPanel(employeeListPanel.displayAll(), sidePanelEmployee, sideLabelEmployee);
 
         //sidePanelMenu.hide();
     }
@@ -506,7 +505,7 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
         mainContainer.repaint();
         mainContainer.revalidate();
 
-        addEmployeePanel = new AddEmployeePanel(this,null);
+        addEmployeePanel = new AddEmployeePanel(this, null);
         mainContainer.add(addEmployeePanel);
 
         selectedPanel(addEmployeePanel, sidePanelEmployee, sideLabelEmployee);
@@ -516,24 +515,12 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
     }
 
     @Override
-    public void onEmployeeProfileClick(Employee employee) {
-        sidePanelMenu.setVisible(false);
-        activeMainPanel.setVisible(false);
-
-        sidePanelEmployeeProfile = new SidePanelEmployeeProfile(this, employee);
-
-        sideContainer.add(sidePanelEmployeeProfile).setVisible(true);
-
-        System.out.println(employee.getId());
-
-    }
-
-    @Override
     public void onEmployeeProfileExit() {
 
         mainContainer.remove(employeeProfilePanel);
         mainContainer.remove(employeeServiceCreditsPanel);
         mainContainer.remove(employeeLeaveLogsPanel);
+         mainContainer.remove(leaveFormPanel);
         mainContainer.repaint();
         mainContainer.revalidate();
 
@@ -566,27 +553,29 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
         HashMap<String, JPanel> employeePanels = new HashMap<>();
         employeeProfilePanel = new EmployeeProfilePanel(employee);
         employeePanels.put("employee_profile", employeeProfilePanel);
-        employeeServiceCreditsPanel = new EmployeeServiceCreditsPanel(this,employee);
+        employeeServiceCreditsPanel = new EmployeeServiceCreditsPanel(this, employee);
         employeePanels.put("employee_service_credits", employeeServiceCreditsPanel);
         employeeLeaveLogsPanel = new EmployeeLeaveLogsPanel();
         employeePanels.put("employee_leave_logs", employeeLeaveLogsPanel);
+        leaveFormPanel = new LeaveFormPanel(employee);
+         employeePanels.put("leave_form", leaveFormPanel);
 
         mainContainer.add(employeeProfilePanel).setVisible(false);
         mainContainer.add(employeeServiceCreditsPanel).setVisible(false);
         mainContainer.add(employeeLeaveLogsPanel).setVisible(false);
+        mainContainer.add(leaveFormPanel).setVisible(false);
         return employeePanels;
     }
 
     @Override
     public JPanel onEditEmployeeListener(String text, Employee employee) {
         if (text.equals("Edit")) {
-            
-         
+
             mainContainer.remove(addEmployeePanel);
             mainContainer.repaint();
             mainContainer.revalidate();
 
-            addEmployeePanel = new AddEmployeePanel(this,employee);
+            addEmployeePanel = new AddEmployeePanel(this, employee);
 
             mainContainer.add(addEmployeePanel);
 
@@ -602,9 +591,34 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
 
     @Override
     public void onFinishProfileEdit(String id) {
-          addEmployeePanel.setVisible(false);
-          employeeProfilePanel.refreshEmployee(id);
-          employeeProfilePanel.setVisible(true);
-        
+        addEmployeePanel.setVisible(false);
+        employeeProfilePanel.refreshEmployee(id);
+        employeeProfilePanel.setVisible(true);
+
     }
+
+    @Override
+    public void onEmployeeProfileClick(Employee employee) {
+
+        onEmployeeProfileClick(false, employee);
+
+    }
+
+    @Override
+    public void onOpeningLeaveForm(Employee employee) {
+
+
+        onEmployeeProfileClick(true, employee);
+
+    }
+
+    private void onEmployeeProfileClick(boolean openLeaveForm, Employee employee) {
+        sidePanelMenu.setVisible(false);
+        activeMainPanel.setVisible(false);
+
+        sidePanelEmployeeProfile = new SidePanelEmployeeProfile(this, employee, openLeaveForm);
+
+        sideContainer.add(sidePanelEmployeeProfile).setVisible(true);
+    }
+
 }

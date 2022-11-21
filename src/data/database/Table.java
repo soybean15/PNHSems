@@ -126,6 +126,13 @@ public class Table {
                 .addField("name varchar(255) not null")
                 .addField("reference text not null")
                 .setPK("id");
+        
+        
+        Table leaveDetails = new Table("leave_details ")
+                .addField("id int(11) not null auto_increment")
+                .addField("name varchar(255) not null")
+                .addField("details text")
+                .setPK("id");
 
  //       Table leave
        
@@ -137,6 +144,7 @@ public class Table {
         addToDatabase(serviceCredits);
         addToDatabase(employeeAndServiceCredits);
         addToDatabase(typeOfLeave);
+        addToDatabase(leaveDetails);
   
 
     }

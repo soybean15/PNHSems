@@ -6,6 +6,7 @@ package frames.panels.employee_panel;
 
 import data.controllers.EmployeeController;
 import data.model.Employee;
+import frames.MainFrame;
 
 import frames.components.EmployeeItem;
 import frames.listener.EmployeeItemListener;
@@ -16,6 +17,7 @@ import themes.Theme;
 import java.sql.SQLException;
 import javax.swing.border.MatteBorder;
 import frames.listener.MainPanelListener;
+import java.awt.Panel;
 import otherclasses.ImageHandler;
 
 /**
@@ -32,17 +34,18 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
   
     MainPanelListener listener ;
 
+
     /**
      * Creates new form EmployeeListPanel
-     * @param listener
+     * @param main
      */
-    public EmployeeListPanel(MainPanelListener listener ) {
+    public EmployeeListPanel(MainFrame main ) {
         initComponents();
         
         btn1.setVisible(false);
         btn2.setVisible(false);
 
-       this.listener = listener;
+       this.listener = main;
 
         txtSearch.setBorder(new MatteBorder(1, 1, 1, 1, Color.BLACK));
         lblImage.setIcon(ImageHandler.getDefault(190,190));
@@ -597,5 +600,11 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
     @Override
     public void onViewEmployeeClick(Employee employee) {
         listener.onEmployeeProfileClick(employee);
+    }
+
+    @Override
+    public void onApplyLeaveClick(Employee employee) {
+     
+        listener.onOpeningLeaveForm(employee);
     }
 }

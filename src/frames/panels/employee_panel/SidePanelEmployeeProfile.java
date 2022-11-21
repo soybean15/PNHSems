@@ -30,9 +30,12 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
     private EmployeeProfilePanel employeeProfile;
     private EmployeeServiceCreditsPanel employeeServiceCreditsPanel;
     private EmployeeLeaveLogsPanel employeeLeaveLogsPanel;
+    private LeaveFormPanel leaveFormPanel;
     private JLabel activeLabel;
     private JPanel activePanel;
     private HashMap<String,JPanel> panels ;
+    
+    boolean openLeaveForm;
     
     
 
@@ -40,12 +43,14 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
      * Creates new form sidePanelEmployeeProfile
      * @param listener
      * @param employee
+     * @param openLeaveForm
      */
-    public SidePanelEmployeeProfile( SidePanelListener listener , Employee employee) {
+    public SidePanelEmployeeProfile( SidePanelListener listener , Employee employee, boolean openLeaveForm) {
         initComponents();
         
         this.listener = listener;
         this.employee = employee;
+        this.openLeaveForm =openLeaveForm;
         panels = listener.getPanels(this.employee);
         
         init();
@@ -59,8 +64,14 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         employeeProfile =(EmployeeProfilePanel)panels.get("employee_profile");
         employeeServiceCreditsPanel=(EmployeeServiceCreditsPanel)panels.get("employee_service_credits");
         employeeLeaveLogsPanel =(EmployeeLeaveLogsPanel) panels.get("employee_leave_logs");
+        leaveFormPanel = (LeaveFormPanel) panels.get("leave_form");
 
-        activePanel(employeeProfile,lblProfile);
+        if(openLeaveForm){
+             activePanel(leaveFormPanel,lblServiceCredit);
+        }else{
+             activePanel(employeeProfile,lblProfile);
+        }
+      
         
     }
     
@@ -294,7 +305,11 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void panelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelExitMouseClicked
-        if(activePanel(employeeProfile,lblExit)==0)    {
+        if(openLeaveForm){
+            if(exitLeaveForm()){
+                 listener.onEmployeeProfileExit();
+            }
+        }else if(activePanel(employeeProfile,lblExit)==0 )    {
                listener.onEmployeeProfileExit();
                
         }   
@@ -334,19 +349,48 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
     }//GEN-LAST:event_panelExitMouseExited
 
     private void panelProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelProfileMouseClicked
-       activePanel(employeeProfile,lblProfile);
+       
+        
+         if(openLeaveForm){
+           
+            if(exitLeaveForm()){
+               openLeaveForm=false;
+               activePanel(employeeProfile,lblProfile);
+            }
+        }else{
+              activePanel(employeeProfile,lblProfile);
+         }
+       
 
        
     }//GEN-LAST:event_panelProfileMouseClicked
 
     private void panelServiceCreditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelServiceCreditMouseClicked
-        activePanel(employeeServiceCreditsPanel,lblServiceCredit);
+        
+         if(openLeaveForm){
+            
+            if(exitLeaveForm()){
+               openLeaveForm=false;
+               activePanel(employeeServiceCreditsPanel,lblServiceCredit);
+            }
+        }else{
+             activePanel(employeeServiceCreditsPanel,lblServiceCredit);
+         }
          
     }//GEN-LAST:event_panelServiceCreditMouseClicked
 
     private void panelLeaveLogsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelLeaveLogsMouseClicked
-         activePanel(employeeLeaveLogsPanel,lblLeaveLogs);
-         
+
+        if (openLeaveForm) {
+          
+            if (exitLeaveForm()) {
+                openLeaveForm = false;
+                activePanel(employeeLeaveLogsPanel, lblLeaveLogs);
+            }
+        } else {
+            activePanel(employeeLeaveLogsPanel, lblLeaveLogs);
+        }
+
     }//GEN-LAST:event_panelLeaveLogsMouseClicked
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
@@ -406,8 +450,9 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
     }
      
     private int activePanel( JPanel panel,JLabel label){ 
+        
        
-        if(btnEdit.getText().equals("Back")){
+        if(btnEdit.getText().equals("Back") ){
             int option = JOptionPane.showConfirmDialog(panel, "Are you sure you want to cancel Editing?","Leave Cancel profile",JOptionPane.YES_NO_OPTION);
             if(option == JOptionPane.NO_OPTION){
                 return 1;
@@ -432,5 +477,16 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         
     }
         
+    
+    private boolean exitLeaveForm(){
+         if(openLeaveForm){
+            int option = JOptionPane.showConfirmDialog(leaveFormPanel, "Are you sure you Exit Application?","Leave Form",JOptionPane.YES_NO_OPTION);
+            if(option == JOptionPane.YES_OPTION){
+                 openLeaveForm=false;
+                 return true;
+            }
+         }
+         return false;
+    }
      
 }
