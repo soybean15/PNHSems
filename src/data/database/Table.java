@@ -121,18 +121,27 @@ public class Table {
                 .addField("service_credits_id int(11) not null")
                 .addField("no_of_days int(11) not null");
         
-        Table typeOfLeave = new Table("leave_type ")
+        Table typeOfLeave = new Table("leave_type")
                 .addField("id int(11) not null auto_increment")
                 .addField("name varchar(255) not null")
                 .addField("reference text not null")
                 .setPK("id");
         
         
-        Table leaveDetails = new Table("leave_details ")
+        Table employeeLeave = new Table("employee_leave")
                 .addField("id int(11) not null auto_increment")
-                .addField("name varchar(255) not null")
+                .addField("employeeId varchar(12) not null")
+                .addField("date_filed date not null")
+                .addField("inclusive_date_start date not null")
+                .addField("inclusive_date_end date not null")
+                .addField("leave_type_id ")
                 .addField("details text")
                 .setPK("id");
+        
+          Table employeeLeaveAndServiceCredits = new Table("employee_leave_and_service_credits")
+                .addField("employee_leave_id int(11) not null auto_increment")
+                .addField("employee_and_service_credits_id varchar(12) not null");
+      
 
  //       Table leave
        
@@ -144,7 +153,9 @@ public class Table {
         addToDatabase(serviceCredits);
         addToDatabase(employeeAndServiceCredits);
         addToDatabase(typeOfLeave);
-        addToDatabase(leaveDetails);
+        addToDatabase(employeeLeave);
+        addToDatabase(employeeLeaveAndServiceCredits);
+ 
   
 
     }

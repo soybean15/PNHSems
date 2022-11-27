@@ -5,6 +5,7 @@
 package frames.panels.employee_panel;
 
 import data.model.Employee;
+import data.model.ServiceCredit;
 import frames.panels.employee_panel.profile.EmployeeProfilePanel;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -38,6 +39,8 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
     boolean openLeaveForm;
     
     
+    ServiceCredit serviceCredit;
+    
 
     /**
      * Creates new form sidePanelEmployeeProfile
@@ -56,6 +59,14 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         init();
     }
     
+    
+    public void setLeaveFormServiceCredit(ServiceCredit serviceCredit){
+        this.serviceCredit = serviceCredit;
+         if(serviceCredit != null){
+                leaveFormPanel.setServiceCredit(serviceCredit);
+         }
+    }
+        
     private void init(){
         setDisplay();
         
@@ -67,7 +78,9 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         leaveFormPanel = (LeaveFormPanel) panels.get("leave_form");
 
         if(openLeaveForm){
+           
              activePanel(leaveFormPanel,lblServiceCredit);
+             
         }else{
              activePanel(employeeProfile,lblProfile);
         }
@@ -133,7 +146,7 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
 
         lblEmployeeName.setFont(primary.FONT.big(12)
         );
-        lblEmployeeName.setForeground(primary.COLOR.foreground_primary);
+        lblEmployeeName.setForeground(primary.COLOR.foreground_white);
         lblEmployeeName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblEmployeeName.setText("Employee name profile");
         jPanel1.add(lblEmployeeName, java.awt.BorderLayout.SOUTH);
@@ -210,7 +223,7 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
 
         lblProfile.setFont(primary.FONT.defaultFont(15)
         );
-        lblProfile.setForeground(primary.COLOR.foreground_primary);
+        lblProfile.setForeground(primary.COLOR.foreground_white);
         lblProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/user.png"))); // NOI18N
         lblProfile.setText("Profile");
         panelProfile.add(lblProfile, java.awt.BorderLayout.CENTER);
@@ -238,7 +251,7 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
 
         lblServiceCredit.setFont(primary.FONT.defaultFont(15)
         );
-        lblServiceCredit.setForeground(primary.COLOR.foreground_primary);
+        lblServiceCredit.setForeground(primary.COLOR.foreground_white);
         lblServiceCredit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/credit-card(1).png"))); // NOI18N
         lblServiceCredit.setText("Service Credits");
         panelServiceCredit.add(lblServiceCredit, java.awt.BorderLayout.CENTER);
@@ -266,7 +279,7 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
 
         lblLeaveLogs.setFont(primary.FONT.defaultFont(15)
         );
-        lblLeaveLogs.setForeground(primary.COLOR.foreground_primary);
+        lblLeaveLogs.setForeground(primary.COLOR.foreground_white);
         lblLeaveLogs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/log-in.png"))); // NOI18N
         lblLeaveLogs.setText("Leave Logs");
         panelLeaveLogs.add(lblLeaveLogs, java.awt.BorderLayout.CENTER);
@@ -294,7 +307,8 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
 
         lblExit.setFont(primary.FONT.defaultFont(15)
         );
-        lblExit.setForeground(primary.COLOR.foreground_primary);
+        lblExit.setForeground(primary.COLOR.foreground_white
+        );
         lblExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-logout-rounded-24.png"))); // NOI18N
         lblExit.setText("Exit");
         panelExit.add(lblExit, java.awt.BorderLayout.CENTER);

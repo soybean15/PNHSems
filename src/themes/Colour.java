@@ -13,9 +13,9 @@ import java.awt.Color;
 public class Colour {
 
     public Color background_primary;
-    public Color foreground_primary;
+    public Color foreground_white;
     public Color background_secondary;
-    public Color foreground_secondary;
+    public Color foreground_black;
     public Color backgroundOnTop;
     public Color foregroundOnTop;
     public Color disable_gray = new Color(102,102,102);
@@ -24,9 +24,9 @@ public class Colour {
     // public AppColor(){}
     public Colour(Color background_primary, Color foreground_primary, Color background_secondary, Color foreground_secondary ) {
         this.background_primary = background_primary;
-        this.foreground_primary = foreground_primary;
+        this.foreground_white = foreground_primary;
         this.background_secondary = background_secondary;
-        this.foreground_secondary = foreground_secondary;
+        this.foreground_black = foreground_secondary;
     }
 
     public Colour setColorOnTop(Color backgroundOnTop, Color foregroundOnTop) {

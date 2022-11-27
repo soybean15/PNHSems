@@ -85,7 +85,7 @@
               <Connection code="primary.FONT.big(25)&#xa;" type="code"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="primary.COLOR.foreground_primary" type="code"/>
+              <Connection code="primary.COLOR.foreground_white" type="code"/>
             </Property>
             <Property name="text" type="java.lang.String" value="PNHS Employee Management System(E-Service Credits)"/>
           </Properties>

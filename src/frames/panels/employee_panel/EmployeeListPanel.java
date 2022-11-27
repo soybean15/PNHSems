@@ -605,6 +605,6 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
     @Override
     public void onApplyLeaveClick(Employee employee) {
      
-        listener.onOpeningLeaveForm(employee);
+        listener.onOpeningLeaveForm(employee,null);
     }
 }

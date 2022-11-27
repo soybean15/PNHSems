@@ -12,6 +12,7 @@ import frames.MainFrame;
 import frames.components.EmployeeServiceCreditItem;
 import frames.components.windows.AddServiceCreditWindow;
 import frames.listener.EmployeeServiceCreditListener;
+import frames.listener.MainPanelListener;
 import java.awt.GridLayout;
 import java.util.List;
 import java.sql.SQLException;
@@ -31,10 +32,12 @@ public class EmployeeServiceCreditsPanel extends javax.swing.JPanel implements E
     EmployeeController controller = new EmployeeController();
     List<EmployeeServiceCredit> employeesWithServiceCredits;
     MainFrame frame;
+    MainPanelListener listener;
 
     public EmployeeServiceCreditsPanel(MainFrame frame, Employee employee) {
         this.employee = employee;
         this.frame = frame;
+        this.listener = frame;
         initComponents();
 
         try {
@@ -340,8 +343,10 @@ public class EmployeeServiceCreditsPanel extends javax.swing.JPanel implements E
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void use() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void use(ServiceCredit serviceCredit) {
+        
+       listener.onOpeningLeaveForm(employee,serviceCredit);
+        
     }
 
     @Override

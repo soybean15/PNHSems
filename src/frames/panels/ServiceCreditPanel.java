@@ -508,7 +508,7 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
         btn1.setBackground(new java.awt.Color(0, 51, 255));
         btn1.setFont(Theme.PRIMARY.FONT.tableFontBig(10)
         );
-        btn1.setForeground(Theme.PRIMARY.COLOR.foreground_primary);
+        btn1.setForeground(Theme.PRIMARY.COLOR.foreground_white);
         btn1.setText("Edit");
         btn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -520,7 +520,7 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
         btn2.setBackground(new java.awt.Color(255, 0, 0));
         btn2.setFont(Theme.PRIMARY.FONT.tableFontBig(10)
         );
-        btn2.setForeground(Theme.PRIMARY.COLOR.foreground_primary);
+        btn2.setForeground(Theme.PRIMARY.COLOR.foreground_white);
         btn2.setText("Delete");
         btn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

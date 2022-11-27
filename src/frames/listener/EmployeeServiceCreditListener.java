@@ -5,6 +5,7 @@
 package frames.listener;
 
 import data.model.EmployeeServiceCredit;
+import data.model.ServiceCredit;
 
 /**
  *
@@ -12,7 +13,7 @@ import data.model.EmployeeServiceCredit;
  */
 public interface EmployeeServiceCreditListener {
     
-    public void use();
+    public void use(ServiceCredit serviceCredit);
     public void delete(EmployeeServiceCredit employeeServiceCredit);
     
 }

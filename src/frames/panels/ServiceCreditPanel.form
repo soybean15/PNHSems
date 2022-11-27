@@ -549,7 +549,7 @@
                               <Connection code="Theme.PRIMARY.FONT.tableFontBig(10)&#xa;" type="code"/>
                             </Property>
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="Theme.PRIMARY.COLOR.foreground_primary" type="code"/>
+                              <Connection code="Theme.PRIMARY.COLOR.foreground_white" type="code"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Edit"/>
                           </Properties>
@@ -566,7 +566,7 @@
                               <Connection code="Theme.PRIMARY.FONT.tableFontBig(10)&#xa;" type="code"/>
                             </Property>
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="Theme.PRIMARY.COLOR.foreground_primary" type="code"/>
+                              <Connection code="Theme.PRIMARY.COLOR.foreground_white" type="code"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Delete"/>
                           </Properties>

@@ -46,11 +46,11 @@ public class LoginFrame extends javax.swing.JFrame {
     private void init() {
         //set up frame
         jLabel1.setBackground(primary.COLOR.background_primary);
-        jLabel1.setForeground(primary.COLOR.foreground_primary);
+        jLabel1.setForeground(primary.COLOR.foreground_white);
         jLabel1.setFont(primary.FONT.defaultFont(14));
 
         jLabel2.setBackground(primary.COLOR.background_primary);
-        jLabel2.setForeground(primary.COLOR.foreground_primary);
+        jLabel2.setForeground(primary.COLOR.foreground_white);
         jLabel2.setFont(primary.FONT.defaultFont(14));
 
         jLabel4.setBackground(primary.COLOR.background_primary);
@@ -64,7 +64,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         //panelLogin
         lblLogin.setBackground(primary.COLOR.background_primary);
-        lblLogin.setForeground(primary.COLOR.foreground_primary);
+        lblLogin.setForeground(primary.COLOR.foreground_white);
         lblLogin.setFont(primary.FONT.defaultFont(13));
 
        
@@ -84,12 +84,12 @@ public class LoginFrame extends javax.swing.JFrame {
             
             
         lblSave.setBackground(primary.COLOR.background_primary);
-        lblSave.setForeground(primary.COLOR.foreground_primary);
+        lblSave.setForeground(primary.COLOR.foreground_white);
         lblSave.setFont(primary.FONT.defaultFont(13));
             
         }else{
             lblSave.setBackground(new Color(102,102,102));
-            lblSave.setForeground(primary.COLOR.foreground_primary);
+            lblSave.setForeground(primary.COLOR.foreground_white);
             lblSave.setFont(primary.FONT.defaultFont(13));
         }
        
@@ -389,7 +389,7 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MousePressed
 
     private void jLabel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseReleased
-        jLabel1.setForeground(primary.COLOR.foreground_primary);
+        jLabel1.setForeground(primary.COLOR.foreground_white);
     }//GEN-LAST:event_jLabel1MouseReleased
 
     private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
@@ -397,7 +397,7 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MousePressed
 
     private void jLabel2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseReleased
-        jLabel2.setForeground(primary.COLOR.foreground_primary);
+        jLabel2.setForeground(primary.COLOR.foreground_white);
     }//GEN-LAST:event_jLabel2MouseReleased
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
@@ -419,7 +419,7 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLoginMousePressed
 
     private void lblLoginMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLoginMouseReleased
-        lblLogin.setForeground(primary.COLOR.foreground_primary);
+        lblLogin.setForeground(primary.COLOR.foreground_white);
         lblLogin.setBackground(primary.COLOR.backgroundOnTop);
     }//GEN-LAST:event_lblLoginMouseReleased
 
@@ -444,7 +444,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void lblSaveMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSaveMouseReleased
         if( username && password && name && email){
-        lblSave.setForeground(primary.COLOR.foreground_primary);
+        lblSave.setForeground(primary.COLOR.foreground_white);
         lblSave.setBackground(primary.COLOR.backgroundOnTop);
         }
     }//GEN-LAST:event_lblSaveMouseReleased
@@ -679,7 +679,7 @@ public class LoginFrame extends javax.swing.JFrame {
     private void selectedLabel(JLabel label, JPanel panel) {
         if (selectedLabel != null) {
             this.selectedLabel.setBackground(primary.COLOR.background_primary);
-            this.selectedLabel.setForeground(primary.COLOR.foreground_primary);
+            this.selectedLabel.setForeground(primary.COLOR.foreground_white);
             this.selectedLabel.setFont(primary.FONT.defaultFont(14));
             selectedPanel.setVisible(false);
         }

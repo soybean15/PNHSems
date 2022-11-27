@@ -7,20 +7,37 @@ package frames.panels.employee_panel;
 import data.controllers.LeaveFormController;
 import data.model.Employee;
 import data.model.LeaveType;
+import data.model.ServiceCredit;
+import frames.components.LeaveTypeRadioButton;
+import java.awt.Color;
+
+
 import java.awt.GridLayout;
+import java.awt.event.ItemEvent;
+
 import java.util.List;
 import java.sql.SQLException;
-import javax.swing.JRadioButton;
+import java.util.ArrayList;
+import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+
 import otherclasses.UtilClass;
 import themes.Theme;
 /*
  * @author root
  */
-public class LeaveFormPanel extends javax.swing.JPanel {
+public class LeaveFormPanel extends javax.swing.JPanel  {
 
     private Employee employee;
     List<LeaveType> leaveTypes;
+     List<ServiceCredit> serviceCredits = new ArrayList<>();
     LeaveFormController controller = new LeaveFormController();
+    
+    private LeaveType selectedLeaveType;
+    
+    private JPanel activeDetailPanel;
     
 
     /**
@@ -29,10 +46,15 @@ public class LeaveFormPanel extends javax.swing.JPanel {
     public LeaveFormPanel(Employee employee) {
         initComponents();
         
-        
+       
         
         this.employee=employee;
         init();
+    }
+    
+    public void setServiceCredit(ServiceCredit serviceCredit){
+         serviceCredits.add(serviceCredit);
+         JOptionPane.showMessageDialog(this, serviceCredits.size());
     }
     
     private void getLeaveTypes(){
@@ -55,33 +77,155 @@ public class LeaveFormPanel extends javax.swing.JPanel {
         
         
          getLeaveTypes();
+         hideComponent();
          showLeaveTypes();
+         leaveDetails();
          
-         specifyPanel.setVisible(false);
+         
+       
          
        
     }
     
-    public void showLeaveTypes(){
+    public void showLeaveTypes() {
         int row = leaveTypes.size();
-        
-        leaveTypeList.setLayout(new GridLayout(row,0));
-        
-        for(LeaveType leaveType:leaveTypes){
-            JRadioButton radio = new JRadioButton();
-            String text = "<html><b>"+leaveType.getName()+"</b><font size=2>("+leaveType.getReference()+")</font></html>";
-            
-            
+
+        leaveTypeList.setLayout(new GridLayout(row, 0));
+
+        for (LeaveType leaveType : leaveTypes) {
+            LeaveTypeRadioButton radio = new LeaveTypeRadioButton(leaveType);
+
+            String text = "<html><b>" + leaveType.getName() + "</b><font size=2>(" + leaveType.getReference() + ")</font></html>";
+
+            radio.addItemListener((ItemEvent e) -> {
+                LeaveTypeRadioButton radio1 = (LeaveTypeRadioButton) e.getItem();
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    
+                    radio1.setForeground(Color.red);
+                    selectedLeaveType = radio1.getLeaveType();
+                    if (activeDetailPanel != null) {
+                        activeDetailPanel.setVisible(false);
+                    }
+                    
+                    if (selectedLeaveType.getId() == 1) {
+                        vacationLeavePanel.setVisible(true);
+                        activeDetailPanel = vacationLeavePanel;
+                    }
+                    
+                    
+                    else if (selectedLeaveType.getId() == 1) {
+                        sickLeavePanel.setVisible(true);
+                        activeDetailPanel = sickLeavePanel;
+                    }
+                    
+                    else if (selectedLeaveType.getId() == 3) {
+                        sickLeavePanel.setVisible(true);
+                        activeDetailPanel = sickLeavePanel;
+                    }  
+                    else if (selectedLeaveType.getId() == 8) {
+                        studyLeavePanel.setVisible(true);
+                        activeDetailPanel = studyLeavePanel;
+                    }else{
+                        otherPurposePanel.setVisible(true);
+                        activeDetailPanel =otherPurposePanel;
+                    }
+                    
+                    
+                } else {
+                    radio1.setForeground(Color.BLACK);
+                }
+            });
+
             radio.setText(text);
             radio.setFont(Theme.PRIMARY.FONT.tableFontDefault(12));
             leaveTypeList.add(radio);
             btnGroupLeaveType.add(radio);
-            
+
         }
-        
+
+        radioOthers.addItemListener((ItemEvent e) -> {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+
+                specifyPanel.setVisible(true);
+                selectedLeaveType =null;
+              
+                
+            } else {
+                specifyPanel.setVisible(false);
+
+            }
+        });
+
         btnGroupLeaveType.add(radioOthers);
     }
     
+       private void hideComponent() {
+        //others specify
+        specifyPanel.setVisible(false);
+
+        vacationLeavePanel.setVisible(false);
+        sickLeavePanel.setVisible(false);
+        studyLeavePanel.setVisible(false);
+        otherPurposePanel.setVisible(false);
+
+        specifyAbroad.setVisible(false);
+        specifyWithinPh.setVisible(false);
+
+        panelInHospital.setVisible(false);
+        panelOutPatient.setVisible(false);
+        
+        
+        lblNext.setVisible(false);
+    }
+    private void leaveDetails(){
+        
+        btnGroupVacationLeave.add(radioWithinPh);
+        radioWithinPh.addItemListener((ItemEvent e) -> {
+               
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    specifyWithinPh.setVisible(true);
+                    specifyAbroad.setVisible(false);
+                } 
+            });
+        
+        btnGroupVacationLeave.add(radioAbroad);
+        radioAbroad.addItemListener((ItemEvent e) -> {
+               
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    specifyWithinPh.setVisible(false);
+                    specifyAbroad.setVisible(true);
+                } 
+            });
+        
+        
+        ButtonGroup btnGroupSickLeave = new ButtonGroup();
+        btnGroupSickLeave.add(radioInHospital);
+        btnGroupSickLeave.add(radioOutPatient);
+
+        radioInHospital.addItemListener((ItemEvent e) -> {
+
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                panelInHospital.setVisible(true);
+                panelOutPatient.setVisible(false);
+            }
+        });
+        
+         radioOutPatient.addItemListener((ItemEvent e) -> {
+
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                panelInHospital.setVisible(false);
+                panelOutPatient.setVisible(true);
+            }
+        });
+         
+         
+                 
+        ButtonGroup otherSickLeave = new ButtonGroup();
+        otherSickLeave.add(radioMonetize);
+        otherSickLeave.add(radioTerminal);
+        
+
+    }
 
 
     /**
@@ -94,6 +238,7 @@ public class LeaveFormPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         btnGroupLeaveType = new javax.swing.ButtonGroup();
+        btnGroupVacationLeave = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -135,6 +280,57 @@ public class LeaveFormPanel extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jPanel16 = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        jPanel19 = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
+        jPanel20 = new javax.swing.JPanel();
+        jPanel21 = new javax.swing.JPanel();
+        lblNext = new javax.swing.JLabel();
+        jPanel22 = new javax.swing.JPanel();
+        vacationLeavePanel = new javax.swing.JPanel();
+        jPanel31 = new javax.swing.JPanel();
+        jPanel25 = new javax.swing.JPanel();
+        abroad = new javax.swing.JPanel();
+        radioAbroad = new javax.swing.JRadioButton();
+        specifyAbroad = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jPanel23 = new javax.swing.JPanel();
+        radioWithinPh = new javax.swing.JRadioButton();
+        specifyWithinPh = new javax.swing.JPanel();
+        jLabel19 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jPanel27 = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        studyLeavePanel = new javax.swing.JPanel();
+        jPanel30 = new javax.swing.JPanel();
+        jRadioButton6 = new javax.swing.JRadioButton();
+        jRadioButton5 = new javax.swing.JRadioButton();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jPanel32 = new javax.swing.JPanel();
+        sickLeavePanel = new javax.swing.JPanel();
+        jPanel26 = new javax.swing.JPanel();
+        jPanel29 = new javax.swing.JPanel();
+        radioOutPatient = new javax.swing.JRadioButton();
+        panelOutPatient = new javax.swing.JPanel();
+        jLabel22 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        jPanel24 = new javax.swing.JPanel();
+        radioInHospital = new javax.swing.JRadioButton();
+        panelInHospital = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jPanel33 = new javax.swing.JPanel();
+        otherPurposePanel = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jPanel28 = new javax.swing.JPanel();
+        radioMonetize = new javax.swing.JRadioButton();
+        radioTerminal = new javax.swing.JRadioButton();
+        jPanel34 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
@@ -312,7 +508,7 @@ public class LeaveFormPanel extends javax.swing.JPanel {
 
         radioOthers.setFont(Theme.PRIMARY.FONT.tableFontBig(10)
         );
-        radioOthers.setText("Others");
+        radioOthers.setText("Other");
         radioOthers.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 radioOthersStateChanged(evt);
@@ -348,10 +544,235 @@ public class LeaveFormPanel extends javax.swing.JPanel {
         jPanel16.setOpaque(false);
         jPanel16.setPreferredSize(new java.awt.Dimension(350, 100));
         jPanel16.setRequestFocusEnabled(false);
+        jPanel16.setLayout(new java.awt.BorderLayout());
+
+        jLabel17.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
+        jLabel17.setText("3. Type of leave to be availed of");
+        jLabel17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jPanel16.add(jLabel17, java.awt.BorderLayout.NORTH);
+
+        jPanel19.setOpaque(false);
+        jPanel19.setLayout(new java.awt.BorderLayout());
+
+        jLabel18.setText(" ");
+        jPanel19.add(jLabel18, java.awt.BorderLayout.NORTH);
+
+        jPanel20.setOpaque(false);
+        jPanel20.setLayout(new java.awt.BorderLayout());
+
+        jPanel21.setOpaque(false);
+        jPanel21.setPreferredSize(new java.awt.Dimension(100, 90));
+        jPanel21.setLayout(new java.awt.GridLayout());
+
+        lblNext.setFont(new java.awt.Font("DialogInput", 1, 24)); // NOI18N
+        lblNext.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNext.setText("NEXT PAGE >");
+        lblNext.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblNext.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblNextMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblNextMouseExited(evt);
+            }
+        });
+        jPanel21.add(lblNext);
+
+        jPanel20.add(jPanel21, java.awt.BorderLayout.PAGE_END);
+
+        jPanel22.setOpaque(false);
+        jPanel22.setLayout(new javax.swing.OverlayLayout(jPanel22));
+
+        vacationLeavePanel.setOpaque(false);
+        vacationLeavePanel.setLayout(new java.awt.BorderLayout());
+
+        jPanel31.setOpaque(false);
+        jPanel31.setPreferredSize(new java.awt.Dimension(20, 100));
+        vacationLeavePanel.add(jPanel31, java.awt.BorderLayout.WEST);
+
+        jPanel25.setOpaque(false);
+        jPanel25.setLayout(new java.awt.GridLayout(3, 0));
+
+        abroad.setOpaque(false);
+        abroad.setLayout(new java.awt.GridLayout(2, 0));
+
+        radioAbroad.setText("Abroad");
+        radioAbroad.setPreferredSize(new java.awt.Dimension(170, 20));
+        abroad.add(radioAbroad);
+
+        specifyAbroad.setOpaque(false);
+        specifyAbroad.setLayout(new java.awt.BorderLayout());
+
+        jLabel20.setText("Specify:");
+        specifyAbroad.add(jLabel20, java.awt.BorderLayout.LINE_START);
+        specifyAbroad.add(jTextField3, java.awt.BorderLayout.CENTER);
+
+        abroad.add(specifyAbroad);
+
+        jPanel25.add(abroad);
+
+        jPanel23.setOpaque(false);
+        jPanel23.setLayout(new java.awt.GridLayout(2, 0));
+
+        radioWithinPh.setText("Within the Philippines    ");
+        radioWithinPh.setPreferredSize(new java.awt.Dimension(170, 20));
+        jPanel23.add(radioWithinPh);
+
+        specifyWithinPh.setOpaque(false);
+        specifyWithinPh.setLayout(new java.awt.BorderLayout());
+
+        jLabel19.setText("Specify:");
+        specifyWithinPh.add(jLabel19, java.awt.BorderLayout.LINE_START);
+        specifyWithinPh.add(jTextField2, java.awt.BorderLayout.CENTER);
+
+        jPanel23.add(specifyWithinPh);
+
+        jPanel25.add(jPanel23);
+
+        vacationLeavePanel.add(jPanel25, java.awt.BorderLayout.CENTER);
+
+        jPanel27.setOpaque(false);
+        jPanel27.setPreferredSize(new java.awt.Dimension(100, 50));
+        vacationLeavePanel.add(jPanel27, java.awt.BorderLayout.SOUTH);
+
+        jLabel25.setFont(new java.awt.Font("Liberation Sans", 2, 13)); // NOI18N
+        jLabel25.setText("     In Case of Vacation/Special Privelege Leave");
+        jLabel25.setPreferredSize(new java.awt.Dimension(253, 30));
+        vacationLeavePanel.add(jLabel25, java.awt.BorderLayout.NORTH);
+
+        jPanel22.add(vacationLeavePanel);
+        vacationLeavePanel.getAccessibleContext().setAccessibleName("");
+
+        studyLeavePanel.setOpaque(false);
+        studyLeavePanel.setLayout(new java.awt.BorderLayout());
+
+        jPanel30.setOpaque(false);
+        jPanel30.setLayout(new java.awt.GridLayout(4, 0));
+
+        jRadioButton6.setText("BAR/Board Examination");
+        jPanel30.add(jRadioButton6);
+
+        jRadioButton5.setText("Completion of Master's Degree");
+        jPanel30.add(jRadioButton5);
+
+        studyLeavePanel.add(jPanel30, java.awt.BorderLayout.CENTER);
+
+        jLabel26.setFont(new java.awt.Font("Liberation Sans", 2, 13)); // NOI18N
+        jLabel26.setText("    In Case Of Study Leave");
+        jLabel26.setPreferredSize(new java.awt.Dimension(48, 30));
+        studyLeavePanel.add(jLabel26, java.awt.BorderLayout.PAGE_START);
+
+        jLabel27.setMinimumSize(new java.awt.Dimension(48, 50));
+        jLabel27.setPreferredSize(new java.awt.Dimension(48, 50));
+        studyLeavePanel.add(jLabel27, java.awt.BorderLayout.SOUTH);
+
+        jPanel32.setOpaque(false);
+        jPanel32.setPreferredSize(new java.awt.Dimension(20, 100));
+        studyLeavePanel.add(jPanel32, java.awt.BorderLayout.WEST);
+
+        jPanel22.add(studyLeavePanel);
+
+        sickLeavePanel.setOpaque(false);
+        sickLeavePanel.setLayout(new java.awt.BorderLayout());
+
+        jPanel26.setOpaque(false);
+        jPanel26.setLayout(new java.awt.GridLayout(3, 0));
+
+        jPanel29.setOpaque(false);
+        jPanel29.setLayout(new java.awt.GridLayout(2, 0));
+
+        radioOutPatient.setText("Out Patient");
+        radioOutPatient.setPreferredSize(new java.awt.Dimension(170, 20));
+        jPanel29.add(radioOutPatient);
+
+        panelOutPatient.setOpaque(false);
+        panelOutPatient.setLayout(new java.awt.BorderLayout());
+
+        jLabel22.setText("Specify:");
+        panelOutPatient.add(jLabel22, java.awt.BorderLayout.LINE_START);
+        panelOutPatient.add(jTextField5, java.awt.BorderLayout.CENTER);
+
+        jPanel29.add(panelOutPatient);
+
+        jPanel26.add(jPanel29);
+
+        jPanel24.setOpaque(false);
+        jPanel24.setLayout(new java.awt.GridLayout(2, 0));
+
+        radioInHospital.setText("In Hospital");
+        radioInHospital.setPreferredSize(new java.awt.Dimension(170, 20));
+        radioInHospital.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioInHospitalActionPerformed(evt);
+            }
+        });
+        jPanel24.add(radioInHospital);
+
+        panelInHospital.setOpaque(false);
+        panelInHospital.setLayout(new java.awt.BorderLayout());
+
+        jLabel21.setText("Specify:");
+        panelInHospital.add(jLabel21, java.awt.BorderLayout.LINE_START);
+        panelInHospital.add(jTextField4, java.awt.BorderLayout.CENTER);
+
+        jPanel24.add(panelInHospital);
+
+        jPanel26.add(jPanel24);
+
+        sickLeavePanel.add(jPanel26, java.awt.BorderLayout.CENTER);
+
+        jLabel28.setFont(new java.awt.Font("Liberation Sans", 2, 13)); // NOI18N
+        jLabel28.setText("     In Case Of Sick Leave");
+        jLabel28.setPreferredSize(new java.awt.Dimension(48, 30));
+        sickLeavePanel.add(jLabel28, java.awt.BorderLayout.NORTH);
+
+        jLabel29.setPreferredSize(new java.awt.Dimension(48, 50));
+        sickLeavePanel.add(jLabel29, java.awt.BorderLayout.SOUTH);
+
+        jPanel33.setOpaque(false);
+        jPanel33.setPreferredSize(new java.awt.Dimension(20, 100));
+        sickLeavePanel.add(jPanel33, java.awt.BorderLayout.WEST);
+
+        jPanel22.add(sickLeavePanel);
+
+        otherPurposePanel.setOpaque(false);
+        otherPurposePanel.setLayout(new java.awt.BorderLayout());
+
+        jLabel23.setFont(new java.awt.Font("Liberation Sans", 2, 13)); // NOI18N
+        jLabel23.setText("     Other Purpose");
+        jLabel23.setPreferredSize(new java.awt.Dimension(84, 30));
+        otherPurposePanel.add(jLabel23, java.awt.BorderLayout.NORTH);
+
+        jLabel24.setPreferredSize(new java.awt.Dimension(0, 50));
+        otherPurposePanel.add(jLabel24, java.awt.BorderLayout.SOUTH);
+
+        jPanel28.setOpaque(false);
+        jPanel28.setLayout(new java.awt.GridLayout(4, 0));
+
+        radioMonetize.setText("Monetization of Leave");
+        jPanel28.add(radioMonetize);
+
+        radioTerminal.setText("Terminal Leave");
+        jPanel28.add(radioTerminal);
+
+        otherPurposePanel.add(jPanel28, java.awt.BorderLayout.CENTER);
+
+        jPanel34.setOpaque(false);
+        jPanel34.setPreferredSize(new java.awt.Dimension(20, 100));
+        otherPurposePanel.add(jPanel34, java.awt.BorderLayout.WEST);
+
+        jPanel22.add(otherPurposePanel);
+
+        jPanel20.add(jPanel22, java.awt.BorderLayout.CENTER);
+
+        jPanel19.add(jPanel20, java.awt.BorderLayout.CENTER);
+
+        jPanel16.add(jPanel19, java.awt.BorderLayout.CENTER);
+
         jPanel10.add(jPanel16, java.awt.BorderLayout.EAST);
 
         jPanel17.setOpaque(false);
-        jPanel17.setLayout(new java.awt.GridLayout());
+        jPanel17.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel10.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -377,16 +798,27 @@ public class LeaveFormPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_radioOthersFocusLost
 
     private void radioOthersStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_radioOthersStateChanged
-        if(radioOthers.isSelected()){
-             specifyPanel.setVisible(true);
-        }else{
-            specifyPanel.setVisible(false);
-        }
+     
     }//GEN-LAST:event_radioOthersStateChanged
+
+    private void radioInHospitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioInHospitalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioInHospitalActionPerformed
+
+    private void lblNextMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNextMouseEntered
+        //new java.awt.Font("DialogInput", 1, 36)
+        lblNext.setFont(new java.awt.Font("DialogInput", 1, 28));
+    }//GEN-LAST:event_lblNextMouseEntered
+
+    private void lblNextMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNextMouseExited
+        lblNext.setFont(new java.awt.Font("DialogInput", 1, 24));
+    }//GEN-LAST:event_lblNextMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel abroad;
     private javax.swing.ButtonGroup btnGroupLeaveType;
+    private javax.swing.ButtonGroup btnGroupVacationLeave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -395,7 +827,20 @@ public class LeaveFormPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -413,23 +858,63 @@ public class LeaveFormPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
+    private javax.swing.JPanel jPanel23;
+    private javax.swing.JPanel jPanel24;
+    private javax.swing.JPanel jPanel25;
+    private javax.swing.JPanel jPanel26;
+    private javax.swing.JPanel jPanel27;
+    private javax.swing.JPanel jPanel28;
+    private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel30;
+    private javax.swing.JPanel jPanel31;
+    private javax.swing.JPanel jPanel32;
+    private javax.swing.JPanel jPanel33;
+    private javax.swing.JPanel jPanel34;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JRadioButton jRadioButton5;
+    private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     private javax.swing.JLabel lblDateOfFiling;
     private javax.swing.JLabel lblFirstName;
     private javax.swing.JLabel lblLastName;
     private javax.swing.JLabel lblMiddleName;
+    private javax.swing.JLabel lblNext;
     private javax.swing.JLabel lblPosition;
     private javax.swing.JPanel leaveTypeList;
+    private javax.swing.JPanel otherPurposePanel;
     private javax.swing.JPanel othersPanel;
+    private javax.swing.JPanel panelInHospital;
+    private javax.swing.JPanel panelOutPatient;
+    private javax.swing.JRadioButton radioAbroad;
+    private javax.swing.JRadioButton radioInHospital;
+    private javax.swing.JRadioButton radioMonetize;
     private javax.swing.JRadioButton radioOthers;
+    private javax.swing.JRadioButton radioOutPatient;
+    private javax.swing.JRadioButton radioTerminal;
+    private javax.swing.JRadioButton radioWithinPh;
+    private javax.swing.JPanel sickLeavePanel;
+    private javax.swing.JPanel specifyAbroad;
     private javax.swing.JPanel specifyPanel;
+    private javax.swing.JPanel specifyWithinPh;
+    private javax.swing.JPanel studyLeavePanel;
+    private javax.swing.JPanel vacationLeavePanel;
     // End of variables declaration//GEN-END:variables
+
+ 
+
 }

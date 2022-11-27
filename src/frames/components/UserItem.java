@@ -54,9 +54,9 @@ public class UserItem extends javax.swing.JPanel {
 
         }
         
-        btnEnable.setForeground(primary.COLOR.foreground_primary);
+        btnEnable.setForeground(primary.COLOR.foreground_white);
         btnEnable.setFont(primary.FONT.tableFontDefault(15));
-        btnDelete.setForeground(primary.COLOR.foreground_primary);
+        btnDelete.setForeground(primary.COLOR.foreground_white);
         btnDelete.setFont(primary.FONT.tableFontDefault(15));
         
         this.setBackground(primary.COLOR.background_secondary);

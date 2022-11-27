@@ -1603,7 +1603,7 @@ public class AddEmployeePanel extends javax.swing.JPanel {
     private void activeLabel(JLabel label) {
         if (activeLabel != null) {
             activeLabel.setBackground(Theme.PRIMARY.COLOR.background_primary);
-            activeLabel.setForeground(Theme.PRIMARY.COLOR.foreground_primary);
+            activeLabel.setForeground(Theme.PRIMARY.COLOR.foreground_white);
         }
         label.setBackground(Theme.PRIMARY.COLOR.background_secondary);
         label.setForeground(Theme.PRIMARY.COLOR.foregroundOnTop);

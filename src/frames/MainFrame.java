@@ -6,6 +6,7 @@ package frames;
 
 import data.controllers.UserController;
 import data.model.Employee;
+import data.model.ServiceCredit;
 import data.model.User;
 import frames.panels.AccountSettingPanel;
 import frames.panels.employee_panel.profile.EmployeeProfilePanel;
@@ -158,7 +159,7 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
 
         jLabel3.setFont(primary.FONT.big(25)
         );
-        jLabel3.setForeground(primary.COLOR.foreground_primary);
+        jLabel3.setForeground(primary.COLOR.foreground_white);
         jLabel3.setText("PNHS Employee Management System(E-Service Credits)");
         topPanel.add(jLabel3, java.awt.BorderLayout.CENTER);
 
@@ -461,7 +462,7 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
     private void setSidePanelItem(JPanel panel, JLabel label) {
         panel.setBackground(primary.COLOR.background_primary);
         label.setFont(primary.FONT.big(14));
-        label.setForeground(primary.COLOR.foreground_primary);
+        label.setForeground(primary.COLOR.foreground_white);
 
     }
 
@@ -486,7 +487,7 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
 
             for (Component component : components) {
                 JLabel label = (JLabel) component;
-                label.setForeground(primary.COLOR.foreground_primary);
+                label.setForeground(primary.COLOR.foreground_white);
             }
 
         }
@@ -600,25 +601,27 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
     @Override
     public void onEmployeeProfileClick(Employee employee) {
 
-        onEmployeeProfileClick(false, employee);
+        onEmployeeProfileClick(false, employee,null);
 
     }
 
     @Override
-    public void onOpeningLeaveForm(Employee employee) {
+    public void onOpeningLeaveForm(Employee employee,ServiceCredit serviceCredit ) {
 
-
-        onEmployeeProfileClick(true, employee);
+       
+        onEmployeeProfileClick(true, employee,serviceCredit);
 
     }
 
-    private void onEmployeeProfileClick(boolean openLeaveForm, Employee employee) {
+    private void onEmployeeProfileClick(boolean openLeaveForm, Employee employee,ServiceCredit serviceCredit) {
         sidePanelMenu.setVisible(false);
         activeMainPanel.setVisible(false);
 
         sidePanelEmployeeProfile = new SidePanelEmployeeProfile(this, employee, openLeaveForm);
-
+        
+        sidePanelEmployeeProfile.setLeaveFormServiceCredit(serviceCredit);
         sideContainer.add(sidePanelEmployeeProfile).setVisible(true);
     }
 
+   
 }

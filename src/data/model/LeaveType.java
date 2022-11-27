@@ -4,6 +4,7 @@
  */
 package data.model;
 
+
 /**
  *
  * @author root
@@ -13,6 +14,7 @@ public class LeaveType {
     private int id;
     private String name;
     private String reference;
+   
     
     
 
@@ -41,4 +43,7 @@ public class LeaveType {
     }
     
     
+    
+    
+   
 }
