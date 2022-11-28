@@ -40,7 +40,7 @@ public class AddServiceCreditWindow extends javax.swing.JDialog implements Servi
     
     /**
      * 
-     * @param root to disable MainFrame once opened
+     * @param root to enable MainFrame once closed
      * @param parent to update List once closed
      * @param availableServiceCredits list of available Service Credits
      */

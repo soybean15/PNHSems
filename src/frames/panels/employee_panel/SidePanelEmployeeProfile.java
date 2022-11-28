@@ -5,6 +5,7 @@
 package frames.panels.employee_panel;
 
 import data.model.Employee;
+import data.model.EmployeeServiceCredit;
 import data.model.ServiceCredit;
 import frames.panels.employee_panel.profile.EmployeeProfilePanel;
 import javax.swing.JLabel;
@@ -39,7 +40,7 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
     boolean openLeaveForm;
     
     
-    ServiceCredit serviceCredit;
+   EmployeeServiceCredit employeeServiceCredit;
     
 
     /**
@@ -60,10 +61,10 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
     }
     
     
-    public void setLeaveFormServiceCredit(ServiceCredit serviceCredit){
-        this.serviceCredit = serviceCredit;
-         if(serviceCredit != null){
-                leaveFormPanel.setServiceCredit(serviceCredit);
+    public void setLeaveFormServiceCredit(EmployeeServiceCredit employeeServiceCredit){
+        this.employeeServiceCredit = employeeServiceCredit;
+         if(employeeServiceCredit != null){
+                leaveFormPanel.setServiceCredit(employeeServiceCredit);
          }
     }
         

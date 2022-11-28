@@ -6,6 +6,7 @@ package frames;
 
 import data.controllers.UserController;
 import data.model.Employee;
+import data.model.EmployeeServiceCredit;
 import data.model.ServiceCredit;
 import data.model.User;
 import frames.panels.AccountSettingPanel;
@@ -558,7 +559,7 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
         employeePanels.put("employee_service_credits", employeeServiceCreditsPanel);
         employeeLeaveLogsPanel = new EmployeeLeaveLogsPanel();
         employeePanels.put("employee_leave_logs", employeeLeaveLogsPanel);
-        leaveFormPanel = new LeaveFormPanel(employee);
+        leaveFormPanel = new LeaveFormPanel(this,employee);
          employeePanels.put("leave_form", leaveFormPanel);
 
         mainContainer.add(employeeProfilePanel).setVisible(false);
@@ -606,20 +607,20 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
     }
 
     @Override
-    public void onOpeningLeaveForm(Employee employee,ServiceCredit serviceCredit ) {
+    public void onOpeningLeaveForm(Employee employee,EmployeeServiceCredit employeeServiceCredit ) {
 
        
-        onEmployeeProfileClick(true, employee,serviceCredit);
+        onEmployeeProfileClick(true, employee,employeeServiceCredit);
 
     }
 
-    private void onEmployeeProfileClick(boolean openLeaveForm, Employee employee,ServiceCredit serviceCredit) {
+    private void onEmployeeProfileClick(boolean openLeaveForm, Employee employee,EmployeeServiceCredit employeeServiceCredit) {
         sidePanelMenu.setVisible(false);
         activeMainPanel.setVisible(false);
 
         sidePanelEmployeeProfile = new SidePanelEmployeeProfile(this, employee, openLeaveForm);
         
-        sidePanelEmployeeProfile.setLeaveFormServiceCredit(serviceCredit);
+        sidePanelEmployeeProfile.setLeaveFormServiceCredit(employeeServiceCredit);
         sideContainer.add(sidePanelEmployeeProfile).setVisible(true);
     }
 

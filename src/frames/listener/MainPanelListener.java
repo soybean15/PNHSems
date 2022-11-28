@@ -5,9 +5,8 @@
 package frames.listener;
 
 import data.model.Employee;
-import data.model.ServiceCredit;
-import frames.panels.employee_panel.LeaveFormPanel;
-import javax.swing.JPanel;
+import data.model.EmployeeServiceCredit;
+
 
 /**
  *
@@ -17,7 +16,7 @@ public interface MainPanelListener {
     public void onAddEmployeeClick();
     public void onEmployeeProfileClick(Employee employee);
     
-    public void onOpeningLeaveForm(Employee employee,ServiceCredit serviceCredit);
+    public void onOpeningLeaveForm(Employee employee,EmployeeServiceCredit employeeServiceCredit);
     
    
     

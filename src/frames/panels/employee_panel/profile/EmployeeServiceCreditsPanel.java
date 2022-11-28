@@ -343,9 +343,9 @@ public class EmployeeServiceCreditsPanel extends javax.swing.JPanel implements E
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void use(ServiceCredit serviceCredit) {
+    public void use(EmployeeServiceCredit employeeServiceCredit) {
         
-       listener.onOpeningLeaveForm(employee,serviceCredit);
+       listener.onOpeningLeaveForm(employee, employeeServiceCredit);
         
     }
 

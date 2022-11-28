@@ -6,9 +6,12 @@ package frames.panels.employee_panel;
 
 import data.controllers.LeaveFormController;
 import data.model.Employee;
+import data.model.EmployeeServiceCredit;
 import data.model.LeaveType;
 import data.model.ServiceCredit;
+import frames.MainFrame;
 import frames.components.LeaveTypeRadioButton;
+import frames.components.windows.LeaveServiceCreditWindow;
 import java.awt.Color;
 
 
@@ -21,6 +24,7 @@ import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import otherclasses.CircleBorder;
 
 
 import otherclasses.UtilClass;
@@ -30,9 +34,11 @@ import themes.Theme;
  */
 public class LeaveFormPanel extends javax.swing.JPanel  {
 
+    private final MainFrame root;
+
     private Employee employee;
     List<LeaveType> leaveTypes;
-     List<ServiceCredit> serviceCredits = new ArrayList<>();
+     List<EmployeeServiceCredit> serviceCredits = new ArrayList<>();
     LeaveFormController controller = new LeaveFormController();
     
     private LeaveType selectedLeaveType;
@@ -42,19 +48,27 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
 
     /**
      * Creates new form LeaveFormPanel
+     * @param root for disabling frame one mini window is opened
+     * @param employee, to get the employee details
      */
-    public LeaveFormPanel(Employee employee) {
+    public LeaveFormPanel(MainFrame root,Employee employee) {
         initComponents();
+        this.root = root;
         
        
         
         this.employee=employee;
+        lblServiceCredits.setText("Service Credits("+serviceCredits.size()+") ");
         init();
     }
     
-    public void setServiceCredit(ServiceCredit serviceCredit){
-         serviceCredits.add(serviceCredit);
-         JOptionPane.showMessageDialog(this, serviceCredits.size());
+    public void setServiceCredit(EmployeeServiceCredit employeeServiceCredit){
+         serviceCredits.add(employeeServiceCredit);
+         
+         int size = serviceCredits.size();
+         
+         lblServiceCredits.setText("Service Credits("+size+") ");
+         updateBadge();
     }
     
     private void getLeaveTypes(){
@@ -173,9 +187,19 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
 
         panelInHospital.setVisible(false);
         panelOutPatient.setVisible(false);
-        
-        
-        lblNext.setVisible(false);
+       
+        updateBadge();
+    }
+       
+       
+    private void updateBadge(){
+         
+        if(!serviceCredits.isEmpty() ){
+            lblBadge.setVisible(true);
+            lblBadge.setText(String.valueOf(serviceCredits.size()));
+        }else{
+            lblBadge.setVisible(false);
+        }
     }
     private void leaveDetails(){
         
@@ -268,7 +292,9 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         jLabel9 = new javax.swing.JLabel();
         lblPosition = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
+        jPanel35 = new javax.swing.JPanel();
+        part1 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
@@ -285,7 +311,11 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         jLabel18 = new javax.swing.JLabel();
         jPanel20 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
-        lblNext = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jPanel36 = new javax.swing.JPanel();
+        lblBadge = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        lblServiceCredits = new javax.swing.JLabel();
         jPanel22 = new javax.swing.JPanel();
         vacationLeavePanel = new javax.swing.JPanel();
         jPanel31 = new javax.swing.JPanel();
@@ -307,7 +337,6 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         jRadioButton6 = new javax.swing.JRadioButton();
         jRadioButton5 = new javax.swing.JRadioButton();
         jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
         jPanel32 = new javax.swing.JPanel();
         sickLeavePanel = new javax.swing.JPanel();
         jPanel26 = new javax.swing.JPanel();
@@ -322,18 +351,15 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         jLabel21 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
         jPanel33 = new javax.swing.JPanel();
         otherPurposePanel = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
         jPanel28 = new javax.swing.JPanel();
         radioMonetize = new javax.swing.JRadioButton();
         radioTerminal = new javax.swing.JRadioButton();
         jPanel34 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jPanel14 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new java.awt.BorderLayout());
@@ -481,8 +507,16 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
-        jPanel10.setOpaque(false);
-        jPanel10.setLayout(new java.awt.BorderLayout());
+        jPanel14.setOpaque(false);
+        jPanel14.setPreferredSize(new java.awt.Dimension(100, 30));
+        add(jPanel14, java.awt.BorderLayout.SOUTH);
+
+        jPanel35.setOpaque(false);
+        jPanel35.setPreferredSize(new java.awt.Dimension(100, 30));
+        jPanel35.setLayout(new javax.swing.OverlayLayout(jPanel35));
+
+        part1.setOpaque(false);
+        part1.setLayout(new java.awt.BorderLayout());
 
         jPanel15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         jPanel15.setOpaque(false);
@@ -539,7 +573,7 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
 
         jPanel15.add(jPanel18, java.awt.BorderLayout.CENTER);
 
-        jPanel10.add(jPanel15, java.awt.BorderLayout.CENTER);
+        part1.add(jPanel15, java.awt.BorderLayout.CENTER);
 
         jPanel16.setOpaque(false);
         jPanel16.setPreferredSize(new java.awt.Dimension(350, 100));
@@ -555,28 +589,56 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         jPanel19.setLayout(new java.awt.BorderLayout());
 
         jLabel18.setText(" ");
+        jLabel18.setPreferredSize(new java.awt.Dimension(4, 5));
         jPanel19.add(jLabel18, java.awt.BorderLayout.NORTH);
 
         jPanel20.setOpaque(false);
         jPanel20.setLayout(new java.awt.BorderLayout());
 
         jPanel21.setOpaque(false);
-        jPanel21.setPreferredSize(new java.awt.Dimension(100, 90));
-        jPanel21.setLayout(new java.awt.GridLayout());
+        jPanel21.setPreferredSize(new java.awt.Dimension(100, 200));
+        jPanel21.setLayout(new java.awt.BorderLayout());
 
-        lblNext.setFont(new java.awt.Font("DialogInput", 1, 24)); // NOI18N
-        lblNext.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNext.setText("NEXT PAGE >");
-        lblNext.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblNext.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblNextMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblNextMouseExited(evt);
+        jPanel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jPanel10.setForeground(new java.awt.Color(255, 102, 102));
+        jPanel10.setOpaque(false);
+        jPanel10.setPreferredSize(new java.awt.Dimension(100, 30));
+        jPanel10.setLayout(new java.awt.BorderLayout());
+
+        jPanel36.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel36.setOpaque(false);
+        jPanel36.setPreferredSize(new java.awt.Dimension(30, 30));
+        jPanel36.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel36MouseClicked(evt);
             }
         });
-        jPanel21.add(lblNext);
+        jPanel36.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblBadge.setBackground(new java.awt.Color(255, 0, 0));
+        lblBadge.setFont(new java.awt.Font("Liberation Sans", 1, 10)); // NOI18N
+        lblBadge.setForeground(new java.awt.Color(255, 255, 255));
+        lblBadge.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBadge.setText("5");
+        lblBadge.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        lblBadge.setOpaque(true);
+        lblBadge.setPreferredSize(new java.awt.Dimension(10, 10));
+        lblBadge.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        lblBadge.setBorder(new CircleBorder(Color.red, 1));
+        jPanel36.add(lblBadge, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 0, 13, 13));
+
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/credit-card(1).png"))); // NOI18N
+        jLabel24.setPreferredSize(new java.awt.Dimension(25, 25));
+        jPanel36.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 2, 24, 24));
+
+        jPanel10.add(jPanel36, java.awt.BorderLayout.EAST);
+
+        lblServiceCredits.setFont(new java.awt.Font("Liberation Sans", 1, 13)); // NOI18N
+        lblServiceCredits.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblServiceCredits.setText("Service Credits ");
+        jPanel10.add(lblServiceCredits, java.awt.BorderLayout.CENTER);
+
+        jPanel21.add(jPanel10, java.awt.BorderLayout.NORTH);
 
         jPanel20.add(jPanel21, java.awt.BorderLayout.PAGE_END);
 
@@ -584,6 +646,7 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         jPanel22.setLayout(new javax.swing.OverlayLayout(jPanel22));
 
         vacationLeavePanel.setOpaque(false);
+        vacationLeavePanel.setPreferredSize(new java.awt.Dimension(253, 150));
         vacationLeavePanel.setLayout(new java.awt.BorderLayout());
 
         jPanel31.setOpaque(false);
@@ -591,7 +654,7 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         vacationLeavePanel.add(jPanel31, java.awt.BorderLayout.WEST);
 
         jPanel25.setOpaque(false);
-        jPanel25.setLayout(new java.awt.GridLayout(3, 0));
+        jPanel25.setLayout(new java.awt.GridLayout(2, 0));
 
         abroad.setOpaque(false);
         abroad.setLayout(new java.awt.GridLayout(2, 0));
@@ -632,7 +695,7 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         vacationLeavePanel.add(jPanel25, java.awt.BorderLayout.CENTER);
 
         jPanel27.setOpaque(false);
-        jPanel27.setPreferredSize(new java.awt.Dimension(100, 50));
+        jPanel27.setPreferredSize(new java.awt.Dimension(100, 10));
         vacationLeavePanel.add(jPanel27, java.awt.BorderLayout.SOUTH);
 
         jLabel25.setFont(new java.awt.Font("Liberation Sans", 2, 13)); // NOI18N
@@ -647,7 +710,7 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         studyLeavePanel.setLayout(new java.awt.BorderLayout());
 
         jPanel30.setOpaque(false);
-        jPanel30.setLayout(new java.awt.GridLayout(4, 0));
+        jPanel30.setLayout(new java.awt.GridLayout(3, 0));
 
         jRadioButton6.setText("BAR/Board Examination");
         jPanel30.add(jRadioButton6);
@@ -662,10 +725,6 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         jLabel26.setPreferredSize(new java.awt.Dimension(48, 30));
         studyLeavePanel.add(jLabel26, java.awt.BorderLayout.PAGE_START);
 
-        jLabel27.setMinimumSize(new java.awt.Dimension(48, 50));
-        jLabel27.setPreferredSize(new java.awt.Dimension(48, 50));
-        studyLeavePanel.add(jLabel27, java.awt.BorderLayout.SOUTH);
-
         jPanel32.setOpaque(false);
         jPanel32.setPreferredSize(new java.awt.Dimension(20, 100));
         studyLeavePanel.add(jPanel32, java.awt.BorderLayout.WEST);
@@ -676,7 +735,7 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         sickLeavePanel.setLayout(new java.awt.BorderLayout());
 
         jPanel26.setOpaque(false);
-        jPanel26.setLayout(new java.awt.GridLayout(3, 0));
+        jPanel26.setLayout(new java.awt.GridLayout(2, 0));
 
         jPanel29.setOpaque(false);
         jPanel29.setLayout(new java.awt.GridLayout(2, 0));
@@ -726,9 +785,6 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         jLabel28.setPreferredSize(new java.awt.Dimension(48, 30));
         sickLeavePanel.add(jLabel28, java.awt.BorderLayout.NORTH);
 
-        jLabel29.setPreferredSize(new java.awt.Dimension(48, 50));
-        sickLeavePanel.add(jLabel29, java.awt.BorderLayout.SOUTH);
-
         jPanel33.setOpaque(false);
         jPanel33.setPreferredSize(new java.awt.Dimension(20, 100));
         sickLeavePanel.add(jPanel33, java.awt.BorderLayout.WEST);
@@ -743,11 +799,8 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         jLabel23.setPreferredSize(new java.awt.Dimension(84, 30));
         otherPurposePanel.add(jLabel23, java.awt.BorderLayout.NORTH);
 
-        jLabel24.setPreferredSize(new java.awt.Dimension(0, 50));
-        otherPurposePanel.add(jLabel24, java.awt.BorderLayout.SOUTH);
-
         jPanel28.setOpaque(false);
-        jPanel28.setLayout(new java.awt.GridLayout(4, 0));
+        jPanel28.setLayout(new java.awt.GridLayout(3, 0));
 
         radioMonetize.setText("Monetization of Leave");
         jPanel28.add(radioMonetize);
@@ -769,7 +822,7 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
 
         jPanel16.add(jPanel19, java.awt.BorderLayout.CENTER);
 
-        jPanel10.add(jPanel16, java.awt.BorderLayout.EAST);
+        part1.add(jPanel16, java.awt.BorderLayout.EAST);
 
         jPanel17.setOpaque(false);
         jPanel17.setLayout(new java.awt.GridLayout(1, 0));
@@ -780,13 +833,11 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         jLabel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jPanel17.add(jLabel10);
 
-        jPanel10.add(jPanel17, java.awt.BorderLayout.NORTH);
+        part1.add(jPanel17, java.awt.BorderLayout.NORTH);
 
-        add(jPanel10, java.awt.BorderLayout.CENTER);
+        jPanel35.add(part1);
 
-        jPanel14.setOpaque(false);
-        jPanel14.setPreferredSize(new java.awt.Dimension(100, 30));
-        add(jPanel14, java.awt.BorderLayout.SOUTH);
+        add(jPanel35, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void radioOthersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioOthersActionPerformed
@@ -805,14 +856,12 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         // TODO add your handling code here:
     }//GEN-LAST:event_radioInHospitalActionPerformed
 
-    private void lblNextMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNextMouseEntered
-        //new java.awt.Font("DialogInput", 1, 36)
-        lblNext.setFont(new java.awt.Font("DialogInput", 1, 28));
-    }//GEN-LAST:event_lblNextMouseEntered
-
-    private void lblNextMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNextMouseExited
-        lblNext.setFont(new java.awt.Font("DialogInput", 1, 24));
-    }//GEN-LAST:event_lblNextMouseExited
+    private void jPanel36MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel36MouseClicked
+        LeaveServiceCreditWindow lw= new LeaveServiceCreditWindow();
+        lw.setFrame(serviceCredits);
+        root.setEnabled(false);
+        lw.setVisible(true);
+    }//GEN-LAST:event_jPanel36MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -838,9 +887,7 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -876,6 +923,8 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
     private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel33;
     private javax.swing.JPanel jPanel34;
+    private javax.swing.JPanel jPanel35;
+    private javax.swing.JPanel jPanel36;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -889,17 +938,19 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JLabel lblBadge;
     private javax.swing.JLabel lblDateOfFiling;
     private javax.swing.JLabel lblFirstName;
     private javax.swing.JLabel lblLastName;
     private javax.swing.JLabel lblMiddleName;
-    private javax.swing.JLabel lblNext;
     private javax.swing.JLabel lblPosition;
+    private javax.swing.JLabel lblServiceCredits;
     private javax.swing.JPanel leaveTypeList;
     private javax.swing.JPanel otherPurposePanel;
     private javax.swing.JPanel othersPanel;
     private javax.swing.JPanel panelInHospital;
     private javax.swing.JPanel panelOutPatient;
+    private javax.swing.JPanel part1;
     private javax.swing.JRadioButton radioAbroad;
     private javax.swing.JRadioButton radioInHospital;
     private javax.swing.JRadioButton radioMonetize;
