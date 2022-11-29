@@ -5,6 +5,7 @@
 package frames.components.windows;
 
 
+import data.model.EmployeeServiceCredit;
 import data.model.ServiceCredit;
 import frames.MainFrame;
 import frames.components.windows.comp.W_ServiceCreditItem;
@@ -15,6 +16,7 @@ import java.util.List;
 import frames.components.windows.listener.ServiceCreditItemListener;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -27,11 +29,15 @@ public class AddServiceCreditWindow extends javax.swing.JDialog implements Servi
      */
     
     private List<ServiceCredit> availableServiceCredits ;
-    EmployeeServiceCreditsPanel parent;
+    
+     
+    
+    
+    JPanel parent;
     private W_ServiceCreditItem activeItem;
   
     private ServiceCredit serviceCredit;
-  MainFrame root;
+    MainFrame root;
     public AddServiceCreditWindow() {
         initComponents();
       
@@ -44,7 +50,7 @@ public class AddServiceCreditWindow extends javax.swing.JDialog implements Servi
      * @param parent to update List once closed
      * @param availableServiceCredits list of available Service Credits
      */
-    public void setFrame(MainFrame root,  EmployeeServiceCreditsPanel parent, List<ServiceCredit> availableServiceCredits ){
+    public void setFrame(MainFrame root,  JPanel parent, List<ServiceCredit> availableServiceCredits ){
         this.parent = parent;
         this.availableServiceCredits = availableServiceCredits;
         this.root = root;
@@ -52,6 +58,16 @@ public class AddServiceCreditWindow extends javax.swing.JDialog implements Servi
       
         display();
     }
+    
+     public void setFramefromAdd(MainFrame root, List<EmployeeServiceCredit> availableServiceCredits ){
+         //todo tofix
+        //this.availableServiceCredits = availableServiceCredits;
+        this.root = root;
+        
+      
+        display();
+    }
+    
     
     private void display(){
         int size = availableServiceCredits.size();
@@ -234,13 +250,20 @@ public class AddServiceCreditWindow extends javax.swing.JDialog implements Servi
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
             if(serviceCredit ==null){
                 JOptionPane.showMessageDialog(this, "Please Select an Item");
-            }else{
-                if(parent.addServiceCredit(serviceCredit.getId())==1){
-                     root.setEnabled(true);
+           } else {
+            if (parent instanceof EmployeeServiceCreditsPanel) {
+                EmployeeServiceCreditsPanel _parent = (EmployeeServiceCreditsPanel) parent;
+                if (_parent.addServiceCredit(serviceCredit.getId()) == 1) {
+                    root.setEnabled(true);
                     dispose();
-                }else
-                  JOptionPane.showMessageDialog(this, "Something went wrong");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Something went wrong");
+                }
+            }else{
+                //add to usedServiceCredit then update List
             }
+
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

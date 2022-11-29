@@ -38,7 +38,11 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
 
     private Employee employee;
     List<LeaveType> leaveTypes;
-     List<EmployeeServiceCredit> serviceCredits = new ArrayList<>();
+    
+
+    
+    List<EmployeeServiceCredit> leaveFormServiceCredits = new ArrayList<>();
+    List<EmployeeServiceCredit> employeeServiceCredits;
     LeaveFormController controller = new LeaveFormController();
     
     private LeaveType selectedLeaveType;
@@ -51,21 +55,28 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
      * @param root for disabling frame one mini window is opened
      * @param employee, to get the employee details
      */
-    public LeaveFormPanel(MainFrame root,Employee employee) {
+    public LeaveFormPanel(MainFrame root, Employee employee) {
         initComponents();
         this.root = root;
+
+        this.employee = employee;
+
+        try{
+            employeeServiceCredits = controller.getEmployeeServiceCredits(employee.getId());
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
         
-       
-        
-        this.employee=employee;
-        lblServiceCredits.setText("Service Credits("+serviceCredits.size()+") ");
+
+        lblServiceCredits.setText("Service Credits(" + leaveFormServiceCredits.size() + ") ");
         init();
     }
-    
+ 
     public void setServiceCredit(EmployeeServiceCredit employeeServiceCredit){
-         serviceCredits.add(employeeServiceCredit);
+     
+         leaveFormServiceCredits.add(employeeServiceCredit);
          
-         int size = serviceCredits.size();
+         int size = leaveFormServiceCredits.size();
          
          lblServiceCredits.setText("Service Credits("+size+") ");
          updateBadge();
@@ -194,9 +205,9 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
        
     private void updateBadge(){
          
-        if(!serviceCredits.isEmpty() ){
+        if(!leaveFormServiceCredits.isEmpty() ){
             lblBadge.setVisible(true);
-            lblBadge.setText(String.valueOf(serviceCredits.size()));
+            lblBadge.setText(String.valueOf(leaveFormServiceCredits.size()));
         }else{
             lblBadge.setVisible(false);
         }
@@ -858,7 +869,7 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
 
     private void jPanel36MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel36MouseClicked
         LeaveServiceCreditWindow lw= new LeaveServiceCreditWindow();
-        lw.setFrame(serviceCredits);
+        lw.setFrame(root,leaveFormServiceCredits,controller.getAvailableLeaveFormServiceCredits(employeeServiceCredits, leaveFormServiceCredits));
         root.setEnabled(false);
         lw.setVisible(true);
     }//GEN-LAST:event_jPanel36MouseClicked

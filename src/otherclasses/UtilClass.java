@@ -4,12 +4,14 @@
  */
 package otherclasses;
 
+import data.model.EmployeeServiceCredit;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import static java.time.temporal.TemporalQueries.localDate;
+import java.util.List;
 
 /**
  *
@@ -57,5 +59,20 @@ public class UtilClass {
        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, YYYY");
        return String.valueOf(formatter.format(currentDate));
     }
+    
+    
+    
+    public static int getTotalCredits( List<EmployeeServiceCredit> serviceCredits){
+        int total = 0;
+        
+        for(EmployeeServiceCredit item:serviceCredits){
+            total+=item.getServiceCredit().getNumberOfDays();
+        }
+        
+        return total;
+        
+    }
+    
+   
 
 }

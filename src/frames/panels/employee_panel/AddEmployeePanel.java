@@ -48,7 +48,7 @@ public class AddEmployeePanel extends javax.swing.JPanel {
      
     boolean onEdit;
     String imageSource =null;
-   // @param employee set null if add new
+ //  // @param employee set null if add new
     public AddEmployeePanel(  SidePanelListener listener ,Employee employee) {
         initComponents();
         

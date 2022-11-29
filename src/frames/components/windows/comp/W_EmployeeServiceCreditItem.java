@@ -5,6 +5,7 @@
 package frames.components.windows.comp;
 
 import data.model.EmployeeServiceCredit;
+import javax.swing.SpinnerNumberModel;
 
 /**
  *
@@ -15,16 +16,27 @@ public class W_EmployeeServiceCreditItem extends javax.swing.JPanel {
     /**
      * Creates new form W_EmployeeServiceCreditItem
      */
+     int previous ;
     EmployeeServiceCredit employeeServiceCredit;
     public W_EmployeeServiceCreditItem(EmployeeServiceCredit employeeServiceCredit) {
         this.employeeServiceCredit = employeeServiceCredit;
         initComponents();
          setUpPanel();
+         
+         previous =  Integer.parseInt(spinnerUse.getValue().toString());
     }
     
     private void setUpPanel(){
         lblOrderNumber.setText(employeeServiceCredit.getServiceCredit().getOrderNo());
         lblMemorandum.setText(employeeServiceCredit.getServiceCredit().getMemorandum());
+        
+        int defaultValue = 0;
+        int lowerBound =0;
+        int upperBound =employeeServiceCredit.getNo_of_days();
+        
+        lblRemaining.setText(String.valueOf(upperBound));
+        SpinnerNumberModel sm = new SpinnerNumberModel(defaultValue,lowerBound,upperBound,1);
+        spinnerUse.setModel(sm);
     }
 
     /**
@@ -38,8 +50,12 @@ public class W_EmployeeServiceCreditItem extends javax.swing.JPanel {
 
         lblOrderNumber = new javax.swing.JLabel();
         lblMemorandum = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jSlider1 = new javax.swing.JSlider();
+        lblRemaining = new javax.swing.JLabel();
+        spinnerUse = new javax.swing.JSpinner();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -50,17 +66,61 @@ public class W_EmployeeServiceCreditItem extends javax.swing.JPanel {
         lblMemorandum.setText("Memorandum");
         add(lblMemorandum, java.awt.BorderLayout.CENTER);
 
-        jPanel1.setLayout(new java.awt.GridLayout());
-        jPanel1.add(jSlider1);
+        jPanel2.setLayout(new java.awt.BorderLayout());
 
-        add(jPanel1, java.awt.BorderLayout.LINE_END);
+        jPanel1.setLayout(new java.awt.GridLayout(1, 2));
+
+        lblRemaining.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblRemaining.setText("1");
+        jPanel1.add(lblRemaining);
+
+        spinnerUse.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spinnerUseStateChanged(evt);
+            }
+        });
+        spinnerUse.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                spinnerUseMouseClicked(evt);
+            }
+        });
+        jPanel1.add(spinnerUse);
+
+        jPanel2.add(jPanel1, java.awt.BorderLayout.LINE_END);
+        jPanel2.add(jPanel3, java.awt.BorderLayout.NORTH);
+        jPanel2.add(jPanel4, java.awt.BorderLayout.SOUTH);
+
+        add(jPanel2, java.awt.BorderLayout.EAST);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void spinnerUseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_spinnerUseMouseClicked
+      
+    }//GEN-LAST:event_spinnerUseMouseClicked
+
+    
+   
+    private void spinnerUseStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerUseStateChanged
+         int value = Integer.parseInt(spinnerUse.getValue().toString());
+       int remaining = Integer.parseInt(lblRemaining.getText());
+      
+       if(previous<=value){
+           remaining-=1;
+       }else{
+            remaining+=1;
+       }
+       previous =value;
+       lblRemaining.setText(String.valueOf(remaining));
+    }//GEN-LAST:event_spinnerUseStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSlider jSlider1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lblMemorandum;
     private javax.swing.JLabel lblOrderNumber;
+    private javax.swing.JLabel lblRemaining;
+    private javax.swing.JSpinner spinnerUse;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,7 +4,9 @@
  */
 package data.controllers;
 
+import data.model.EmployeeServiceCredit;
 import data.model.LeaveType;
+import data.model.ServiceCredit;
 import java.sql.SQLException;
 import data.services.impl.LeaveFormService;
 import java.util.List;
@@ -24,4 +26,14 @@ public class LeaveFormController {
         return service.getAllLeaveTypes();
     }
     
+    
+     public List<EmployeeServiceCredit> getEmployeeServiceCredits(String employeeId) throws SQLException {
+        return service.getEmployeeServiceCredits(employeeId);
+     }
+     
+     public List<EmployeeServiceCredit> getAvailableLeaveFormServiceCredits( List<EmployeeServiceCredit> items, List<EmployeeServiceCredit> itemsToRemove ) {
+         
+         return service.getAvailableLeaveFormServiceCredits(items, itemsToRemove);
+     }
+     
 }

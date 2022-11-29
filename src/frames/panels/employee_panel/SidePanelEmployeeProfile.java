@@ -40,7 +40,6 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
     boolean openLeaveForm;
     
     
-   EmployeeServiceCredit employeeServiceCredit;
     
 
     /**
@@ -62,7 +61,6 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
     
     
     public void setLeaveFormServiceCredit(EmployeeServiceCredit employeeServiceCredit){
-        this.employeeServiceCredit = employeeServiceCredit;
          if(employeeServiceCredit != null){
                 leaveFormPanel.setServiceCredit(employeeServiceCredit);
          }
