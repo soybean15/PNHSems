@@ -79,4 +79,43 @@ public class EmployeeAndServiceCreditsDaoImplement implements EmployeeAndService
         return pst.executeUpdate();
     }
 
+    @Override
+    public EmployeeServiceCredit getEmployeeServiceCredit(String employeeId, int serviceCreditId) throws SQLException {
+       String query ="Select * from employee_and_service_credits "
+               + "inner join service_credits on employee_and_service_credits.service_credits_id = service_credits.id where "
+               + "employee_and_service_credits.employeeId =? and employee_and_service_credits.service_credits_id =?";
+       
+       PreparedStatement pst = conn.prepareStatement(query);
+       pst.setString(1, employeeId);
+       pst.setInt(2, serviceCreditId);
+       ResultSet rs = pst.executeQuery();
+       
+       
+       
+       if(rs.next()){
+           EmployeeServiceCredit employeeServiceCredit = new EmployeeServiceCredit();
+           
+           employeeServiceCredit.setEmployeeId(employeeId);
+           
+             ServiceCredit serviceCredit = new ServiceCredit();
+            serviceCredit.setId(rs.getInt("id"));
+            serviceCredit.setOrderNo(rs.getString("order_no"));
+            serviceCredit.setMemorandum(rs.getString("memorandum"));
+            serviceCredit.setTitle("title");
+            serviceCredit.setNumberOfDays(rs.getInt("no_of_days"));
+            serviceCredit.setCreated_at(rs.getTimestamp("created_at"));
+            serviceCredit.setUpdated_at(rs.getTimestamp("updated_at"));
+
+                
+            employeeServiceCredit.setEmployeeId(employeeId);
+            employeeServiceCredit.setServiceCredits(serviceCredit);
+            employeeServiceCredit.setNo_of_days(rs.getInt("employee_and_service_credits.no_of_days"));
+            
+            
+           return employeeServiceCredit;
+       }
+       return null;
+              
+    }
+
 }

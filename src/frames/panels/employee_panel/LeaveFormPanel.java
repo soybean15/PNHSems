@@ -7,8 +7,8 @@ package frames.panels.employee_panel;
 import data.controllers.LeaveFormController;
 import data.model.Employee;
 import data.model.EmployeeServiceCredit;
+import data.model.LeaveForm;
 import data.model.LeaveType;
-import data.model.ServiceCredit;
 import frames.MainFrame;
 import frames.components.LeaveTypeRadioButton;
 import frames.components.windows.LeaveServiceCreditWindow;
@@ -20,7 +20,10 @@ import java.awt.event.ItemEvent;
 
 import java.util.List;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -41,13 +44,15 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
     
 
     
-    List<EmployeeServiceCredit> leaveFormServiceCredits = new ArrayList<>();
-    List<EmployeeServiceCredit> employeeServiceCredits;
+    List<EmployeeServiceCredit> inUsedServiceCredits = new ArrayList<>();//current used Service Credit
+    List<EmployeeServiceCredit> employeeServiceCredits;//all service credit of employee
     LeaveFormController controller = new LeaveFormController();
     
     private LeaveType selectedLeaveType;
+    private LeaveForm leaveForm;
     
     private JPanel activeDetailPanel;
+    int usedCredits;
     
 
     /**
@@ -68,15 +73,15 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         }
         
 
-        lblServiceCredits.setText("Service Credits(" + leaveFormServiceCredits.size() + ") ");
+        lblServiceCredits.setText("Service Credits(" + inUsedServiceCredits.size() + ") ");
         init();
     }
  
     public void setServiceCredit(EmployeeServiceCredit employeeServiceCredit){
      
-         leaveFormServiceCredits.add(employeeServiceCredit);
+         inUsedServiceCredits.add(employeeServiceCredit);
          
-         int size = leaveFormServiceCredits.size();
+         int size = inUsedServiceCredits.size();
          
          lblServiceCredits.setText("Service Credits("+size+") ");
          updateBadge();
@@ -205,13 +210,23 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
        
     private void updateBadge(){
          
-        if(!leaveFormServiceCredits.isEmpty() ){
+        if(!inUsedServiceCredits.isEmpty() ){
             lblBadge.setVisible(true);
-            lblBadge.setText(String.valueOf(leaveFormServiceCredits.size()));
+            lblBadge.setText(String.valueOf(inUsedServiceCredits.size()));
         }else{
             lblBadge.setVisible(false);
         }
+        usedCredits =UtilClass.getTotalUsedCredits(inUsedServiceCredits);
+        lblCredits.setText("("+usedCredits+"/"+UtilClass.getTotalCredits(inUsedServiceCredits)+")");
     }
+    
+    public void updateLeaveForm( List<EmployeeServiceCredit> inUsedServiceCredits){
+        this.inUsedServiceCredits = inUsedServiceCredits;
+        updateBadge();
+    }
+    
+    
+    
     private void leaveDetails(){
         
         btnGroupVacationLeave.add(radioWithinPh);
@@ -327,6 +342,21 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         lblBadge = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         lblServiceCredits = new javax.swing.JLabel();
+        lblCredits = new javax.swing.JLabel();
+        jPanel37 = new javax.swing.JPanel();
+        jPanel39 = new javax.swing.JPanel();
+        jPanel40 = new javax.swing.JPanel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        startDate = new datechooser.beans.DateChooserCombo();
+        jPanel41 = new javax.swing.JPanel();
+        endDate = new datechooser.beans.DateChooserCombo();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jPanel22 = new javax.swing.JPanel();
         vacationLeavePanel = new javax.swing.JPanel();
         jPanel31 = new javax.swing.JPanel();
@@ -647,208 +677,362 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         lblServiceCredits.setFont(new java.awt.Font("Liberation Sans", 1, 13)); // NOI18N
         lblServiceCredits.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblServiceCredits.setText("Service Credits ");
-        jPanel10.add(lblServiceCredits, java.awt.BorderLayout.CENTER);
+        jPanel10.add(lblServiceCredits, java.awt.BorderLayout.WEST);
+
+        lblCredits.setForeground(new java.awt.Color(153, 153, 153));
+        lblCredits.setText("(0/0)");
+        jPanel10.add(lblCredits, java.awt.BorderLayout.CENTER);
 
         jPanel21.add(jPanel10, java.awt.BorderLayout.NORTH);
 
-        jPanel20.add(jPanel21, java.awt.BorderLayout.PAGE_END);
+        jPanel37.setLayout(new java.awt.BorderLayout());
 
-        jPanel22.setOpaque(false);
-        jPanel22.setLayout(new javax.swing.OverlayLayout(jPanel22));
+        jPanel39.setLayout(new java.awt.GridLayout(2, 0));
 
-        vacationLeavePanel.setOpaque(false);
-        vacationLeavePanel.setPreferredSize(new java.awt.Dimension(253, 150));
-        vacationLeavePanel.setLayout(new java.awt.BorderLayout());
+        jPanel40.setPreferredSize(new java.awt.Dimension(100, 30));
+        jPanel40.setLayout(new java.awt.BorderLayout());
 
-        jPanel31.setOpaque(false);
-        jPanel31.setPreferredSize(new java.awt.Dimension(20, 100));
-        vacationLeavePanel.add(jPanel31, java.awt.BorderLayout.WEST);
+        jLabel29.setText("Start Date");
+        jLabel29.setPreferredSize(new java.awt.Dimension(80, 50));
+        jPanel40.add(jLabel29, java.awt.BorderLayout.WEST);
 
-        jPanel25.setOpaque(false);
-        jPanel25.setLayout(new java.awt.GridLayout(2, 0));
+        jLabel27.setPreferredSize(new java.awt.Dimension(40, 17));
+        jPanel40.add(jLabel27, java.awt.BorderLayout.EAST);
 
-        abroad.setOpaque(false);
-        abroad.setLayout(new java.awt.GridLayout(2, 0));
+        startDate.setCurrentView(new datechooser.view.appearance.AppearancesList("Light",
+            new datechooser.view.appearance.ViewAppearance("custom",
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
+                    new java.awt.Color(0, 0, 0),
+                    new java.awt.Color(0, 0, 255),
+                    false,
+                    true,
+                    new datechooser.view.appearance.swing.ButtonPainter()),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
+                    new java.awt.Color(0, 0, 0),
+                    new java.awt.Color(0, 0, 255),
+                    true,
+                    true,
+                    new datechooser.view.appearance.swing.ButtonPainter()),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
+                    new java.awt.Color(0, 0, 255),
+                    new java.awt.Color(0, 0, 255),
+                    false,
+                    true,
+                    new datechooser.view.appearance.swing.ButtonPainter()),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
+                    new java.awt.Color(128, 128, 128),
+                    new java.awt.Color(0, 0, 255),
+                    false,
+                    true,
+                    new datechooser.view.appearance.swing.LabelPainter()),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
+                    new java.awt.Color(0, 0, 0),
+                    new java.awt.Color(0, 0, 255),
+                    false,
+                    true,
+                    new datechooser.view.appearance.swing.LabelPainter()),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
+                    new java.awt.Color(0, 0, 0),
+                    new java.awt.Color(255, 0, 0),
+                    false,
+                    false,
+                    new datechooser.view.appearance.swing.ButtonPainter()),
+                (datechooser.view.BackRenderer)null,
+                false,
+                true)));
+    startDate.setFieldFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 14));
+    startDate.addSelectionChangedListener(new datechooser.events.SelectionChangedListener() {
+        public void onSelectionChange(datechooser.events.SelectionChangedEvent evt) {
+            startDateOnSelectionChange(evt);
+        }
+    });
+    startDate.addCommitListener(new datechooser.events.CommitListener() {
+        public void onCommit(datechooser.events.CommitEvent evt) {
+            startDateOnCommit(evt);
+        }
+    });
+    jPanel40.add(startDate, java.awt.BorderLayout.CENTER);
 
-        radioAbroad.setText("Abroad");
-        radioAbroad.setPreferredSize(new java.awt.Dimension(170, 20));
-        abroad.add(radioAbroad);
+    jPanel39.add(jPanel40);
 
-        specifyAbroad.setOpaque(false);
-        specifyAbroad.setLayout(new java.awt.BorderLayout());
+    jPanel41.setPreferredSize(new java.awt.Dimension(100, 30));
+    jPanel41.setLayout(new java.awt.BorderLayout());
 
-        jLabel20.setText("Specify:");
-        specifyAbroad.add(jLabel20, java.awt.BorderLayout.LINE_START);
-        specifyAbroad.add(jTextField3, java.awt.BorderLayout.CENTER);
+    endDate.setCurrentView(new datechooser.view.appearance.AppearancesList("Light",
+        new datechooser.view.appearance.ViewAppearance("custom",
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
+                new java.awt.Color(0, 0, 0),
+                new java.awt.Color(0, 0, 255),
+                false,
+                true,
+                new datechooser.view.appearance.swing.ButtonPainter()),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
+                new java.awt.Color(0, 0, 0),
+                new java.awt.Color(0, 0, 255),
+                true,
+                true,
+                new datechooser.view.appearance.swing.ButtonPainter()),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
+                new java.awt.Color(0, 0, 255),
+                new java.awt.Color(0, 0, 255),
+                false,
+                true,
+                new datechooser.view.appearance.swing.ButtonPainter()),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
+                new java.awt.Color(128, 128, 128),
+                new java.awt.Color(0, 0, 255),
+                false,
+                true,
+                new datechooser.view.appearance.swing.LabelPainter()),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
+                new java.awt.Color(0, 0, 0),
+                new java.awt.Color(0, 0, 255),
+                false,
+                true,
+                new datechooser.view.appearance.swing.LabelPainter()),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
+                new java.awt.Color(0, 0, 0),
+                new java.awt.Color(255, 0, 0),
+                false,
+                false,
+                new datechooser.view.appearance.swing.ButtonPainter()),
+            (datechooser.view.BackRenderer)null,
+            false,
+            true)));
+endDate.setFieldFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 14));
+jPanel41.add(endDate, java.awt.BorderLayout.CENTER);
 
-        abroad.add(specifyAbroad);
+jLabel30.setText("End Date");
+jLabel30.setPreferredSize(new java.awt.Dimension(80, 50));
+jPanel41.add(jLabel30, java.awt.BorderLayout.WEST);
 
-        jPanel25.add(abroad);
+jLabel31.setPreferredSize(new java.awt.Dimension(40, 17));
+jPanel41.add(jLabel31, java.awt.BorderLayout.EAST);
 
-        jPanel23.setOpaque(false);
-        jPanel23.setLayout(new java.awt.GridLayout(2, 0));
+jPanel39.add(jPanel41);
 
-        radioWithinPh.setText("Within the Philippines    ");
-        radioWithinPh.setPreferredSize(new java.awt.Dimension(170, 20));
-        jPanel23.add(radioWithinPh);
+jPanel37.add(jPanel39, java.awt.BorderLayout.NORTH);
 
-        specifyWithinPh.setOpaque(false);
-        specifyWithinPh.setLayout(new java.awt.BorderLayout());
+jLabel32.setPreferredSize(new java.awt.Dimension(0, 10));
+jPanel37.add(jLabel32, java.awt.BorderLayout.PAGE_END);
 
-        jLabel19.setText("Specify:");
-        specifyWithinPh.add(jLabel19, java.awt.BorderLayout.LINE_START);
-        specifyWithinPh.add(jTextField2, java.awt.BorderLayout.CENTER);
+jLabel34.setPreferredSize(new java.awt.Dimension(30, 17));
+jPanel37.add(jLabel34, java.awt.BorderLayout.LINE_START);
 
-        jPanel23.add(specifyWithinPh);
+jLabel35.setPreferredSize(new java.awt.Dimension(30, 17));
+jPanel37.add(jLabel35, java.awt.BorderLayout.LINE_END);
 
-        jPanel25.add(jPanel23);
+jButton1.setBackground(new java.awt.Color(0, 153, 0));
+jButton1.setFont(new java.awt.Font("Liberation Sans", 1, 36)); // NOI18N
+jButton1.setForeground(new java.awt.Color(255, 255, 255));
+jButton1.setText("Save");
+jButton1.addActionListener(new java.awt.event.ActionListener() {
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton1ActionPerformed(evt);
+    }
+    });
+    jPanel37.add(jButton1, java.awt.BorderLayout.CENTER);
 
-        vacationLeavePanel.add(jPanel25, java.awt.BorderLayout.CENTER);
+    jPanel21.add(jPanel37, java.awt.BorderLayout.CENTER);
 
-        jPanel27.setOpaque(false);
-        jPanel27.setPreferredSize(new java.awt.Dimension(100, 10));
-        vacationLeavePanel.add(jPanel27, java.awt.BorderLayout.SOUTH);
+    jPanel20.add(jPanel21, java.awt.BorderLayout.PAGE_END);
 
-        jLabel25.setFont(new java.awt.Font("Liberation Sans", 2, 13)); // NOI18N
-        jLabel25.setText("     In Case of Vacation/Special Privelege Leave");
-        jLabel25.setPreferredSize(new java.awt.Dimension(253, 30));
-        vacationLeavePanel.add(jLabel25, java.awt.BorderLayout.NORTH);
+    jPanel22.setOpaque(false);
+    jPanel22.setLayout(new javax.swing.OverlayLayout(jPanel22));
 
-        jPanel22.add(vacationLeavePanel);
-        vacationLeavePanel.getAccessibleContext().setAccessibleName("");
+    vacationLeavePanel.setOpaque(false);
+    vacationLeavePanel.setPreferredSize(new java.awt.Dimension(253, 150));
+    vacationLeavePanel.setLayout(new java.awt.BorderLayout());
 
-        studyLeavePanel.setOpaque(false);
-        studyLeavePanel.setLayout(new java.awt.BorderLayout());
+    jPanel31.setOpaque(false);
+    jPanel31.setPreferredSize(new java.awt.Dimension(20, 100));
+    vacationLeavePanel.add(jPanel31, java.awt.BorderLayout.WEST);
 
-        jPanel30.setOpaque(false);
-        jPanel30.setLayout(new java.awt.GridLayout(3, 0));
+    jPanel25.setOpaque(false);
+    jPanel25.setLayout(new java.awt.GridLayout(2, 0));
 
-        jRadioButton6.setText("BAR/Board Examination");
-        jPanel30.add(jRadioButton6);
+    abroad.setOpaque(false);
+    abroad.setLayout(new java.awt.GridLayout(2, 0));
 
-        jRadioButton5.setText("Completion of Master's Degree");
-        jPanel30.add(jRadioButton5);
+    radioAbroad.setText("Abroad");
+    radioAbroad.setPreferredSize(new java.awt.Dimension(170, 20));
+    abroad.add(radioAbroad);
 
-        studyLeavePanel.add(jPanel30, java.awt.BorderLayout.CENTER);
+    specifyAbroad.setOpaque(false);
+    specifyAbroad.setLayout(new java.awt.BorderLayout());
 
-        jLabel26.setFont(new java.awt.Font("Liberation Sans", 2, 13)); // NOI18N
-        jLabel26.setText("    In Case Of Study Leave");
-        jLabel26.setPreferredSize(new java.awt.Dimension(48, 30));
-        studyLeavePanel.add(jLabel26, java.awt.BorderLayout.PAGE_START);
+    jLabel20.setText("Specify:");
+    specifyAbroad.add(jLabel20, java.awt.BorderLayout.LINE_START);
+    specifyAbroad.add(jTextField3, java.awt.BorderLayout.CENTER);
 
-        jPanel32.setOpaque(false);
-        jPanel32.setPreferredSize(new java.awt.Dimension(20, 100));
-        studyLeavePanel.add(jPanel32, java.awt.BorderLayout.WEST);
+    abroad.add(specifyAbroad);
 
-        jPanel22.add(studyLeavePanel);
+    jPanel25.add(abroad);
 
-        sickLeavePanel.setOpaque(false);
-        sickLeavePanel.setLayout(new java.awt.BorderLayout());
+    jPanel23.setOpaque(false);
+    jPanel23.setLayout(new java.awt.GridLayout(2, 0));
 
-        jPanel26.setOpaque(false);
-        jPanel26.setLayout(new java.awt.GridLayout(2, 0));
+    radioWithinPh.setText("Within the Philippines    ");
+    radioWithinPh.setPreferredSize(new java.awt.Dimension(170, 20));
+    jPanel23.add(radioWithinPh);
 
-        jPanel29.setOpaque(false);
-        jPanel29.setLayout(new java.awt.GridLayout(2, 0));
+    specifyWithinPh.setOpaque(false);
+    specifyWithinPh.setLayout(new java.awt.BorderLayout());
 
-        radioOutPatient.setText("Out Patient");
-        radioOutPatient.setPreferredSize(new java.awt.Dimension(170, 20));
-        jPanel29.add(radioOutPatient);
+    jLabel19.setText("Specify:");
+    specifyWithinPh.add(jLabel19, java.awt.BorderLayout.LINE_START);
+    specifyWithinPh.add(jTextField2, java.awt.BorderLayout.CENTER);
 
-        panelOutPatient.setOpaque(false);
-        panelOutPatient.setLayout(new java.awt.BorderLayout());
+    jPanel23.add(specifyWithinPh);
 
-        jLabel22.setText("Specify:");
-        panelOutPatient.add(jLabel22, java.awt.BorderLayout.LINE_START);
-        panelOutPatient.add(jTextField5, java.awt.BorderLayout.CENTER);
+    jPanel25.add(jPanel23);
 
-        jPanel29.add(panelOutPatient);
+    vacationLeavePanel.add(jPanel25, java.awt.BorderLayout.CENTER);
 
-        jPanel26.add(jPanel29);
+    jPanel27.setOpaque(false);
+    jPanel27.setPreferredSize(new java.awt.Dimension(100, 10));
+    vacationLeavePanel.add(jPanel27, java.awt.BorderLayout.SOUTH);
 
-        jPanel24.setOpaque(false);
-        jPanel24.setLayout(new java.awt.GridLayout(2, 0));
+    jLabel25.setFont(new java.awt.Font("Liberation Sans", 2, 13)); // NOI18N
+    jLabel25.setText("     In Case of Vacation/Special Privelege Leave");
+    jLabel25.setPreferredSize(new java.awt.Dimension(253, 30));
+    vacationLeavePanel.add(jLabel25, java.awt.BorderLayout.NORTH);
 
-        radioInHospital.setText("In Hospital");
-        radioInHospital.setPreferredSize(new java.awt.Dimension(170, 20));
-        radioInHospital.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioInHospitalActionPerformed(evt);
-            }
-        });
-        jPanel24.add(radioInHospital);
+    jPanel22.add(vacationLeavePanel);
+    vacationLeavePanel.getAccessibleContext().setAccessibleName("");
 
-        panelInHospital.setOpaque(false);
-        panelInHospital.setLayout(new java.awt.BorderLayout());
+    studyLeavePanel.setOpaque(false);
+    studyLeavePanel.setLayout(new java.awt.BorderLayout());
 
-        jLabel21.setText("Specify:");
-        panelInHospital.add(jLabel21, java.awt.BorderLayout.LINE_START);
-        panelInHospital.add(jTextField4, java.awt.BorderLayout.CENTER);
+    jPanel30.setOpaque(false);
+    jPanel30.setLayout(new java.awt.GridLayout(3, 0));
 
-        jPanel24.add(panelInHospital);
+    jRadioButton6.setText("BAR/Board Examination");
+    jPanel30.add(jRadioButton6);
 
-        jPanel26.add(jPanel24);
+    jRadioButton5.setText("Completion of Master's Degree");
+    jPanel30.add(jRadioButton5);
 
-        sickLeavePanel.add(jPanel26, java.awt.BorderLayout.CENTER);
+    studyLeavePanel.add(jPanel30, java.awt.BorderLayout.CENTER);
 
-        jLabel28.setFont(new java.awt.Font("Liberation Sans", 2, 13)); // NOI18N
-        jLabel28.setText("     In Case Of Sick Leave");
-        jLabel28.setPreferredSize(new java.awt.Dimension(48, 30));
-        sickLeavePanel.add(jLabel28, java.awt.BorderLayout.NORTH);
+    jLabel26.setFont(new java.awt.Font("Liberation Sans", 2, 13)); // NOI18N
+    jLabel26.setText("    In Case Of Study Leave");
+    jLabel26.setPreferredSize(new java.awt.Dimension(48, 30));
+    studyLeavePanel.add(jLabel26, java.awt.BorderLayout.PAGE_START);
 
-        jPanel33.setOpaque(false);
-        jPanel33.setPreferredSize(new java.awt.Dimension(20, 100));
-        sickLeavePanel.add(jPanel33, java.awt.BorderLayout.WEST);
+    jPanel32.setOpaque(false);
+    jPanel32.setPreferredSize(new java.awt.Dimension(20, 100));
+    studyLeavePanel.add(jPanel32, java.awt.BorderLayout.WEST);
 
-        jPanel22.add(sickLeavePanel);
+    jPanel22.add(studyLeavePanel);
 
-        otherPurposePanel.setOpaque(false);
-        otherPurposePanel.setLayout(new java.awt.BorderLayout());
+    sickLeavePanel.setOpaque(false);
+    sickLeavePanel.setLayout(new java.awt.BorderLayout());
 
-        jLabel23.setFont(new java.awt.Font("Liberation Sans", 2, 13)); // NOI18N
-        jLabel23.setText("     Other Purpose");
-        jLabel23.setPreferredSize(new java.awt.Dimension(84, 30));
-        otherPurposePanel.add(jLabel23, java.awt.BorderLayout.NORTH);
+    jPanel26.setOpaque(false);
+    jPanel26.setLayout(new java.awt.GridLayout(2, 0));
 
-        jPanel28.setOpaque(false);
-        jPanel28.setLayout(new java.awt.GridLayout(3, 0));
+    jPanel29.setOpaque(false);
+    jPanel29.setLayout(new java.awt.GridLayout(2, 0));
 
-        radioMonetize.setText("Monetization of Leave");
-        jPanel28.add(radioMonetize);
+    radioOutPatient.setText("Out Patient");
+    radioOutPatient.setPreferredSize(new java.awt.Dimension(170, 20));
+    jPanel29.add(radioOutPatient);
 
-        radioTerminal.setText("Terminal Leave");
-        jPanel28.add(radioTerminal);
+    panelOutPatient.setOpaque(false);
+    panelOutPatient.setLayout(new java.awt.BorderLayout());
 
-        otherPurposePanel.add(jPanel28, java.awt.BorderLayout.CENTER);
+    jLabel22.setText("Specify:");
+    panelOutPatient.add(jLabel22, java.awt.BorderLayout.LINE_START);
+    panelOutPatient.add(jTextField5, java.awt.BorderLayout.CENTER);
 
-        jPanel34.setOpaque(false);
-        jPanel34.setPreferredSize(new java.awt.Dimension(20, 100));
-        otherPurposePanel.add(jPanel34, java.awt.BorderLayout.WEST);
+    jPanel29.add(panelOutPatient);
 
-        jPanel22.add(otherPurposePanel);
+    jPanel26.add(jPanel29);
 
-        jPanel20.add(jPanel22, java.awt.BorderLayout.CENTER);
+    jPanel24.setOpaque(false);
+    jPanel24.setLayout(new java.awt.GridLayout(2, 0));
 
-        jPanel19.add(jPanel20, java.awt.BorderLayout.CENTER);
+    radioInHospital.setText("In Hospital");
+    radioInHospital.setPreferredSize(new java.awt.Dimension(170, 20));
+    radioInHospital.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            radioInHospitalActionPerformed(evt);
+        }
+    });
+    jPanel24.add(radioInHospital);
 
-        jPanel16.add(jPanel19, java.awt.BorderLayout.CENTER);
+    panelInHospital.setOpaque(false);
+    panelInHospital.setLayout(new java.awt.BorderLayout());
 
-        part1.add(jPanel16, java.awt.BorderLayout.EAST);
+    jLabel21.setText("Specify:");
+    panelInHospital.add(jLabel21, java.awt.BorderLayout.LINE_START);
+    panelInHospital.add(jTextField4, java.awt.BorderLayout.CENTER);
 
-        jPanel17.setOpaque(false);
-        jPanel17.setLayout(new java.awt.GridLayout(1, 0));
+    jPanel24.add(panelInHospital);
 
-        jLabel10.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("6. DETAILS OF APPLICATION");
-        jLabel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jPanel17.add(jLabel10);
+    jPanel26.add(jPanel24);
 
-        part1.add(jPanel17, java.awt.BorderLayout.NORTH);
+    sickLeavePanel.add(jPanel26, java.awt.BorderLayout.CENTER);
 
-        jPanel35.add(part1);
+    jLabel28.setFont(new java.awt.Font("Liberation Sans", 2, 13)); // NOI18N
+    jLabel28.setText("     In Case Of Sick Leave");
+    jLabel28.setPreferredSize(new java.awt.Dimension(48, 30));
+    sickLeavePanel.add(jLabel28, java.awt.BorderLayout.NORTH);
 
-        add(jPanel35, java.awt.BorderLayout.CENTER);
+    jPanel33.setOpaque(false);
+    jPanel33.setPreferredSize(new java.awt.Dimension(20, 100));
+    sickLeavePanel.add(jPanel33, java.awt.BorderLayout.WEST);
+
+    jPanel22.add(sickLeavePanel);
+
+    otherPurposePanel.setOpaque(false);
+    otherPurposePanel.setLayout(new java.awt.BorderLayout());
+
+    jLabel23.setFont(new java.awt.Font("Liberation Sans", 2, 13)); // NOI18N
+    jLabel23.setText("     Other Purpose");
+    jLabel23.setPreferredSize(new java.awt.Dimension(84, 30));
+    otherPurposePanel.add(jLabel23, java.awt.BorderLayout.NORTH);
+
+    jPanel28.setOpaque(false);
+    jPanel28.setLayout(new java.awt.GridLayout(3, 0));
+
+    radioMonetize.setText("Monetization of Leave");
+    jPanel28.add(radioMonetize);
+
+    radioTerminal.setText("Terminal Leave");
+    jPanel28.add(radioTerminal);
+
+    otherPurposePanel.add(jPanel28, java.awt.BorderLayout.CENTER);
+
+    jPanel34.setOpaque(false);
+    jPanel34.setPreferredSize(new java.awt.Dimension(20, 100));
+    otherPurposePanel.add(jPanel34, java.awt.BorderLayout.WEST);
+
+    jPanel22.add(otherPurposePanel);
+
+    jPanel20.add(jPanel22, java.awt.BorderLayout.CENTER);
+
+    jPanel19.add(jPanel20, java.awt.BorderLayout.CENTER);
+
+    jPanel16.add(jPanel19, java.awt.BorderLayout.CENTER);
+
+    part1.add(jPanel16, java.awt.BorderLayout.EAST);
+
+    jPanel17.setOpaque(false);
+    jPanel17.setLayout(new java.awt.GridLayout(1, 0));
+
+    jLabel10.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
+    jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    jLabel10.setText("6. DETAILS OF APPLICATION");
+    jLabel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+    jPanel17.add(jLabel10);
+
+    part1.add(jPanel17, java.awt.BorderLayout.NORTH);
+
+    jPanel35.add(part1);
+
+    add(jPanel35, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void radioOthersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioOthersActionPerformed
@@ -869,16 +1053,69 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
 
     private void jPanel36MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel36MouseClicked
         LeaveServiceCreditWindow lw= new LeaveServiceCreditWindow();
-        lw.setFrame(root,leaveFormServiceCredits,controller.getAvailableLeaveFormServiceCredits(employeeServiceCredits, leaveFormServiceCredits));
+        
+        //pass , this panel ref, inusedServiceCredit, unusedServiceCredit
+        
+        /**
+         * @param mainframe reference to re-enable background frame
+         * @param this, pass this panel reference to update serviceCredit list
+         * @param inUsedServiceCredits currently selected service credits 
+         * @param getAvailableLeaveFormServiceCredits get all available service credit of employee and extract unused
+         */
+        lw.setFrame(root,this,inUsedServiceCredits,controller.getAvailableLeaveFormServiceCredits(employeeServiceCredits, inUsedServiceCredits));
         root.setEnabled(false);
         lw.setVisible(true);
     }//GEN-LAST:event_jPanel36MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       
+        Calendar start = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+
+        String[] start_str = startDate.getText().split("/");
+        String[] end_str = endDate.getText().split("/");
+        start.set(Calendar.YEAR, Integer.parseInt(start_str[2]));
+        start.set(Calendar.MONTH, Integer.parseInt(start_str[1]) - 1);
+        start.set(Calendar.DATE, Integer.parseInt(start_str[0]));
+
+        end.set(Calendar.YEAR, Integer.parseInt(end_str[2]));
+        end.set(Calendar.MONTH, Integer.parseInt(end_str[1]) - 1);
+        end.set(Calendar.DATE, Integer.parseInt(end_str[0]));
+
+       
+        int additionalDate = usedCredits -2;
+        start.add(Calendar.DATE, additionalDate);
+        if (!start.before(end)) {
+
+            JOptionPane.showMessageDialog(this, "Invalid Date");
+        } else {
+            JOptionPane.showMessageDialog(this, "valid Date");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void startDateOnSelectionChange(datechooser.events.SelectionChangedEvent evt) {//GEN-FIRST:event_startDateOnSelectionChange
+        Calendar start = startDate.getSelectedDate();
+       
+        if (usedCredits > 0) {
+            
+               int additionalDate = usedCredits - 1;
+               start.add(Calendar.DAY_OF_WEEK, additionalDate);
+        }
+
+        endDate.setSelectedDate(start);
+    }//GEN-LAST:event_startDateOnSelectionChange
+
+    private void startDateOnCommit(datechooser.events.CommitEvent evt) {//GEN-FIRST:event_startDateOnCommit
+
+    }//GEN-LAST:event_startDateOnCommit
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel abroad;
     private javax.swing.ButtonGroup btnGroupLeaveType;
     private javax.swing.ButtonGroup btnGroupVacationLeave;
+    private datechooser.beans.DateChooserCombo endDate;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -898,8 +1135,15 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -936,7 +1180,11 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
     private javax.swing.JPanel jPanel34;
     private javax.swing.JPanel jPanel35;
     private javax.swing.JPanel jPanel36;
+    private javax.swing.JPanel jPanel37;
+    private javax.swing.JPanel jPanel39;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel40;
+    private javax.swing.JPanel jPanel41;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
@@ -950,6 +1198,7 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JLabel lblBadge;
+    private javax.swing.JLabel lblCredits;
     private javax.swing.JLabel lblDateOfFiling;
     private javax.swing.JLabel lblFirstName;
     private javax.swing.JLabel lblLastName;
@@ -973,6 +1222,7 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
     private javax.swing.JPanel specifyAbroad;
     private javax.swing.JPanel specifyPanel;
     private javax.swing.JPanel specifyWithinPh;
+    private datechooser.beans.DateChooserCombo startDate;
     private javax.swing.JPanel studyLeavePanel;
     private javax.swing.JPanel vacationLeavePanel;
     // End of variables declaration//GEN-END:variables

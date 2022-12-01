@@ -4,6 +4,7 @@
  */
 package data.controllers;
 
+import data.model.EmployeeServiceCredit;
 import data.model.ServiceCredit;
 import data.services.impl.ServiceCreditService;
 import java.sql.SQLException;
@@ -37,4 +38,8 @@ public class ServiceCreditController {
         return n;
     }
     
+    
+    
+    
+
 }

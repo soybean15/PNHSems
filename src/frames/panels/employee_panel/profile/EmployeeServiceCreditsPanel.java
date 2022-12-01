@@ -344,7 +344,7 @@ public class EmployeeServiceCreditsPanel extends javax.swing.JPanel implements E
 
     @Override
     public void use(EmployeeServiceCredit employeeServiceCredit) {
-        
+       
        listener.onOpeningLeaveForm(employee, employeeServiceCredit);
         
     }

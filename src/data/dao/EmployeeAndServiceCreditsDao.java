@@ -24,5 +24,8 @@ public interface EmployeeAndServiceCreditsDao {
 
     public int delete(String employeeId, int serviceCreditId)
             throws SQLException;
+    
+     public EmployeeServiceCredit getEmployeeServiceCredit(String employeeId,int serviceCreditId) 
+             throws SQLException ;
 
 }

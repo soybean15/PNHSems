@@ -4,11 +4,15 @@
  */
 package frames.components.windows;
 
+import data.controllers.LeaveFormController;
 import data.model.EmployeeServiceCredit;
 import frames.MainFrame;
 import frames.components.windows.comp.W_EmployeeServiceCreditItem;
 import frames.components.windows.listener.EmployeeServiceCreditItemListener;
+import frames.panels.employee_panel.LeaveFormPanel;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import otherclasses.UtilClass;
 
@@ -16,64 +20,107 @@ import otherclasses.UtilClass;
  *
  * @author root
  */
-public class LeaveServiceCreditWindow extends javax.swing.JDialog implements EmployeeServiceCreditItemListener{
+public class LeaveServiceCreditWindow extends javax.swing.JDialog implements EmployeeServiceCreditItemListener {
 
     /**
      * Creates new form LeaveServiceCreditWindow
      */
-    
-    MainFrame root ;
+    MainFrame root;
     List<EmployeeServiceCredit> inUseServiceCredits;
     List<EmployeeServiceCredit> unUsedServiceCredits;
-    
+
+    LeaveFormController controller = new LeaveFormController();
+
+    EmployeeServiceCredit employeeServiceCredit;
+
     int totalCredit;
     int useCredit;
-    
-    int previous;
+    private LeaveFormPanel parent;
+
     public LeaveServiceCreditWindow() {
         initComponents();
     }
-    
-     /**
+
+    /**
      * Creates new form LeaveServiceCreditWindow
+     *
      * @param root to disable parent frame once this window is opened
-     * @param inUseServiceCredits used service credits 
+     * @param parent get parent reference(LeaveForm Panel)
+     * @param inUseServiceCredits used service credits
      * @param unUsedServiceCredits unused service credits
      */
-    
-    public void setFrame( MainFrame root,List<EmployeeServiceCredit> inUseServiceCredits,List<EmployeeServiceCredit> unUsedServiceCredits){
-        this.unUsedServiceCredits =unUsedServiceCredits;
+    public void setFrame(MainFrame root, LeaveFormPanel parent, List<EmployeeServiceCredit> inUseServiceCredits, List<EmployeeServiceCredit> unUsedServiceCredits) {
+        this.unUsedServiceCredits = unUsedServiceCredits;
+        
+      
+        this.parent = parent;
         this.inUseServiceCredits = inUseServiceCredits;
-        totalCredit = UtilClass.getTotalCredits(inUseServiceCredits);
-        
-        lblTotalCredits.setText("("+useCredit+"/"+totalCredit);
-        
-        this.root =root;
+        updateLabel();
+
+        this.root = root;
         populatePanel();
     }
+
+    private void updateLabel() {
+        totalCredit = UtilClass.getTotalCredits(inUseServiceCredits);
+        useCredit = UtilClass.getTotalUsedCredits(inUseServiceCredits);
+
+        lblTotalCredits.setText("(" + useCredit + "/" + totalCredit + ")");
+    }
+
     
-    
-    private void populatePanel(){
+
+    public void updateList(String employeeId, int serviceCreditId) {
+        try {
+       
+
+            inUseServiceCredits.add(controller.getEmployeeServiceCredit(employeeId, serviceCreditId));
+        
+            populatePanel();
+            updateLabel();
+        } catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void populatePanel() {
         panelList.removeAll();
         panelList.repaint();
         panelList.validate();
         int row = inUseServiceCredits.size();
-        if(row<6){
-            row=5;
+        if (row < 6) {
+            row = 5;
         }
-        
-        panelList.setLayout(new GridLayout(row,0));
-        for(EmployeeServiceCredit item :inUseServiceCredits){
-             W_EmployeeServiceCreditItem panelItem =  new W_EmployeeServiceCreditItem(item);
-             
-           
+
+        panelList.setLayout(new GridLayout(row, 0));
+        for (EmployeeServiceCredit item : inUseServiceCredits) {
+            W_EmployeeServiceCreditItem panelItem = new W_EmployeeServiceCreditItem(this, item);
+            panelItem.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    W_EmployeeServiceCreditItem item = (W_EmployeeServiceCreditItem) e.getSource();
+                    employeeServiceCredit = item.getEmployeeServiceCredit();
+                  
+                }
+            });
+
             panelList.add(panelItem);
         }
-        
+
     }
     
     
-    
+    public EmployeeServiceCredit getReference(EmployeeServiceCredit item){
+         for (EmployeeServiceCredit _item : inUseServiceCredits) {
+//             System.out.println(_item == item);
+//             if(_item == item){
+//                 return _item;
+//             }
+        System.out.println(_item.getServiceCredit().getMemorandum()+" Numner of days: "+_item.getNo_of_days());
+         }
+         return null;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -133,7 +180,7 @@ public class LeaveServiceCreditWindow extends javax.swing.JDialog implements Emp
         });
         jPanel1.add(jButton2, java.awt.BorderLayout.EAST);
 
-        lblTotalCredits.setText("(1/15)");
+        lblTotalCredits.setText("(0/0)");
         jPanel1.add(lblTotalCredits, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.NORTH);
@@ -184,6 +231,11 @@ public class LeaveServiceCreditWindow extends javax.swing.JDialog implements Emp
         jPanel5.add(jButton1, java.awt.BorderLayout.WEST);
 
         jButton3.setText("OK");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel5.add(jButton3, java.awt.BorderLayout.EAST);
 
         jPanel6.setPreferredSize(new java.awt.Dimension(260, 10));
@@ -231,8 +283,22 @@ public class LeaveServiceCreditWindow extends javax.swing.JDialog implements Emp
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         AddServiceCreditWindow add = new AddServiceCreditWindow();
-        add.setFramefromAdd(root, unUsedServiceCredits);
+        add.setFramefromAdd(root, this, controller.getAvailableLeaveFormServiceCredits(unUsedServiceCredits, inUseServiceCredits));
+        add.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+        parent.updateLeaveForm(inUseServiceCredits);
+        root.setEnabled(true);
+        dispose();
+//        if(employeeServiceCredit ==null){
+//            JOptionPane.showMessageDialog(this, "No Item Selected");
+//        }else{
+//            this.updateList(employeeServiceCredit);
+//        }
+        //  
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,7 +353,15 @@ public class LeaveServiceCreditWindow extends javax.swing.JDialog implements Emp
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void onSpinnerClick(int val) {
-        
+    public void onSpinnerClick(boolean isAdd,EmployeeServiceCredit item) {
+     
+        if (isAdd) {
+            useCredit += 1;
+
+        } else {
+            useCredit -= 1;
+        }
+
+        updateLabel();
     }
 }

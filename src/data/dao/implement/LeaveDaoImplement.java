@@ -6,6 +6,7 @@ package data.dao.implement;
 
 import data.dao.LeaveDao;
 import data.database.DbConnection;
+import data.model.LeaveForm;
 import data.model.LeaveType;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -51,6 +52,22 @@ public class LeaveDaoImplement implements LeaveDao{
         PreparedStatement pst = conn.prepareStatement(query);
         pst.setString(1, leaveType.getName());
         pst.setString(2, leaveType.getReference());
+        
+        return pst.executeUpdate();
+    
+    }
+    @Override
+    public int addLeave(LeaveForm leaveForm) throws SQLException {
+        String query = "insert into(employeeId, date_filed, inclusive_date_start, inclusive_date_end, days_used, leave_type_id, details) values(?,?,?,?,?,?,?,?)";
+        
+        PreparedStatement pst = conn.prepareStatement(query);
+        pst.setString(1, leaveForm.getEmployee().getId());
+        pst.setDate(2, leaveForm.getDateFiled());
+        pst.setDate(3, leaveForm.getInclusiveDate_start());
+        pst.setDate(3, leaveForm.getInclusiveDate_end());
+        pst.setInt(5, leaveForm.getCreditUsed());
+        pst.setInt(6, leaveForm.getLeaveType().getId());
+        pst.setString(7, leaveForm.getDetails());
         
         return pst.executeUpdate();
     }

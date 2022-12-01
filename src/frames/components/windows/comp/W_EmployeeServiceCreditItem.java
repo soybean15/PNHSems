@@ -5,7 +5,10 @@
 package frames.components.windows.comp;
 
 import data.model.EmployeeServiceCredit;
+import frames.components.windows.listener.EmployeeServiceCreditItemListener;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  *
@@ -16,27 +19,62 @@ public class W_EmployeeServiceCreditItem extends javax.swing.JPanel {
     /**
      * Creates new form W_EmployeeServiceCreditItem
      */
-     int previous ;
-    EmployeeServiceCredit employeeServiceCredit;
-    public W_EmployeeServiceCreditItem(EmployeeServiceCredit employeeServiceCredit) {
+    int previous;
+    private EmployeeServiceCredit employeeServiceCredit;
+    EmployeeServiceCreditItemListener listener;
+
+    public W_EmployeeServiceCreditItem(EmployeeServiceCreditItemListener listener, EmployeeServiceCredit employeeServiceCredit) {
         this.employeeServiceCredit = employeeServiceCredit;
+        this.listener = listener;
         initComponents();
-         setUpPanel();
-         
-         previous =  Integer.parseInt(spinnerUse.getValue().toString());
+        setUpPanel();
+
+        previous = Integer.parseInt(spinnerUse.getValue().toString());
     }
-    
-    private void setUpPanel(){
+
+    private void setUpPanel() {
         lblOrderNumber.setText(employeeServiceCredit.getServiceCredit().getOrderNo());
         lblMemorandum.setText(employeeServiceCredit.getServiceCredit().getMemorandum());
-        
-        int defaultValue = 0;
-        int lowerBound =0;
-        int upperBound =employeeServiceCredit.getNo_of_days();
-        
-        lblRemaining.setText(String.valueOf(upperBound));
-        SpinnerNumberModel sm = new SpinnerNumberModel(defaultValue,lowerBound,upperBound,1);
+
+        int defaultValue = employeeServiceCredit.getDays_used();
+        int lowerBound = 0;
+        int upperBound = employeeServiceCredit.getNo_of_days();
+        int remaining = upperBound - defaultValue;
+
+        lblRemaining.setText(String.valueOf(remaining));
+        SpinnerNumberModel sm = new SpinnerNumberModel(defaultValue, lowerBound, upperBound, 1);
         spinnerUse.setModel(sm);
+
+        spinnerUse.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                int value = Integer.parseInt(spinnerUse.getValue().toString());
+                int remaining = Integer.parseInt(lblRemaining.getText());
+
+                employeeServiceCredit.setDays_used(value);
+                if (previous <= value) {
+                    remaining -= 1;
+                 //   employeeServiceCredit.setNo_of_days(remaining);
+                    listener.onSpinnerClick(true, employeeServiceCredit);
+
+                } else {
+                    remaining += 1;
+                 //   employeeServiceCredit.setNo_of_days(remaining);
+                    listener.onSpinnerClick(false, employeeServiceCredit);
+
+                }
+
+                previous = value;
+                lblRemaining.setText(String.valueOf(remaining));
+
+            }
+
+        });
+    }
+
+    public EmployeeServiceCredit getEmployeeServiceCredit() {
+        System.out.println(employeeServiceCredit.getServiceCredit().getMemorandum());
+        return this.employeeServiceCredit;
     }
 
     /**
@@ -94,22 +132,12 @@ public class W_EmployeeServiceCreditItem extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void spinnerUseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_spinnerUseMouseClicked
-      
+
     }//GEN-LAST:event_spinnerUseMouseClicked
 
-    
-   
+
     private void spinnerUseStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerUseStateChanged
-         int value = Integer.parseInt(spinnerUse.getValue().toString());
-       int remaining = Integer.parseInt(lblRemaining.getText());
-      
-       if(previous<=value){
-           remaining-=1;
-       }else{
-            remaining+=1;
-       }
-       previous =value;
-       lblRemaining.setText(String.valueOf(remaining));
+
     }//GEN-LAST:event_spinnerUseStateChanged
 
 

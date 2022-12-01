@@ -4,7 +4,6 @@
  */
 package frames.components.windows;
 
-
 import data.model.EmployeeServiceCredit;
 import data.model.ServiceCredit;
 import frames.MainFrame;
@@ -14,6 +13,7 @@ import java.awt.GridLayout;
 
 import java.util.List;
 import frames.components.windows.listener.ServiceCreditItemListener;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,61 +27,73 @@ public class AddServiceCreditWindow extends javax.swing.JDialog implements Servi
     /**
      * Creates new form AddServiceCreditWindow
      */
-    
-    private List<ServiceCredit> availableServiceCredits ;
-    
-     
-    
-    
+    private List<ServiceCredit> availableServiceCredits;
+
     JPanel parent;
     private W_ServiceCreditItem activeItem;
-  
+
+    String employeeId;
+
     private ServiceCredit serviceCredit;
     MainFrame root;
+    LeaveServiceCreditWindow frame;
+
     public AddServiceCreditWindow() {
         initComponents();
-      
-        
+
     }
-    
+
     /**
-     * 
+     *
      * @param root to enable MainFrame once closed
      * @param parent to update List once closed
      * @param availableServiceCredits list of available Service Credits
      */
-    public void setFrame(MainFrame root,  JPanel parent, List<ServiceCredit> availableServiceCredits ){
+    public void setFrame(MainFrame root, JPanel parent, List<ServiceCredit> availableServiceCredits) {
         this.parent = parent;
         this.availableServiceCredits = availableServiceCredits;
         this.root = root;
-        
-      
+
         display();
     }
-    
-     public void setFramefromAdd(MainFrame root, List<EmployeeServiceCredit> availableServiceCredits ){
-         //todo tofix
-        //this.availableServiceCredits = availableServiceCredits;
-        this.root = root;
-        
-      
-        display();
-    }
-    
-    
-    private void display(){
-        int size = availableServiceCredits.size();
-        int row  = size<3?2:size;
-        
-        serviceCreditList.setLayout(new GridLayout(row,0));
-        
-        if(availableServiceCredits.isEmpty()){
-               serviceCreditList.add(new W_ServiceCreditItem(null, this) );
+
+    public void setFramefromAdd(MainFrame root, LeaveServiceCreditWindow frame, List<EmployeeServiceCredit> availableServiceCredits) {
+        //todo tofix
+        if (!availableServiceCredits.isEmpty()) {
+            employeeId = availableServiceCredits.get(0).getEmployeeId();
         }
-        
-        for(ServiceCredit item : availableServiceCredits){
+
+        this.frame = frame;
+        this.availableServiceCredits = extractServiceCredit(availableServiceCredits);
+        this.root = root;
+
+        display();
+    }
+
+    private List<ServiceCredit> extractServiceCredit(List<EmployeeServiceCredit> list) {
+        List<ServiceCredit> serviceCredits = new ArrayList<>();
+
+        for (EmployeeServiceCredit item : list) {
+            serviceCredits.add(item.getServiceCredit());
+
+        }
+
+        return serviceCredits;
+    }
+
+    private void display() {
+        int size = availableServiceCredits.size();
+        int row = size < 3 ? 2 : size;
+
+        serviceCreditList.setLayout(new GridLayout(row, 0));
+
+        if (availableServiceCredits.isEmpty()) {
+            serviceCreditList.add(new W_ServiceCreditItem(null, this));
+        }
+
+        for (ServiceCredit item : availableServiceCredits) {
             System.out.println(item.getMemorandum());
-            serviceCreditList.add(new W_ServiceCreditItem(item, this) );
+            serviceCreditList.add(new W_ServiceCreditItem(item, this));
         }
     }
 
@@ -248,9 +260,9 @@ public class AddServiceCreditWindow extends javax.swing.JDialog implements Servi
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-            if(serviceCredit ==null){
-                JOptionPane.showMessageDialog(this, "Please Select an Item");
-           } else {
+        if (serviceCredit == null) {
+            JOptionPane.showMessageDialog(this, "Please Select an Item");
+        } else {
             if (parent instanceof EmployeeServiceCreditsPanel) {
                 EmployeeServiceCreditsPanel _parent = (EmployeeServiceCreditsPanel) parent;
                 if (_parent.addServiceCredit(serviceCredit.getId()) == 1) {
@@ -259,8 +271,13 @@ public class AddServiceCreditWindow extends javax.swing.JDialog implements Servi
                 } else {
                     JOptionPane.showMessageDialog(this, "Something went wrong");
                 }
-            }else{
-                //add to usedServiceCredit then update List
+            } else {
+                if (employeeId != null) {
+                    frame.updateList(employeeId, serviceCredit.getId());
+                    
+                    dispose();
+                }
+
             }
 
         }
@@ -319,14 +336,12 @@ public class AddServiceCreditWindow extends javax.swing.JDialog implements Servi
 
     @Override
     public void onItemClick(W_ServiceCreditItem item) {
-       if(activeItem != null){
-           activeItem.unSeleted();
-       }
-       item.selected();
-       activeItem = item;
-       serviceCredit = item.getServiceCredit();
+        if (activeItem != null) {
+            activeItem.unSeleted();
+        }
+        item.selected();
+        activeItem = item;
+        serviceCredit = item.getServiceCredit();
     }
-
-
 
 }

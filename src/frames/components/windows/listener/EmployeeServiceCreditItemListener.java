@@ -4,10 +4,12 @@
  */
 package frames.components.windows.listener;
 
+import data.model.EmployeeServiceCredit;
+
 /**
  *
  * @author root
  */
 public interface EmployeeServiceCreditItemListener {
-    public void onSpinnerClick(int val);
+    public void onSpinnerClick(boolean isAdd,EmployeeServiceCredit item);
 }

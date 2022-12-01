@@ -5,6 +5,7 @@
 package data.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -17,10 +18,11 @@ public class LeaveForm {
     private List<ServiceCredit> serviceCredit;
     private java.sql.Date dateFiled;
     private java.sql.Date inclusiveDate_start;
-     private java.sql.Date inclusiveDate_end;
+    private java.sql.Date inclusiveDate_end;
+    private int creditUsed;
     private LeaveType leaveType;
     private String details;
-
+    private java.sql.Timestamp created_at;
 
     public int getId() {
         return id;
@@ -69,6 +71,36 @@ public class LeaveForm {
     public void setDetails(String details) {
         this.details = details;
     }
+
+    public Date getInclusiveDate_start() {
+        return inclusiveDate_start;
+    }
+
+    public void setInclusiveDate_start(Date inclusiveDate_start) {
+        this.inclusiveDate_start = inclusiveDate_start;
+    }
+
+    public Date getInclusiveDate_end() {
+        return inclusiveDate_end;
+    }
+
+    public void setInclusiveDate_end(Date inclusiveDate_end) {
+        this.inclusiveDate_end = inclusiveDate_end;
+    }
+
+    public int getCreditUsed() {
+        return creditUsed;
+    }
+
+    public void setCreditUsed(int creditUsed) {
+        this.creditUsed = creditUsed;
+    }
+
+    public Timestamp getCreated_at() {
+        return created_at;
+    }
+    
+    
     
     
     

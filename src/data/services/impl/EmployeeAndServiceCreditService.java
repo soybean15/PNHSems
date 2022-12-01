@@ -28,6 +28,10 @@ public class EmployeeAndServiceCreditService {
     public List<EmployeeServiceCredit> getEmployeeServiceCredits(String employeeId) throws SQLException {
         return dao.getEmployeeServiceCredits(employeeId);
     }
+    
+    public EmployeeServiceCredit getEmployeeServiceCredit(String employeeId, int serviceCreditId) throws SQLException {
+        return dao.getEmployeeServiceCredit(employeeId, serviceCreditId);
+    }
 
     public List<ServiceCredit> getAvailableServiceCredits(String employeeId) throws SQLException {
         List<Integer> ids = getEmployeeServiceCreditsIds(employeeId);

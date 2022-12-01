@@ -68,7 +68,7 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         
     private void init(){
         setDisplay();
-        
+ 
         //getPanel reference
        
         employeeProfile =(EmployeeProfilePanel)panels.get("employee_profile");
@@ -77,10 +77,11 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         leaveFormPanel = (LeaveFormPanel) panels.get("leave_form");
 
         if(openLeaveForm){
-           
+            
              activePanel(leaveFormPanel,lblServiceCredit);
              
         }else{
+          
              activePanel(employeeProfile,lblProfile);
         }
       
@@ -318,9 +319,12 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void panelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelExitMouseClicked
+       
         if(openLeaveForm){
+           
             if(exitLeaveForm()){
-                 listener.onEmployeeProfileExit();
+              listener.onEmployeeProfileExit();
+             
             }
         }else if(activePanel(employeeProfile,lblExit)==0 )    {
                listener.onEmployeeProfileExit();

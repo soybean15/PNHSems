@@ -185,11 +185,11 @@ public class PNHSEMS {
 
     public static void main(String[] args) {
 //       
-        //start();
+        start();
         //addServiceCredit();
         //addServiceCreditOnEmployee();
         // showServiceCredits();
-        addLeaveType();
+      //  addLeaveType();
 //       
 //       
 //            

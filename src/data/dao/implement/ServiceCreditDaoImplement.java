@@ -7,7 +7,7 @@ package data.dao.implement;
 import data.dao.ServiceCreditsDao;
 import data.database.DbConnection;
 import data.model.ServiceCredit;
-import java.sql.SQLException;
+
 import java.util.List;
 
 /**

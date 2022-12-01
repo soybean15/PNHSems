@@ -5,7 +5,6 @@
 package frames.components.windows.listener;
 
 
-import data.model.ServiceCredit;
 import frames.components.windows.comp.W_ServiceCreditItem;
 
 /**

@@ -36,4 +36,8 @@ public class LeaveFormController {
          return service.getAvailableLeaveFormServiceCredits(items, itemsToRemove);
      }
      
+            
+       public EmployeeServiceCredit getEmployeeServiceCredit(String employeeId, int serviceCreditId) throws SQLException {
+           return service.getEmployeeServiceCredit(employeeId, serviceCreditId);
+       }
 }

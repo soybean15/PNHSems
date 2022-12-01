@@ -12,7 +12,17 @@ package data.model;
 public class EmployeeServiceCredit {
    private  String employeeId;
    private ServiceCredit serviceCredit;
-   private int no_of_days;
+   private int no_of_days;//remaining
+   private int days_used;
+
+    public int getDays_used() {
+        return days_used;
+    }
+
+    public void setDays_used(int days_used) {
+        this.days_used = days_used;
+    }
+   
    
 
     

@@ -522,7 +522,7 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
         mainContainer.remove(employeeProfilePanel);
         mainContainer.remove(employeeServiceCreditsPanel);
         mainContainer.remove(employeeLeaveLogsPanel);
-         mainContainer.remove(leaveFormPanel);
+        mainContainer.remove(leaveFormPanel);
         mainContainer.repaint();
         mainContainer.revalidate();
 
@@ -617,10 +617,17 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
     private void onEmployeeProfileClick(boolean openLeaveForm, Employee employee,EmployeeServiceCredit employeeServiceCredit) {
         sidePanelMenu.setVisible(false);
         activeMainPanel.setVisible(false);
+    
+        if (sidePanelEmployeeProfile != null) {
+          
+            sideContainer.remove(sidePanelEmployeeProfile);
+            sideContainer.repaint();
+            sideContainer.revalidate();
+        }
 
         sidePanelEmployeeProfile = new SidePanelEmployeeProfile(this, employee, openLeaveForm);
-        
-        sidePanelEmployeeProfile.setLeaveFormServiceCredit(employeeServiceCredit);
+       
+       if(openLeaveForm) sidePanelEmployeeProfile.setLeaveFormServiceCredit(employeeServiceCredit);
         sideContainer.add(sidePanelEmployeeProfile).setVisible(true);
     }
 

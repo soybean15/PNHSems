@@ -66,7 +66,20 @@ public class UtilClass {
         int total = 0;
         
         for(EmployeeServiceCredit item:serviceCredits){
-            total+=item.getServiceCredit().getNumberOfDays();
+           
+            total+=item.getNo_of_days();
+        }
+        
+        return total;
+        
+    }
+    
+    public static int getTotalUsedCredits( List<EmployeeServiceCredit> serviceCredits){
+        int total = 0;
+        
+        for(EmployeeServiceCredit item:serviceCredits){
+           
+            total+=item.getDays_used();
         }
         
         return total;
