@@ -6,11 +6,14 @@ package data.services.impl;
 
 import data.dao.LeaveDao;
 import data.dao.implement.LeaveDaoImplement;
+import data.model.Employee;
 import data.model.EmployeeServiceCredit;
+import data.model.LeaveForm;
 import data.model.LeaveType;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import pnhsems.InvalidInputException;
 
 /**
  *
@@ -19,6 +22,7 @@ import java.util.List;
 public class LeaveFormService {
 
     LeaveDaoImplement leaveDao = new LeaveDaoImplement();
+
 
     EmployeeAndServiceCreditService employeeAndServiceCreditService = new EmployeeAndServiceCreditService();
 
@@ -63,5 +67,27 @@ public class LeaveFormService {
         }
         return ids;
     }
+
+    public int addLeave(LeaveForm leaveForm) throws SQLException , InvalidInputException{
+        
+        if(leaveForm.validate()){
+             return leaveDao.addLeave(leaveForm);
+        }else{
+            throw new InvalidInputException("Please Complete the Form");
+        }
+       
+    }
+    
+     public List<LeaveForm> getLeaveLogs(Employee employee) throws SQLException{
+         
+      
+         List<LeaveForm> leaveLogs = leaveDao.getEmployeeLeaveLogs(employee);
+         
+         for(LeaveForm item:leaveLogs){
+             item.setEmployee(employee);
+         }
+         
+         return leaveLogs;
+     }
 
 }

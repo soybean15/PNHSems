@@ -7,10 +7,11 @@ package otherclasses;
 import data.model.EmployeeServiceCredit;
 import java.sql.Date;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import static java.time.temporal.TemporalQueries.localDate;
+
 import java.util.List;
 
 /**
@@ -60,6 +61,14 @@ public class UtilClass {
        return String.valueOf(formatter.format(currentDate));
     }
     
+      
+    public static java.sql.Date getCurrentDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+       
+       return java.sql.Date.valueOf(formatter.format(currentDate));
+       
+    }
+    
     
     
     public static int getTotalCredits( List<EmployeeServiceCredit> serviceCredits){
@@ -86,6 +95,12 @@ public class UtilClass {
         
     }
     
+    
+    public static String convertToSqlDate(String date){
+        String[] arr =date.split("/");
+        
+        return arr[2]+"-"+arr[1]+"-"+arr[0];
+    }
    
 
 }

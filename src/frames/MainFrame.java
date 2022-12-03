@@ -557,7 +557,7 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
         employeePanels.put("employee_profile", employeeProfilePanel);
         employeeServiceCreditsPanel = new EmployeeServiceCreditsPanel(this, employee);
         employeePanels.put("employee_service_credits", employeeServiceCreditsPanel);
-        employeeLeaveLogsPanel = new EmployeeLeaveLogsPanel();
+        employeeLeaveLogsPanel = new EmployeeLeaveLogsPanel(employee);
         employeePanels.put("employee_leave_logs", employeeLeaveLogsPanel);
         leaveFormPanel = new LeaveFormPanel(this,employee);
          employeePanels.put("leave_form", leaveFormPanel);
@@ -608,7 +608,6 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
 
     @Override
     public void onOpeningLeaveForm(Employee employee,EmployeeServiceCredit employeeServiceCredit ) {
-
        
         onEmployeeProfileClick(true, employee,employeeServiceCredit);
 

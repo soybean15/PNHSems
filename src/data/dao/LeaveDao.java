@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
 package data.dao;
+import data.model.Employee;
 import data.model.LeaveForm;
 import data.model.LeaveType;
 import java.sql.SQLException;
@@ -22,6 +23,9 @@ public interface LeaveDao {
             throws SQLException;
     
     public int addLeave(LeaveForm leaveForm)
+              throws SQLException;
+    
+    public List<LeaveForm> getEmployeeLeaveLogs(Employee employee)
               throws SQLException;
     
     

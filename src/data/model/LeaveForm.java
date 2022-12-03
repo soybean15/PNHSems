@@ -6,6 +6,7 @@ package data.model;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
 public class LeaveForm {
     private int id;
     private Employee employee;
-    private List<ServiceCredit> serviceCredit;
+    private List<EmployeeServiceCredit> serviceCredit = new ArrayList<>();
     private java.sql.Date dateFiled;
     private java.sql.Date inclusiveDate_start;
     private java.sql.Date inclusiveDate_end;
@@ -24,6 +25,11 @@ public class LeaveForm {
     private String details;
     private java.sql.Timestamp created_at;
 
+    
+    
+    public void addServicCredit(EmployeeServiceCredit employeeServiceCredit){
+        serviceCredit.add(employeeServiceCredit);
+    }
     public int getId() {
         return id;
     }
@@ -40,11 +46,11 @@ public class LeaveForm {
         this.employee = employee;
     }
 
-    public List<ServiceCredit> getServiceCredit() {
+    public List<EmployeeServiceCredit> getServiceCredit() {
         return serviceCredit;
     }
 
-    public void setServiceCredit(List<ServiceCredit> serviceCredit) {
+    public void setServiceCredit(List<EmployeeServiceCredit> serviceCredit) {
         this.serviceCredit = serviceCredit;
     }
 
@@ -100,6 +106,15 @@ public class LeaveForm {
         return created_at;
     }
     
+    
+    public boolean validate(){
+  
+          return details!=null;
+    }
+
+    public void setCreated_at(Timestamp created_at) {
+        this.created_at = created_at;
+    }
     
     
     

@@ -87,10 +87,14 @@ public class UserItem extends javax.swing.JPanel {
         setBackground(new java.awt.Color(51, 255, 51));
         setLayout(new java.awt.BorderLayout());
 
+        jPanel3.setMaximumSize(new java.awt.Dimension(200, 23));
+        jPanel3.setMinimumSize(new java.awt.Dimension(200, 23));
         jPanel3.setOpaque(false);
+        jPanel3.setPreferredSize(new java.awt.Dimension(200, 23));
         jPanel3.setLayout(new java.awt.GridLayout(1, 3));
 
         btnEnable.setBackground(new java.awt.Color(255, 51, 0));
+        btnEnable.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
         btnEnable.setText("Disable");
         btnEnable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,6 +104,7 @@ public class UserItem extends javax.swing.JPanel {
         jPanel3.add(btnEnable);
 
         btnDelete.setBackground(new java.awt.Color(204, 0, 0));
+        btnDelete.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
         btnDelete.setText("Delete");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

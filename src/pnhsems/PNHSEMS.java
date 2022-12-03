@@ -185,11 +185,11 @@ public class PNHSEMS {
 
     public static void main(String[] args) {
 //       
-        start();
-        //addServiceCredit();
-        //addServiceCreditOnEmployee();
+     // start();
+     //  addServiceCredit();
+      // addServiceCreditOnEmployee();
         // showServiceCredits();
-      //  addLeaveType();
+      //addLeaveType();
 //       
 //       
 //            
@@ -257,10 +257,10 @@ public class PNHSEMS {
         
         
         try {
-//            controller.addLeaveType(leaveType1);
-//            controller.addLeaveType(leaveType2);
-//            controller.addLeaveType(leaveType3);
-//            controller.addLeaveType(leaveType4);
+            controller.addLeaveType(leaveType1);
+            controller.addLeaveType(leaveType2);
+            controller.addLeaveType(leaveType3);
+            controller.addLeaveType(leaveType4);
             controller.addLeaveType(leaveType5);
             controller.addLeaveType(leaveType6);
             controller.addLeaveType(leaveType7);

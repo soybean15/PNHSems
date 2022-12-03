@@ -6,7 +6,7 @@ package frames.panels.employee_panel;
 
 import data.model.Employee;
 import data.model.EmployeeServiceCredit;
-import data.model.ServiceCredit;
+
 import frames.panels.employee_panel.profile.EmployeeProfilePanel;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -79,7 +79,7 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         if(openLeaveForm){
             
              activePanel(leaveFormPanel,lblServiceCredit);
-             
+             leaveFormPanel.setParent(this);
         }else{
           
              activePanel(employeeProfile,lblProfile);
@@ -93,6 +93,13 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         lblEmployeeName.setText(employee.getFirstName()+"'s Profile");
        
         lblImage.setIcon(ImageHandler.getImage(150, 150, employee));
+    }
+    
+    public void exitForm(){
+        openLeaveForm=false;
+        activePanel(employeeServiceCreditsPanel,lblServiceCredit);
+       employeeServiceCreditsPanel.updatePanel();
+        
     }
 
     /**

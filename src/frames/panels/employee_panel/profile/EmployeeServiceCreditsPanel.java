@@ -80,6 +80,13 @@ public class EmployeeServiceCreditsPanel extends javax.swing.JPanel implements E
         return 0;
     }
 
+    public void updatePanel(){
+        try{
+            refreshList();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
     private void refreshList() throws SQLException {
         employeesWithServiceCredits = controller.getEmployeeServiceCredits(this.employee.getId());
         display(employeesWithServiceCredits);

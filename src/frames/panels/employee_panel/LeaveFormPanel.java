@@ -5,6 +5,7 @@
 package frames.panels.employee_panel;
 
 import data.controllers.LeaveFormController;
+import data.controllers.form.LeaveFormValidation;
 import data.model.Employee;
 import data.model.EmployeeServiceCredit;
 import data.model.LeaveForm;
@@ -13,6 +14,7 @@ import frames.MainFrame;
 import frames.components.LeaveTypeRadioButton;
 import frames.components.windows.LeaveServiceCreditWindow;
 import java.awt.Color;
+import java.awt.Component;
 
 
 import java.awt.GridLayout;
@@ -20,17 +22,19 @@ import java.awt.event.ItemEvent;
 
 import java.util.List;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.Calendar;
 import javax.swing.ButtonGroup;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import otherclasses.CircleBorder;
 
 
 import otherclasses.UtilClass;
+import pnhsems.InvalidInputException;
 import themes.Theme;
 /*
  * @author root
@@ -38,21 +42,29 @@ import themes.Theme;
 public class LeaveFormPanel extends javax.swing.JPanel  {
 
     private final MainFrame root;
+    private  SidePanelEmployeeProfile parent;
 
     private Employee employee;
     List<LeaveType> leaveTypes;
     
 
     
-    List<EmployeeServiceCredit> inUsedServiceCredits = new ArrayList<>();//current used Service Credit
-    List<EmployeeServiceCredit> employeeServiceCredits;//all service credit of employee
+   // List<EmployeeServiceCredit> inUsedServiceCredits = new ArrayList<>();//current used Service Credit
+    List<EmployeeServiceCredit> employeeServiceCredits;//all service credit of available fot employee
     LeaveFormController controller = new LeaveFormController();
     
     private LeaveType selectedLeaveType;
-    private LeaveForm leaveForm;
+    private LeaveForm leaveForm = new LeaveForm();
     
     private JPanel activeDetailPanel;
-    int usedCredits;
+   int usedCredits;
+    
+    
+    private Calendar end ;
+    
+    boolean validDate;
+   private String selectedDetails;
+    private String otherDetails;//for textField
     
 
     /**
@@ -65,6 +77,8 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         this.root = root;
 
         this.employee = employee;
+        
+        leaveForm.setEmployee(employee);
 
         try{
             employeeServiceCredits = controller.getEmployeeServiceCredits(employee.getId());
@@ -73,15 +87,19 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         }
         
 
-        lblServiceCredits.setText("Service Credits(" + inUsedServiceCredits.size() + ") ");
+       
         init();
     }
  
+    
+    public void setParent(SidePanelEmployeeProfile parent){
+        this.parent = parent;
+    }
     public void setServiceCredit(EmployeeServiceCredit employeeServiceCredit){
      
-         inUsedServiceCredits.add(employeeServiceCredit);
+         leaveForm.addServicCredit(employeeServiceCredit);
          
-         int size = inUsedServiceCredits.size();
+         int size =  leaveForm.getServiceCredit().size();
          
          lblServiceCredits.setText("Service Credits("+size+") ");
          updateBadge();
@@ -105,6 +123,9 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         lblMiddleName.setText(employee.getMiddleName());
         lblPosition.setText(" "+employee.getPosition().getName());
         
+        
+        startDate.setEnabled(false);
+        endDate.setEnabled(false);
         
          getLeaveTypes();
          hideComponent();
@@ -152,7 +173,7 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
                         sickLeavePanel.setVisible(true);
                         activeDetailPanel = sickLeavePanel;
                     }  
-                    else if (selectedLeaveType.getId() == 8) {
+                    else if (selectedLeaveType.getId() == 4) {
                         studyLeavePanel.setVisible(true);
                         activeDetailPanel = studyLeavePanel;
                     }else{
@@ -178,8 +199,10 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
 
                 specifyPanel.setVisible(true);
                 selectedLeaveType =null;
+                selectedDetails = radioOthers.getText();
+                System.out.println(selectedDetails);
               
-                
+                if(activeDetailPanel!=null)activeDetailPanel.setVisible(false);
             } else {
                 specifyPanel.setVisible(false);
 
@@ -210,44 +233,53 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
        
     private void updateBadge(){
          
-        if(!inUsedServiceCredits.isEmpty() ){
+        if(! leaveForm.getServiceCredit().isEmpty() ){
             lblBadge.setVisible(true);
-            lblBadge.setText(String.valueOf(inUsedServiceCredits.size()));
+            lblBadge.setText(String.valueOf( leaveForm.getServiceCredit().size()));
         }else{
             lblBadge.setVisible(false);
         }
-        usedCredits =UtilClass.getTotalUsedCredits(inUsedServiceCredits);
-        lblCredits.setText("("+usedCredits+"/"+UtilClass.getTotalCredits(inUsedServiceCredits)+")");
+        usedCredits =UtilClass.getTotalUsedCredits(leaveForm.getServiceCredit());
+         lblServiceCredits.setText("Service Credits(" + leaveForm.getServiceCredit().size() + ") ");
+        lblCredits.setText("("+usedCredits+"/"+UtilClass.getTotalCredits(leaveForm.getServiceCredit())+")");
     }
     
     public void updateLeaveForm( List<EmployeeServiceCredit> inUsedServiceCredits){
-        this.inUsedServiceCredits = inUsedServiceCredits;
-        updateBadge();
+         leaveForm.setServiceCredit(inUsedServiceCredits);
+         updateBadge();
+         if(usedCredits>0){
+             startDate.setEnabled(true);
+             endDate.setEnabled(true);
+         }
+        
     }
     
     
     
     private void leaveDetails(){
-        
+
         btnGroupVacationLeave.add(radioWithinPh);
         radioWithinPh.addItemListener((ItemEvent e) -> {
-               
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    specifyWithinPh.setVisible(true);
-                    specifyAbroad.setVisible(false);
-                } 
-            });
-        
+
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                specifyWithinPh.setVisible(true);
+                specifyAbroad.setVisible(false);
+                selectedDetails = radioWithinPh.getText();
+                otherDetails =null;
+            }
+        });
+
         btnGroupVacationLeave.add(radioAbroad);
         radioAbroad.addItemListener((ItemEvent e) -> {
-               
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    specifyWithinPh.setVisible(false);
-                    specifyAbroad.setVisible(true);
-                } 
-            });
-        
-        
+
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                specifyWithinPh.setVisible(false);
+                specifyAbroad.setVisible(true);
+                selectedDetails = radioAbroad.getText();
+                 otherDetails =null;
+            }
+        });
+
         ButtonGroup btnGroupSickLeave = new ButtonGroup();
         btnGroupSickLeave.add(radioInHospital);
         btnGroupSickLeave.add(radioOutPatient);
@@ -257,24 +289,63 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
             if (e.getStateChange() == ItemEvent.SELECTED) {
                 panelInHospital.setVisible(true);
                 panelOutPatient.setVisible(false);
+                selectedDetails = radioInHospital.getText();
+                 otherDetails =null;
+
             }
         });
-        
-         radioOutPatient.addItemListener((ItemEvent e) -> {
+
+        radioOutPatient.addItemListener((ItemEvent e) -> {
 
             if (e.getStateChange() == ItemEvent.SELECTED) {
                 panelInHospital.setVisible(false);
                 panelOutPatient.setVisible(true);
+                selectedDetails = radioOutPatient.getText();
+                 otherDetails =null;
             }
         });
-         
-         
-                 
-        ButtonGroup otherSickLeave = new ButtonGroup();
-        otherSickLeave.add(radioMonetize);
-        otherSickLeave.add(radioTerminal);
-        
 
+        ButtonGroup studyLeave = new ButtonGroup();
+        studyLeave.add(radioMaster);
+        studyLeave.add(radioBar);
+
+        radioMaster.addItemListener((ItemEvent e) -> {
+
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+
+                selectedDetails = radioMaster.getText();
+                 otherDetails =null;
+            }
+        });
+        radioBar.addItemListener((ItemEvent e) -> {
+
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+
+                selectedDetails = radioBar.getText();
+                 otherDetails =null;
+            }
+        });
+
+        ButtonGroup otherLeave = new ButtonGroup();
+        otherLeave.add(radioMonetize);
+        otherLeave.add(radioTerminal);
+
+        radioMonetize.addItemListener((ItemEvent e) -> {
+
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+
+                selectedDetails = radioMonetize.getText();
+                 otherDetails =null;
+            }
+        });
+        radioTerminal.addItemListener((ItemEvent e) -> {
+
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+
+                selectedDetails = radioTerminal.getText();
+                 otherDetails =null;
+            }
+        });
     }
 
 
@@ -330,7 +401,7 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         radioOthers = new javax.swing.JRadioButton();
         specifyPanel = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtOthers = new javax.swing.JTextField();
         jPanel16 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jPanel19 = new javax.swing.JPanel();
@@ -375,8 +446,8 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         jLabel25 = new javax.swing.JLabel();
         studyLeavePanel = new javax.swing.JPanel();
         jPanel30 = new javax.swing.JPanel();
-        jRadioButton6 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
+        radioBar = new javax.swing.JRadioButton();
+        radioMaster = new javax.swing.JRadioButton();
         jLabel26 = new javax.swing.JLabel();
         jPanel32 = new javax.swing.JPanel();
         sickLeavePanel = new javax.swing.JPanel();
@@ -606,7 +677,13 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
 
         jLabel16.setText(" Specify: ");
         specifyPanel.add(jLabel16, java.awt.BorderLayout.LINE_START);
-        specifyPanel.add(jTextField1, java.awt.BorderLayout.CENTER);
+
+        txtOthers.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtOthersFocusLost(evt);
+            }
+        });
+        specifyPanel.add(txtOthers, java.awt.BorderLayout.CENTER);
 
         othersPanel.add(specifyPanel, java.awt.BorderLayout.CENTER);
 
@@ -800,36 +877,41 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
             false,
             true)));
 endDate.setFieldFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 14));
-jPanel41.add(endDate, java.awt.BorderLayout.CENTER);
-
-jLabel30.setText("End Date");
-jLabel30.setPreferredSize(new java.awt.Dimension(80, 50));
-jPanel41.add(jLabel30, java.awt.BorderLayout.WEST);
-
-jLabel31.setPreferredSize(new java.awt.Dimension(40, 17));
-jPanel41.add(jLabel31, java.awt.BorderLayout.EAST);
-
-jPanel39.add(jPanel41);
-
-jPanel37.add(jPanel39, java.awt.BorderLayout.NORTH);
-
-jLabel32.setPreferredSize(new java.awt.Dimension(0, 10));
-jPanel37.add(jLabel32, java.awt.BorderLayout.PAGE_END);
-
-jLabel34.setPreferredSize(new java.awt.Dimension(30, 17));
-jPanel37.add(jLabel34, java.awt.BorderLayout.LINE_START);
-
-jLabel35.setPreferredSize(new java.awt.Dimension(30, 17));
-jPanel37.add(jLabel35, java.awt.BorderLayout.LINE_END);
-
-jButton1.setBackground(new java.awt.Color(0, 153, 0));
-jButton1.setFont(new java.awt.Font("Liberation Sans", 1, 36)); // NOI18N
-jButton1.setForeground(new java.awt.Color(255, 255, 255));
-jButton1.setText("Save");
-jButton1.addActionListener(new java.awt.event.ActionListener() {
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-        jButton1ActionPerformed(evt);
+endDate.addSelectionChangedListener(new datechooser.events.SelectionChangedListener() {
+    public void onSelectionChange(datechooser.events.SelectionChangedEvent evt) {
+        endDateOnSelectionChange(evt);
     }
+    });
+    jPanel41.add(endDate, java.awt.BorderLayout.CENTER);
+
+    jLabel30.setText("End Date");
+    jLabel30.setPreferredSize(new java.awt.Dimension(80, 50));
+    jPanel41.add(jLabel30, java.awt.BorderLayout.WEST);
+
+    jLabel31.setPreferredSize(new java.awt.Dimension(40, 17));
+    jPanel41.add(jLabel31, java.awt.BorderLayout.EAST);
+
+    jPanel39.add(jPanel41);
+
+    jPanel37.add(jPanel39, java.awt.BorderLayout.NORTH);
+
+    jLabel32.setPreferredSize(new java.awt.Dimension(0, 10));
+    jPanel37.add(jLabel32, java.awt.BorderLayout.PAGE_END);
+
+    jLabel34.setPreferredSize(new java.awt.Dimension(30, 17));
+    jPanel37.add(jLabel34, java.awt.BorderLayout.LINE_START);
+
+    jLabel35.setPreferredSize(new java.awt.Dimension(30, 17));
+    jPanel37.add(jLabel35, java.awt.BorderLayout.LINE_END);
+
+    jButton1.setBackground(new java.awt.Color(0, 153, 0));
+    jButton1.setFont(new java.awt.Font("Liberation Sans", 1, 36)); // NOI18N
+    jButton1.setForeground(new java.awt.Color(255, 255, 255));
+    jButton1.setText("Save");
+    jButton1.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jButton1ActionPerformed(evt);
+        }
     });
     jPanel37.add(jButton1, java.awt.BorderLayout.CENTER);
 
@@ -863,6 +945,12 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
 
     jLabel20.setText("Specify:");
     specifyAbroad.add(jLabel20, java.awt.BorderLayout.LINE_START);
+
+    jTextField3.addFocusListener(new java.awt.event.FocusAdapter() {
+        public void focusLost(java.awt.event.FocusEvent evt) {
+            jTextField3FocusLost(evt);
+        }
+    });
     specifyAbroad.add(jTextField3, java.awt.BorderLayout.CENTER);
 
     abroad.add(specifyAbroad);
@@ -881,6 +969,12 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
 
     jLabel19.setText("Specify:");
     specifyWithinPh.add(jLabel19, java.awt.BorderLayout.LINE_START);
+
+    jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
+        public void focusLost(java.awt.event.FocusEvent evt) {
+            jTextField2FocusLost(evt);
+        }
+    });
     specifyWithinPh.add(jTextField2, java.awt.BorderLayout.CENTER);
 
     jPanel23.add(specifyWithinPh);
@@ -907,11 +1001,11 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
     jPanel30.setOpaque(false);
     jPanel30.setLayout(new java.awt.GridLayout(3, 0));
 
-    jRadioButton6.setText("BAR/Board Examination");
-    jPanel30.add(jRadioButton6);
+    radioBar.setText("BAR/Board Examination");
+    jPanel30.add(radioBar);
 
-    jRadioButton5.setText("Completion of Master's Degree");
-    jPanel30.add(jRadioButton5);
+    radioMaster.setText("Completion of Master's Degree");
+    jPanel30.add(radioMaster);
 
     studyLeavePanel.add(jPanel30, java.awt.BorderLayout.CENTER);
 
@@ -944,6 +1038,12 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
 
     jLabel22.setText("Specify:");
     panelOutPatient.add(jLabel22, java.awt.BorderLayout.LINE_START);
+
+    jTextField5.addFocusListener(new java.awt.event.FocusAdapter() {
+        public void focusLost(java.awt.event.FocusEvent evt) {
+            jTextField5FocusLost(evt);
+        }
+    });
     panelOutPatient.add(jTextField5, java.awt.BorderLayout.CENTER);
 
     jPanel29.add(panelOutPatient);
@@ -967,6 +1067,12 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
 
     jLabel21.setText("Specify:");
     panelInHospital.add(jLabel21, java.awt.BorderLayout.LINE_START);
+
+    jTextField4.addFocusListener(new java.awt.event.FocusAdapter() {
+        public void focusLost(java.awt.event.FocusEvent evt) {
+            jTextField4FocusLost(evt);
+        }
+    });
     panelInHospital.add(jTextField4, java.awt.BorderLayout.CENTER);
 
     jPanel24.add(panelInHospital);
@@ -1062,39 +1168,80 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
          * @param inUsedServiceCredits currently selected service credits 
          * @param getAvailableLeaveFormServiceCredits get all available service credit of employee and extract unused
          */
-        lw.setFrame(root,this,inUsedServiceCredits,controller.getAvailableLeaveFormServiceCredits(employeeServiceCredits, inUsedServiceCredits));
+        lw.setFrame(root,this,leaveForm.getServiceCredit(),controller.getAvailableLeaveFormServiceCredits(employeeServiceCredits, leaveForm.getServiceCredit()));
         root.setEnabled(false);
         lw.setVisible(true);
     }//GEN-LAST:event_jPanel36MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        
-        Calendar start = Calendar.getInstance();
-        Calendar end = Calendar.getInstance();
+//        Calendar start = Calendar.getInstance();
+//        Calendar _end = Calendar.getInstance();
+//
+//        String[] start_str = startDate.getText().split("/");
+//        String[] end_str = endDate.getText().split("/");
+//        start.set(Calendar.YEAR, Integer.parseInt(start_str[2]));
+//        start.set(Calendar.MONTH, Integer.parseInt(start_str[1]) - 1);
+//        start.set(Calendar.DATE, Integer.parseInt(start_str[0]));
+//
+//        _end.set(Calendar.YEAR, Integer.parseInt(end_str[2]));
+//        _end.set(Calendar.MONTH, Integer.parseInt(end_str[1]) - 1);
+//        _end.set(Calendar.DATE, Integer.parseInt(end_str[0]));
+//
+//       
+//        int additionalDate = usedCredits -2;
+//        start.add(Calendar.DATE, additionalDate);
+//        if (!start.before(end)) {
+//
+//            JOptionPane.showMessageDialog(this, "Invalid Date");
+//        } else {
+//            JOptionPane.showMessageDialog(this, "valid Date");
+//        }
+        if (validDate) {
+            
+           
+            String _startDate = startDate.getText();
+            String _endDate = endDate.getText();
 
-        String[] start_str = startDate.getText().split("/");
-        String[] end_str = endDate.getText().split("/");
-        start.set(Calendar.YEAR, Integer.parseInt(start_str[2]));
-        start.set(Calendar.MONTH, Integer.parseInt(start_str[1]) - 1);
-        start.set(Calendar.DATE, Integer.parseInt(start_str[0]));
+            java.sql.Date date1 = java.sql.Date.valueOf(UtilClass.convertToSqlDate(_startDate));
+            java.sql.Date date2 = java.sql.Date.valueOf(UtilClass.convertToSqlDate(_endDate));
+            System.out.println(date1.toString());
 
-        end.set(Calendar.YEAR, Integer.parseInt(end_str[2]));
-        end.set(Calendar.MONTH, Integer.parseInt(end_str[1]) - 1);
-        end.set(Calendar.DATE, Integer.parseInt(end_str[0]));
-
-       
-        int additionalDate = usedCredits -2;
-        start.add(Calendar.DATE, additionalDate);
-        if (!start.before(end)) {
-
+            leaveForm.setInclusiveDate_start(date1);
+            leaveForm.setInclusiveDate_end(date2);
+            leaveForm.setLeaveType(selectedLeaveType);
+            leaveForm.setDateFiled(UtilClass.getCurrentDate());
+            leaveForm.setDetails(LeaveFormValidation.checkField(selectedDetails, otherDetails));
+            leaveForm.setLeaveType(selectedLeaveType);
+          
+            leaveForm.setCreditUsed(usedCredits);
+            
+            try{
+                if(controller.addLeave(leaveForm)==1){
+                    JOptionPane.showMessageDialog(this, "Leave Successfully saved");
+                    parent.exitForm();
+                }
+                
+            }catch(SQLException e){
+                e.printStackTrace();
+            }catch(InvalidInputException iie){
+                 JOptionPane.showMessageDialog(this, iie.getMessage());
+            }
+        }else{
             JOptionPane.showMessageDialog(this, "Invalid Date");
-        } else {
-            JOptionPane.showMessageDialog(this, "valid Date");
         }
+
+
+
+ System.out.println(UtilClass.getCurrentDate().toString());
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void startDateOnSelectionChange(datechooser.events.SelectionChangedEvent evt) {//GEN-FIRST:event_startDateOnSelectionChange
         Calendar start = startDate.getSelectedDate();
+        
+        
        
         if (usedCredits > 0) {
             
@@ -1103,11 +1250,78 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
         }
 
         endDate.setSelectedDate(start);
+        end = endDate.getSelectedDate();
     }//GEN-LAST:event_startDateOnSelectionChange
 
     private void startDateOnCommit(datechooser.events.CommitEvent evt) {//GEN-FIRST:event_startDateOnCommit
 
     }//GEN-LAST:event_startDateOnCommit
+
+    private void endDateOnSelectionChange(datechooser.events.SelectionChangedEvent evt) {//GEN-FIRST:event_endDateOnSelectionChange
+       
+       
+       Calendar start = Calendar.getInstance();
+        
+        String[] start_str = startDate.getText().split("/");
+       
+        start.set(Calendar.YEAR, Integer.parseInt(start_str[2]));
+        start.set(Calendar.MONTH, Integer.parseInt(start_str[1]) - 1);
+        start.set(Calendar.DATE, Integer.parseInt(start_str[0]));
+
+        
+        end = endDate.getSelectedDate();
+       
+        int additionalDate = usedCredits -2;
+        start.add(Calendar.DATE, additionalDate);
+       
+       
+//       Calendar _end = Calendar.getInstance();
+//       String[] end_str = endDate.getText().split("/"); 
+//        _end.set(Calendar.YEAR, Integer.parseInt(end_str[2]));
+//        _end.set(Calendar.MONTH, Integer.parseInt(end_str[1]) - 1);
+//        _end.set(Calendar.DATE, Integer.parseInt(end_str[0])-1);
+//
+//       
+//        
+//        System.out.println(_end.before(end));
+        if(!start.before(end)){
+             this.validDate =false;
+            
+        
+          for(Component c : endDate.getComponents()){
+              ((JComponent)c).setForeground(Color.red);
+          }
+          
+             
+        }else{
+             this.validDate =true;
+             for(Component c : endDate.getComponents()){
+              ((JComponent)c).setForeground(Color.black);
+          }
+        }
+       
+        
+    }//GEN-LAST:event_endDateOnSelectionChange
+
+    private void jTextField3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField3FocusLost
+        otherDetails=jTextField3.getText();
+    }//GEN-LAST:event_jTextField3FocusLost
+
+    private void jTextField2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField2FocusLost
+        otherDetails=jTextField2.getText();
+    }//GEN-LAST:event_jTextField2FocusLost
+
+    private void jTextField5FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField5FocusLost
+         otherDetails=jTextField5.getText();
+    }//GEN-LAST:event_jTextField5FocusLost
+
+    private void jTextField4FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField4FocusLost
+         otherDetails=jTextField4.getText();
+    }//GEN-LAST:event_jTextField4FocusLost
+
+    private void txtOthersFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtOthersFocusLost
+          otherDetails=txtOthers.getText();
+    }//GEN-LAST:event_txtOthersFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1190,9 +1404,6 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton6;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
@@ -1212,7 +1423,9 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JPanel panelOutPatient;
     private javax.swing.JPanel part1;
     private javax.swing.JRadioButton radioAbroad;
+    private javax.swing.JRadioButton radioBar;
     private javax.swing.JRadioButton radioInHospital;
+    private javax.swing.JRadioButton radioMaster;
     private javax.swing.JRadioButton radioMonetize;
     private javax.swing.JRadioButton radioOthers;
     private javax.swing.JRadioButton radioOutPatient;
@@ -1224,6 +1437,7 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JPanel specifyWithinPh;
     private datechooser.beans.DateChooserCombo startDate;
     private javax.swing.JPanel studyLeavePanel;
+    private javax.swing.JTextField txtOthers;
     private javax.swing.JPanel vacationLeavePanel;
     // End of variables declaration//GEN-END:variables
 

@@ -25,7 +25,7 @@ public class EmployeeAndServiceCreditsDaoImplement implements EmployeeAndService
 
     @Override
     public int addServiceCredit(String employeeId, int serviceCreditId) throws SQLException {
-        String query = "Insert into employee_and_service_credits(employeeId,service_credits_id, no_of_days) values(?,?,(SELECT no_of_days from service_credits WHERE service_credits.id = ?))";
+        String query = "Insert into employee_and_service_credits(employeeId,service_credits_id, remaining_days) values(?,?,(SELECT no_of_days from service_credits WHERE service_credits.id = ?))";
         PreparedStatement pst = conn.prepareStatement(query);
         pst.setString(1, employeeId);
         pst.setInt(2, serviceCreditId);
@@ -61,7 +61,7 @@ public class EmployeeAndServiceCreditsDaoImplement implements EmployeeAndService
             
             employeeServiceCredit.setEmployeeId(employeeId);
             employeeServiceCredit.setServiceCredits(serviceCredit);
-            employeeServiceCredit.setNo_of_days(rs.getInt("employee_and_service_credits.no_of_days"));
+            employeeServiceCredit.setNo_of_days(rs.getInt("employee_and_service_credits.remaining_days"));
             
             
             employeeServiceCredits.add(employeeServiceCredit);
@@ -109,7 +109,7 @@ public class EmployeeAndServiceCreditsDaoImplement implements EmployeeAndService
                 
             employeeServiceCredit.setEmployeeId(employeeId);
             employeeServiceCredit.setServiceCredits(serviceCredit);
-            employeeServiceCredit.setNo_of_days(rs.getInt("employee_and_service_credits.no_of_days"));
+            employeeServiceCredit.setNo_of_days(rs.getInt("employee_and_service_credits.remaining_days"));
             
             
            return employeeServiceCredit;

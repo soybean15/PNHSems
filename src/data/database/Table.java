@@ -110,7 +110,7 @@ public class Table {
                 .addField("id int(11) not null auto_increment")
                 .addField("order_no varchar(50) not null")
                 .addField("memorandum varchar(255) not null")
-                .addField("remaining_days int(10) not null")
+                .addField("no_of_days int(10) not null")
                 .addField("title varchar(255) not null")
                 .addField("created_at timestamp NOT NULL DEFAULT current_timestamp()")
                 .addField("updated_at timestamp NOT NULL DEFAULT current_timestamp()")
@@ -119,7 +119,7 @@ public class Table {
         Table employeeAndServiceCredits = new Table("employee_and_service_credits")
                 .addField("employeeId varchar(12) not null")
                 .addField("service_credits_id int(11) not null")
-                .addField("no_of_days int(11) not null");
+                .addField("remaining_days int(11) not null");
         
         Table typeOfLeave = new Table("leave_type")
                 .addField("id int(11) not null auto_increment")
@@ -140,9 +140,10 @@ public class Table {
                 .addField("created_at timestamp NOT NULL DEFAULT current_timestamp()")
                 .setPK("id");
         
-          Table employeeLeaveAndServiceCredits = new Table("employee_leave_and_service_credits")
-                .addField("employee_leave_id int(11) not null")
-                .addField("employee_and_service_credits_id varchar(12) not null");
+          Table LeaveAndServiceCredits = new Table("leave_service_credits")
+                .addField("service_credit_id int(11) not null")
+                .addField("leave_id int(11) not null")
+                .addField("credit_used int(11) not null");
       
 
  //       Table leave
@@ -156,7 +157,7 @@ public class Table {
         addToDatabase(employeeAndServiceCredits);
         addToDatabase(typeOfLeave);
         addToDatabase(employeeLeave);
-        addToDatabase(employeeLeaveAndServiceCredits);
+        addToDatabase(LeaveAndServiceCredits);
  
   
 
