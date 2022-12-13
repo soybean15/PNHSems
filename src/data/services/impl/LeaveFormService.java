@@ -10,6 +10,7 @@ import data.model.Employee;
 import data.model.EmployeeServiceCredit;
 import data.model.LeaveForm;
 import data.model.LeaveType;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,10 @@ public class LeaveFormService {
         return employeeAndServiceCreditService.getEmployeeServiceCredit(employeeId, serviceCreditId);
     }
 
+    
+     public List<LeaveForm> getLeaveLogServiceCreditbyDate(Employee employee, Date date) throws SQLException {
+         return leaveDao.getLeaveLogServiceCreditbyDate(employee, date);
+     }
     public List<EmployeeServiceCredit> getAvailableLeaveFormServiceCredits(List<EmployeeServiceCredit> items, List<EmployeeServiceCredit> itemsToRemove) {
 
         List<Integer> ids = getEmployeeServiceCreditsIds(itemsToRemove);
@@ -83,8 +88,12 @@ public class LeaveFormService {
       
          List<LeaveForm> leaveLogs = leaveDao.getEmployeeLeaveLogs(employee);
          
+         
+      
          for(LeaveForm item:leaveLogs){
              item.setEmployee(employee);
+             item.setServiceCredit(leaveDao.getLeaveLogServiceCredit(item.getId()));
+           
          }
          
          return leaveLogs;

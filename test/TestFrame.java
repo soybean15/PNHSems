@@ -46,9 +46,8 @@ public class TestFrame extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(664, 420));
         setPreferredSize(new java.awt.Dimension(664, 420));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(dateChooserCombo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
-        datePanel.setCurrentView(new datechooser.view.appearance.AppearancesList("Light",
+        dateChooserCombo1.setCurrentView(new datechooser.view.appearance.AppearancesList("Light",
             new datechooser.view.appearance.ViewAppearance("custom",
                 new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
                     new java.awt.Color(0, 0, 0),
@@ -89,11 +88,54 @@ public class TestFrame extends javax.swing.JFrame {
                 (datechooser.view.BackRenderer)null,
                 false,
                 true)));
-    datePanel.setNavigateFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 14));
-    getContentPane().add(datePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, -1, -1));
+    getContentPane().add(dateChooserCombo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
-    pack();
-    }// </editor-fold>//GEN-END:initComponents
+    datePanel.setCurrentView(new datechooser.view.appearance.AppearancesList("Light",
+        new datechooser.view.appearance.ViewAppearance("custom",
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
+                new java.awt.Color(0, 0, 0),
+                new java.awt.Color(0, 0, 255),
+                false,
+                true,
+                new datechooser.view.appearance.swing.ButtonPainter()),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
+                new java.awt.Color(0, 0, 0),
+                new java.awt.Color(0, 0, 255),
+                true,
+                true,
+                new datechooser.view.appearance.swing.ButtonPainter()),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
+                new java.awt.Color(0, 0, 255),
+                new java.awt.Color(0, 0, 255),
+                false,
+                true,
+                new datechooser.view.appearance.swing.ButtonPainter()),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
+                new java.awt.Color(128, 128, 128),
+                new java.awt.Color(0, 0, 255),
+                false,
+                true,
+                new datechooser.view.appearance.swing.LabelPainter()),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
+                new java.awt.Color(0, 0, 0),
+                new java.awt.Color(0, 0, 255),
+                false,
+                true,
+                new datechooser.view.appearance.swing.LabelPainter()),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
+                new java.awt.Color(0, 0, 0),
+                new java.awt.Color(255, 0, 0),
+                false,
+                false,
+                new datechooser.view.appearance.swing.ButtonPainter()),
+            (datechooser.view.BackRenderer)null,
+            false,
+            true)));
+datePanel.setNavigateFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 14));
+getContentPane().add(datePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, -1, -1));
+
+pack();
+}// </editor-fold>//GEN-END:initComponents
 
     /**
      * @param args the command line arguments

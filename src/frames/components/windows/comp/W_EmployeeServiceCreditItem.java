@@ -95,6 +95,8 @@ public class W_EmployeeServiceCreditItem extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
 
+        setBackground(new java.awt.Color(204, 255, 204));
+        setPreferredSize(new java.awt.Dimension(289, 25));
         setLayout(new java.awt.BorderLayout());
 
         lblOrderNumber.setText("Order Number");
@@ -104,14 +106,21 @@ public class W_EmployeeServiceCreditItem extends javax.swing.JPanel {
         lblMemorandum.setText("Memorandum");
         add(lblMemorandum, java.awt.BorderLayout.CENTER);
 
+        jPanel2.setMaximumSize(new java.awt.Dimension(110, 30));
+        jPanel2.setMinimumSize(new java.awt.Dimension(110, 30));
+        jPanel2.setOpaque(false);
+        jPanel2.setPreferredSize(new java.awt.Dimension(110, 30));
         jPanel2.setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setLayout(new java.awt.GridLayout(1, 2));
+        jPanel1.setOpaque(false);
+        jPanel1.setLayout(new java.awt.BorderLayout());
 
         lblRemaining.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblRemaining.setText("1");
-        jPanel1.add(lblRemaining);
+        lblRemaining.setPreferredSize(new java.awt.Dimension(50, 17));
+        jPanel1.add(lblRemaining, java.awt.BorderLayout.WEST);
 
+        spinnerUse.setPreferredSize(new java.awt.Dimension(65, 23));
         spinnerUse.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 spinnerUseStateChanged(evt);
@@ -122,10 +131,14 @@ public class W_EmployeeServiceCreditItem extends javax.swing.JPanel {
                 spinnerUseMouseClicked(evt);
             }
         });
-        jPanel1.add(spinnerUse);
+        jPanel1.add(spinnerUse, java.awt.BorderLayout.CENTER);
 
         jPanel2.add(jPanel1, java.awt.BorderLayout.LINE_END);
+
+        jPanel3.setOpaque(false);
         jPanel2.add(jPanel3, java.awt.BorderLayout.NORTH);
+
+        jPanel4.setOpaque(false);
         jPanel2.add(jPanel4, java.awt.BorderLayout.SOUTH);
 
         add(jPanel2, java.awt.BorderLayout.EAST);

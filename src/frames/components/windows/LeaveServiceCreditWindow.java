@@ -150,6 +150,11 @@ public class LeaveServiceCreditWindow extends javax.swing.JDialog implements Emp
         setAlwaysOnTop(true);
         setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(450, 383));
+
+        jScrollPane1.setBackground(null);
+
+        panelList.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout panelListLayout = new javax.swing.GroupLayout(panelList);
         panelList.setLayout(panelListLayout);
@@ -166,6 +171,7 @@ public class LeaveServiceCreditWindow extends javax.swing.JDialog implements Emp
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(193, 50));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
@@ -185,10 +191,13 @@ public class LeaveServiceCreditWindow extends javax.swing.JDialog implements Emp
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.NORTH);
 
+        jPanel2.setBackground(null);
         jPanel2.setPreferredSize(new java.awt.Dimension(400, 50));
         jPanel2.setLayout(new java.awt.BorderLayout());
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setMinimumSize(new java.awt.Dimension(70, 100));
+        jPanel3.setOpaque(false);
         jPanel3.setPreferredSize(new java.awt.Dimension(70, 50));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -205,6 +214,7 @@ public class LeaveServiceCreditWindow extends javax.swing.JDialog implements Emp
         jPanel2.add(jPanel3, java.awt.BorderLayout.LINE_START);
 
         jPanel4.setMinimumSize(new java.awt.Dimension(70, 100));
+        jPanel4.setOpaque(false);
         jPanel4.setPreferredSize(new java.awt.Dimension(70, 50));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -220,6 +230,7 @@ public class LeaveServiceCreditWindow extends javax.swing.JDialog implements Emp
 
         jPanel2.add(jPanel4, java.awt.BorderLayout.LINE_END);
 
+        jPanel5.setOpaque(false);
         jPanel5.setLayout(new java.awt.BorderLayout());
 
         jButton1.setText("Cancel");

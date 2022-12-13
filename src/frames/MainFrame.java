@@ -28,6 +28,7 @@ import frames.panels.employee_panel.profile.EmployeeLeaveLogsPanel;
 import frames.panels.employee_panel.profile.EmployeeServiceCreditsPanel;
 import java.awt.Panel;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import otherclasses.ImageHandler;
 
 /**
@@ -70,10 +71,10 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
 
     private void init() {
 
-        // if(!user.getRole().equals("superadmin")){
-        //sidePanelMenu.remove(sidePanelUsers);
-        // sidePanel.repaint();
-        //}
+         if(!user.getRole().equals("superadmin")){
+        sidePanelMenu.remove(sidePanelUsers);
+        sidePanelMenu.repaint();
+        }
         mainContainer.add(userPanel).setVisible(false);
 
         mainContainer.add(personnelPanel).setVisible(false);
@@ -288,6 +289,9 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
         sidePanelMenu.add(sidePanelUsers);
 
         sidePanelLogOut.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sidePanelLogOutMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 sidePanelLogOutMouseEntered(evt);
             }
@@ -394,6 +398,16 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
     private void sidePanelUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sidePanelUsersMouseClicked
         selectedPanel(userPanel, sidePanelUsers, sideLabelUsers);
     }//GEN-LAST:event_sidePanelUsersMouseClicked
+
+    private void sidePanelLogOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sidePanelLogOutMouseClicked
+         int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to Log out?","Log out",JOptionPane.YES_NO_OPTION);
+            if(option == JOptionPane.YES_OPTION){
+               this.user = null;
+               LoginFrame frame = new LoginFrame();
+               frame.setVisible(true);
+               dispose();
+            }
+    }//GEN-LAST:event_sidePanelLogOutMouseClicked
 
     /**
      * @param args the command line arguments

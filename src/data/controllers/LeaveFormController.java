@@ -11,6 +11,7 @@ import data.model.LeaveType;
 import data.model.ServiceCredit;
 import java.sql.SQLException;
 import data.services.impl.LeaveFormService;
+import java.sql.Date;
 import java.util.List;
 import pnhsems.InvalidInputException;
 
@@ -50,4 +51,8 @@ public class LeaveFormController {
     public List<LeaveForm> getLeaveLogs(Employee employee)throws SQLException{
         return service.getLeaveLogs(employee);
     }
+    
+     public List<LeaveForm> getLeaveLogServiceCreditbyDate(Employee employee, Date date) throws SQLException {
+         return service.getLeaveLogServiceCreditbyDate(employee, date);
+     }
 }

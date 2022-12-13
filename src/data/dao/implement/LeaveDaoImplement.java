@@ -10,7 +10,9 @@ import data.model.Employee;
 import data.model.EmployeeServiceCredit;
 import data.model.LeaveForm;
 import data.model.LeaveType;
+import data.model.ServiceCredit;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 import java.sql.PreparedStatement;
@@ -139,21 +141,92 @@ public class LeaveDaoImplement implements LeaveDao {
                 leaveForm.setCreditUsed(rs.getInt("days_used"));
                 leaveForm.setDetails(rs.getString("details"));
                 leaveForm.setCreated_at(rs.getTimestamp("created_at"));
-                
-                if(rs.getString("leave_type_id")!=null){
-                     LeaveType leaveType = new LeaveType();
 
-                leaveType.setId(rs.getInt("id"));
-                leaveType.setName(rs.getString("name"));
-                leaveType.setReference("reference");
+                if (rs.getString("leave_type_id") != null) {
+                    LeaveType leaveType = new LeaveType();
 
-                leaveForm.setLeaveType(leaveType);
+                    leaveType.setId(rs.getInt("id"));
+                    leaveType.setName(rs.getString("name"));
+                    leaveType.setReference("reference");
 
-               
+                    leaveForm.setLeaveType(leaveType);
+
                 }
 
-               
- leaveLogs.add(leaveForm);
+                leaveLogs.add(leaveForm);
+            }
+
+            return leaveLogs;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            conn.rollback();
+
+            leaveLogs = new ArrayList<>();
+            return leaveLogs;
+        }
+    }
+
+    @Override
+    public List<EmployeeServiceCredit> getLeaveLogServiceCredit(int leaveId) throws SQLException {
+        String query = "Select * from leave_service_credits inner join service_credits on service_credits.id = service_credit_id"
+                + " where leave_id =?";
+        
+        PreparedStatement pst = conn.prepareStatement(query);
+        pst.setInt(1, leaveId);
+        ResultSet rs = pst.executeQuery();
+        
+        List<EmployeeServiceCredit> list = new ArrayList<>();
+        while(rs.next()){
+           EmployeeServiceCredit item = new EmployeeServiceCredit();
+           ServiceCredit serviceCredit = new ServiceCredit();
+           
+           serviceCredit.setId(rs.getInt("service_credits.id"));
+           serviceCredit.setMemorandum(rs.getString("service_credits.memorandum"));
+           
+           serviceCredit.setNumberOfDays(rs.getInt("service_credits.no_of_days"));
+           serviceCredit.setTitle(rs.getString("service_credits.title"));
+           
+           item.setDays_used(rs.getInt("credit_used"));
+           item.setServiceCredits(serviceCredit);
+           list.add(item);
+        }
+        return list;
+    }
+
+    @Override
+    public List<LeaveForm> getLeaveLogServiceCreditbyDate(Employee employee, Date date) throws SQLException {
+          List<LeaveForm> leaveLogs = new ArrayList<>();
+        String query = "select * from employee_leave left join leave_type on leave_type.id = leave_type_id "
+                + "where employeeId =? and date_filed = ?";
+        try {
+            conn.setAutoCommit(false);
+            PreparedStatement pst = conn.prepareStatement(query);
+            pst.setString(1, employee.getId());
+            pst.setDate(2, date);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                LeaveForm leaveForm = new LeaveForm();
+                leaveForm.setId(rs.getInt("id"));
+                leaveForm.setDateFiled(rs.getDate("date_filed"));
+                leaveForm.setInclusiveDate_start(rs.getDate("inclusive_date_start"));
+                leaveForm.setInclusiveDate_end(rs.getDate("inclusive_date_end"));
+                leaveForm.setCreditUsed(rs.getInt("days_used"));
+                leaveForm.setDetails(rs.getString("details"));
+                leaveForm.setCreated_at(rs.getTimestamp("created_at"));
+
+                if (rs.getString("leave_type_id") != null) {
+                    LeaveType leaveType = new LeaveType();
+
+                    leaveType.setId(rs.getInt("id"));
+                    leaveType.setName(rs.getString("name"));
+                    leaveType.setReference("reference");
+
+                    leaveForm.setLeaveType(leaveType);
+
+                }
+
+                leaveLogs.add(leaveForm);
             }
 
             return leaveLogs;

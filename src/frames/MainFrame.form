@@ -309,6 +309,7 @@
                 </Container>
                 <Container class="javax.swing.JPanel" name="sidePanelLogOut">
                   <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="sidePanelLogOutMouseClicked"/>
                     <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="sidePanelLogOutMouseEntered"/>
                     <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="sidePanelLogOutMouseExited"/>
                   </Events>

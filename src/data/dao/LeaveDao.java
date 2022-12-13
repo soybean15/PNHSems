@@ -4,6 +4,7 @@
  */
 package data.dao;
 import data.model.Employee;
+import data.model.EmployeeServiceCredit;
 import data.model.LeaveForm;
 import data.model.LeaveType;
 import java.sql.SQLException;
@@ -28,5 +29,9 @@ public interface LeaveDao {
     public List<LeaveForm> getEmployeeLeaveLogs(Employee employee)
               throws SQLException;
     
+    public List<EmployeeServiceCredit> getLeaveLogServiceCredit(int leaveId)
+               throws SQLException;
     
+    public List<LeaveForm> getLeaveLogServiceCreditbyDate(Employee employee, java.sql.Date date)
+               throws SQLException;
 }
