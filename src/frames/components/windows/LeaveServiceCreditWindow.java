@@ -152,8 +152,6 @@ public class LeaveServiceCreditWindow extends javax.swing.JDialog implements Emp
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(450, 383));
 
-        jScrollPane1.setBackground(null);
-
         panelList.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout panelListLayout = new javax.swing.GroupLayout(panelList);
@@ -191,7 +189,6 @@ public class LeaveServiceCreditWindow extends javax.swing.JDialog implements Emp
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.NORTH);
 
-        jPanel2.setBackground(null);
         jPanel2.setPreferredSize(new java.awt.Dimension(400, 50));
         jPanel2.setLayout(new java.awt.BorderLayout());
 

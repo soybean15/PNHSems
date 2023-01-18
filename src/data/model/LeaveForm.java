@@ -14,7 +14,7 @@ import java.util.List;
  * @author root
  */
 public class LeaveForm {
-    private int id;
+    private String reference_num;
     private Employee employee;
     private List<EmployeeServiceCredit> serviceCredit = new ArrayList<>();
     private java.sql.Date dateFiled;
@@ -23,6 +23,7 @@ public class LeaveForm {
     private int creditUsed;
     private LeaveType leaveType;
     private String details;
+    private String userId;
     private java.sql.Timestamp created_at;
 
     
@@ -30,12 +31,12 @@ public class LeaveForm {
     public void addServicCredit(EmployeeServiceCredit employeeServiceCredit){
         serviceCredit.add(employeeServiceCredit);
     }
-    public int getId() {
-        return id;
+    public String getId() {
+        return reference_num;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(String reference_num) {
+        this.reference_num = reference_num;
     }
 
     public Employee getEmployee() {
@@ -115,6 +116,18 @@ public class LeaveForm {
     public void setCreated_at(Timestamp created_at) {
         this.created_at = created_at;
     }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+   
+
+    public String getUserId() {
+        return userId;
+    }
+    
+    
     
     
     

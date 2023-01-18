@@ -1206,6 +1206,7 @@ endDate.addSelectionChangedListener(new datechooser.events.SelectionChangedListe
             java.sql.Date date1 = java.sql.Date.valueOf(UtilClass.convertToSqlDate(_startDate));
             java.sql.Date date2 = java.sql.Date.valueOf(UtilClass.convertToSqlDate(_endDate));
        
+            
 
             leaveForm.setInclusiveDate_start(date1);
             leaveForm.setInclusiveDate_end(date2);

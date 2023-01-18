@@ -18,6 +18,7 @@ import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import otherclasses.BaseClass;
 
 /**
  *
@@ -62,7 +63,7 @@ public class LeaveDaoImplement implements LeaveDao {
 
     @Override
     public int addLeave(LeaveForm leaveForm) throws SQLException {
-        String query = "insert into employee_leave(employeeId, date_filed, inclusive_date_start, inclusive_date_end, days_used, leave_type_id, details) values(?,?,?,?,?,?,?)";
+        String query = "insert into employee_leave(employeeId, date_filed, inclusive_date_start, inclusive_date_end, days_used, leave_type_id, details,user_id) values(?,?,?,?,?,?,?,?)";
 
         try {
             conn.setAutoCommit(false);
@@ -72,6 +73,7 @@ public class LeaveDaoImplement implements LeaveDao {
             pst.setDate(3, leaveForm.getInclusiveDate_start());
             pst.setDate(4, leaveForm.getInclusiveDate_end());
             pst.setInt(5, leaveForm.getCreditUsed());
+            
             if (leaveForm.getLeaveType() != null) {
                 pst.setInt(6, leaveForm.getLeaveType().getId());
             } else {
@@ -79,8 +81,10 @@ public class LeaveDaoImplement implements LeaveDao {
             }
 
             pst.setString(7, leaveForm.getDetails());
+            pst.setString(8, BaseClass.user.getUserName());
 
             pst.executeUpdate();
+            
 
             query = "SELECT LAST_INSERT_ID()";
             pst = conn.prepareStatement(query);
@@ -134,13 +138,14 @@ public class LeaveDaoImplement implements LeaveDao {
 
             while (rs.next()) {
                 LeaveForm leaveForm = new LeaveForm();
-                leaveForm.setId(rs.getInt("id"));
+                leaveForm.setId(rs.getString("reference_num"));
                 leaveForm.setDateFiled(rs.getDate("date_filed"));
                 leaveForm.setInclusiveDate_start(rs.getDate("inclusive_date_start"));
                 leaveForm.setInclusiveDate_end(rs.getDate("inclusive_date_end"));
                 leaveForm.setCreditUsed(rs.getInt("days_used"));
                 leaveForm.setDetails(rs.getString("details"));
                 leaveForm.setCreated_at(rs.getTimestamp("created_at"));
+                leaveForm.setUserId(rs.getString("user_id"));
 
                 if (rs.getString("leave_type_id") != null) {
                     LeaveType leaveType = new LeaveType();
@@ -167,12 +172,12 @@ public class LeaveDaoImplement implements LeaveDao {
     }
 
     @Override
-    public List<EmployeeServiceCredit> getLeaveLogServiceCredit(int leaveId) throws SQLException {
+    public List<EmployeeServiceCredit> getLeaveLogServiceCredit(String leaveId) throws SQLException {
         String query = "Select * from leave_service_credits inner join service_credits on service_credits.id = service_credit_id"
                 + " where leave_id =?";
         
         PreparedStatement pst = conn.prepareStatement(query);
-        pst.setInt(1, leaveId);
+        pst.setString(1, leaveId);
         ResultSet rs = pst.executeQuery();
         
         List<EmployeeServiceCredit> list = new ArrayList<>();
@@ -207,7 +212,7 @@ public class LeaveDaoImplement implements LeaveDao {
 
             while (rs.next()) {
                 LeaveForm leaveForm = new LeaveForm();
-                leaveForm.setId(rs.getInt("id"));
+                leaveForm.setId(rs.getString("reference_num"));
                 leaveForm.setDateFiled(rs.getDate("date_filed"));
                 leaveForm.setInclusiveDate_start(rs.getDate("inclusive_date_start"));
                 leaveForm.setInclusiveDate_end(rs.getDate("inclusive_date_end"));
@@ -237,6 +242,15 @@ public class LeaveDaoImplement implements LeaveDao {
             leaveLogs = new ArrayList<>();
             return leaveLogs;
         }
+    }
+
+    @Override
+    public String getLastId() throws SQLException {
+        String query = "select reference_num from employee_leave order by reference_num desc limit 1";
+        PreparedStatement ps = conn.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        return rs.next() ? rs.getString("reference_num") : null;
     }
 
 }

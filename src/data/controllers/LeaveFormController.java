@@ -22,6 +22,10 @@ import pnhsems.InvalidInputException;
 public class LeaveFormController {
 
     LeaveFormService service = new LeaveFormService();
+    
+    public String generateRefNum() throws SQLException{
+        return service.getLastId();
+    }
 
     public int addLeaveType(LeaveType leaveType) throws SQLException {
         return service.addLeaveType(leaveType);

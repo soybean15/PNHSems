@@ -29,6 +29,7 @@ import frames.panels.employee_panel.profile.EmployeeServiceCreditsPanel;
 import java.awt.Panel;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
+import otherclasses.BaseClass;
 import otherclasses.ImageHandler;
 
 /**
@@ -59,7 +60,7 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
     JPanel activeSidePanel;
     JPanel activeProfilePanel;
 
-    User user = UserController.getUser();
+   
 
     /**
      * Creates new form MainFrame
@@ -70,8 +71,10 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
     }
 
     private void init() {
+        
+         BaseClass.user = UserController.getUser();
 
-         if(!user.getRole().equals("superadmin")){
+         if(!BaseClass.user.getRole().equals("superadmin")){
         sidePanelMenu.remove(sidePanelUsers);
         sidePanelMenu.repaint();
         }
@@ -402,7 +405,7 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
     private void sidePanelLogOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sidePanelLogOutMouseClicked
          int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to Log out?","Log out",JOptionPane.YES_NO_OPTION);
             if(option == JOptionPane.YES_OPTION){
-               this.user = null;
+               BaseClass.user = null;
                LoginFrame frame = new LoginFrame();
                frame.setVisible(true);
                dispose();

@@ -14,6 +14,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import otherclasses.UtilClass;
 import pnhsems.InvalidInputException;
 
 /**
@@ -94,9 +95,16 @@ public class LeaveFormService {
              item.setEmployee(employee);
              item.setServiceCredit(leaveDao.getLeaveLogServiceCredit(item.getId()));
            
-         }
-         
-         return leaveLogs;
-     }
+        }
+
+        return leaveLogs;
+    }
+
+    public String getLastId() throws SQLException {
+        
+        String id = leaveDao.getLastId();
+        
+        return id == null ? "ref-"+UtilClass.splitId("PEN-220000") : "ref-" + UtilClass.splitId(id);
+    }
 
 }

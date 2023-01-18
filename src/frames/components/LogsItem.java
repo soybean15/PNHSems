@@ -31,10 +31,13 @@ public class LogsItem extends javax.swing.JPanel {
     
     
     private void init(){
+        lblId.setText(leaveForm.getId());
+        lblUserName.setText(leaveForm.getUserId());
         lblDateFiled.setText(leaveForm.getDateFiled().toString());
         lblLeaveType.setText(leaveForm.getLeaveType()!=null? leaveForm.getLeaveType().getName():leaveForm.getDetails());
         lblStart.setText(leaveForm.getInclusiveDate_start().toString());
         lblEnd.setText(leaveForm.getInclusiveDate_end().toString());
+        
         
         
         
@@ -80,20 +83,17 @@ public class LogsItem extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblDateFiled = new javax.swing.JLabel();
         lblLeaveType = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        lblDateFiled = new javax.swing.JLabel();
         lblStart = new javax.swing.JLabel();
         lblEnd = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        lblId = new javax.swing.JLabel();
+        lblUserName = new javax.swing.JLabel();
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         setLayout(new java.awt.BorderLayout());
-
-        lblDateFiled.setFont(Theme.PRIMARY.FONT.tableFontDefault(12)
-        );
-        lblDateFiled.setText("DateFiled");
-        lblDateFiled.setPreferredSize(new java.awt.Dimension(100, 17));
-        add(lblDateFiled, java.awt.BorderLayout.LINE_START);
 
         lblLeaveType.setFont(Theme.PRIMARY.FONT.tableFontDefault(12)
         );
@@ -103,6 +103,12 @@ public class LogsItem extends javax.swing.JPanel {
         jPanel1.setOpaque(false);
         jPanel1.setPreferredSize(new java.awt.Dimension(200, 36));
         jPanel1.setLayout(new java.awt.GridLayout(1, 2));
+
+        lblDateFiled.setFont(Theme.PRIMARY.FONT.tableFontDefault(12)
+        );
+        lblDateFiled.setText("DateFiled");
+        lblDateFiled.setPreferredSize(new java.awt.Dimension(100, 17));
+        jPanel1.add(lblDateFiled);
 
         lblStart.setFont(Theme.PRIMARY.FONT.tableFontDefault(12)
         );
@@ -117,14 +123,29 @@ public class LogsItem extends javax.swing.JPanel {
         jPanel1.add(lblEnd);
 
         add(jPanel1, java.awt.BorderLayout.LINE_END);
+
+        jPanel2.setPreferredSize(new java.awt.Dimension(200, 100));
+        jPanel2.setLayout(new java.awt.GridLayout());
+
+        lblId.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblId.setText("Ref_Num");
+        jPanel2.add(lblId);
+
+        lblUserName.setText("Username");
+        jPanel2.add(lblUserName);
+
+        add(jPanel2, java.awt.BorderLayout.LINE_START);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblDateFiled;
     private javax.swing.JLabel lblEnd;
+    private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblLeaveType;
     private javax.swing.JLabel lblStart;
+    private javax.swing.JLabel lblUserName;
     // End of variables declaration//GEN-END:variables
 }

@@ -29,9 +29,14 @@ public interface LeaveDao {
     public List<LeaveForm> getEmployeeLeaveLogs(Employee employee)
               throws SQLException;
     
-    public List<EmployeeServiceCredit> getLeaveLogServiceCredit(int leaveId)
+    public List<EmployeeServiceCredit> getLeaveLogServiceCredit(String leaveId)
                throws SQLException;
     
     public List<LeaveForm> getLeaveLogServiceCreditbyDate(Employee employee, java.sql.Date date)
                throws SQLException;
+    
+   
+  
+    public String getLastId()
+            throws SQLException;
 }

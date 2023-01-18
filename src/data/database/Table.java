@@ -129,7 +129,7 @@ public class Table {
         
         
         Table employeeLeave = new Table("employee_leave")
-                .addField("id int(11) not null auto_increment")
+                .addField("reference_num varchar(12) not null")
                 .addField("employeeId varchar(12) not null")
                 .addField("date_filed date not null")
                 .addField("inclusive_date_start date not null")
@@ -138,7 +138,8 @@ public class Table {
                 .addField("leave_type_id int(11)")
                 .addField("details text")
                 .addField("created_at timestamp NOT NULL DEFAULT current_timestamp()")
-                .setPK("id");
+                .addField("user_id varchar(50) not null")
+                .setPK("reference_num");
         
           Table LeaveAndServiceCredits = new Table("leave_service_credits")
                 .addField("service_credit_id int(11) not null")
