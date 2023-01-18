@@ -1206,7 +1206,7 @@ endDate.addSelectionChangedListener(new datechooser.events.SelectionChangedListe
             java.sql.Date date1 = java.sql.Date.valueOf(UtilClass.convertToSqlDate(_startDate));
             java.sql.Date date2 = java.sql.Date.valueOf(UtilClass.convertToSqlDate(_endDate));
        
-            
+          
 
             leaveForm.setInclusiveDate_start(date1);
             leaveForm.setInclusiveDate_end(date2);
@@ -1218,8 +1218,12 @@ endDate.addSelectionChangedListener(new datechooser.events.SelectionChangedListe
             leaveForm.setCreditUsed(usedCredits);
             
             try{
+                String refNum = controller.generateRefNum(employee);
+                leaveForm.setId(refNum);
+                System.out.println("Here>>"+refNum);
                 if(controller.addLeave(leaveForm)==1){
-                    JOptionPane.showMessageDialog(this, "Leave Successfully saved");
+                    JOptionPane.showMessageDialog(this, "Leave Successfully saved"
+                            + "\nRef No: "+refNum);
                     parent.exitForm();
                 }
                 

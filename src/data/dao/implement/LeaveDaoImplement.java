@@ -63,7 +63,7 @@ public class LeaveDaoImplement implements LeaveDao {
 
     @Override
     public int addLeave(LeaveForm leaveForm) throws SQLException {
-        String query = "insert into employee_leave(employeeId, date_filed, inclusive_date_start, inclusive_date_end, days_used, leave_type_id, details,user_id) values(?,?,?,?,?,?,?,?)";
+        String query = "insert into employee_leave(employeeId, date_filed, inclusive_date_start, inclusive_date_end, days_used, leave_type_id, details,user_id,reference_num) values(?,?,?,?,?,?,?,?,?)";
 
         try {
             conn.setAutoCommit(false);
@@ -82,6 +82,7 @@ public class LeaveDaoImplement implements LeaveDao {
 
             pst.setString(7, leaveForm.getDetails());
             pst.setString(8, BaseClass.user.getUserName());
+             pst.setString(9, leaveForm.getId());
 
             pst.executeUpdate();
             

@@ -28,6 +28,18 @@ public class UtilClass {
         return Integer.parseInt(cut(idNum[1])) + 1;
 
     }
+    
+    public static String getPrefix(String id){
+        LocalDate localDate = LocalDate.now();
+        int day = localDate.getDayOfMonth();
+        
+        String lastTwo = id.substring(id.length()-2);
+        
+        String dayStr = String.valueOf(day).substring(0, 2);
+        
+        System.out.println("prefix>>>"+ dayStr+lastTwo);
+        return dayStr+lastTwo;
+    }
 
     private static String cut(String str) {
 

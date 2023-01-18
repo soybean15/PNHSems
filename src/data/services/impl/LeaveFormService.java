@@ -100,11 +100,14 @@ public class LeaveFormService {
         return leaveLogs;
     }
 
-    public String getLastId() throws SQLException {
+    public String getLastId(Employee employee) throws SQLException {
         
         String id = leaveDao.getLastId();
         
-        return id == null ? "ref-"+UtilClass.splitId("PEN-220000") : "ref-" + UtilClass.splitId(id);
+       
+        String prefix = UtilClass.getPrefix(employee.getId());
+        
+        return id == null ?prefix+UtilClass.splitId("0000-00000") : prefix + UtilClass.splitId(id);
     }
 
 }
