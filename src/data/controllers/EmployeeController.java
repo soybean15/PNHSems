@@ -6,6 +6,7 @@ package data.controllers;
 
 import data.model.Employee;
 import data.model.EmployeeServiceCredit;
+import data.model.Personnel;
 import data.model.Position;
 import data.model.ServiceCredit;
 
@@ -30,12 +31,12 @@ public class EmployeeController {
         return service.addEmployee(employee);
 
     }
-    
-    public int updateEmployee(Employee employee) throws SQLException{
+
+    public int updateEmployee(Employee employee) throws SQLException {
         return service.updateEmployee(employee);
     }
-    
-    public Employee getEmployee(String id)throws SQLException{
+
+    public Employee getEmployee(String id) throws SQLException {
         return service.getEmployee(id);
     }
 
@@ -62,22 +63,24 @@ public class EmployeeController {
 
     }
 
-    public int addServiceCredit(String employeeId, int serviceCreditId) throws SQLException{
+    public int addServiceCredit(String employeeId, int serviceCreditId) throws SQLException {
         return service.addServiceCredit(employeeId, serviceCreditId);
     }
-    
-    public List<EmployeeServiceCredit> getEmployeeServiceCredits(String employeeId)throws SQLException{
+
+    public List<EmployeeServiceCredit> getEmployeeServiceCredits(String employeeId) throws SQLException {
         return service.getEmployeeServiceCredits(employeeId);
     }
-    
-    public List<ServiceCredit> getAvailableServiceCredit(String employeeId) throws SQLException{
+
+    public List<ServiceCredit> getAvailableServiceCredit(String employeeId) throws SQLException {
         return service.getAvailableServiceCredit(employeeId);
     }
-    
-       public int deleteServiceCredit(String employeeId, int serviceCreditId) throws SQLException{
+
+    public int deleteServiceCredit(String employeeId, int serviceCreditId) throws SQLException {
         return service.deleteEmployeeServiceCredits(employeeId, serviceCreditId);
     }
-       
+    
+    public int addPersonnel(Personnel personnel) throws SQLException{
+        return service.addPersonnel(personnel);
+    }
 
-     
 }

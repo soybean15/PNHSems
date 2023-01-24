@@ -15,6 +15,7 @@ import java.util.List;
  */
 import data.database.DbConnection;
 import data.model.Employee_PersonalInfo;
+import data.model.Personnel;
 import data.model.Position;
 
 import java.sql.SQLException;
@@ -404,6 +405,19 @@ public class EmployeeDaoImplement implements EmployeeDao {
       
         
         return mapEmployees(rs);
+    }
+
+    @Override
+    public int addPersonnel(Personnel personnel) throws SQLException {
+        String query ="insert into personnels(id, title, employee_id) values(?,?,?)";
+        
+        PreparedStatement pst = conn.prepareStatement(query);
+        pst.setInt(1, personnel.getId());
+        pst.setString(2, personnel.getTitle());
+        pst.setString(3, personnel.getEmployeeId());
+        
+        return pst.executeUpdate();
+      
     }
 
 

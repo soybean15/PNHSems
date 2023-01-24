@@ -5,6 +5,7 @@
 package data.dao;
 
 import data.model.Employee;
+import data.model.Personnel;
 
 import data.model.Position;
 import data.model.ServiceCredit;
@@ -45,6 +46,9 @@ public interface EmployeeDao {
             throws SQLException;
 
     public List<Position> getPositions()
+            throws SQLException;
+    
+    public int addPersonnel(Personnel personnel)
             throws SQLException;
 
 }

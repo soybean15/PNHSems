@@ -4,10 +4,10 @@
  */
 package data.services.impl;
 
-
 import data.dao.implement.EmployeeDaoImplement;
 import data.model.Employee;
 import data.model.EmployeeServiceCredit;
+import data.model.Personnel;
 import data.model.Position;
 import data.model.ServiceCredit;
 import java.sql.SQLException;
@@ -20,17 +20,16 @@ import otherclasses.UtilClass;
  * @author root
  */
 public class EmployeeServices {
-    
-    EmployeeDaoImplement employeeDao = new EmployeeDaoImplement();
-    
-    EmployeeAndServiceCreditService employeeAndServiceCreditService = new EmployeeAndServiceCreditService();
 
+    EmployeeDaoImplement employeeDao = new EmployeeDaoImplement();
+
+    EmployeeAndServiceCreditService employeeAndServiceCreditService = new EmployeeAndServiceCreditService();
 
     public String generateId() throws SQLException {
 
         String id = employeeDao.getLastId();
 
-        return id == null ? "PEN-"+UtilClass.splitId("PEN-220000") : "PEN-" + UtilClass.splitId(id);
+        return id == null ? "PEN-" + UtilClass.splitId("PEN-220000") : "PEN-" + UtilClass.splitId(id);
     }
 
     public int addEmployee(Employee employee) throws SQLException {
@@ -41,12 +40,12 @@ public class EmployeeServices {
         return 0;
 
     }
-    
-    public int updateEmployee(Employee employee)throws SQLException {
+
+    public int updateEmployee(Employee employee) throws SQLException {
         return employeeDao.update(employee);
     }
-    
-    public Employee getEmployee(String id)throws SQLException {
+
+    public Employee getEmployee(String id) throws SQLException {
         return employeeDao.getEmployee(id);
     }
 
@@ -75,28 +74,28 @@ public class EmployeeServices {
         }
 
     }
-    
-    
-    public int addServiceCredit(String employeeId, int serviceCreditId)throws SQLException {
+
+    public int addServiceCredit(String employeeId, int serviceCreditId) throws SQLException {
         return employeeAndServiceCreditService.addServiceCredit(employeeId, serviceCreditId);
     }
-    
-    public List<EmployeeServiceCredit> getEmployeeServiceCredits(String employeeId)throws SQLException{
-       return employeeAndServiceCreditService.getEmployeeServiceCredits(employeeId);
-       
+
+    public List<EmployeeServiceCredit> getEmployeeServiceCredits(String employeeId) throws SQLException {
+        return employeeAndServiceCreditService.getEmployeeServiceCredits(employeeId);
+
     }
-    
-    public List<ServiceCredit> getAvailableServiceCredit(String employeeId)throws SQLException{
-                
+
+    public List<ServiceCredit> getAvailableServiceCredit(String employeeId) throws SQLException {
+
         return employeeAndServiceCreditService.getAvailableServiceCredits(employeeId);
-        
+
     }
-    
-   
-    
-     public int deleteEmployeeServiceCredits(String employeeId, int serviceCreditId) throws SQLException {
+
+    public int deleteEmployeeServiceCredits(String employeeId, int serviceCreditId) throws SQLException {
         return employeeAndServiceCreditService.deleteEmployeeServiceCredits(employeeId, serviceCreditId);
     }
-     
+
+    public int addPersonnel(Personnel personnel) throws SQLException {
+        return employeeDao.addPersonnel(personnel);
+    }
 
 }

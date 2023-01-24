@@ -47,8 +47,8 @@ public class PNHSEMS {
 //       
 //       
 //            
-        LoginFrame main = new LoginFrame();
-        main.show();
+//        LoginFrame main = new LoginFrame();
+//        main.show();
 //      
 
     }

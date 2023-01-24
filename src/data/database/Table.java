@@ -141,13 +141,19 @@ public class Table {
                 .addField("user_id varchar(50) not null")
                 .setPK("reference_num");
         
-          Table LeaveAndServiceCredits = new Table("leave_service_credits")
+          Table leaveAndServiceCredits = new Table("leave_service_credits")
                 .addField("service_credit_id int(11) not null")
                 .addField("leave_id int(11) not null")
                 .addField("credit_used int(11) not null");
+          
+          Table personnels = new Table("personnels")
+                  .addField("id int(11) not null")
+                  .addField("title varchar(255) not null")
+                  .addField("employee_id varchar(12) not null")
+                  .setPK("id");
       
 
- //       Table leave
+
        
 
         addToDatabase(user);
@@ -158,8 +164,8 @@ public class Table {
         addToDatabase(employeeAndServiceCredits);
         addToDatabase(typeOfLeave);
         addToDatabase(employeeLeave);
-        addToDatabase(LeaveAndServiceCredits);
- 
+        addToDatabase(leaveAndServiceCredits);
+        addToDatabase(personnels);
   
 
     }
