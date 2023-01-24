@@ -109,5 +109,10 @@ public class LeaveFormService {
         
         return id == null ?prefix+UtilClass.splitId("0000-00000") : prefix + UtilClass.splitId(id);
     }
+    
+     public List<LeaveForm> searchByReferenceNumber(Employee employee,String refNum) throws SQLException {
+         
+         return leaveDao.searchByReferenceNumber(employee, refNum);
+     }
 
 }

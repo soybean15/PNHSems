@@ -59,4 +59,9 @@ public class LeaveFormController {
      public List<LeaveForm> getLeaveLogServiceCreditbyDate(Employee employee, Date date) throws SQLException {
          return service.getLeaveLogServiceCreditbyDate(employee, date);
      }
+     
+     
+      public List<LeaveForm> searchByReferenceNumber(Employee employee,String refNum) throws SQLException {
+          return service.searchByReferenceNumber(employee, refNum);
+      }
 }

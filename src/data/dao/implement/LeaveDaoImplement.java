@@ -254,4 +254,52 @@ public class LeaveDaoImplement implements LeaveDao {
         return rs.next() ? rs.getString("reference_num") : null;
     }
 
+    @Override
+    public List<LeaveForm> searchByReferenceNumber(Employee employee,String refNum) throws SQLException {
+         List<LeaveForm> leaveLogs = new ArrayList<>();
+        String query = "select * from employee_leave left join leave_type on leave_type.id = leave_type_id "
+                + "where employeeId =? and reference_num = ?";
+        
+        
+         try {
+            conn.setAutoCommit(false);
+            PreparedStatement pst = conn.prepareStatement(query);
+            pst.setString(1, employee.getId());
+            pst.setString(2, refNum);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                LeaveForm leaveForm = new LeaveForm();
+                leaveForm.setId(rs.getString("reference_num"));
+                leaveForm.setDateFiled(rs.getDate("date_filed"));
+                leaveForm.setInclusiveDate_start(rs.getDate("inclusive_date_start"));
+                leaveForm.setInclusiveDate_end(rs.getDate("inclusive_date_end"));
+                leaveForm.setCreditUsed(rs.getInt("days_used"));
+                leaveForm.setDetails(rs.getString("details"));
+                leaveForm.setCreated_at(rs.getTimestamp("created_at"));
+
+                if (rs.getString("leave_type_id") != null) {
+                    LeaveType leaveType = new LeaveType();
+
+                    leaveType.setId(rs.getInt("id"));
+                    leaveType.setName(rs.getString("name"));
+                    leaveType.setReference("reference");
+
+                    leaveForm.setLeaveType(leaveType);
+
+                }
+
+                leaveLogs.add(leaveForm);
+            }
+
+            return leaveLogs;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            conn.rollback();
+
+            leaveLogs = new ArrayList<>();
+            return leaveLogs;
+        }
+    }
+
 }

@@ -324,6 +324,9 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        txtSearchRefNum = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         buttonContainer = new javax.swing.JPanel();
         lblNxt = new javax.swing.JLabel();
@@ -388,17 +391,26 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
 
         jPanel9.setOpaque(false);
         jPanel9.setPreferredSize(new java.awt.Dimension(350, 350));
+        jPanel9.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
-        );
+        jLabel7.setText("Reference No:");
+        jPanel9.add(jLabel7, java.awt.BorderLayout.WEST);
+
+        txtSearchRefNum.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        txtSearchRefNum.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSearchRefNumKeyPressed(evt);
+            }
+        });
+        jPanel9.add(txtSearchRefNum, java.awt.BorderLayout.CENTER);
+
+        jButton2.setText("Search");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jButton2, java.awt.BorderLayout.LINE_END);
 
         jPanel6.add(jPanel9, java.awt.BorderLayout.EAST);
 
@@ -780,12 +792,38 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
        
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void txtSearchRefNumKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchRefNumKeyPressed
+        char c = evt.getKeyChar();
+        if(!Character.isDigit(c) && evt.getKeyCode() != java.awt.event.KeyEvent.VK_BACK_SPACE){
+            txtSearchRefNum.setEditable(false);
+        }else{
+            txtSearchRefNum.setEditable(true);
+        }
+    }//GEN-LAST:event_txtSearchRefNumKeyPressed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+         try {
+             String refNum = txtSearchRefNum.getText();
+
+            leaveLogs = controller.searchByReferenceNumber(employee, refNum);
+            update();
+            if(!leaveLogs.isEmpty()){
+                selectedLeaveForm = leaveLogs.get(0);
+                 setDetails();
+            }
+           
+        } catch (java.sql.SQLException e) {
+
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel buttonContainer;
     private javax.swing.JComboBox<String> cmbSort;
     private datechooser.beans.DateChooserCombo dateChooser;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
@@ -793,6 +831,7 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -829,5 +868,6 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblTotal;
     private javax.swing.JPanel panelLogs;
     private javax.swing.JPanel panelServiceCredits;
+    private javax.swing.JTextField txtSearchRefNum;
     // End of variables declaration//GEN-END:variables
 }
