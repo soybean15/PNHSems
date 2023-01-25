@@ -280,22 +280,21 @@ public class EmployeeDaoImplement implements EmployeeDao {
 
     @Override
     public int addPosition(Position position) throws SQLException {
-        try{
+        try {
             conn.setAutoCommit(false);
-                String query = "insert into positions(name, category) values(?,?)";
-        PreparedStatement ps = conn.prepareStatement(query);
-        
-        ps.setString(1, position.getName());
-        ps.setString(2,position.getCategory());
-        
-        
-         ps.executeUpdate();
-        conn.commit();
-        }catch(SQLException e){
+            String query = "insert into positions(name, category) values(?,?)";
+            PreparedStatement ps = conn.prepareStatement(query);
+
+            ps.setString(1, position.getName());
+            ps.setString(2, position.getCategory());
+
+            ps.executeUpdate();
+            conn.commit();
+        } catch (SQLException e) {
             conn.rollback();
         }
-       
-    return 0;
+
+        return 0;
     }
 
     @Override
@@ -407,18 +406,7 @@ public class EmployeeDaoImplement implements EmployeeDao {
         return mapEmployees(rs);
     }
 
-    @Override
-    public int addPersonnel(Personnel personnel) throws SQLException {
-        String query ="insert into personnels(id, title, employee_id) values(?,?,?)";
-        
-        PreparedStatement pst = conn.prepareStatement(query);
-        pst.setInt(1, personnel.getId());
-        pst.setString(2, personnel.getTitle());
-        pst.setString(3, personnel.getEmployeeId());
-        
-        return pst.executeUpdate();
-      
-    }
+  
 
 
  

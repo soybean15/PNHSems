@@ -148,8 +148,8 @@ public class Table {
           
           Table personnels = new Table("personnels")
                   .addField("id int(11) not null")
-                  .addField("title varchar(255) not null")
-                  .addField("employee_id varchar(12) not null")
+                  .addField("title int(11) not null")
+                  .addField("employee_id varchar(12)")
                   .setPK("id");
       
 

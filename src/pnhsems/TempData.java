@@ -20,14 +20,13 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
-
 /**
  *
  * @author root
  */
 public class TempData {
-    
-     static int counter;
+
+    static int counter;
 
     static void start() {
         DbConnection.dropDatabase();
@@ -104,7 +103,7 @@ public class TempData {
     static public void showServiceCredits() {
         EmployeeController employeeController = new EmployeeController();
         try {
-            List<EmployeeServiceCredit> serviceCredits = employeeController.getEmployeeServiceCredits("PEN-220002");
+            List<EmployeeServiceCredit> serviceCredits = employeeController.getEmployeeServiceCredits("PEN-230002");
 
             for (EmployeeServiceCredit item : serviceCredits) {
                 System.out.println(item.getNo_of_days());
@@ -172,8 +171,8 @@ public class TempData {
         }
 
     }
-    
-       public static void addLeaveType() {
+
+    public static void addLeaveType() {
         LeaveFormController controller = new LeaveFormController();
 
         LeaveType leaveType1 = new LeaveType();
@@ -191,45 +190,43 @@ public class TempData {
         LeaveType leaveType4 = new LeaveType();
         leaveType4.setName("Maternity Leave");
         leaveType4.setReference("R.A. No. 11210/IRR issued by CSC, DOLE and SSS");
-        
+
         LeaveType leaveType5 = new LeaveType();
         leaveType5.setName("Paternity Leave");
         leaveType5.setReference("R.A. No. 8187/CSC MC No. 71, s. 1998, as amended");
-        
+
         LeaveType leaveType6 = new LeaveType();
         leaveType6.setName("Special Privelege Leave");
         leaveType6.setReference("Sec 21, Rule XVI, Omnibus Rules Implementing E.O. No.292");
-          
+
         LeaveType leaveType7 = new LeaveType();
         leaveType7.setName("Solo Parent Leave");
         leaveType7.setReference("R.A.8972/CSC MC No.8, s.2004");
-        
-          
+
         LeaveType leaveType8 = new LeaveType();
         leaveType8.setName("Study Leave");
         leaveType8.setReference("Sec. 68, Rule XVI, Omnibus Rules Implementing E.O. No.292");
-        
+
         LeaveType leaveType9 = new LeaveType();
         leaveType9.setName("10-Day VAWC Leave");
         leaveType9.setReference("R.A. 9262/CSC MC No.15, s. 2005");
-        
+
         LeaveType leaveType10 = new LeaveType();
         leaveType10.setName("Rehabilitation Privelege");
         leaveType10.setReference("Sec. 55, Rule XVI, Omnibus Rules Implementing E.O. No.292");
-        
-        LeaveType leaveType11= new LeaveType();
+
+        LeaveType leaveType11 = new LeaveType();
         leaveType11.setName("Special Leave Benefits for Women");
         leaveType11.setReference("R.A. No. 9710/CSC MC No.25, s.2010");
-        
-        LeaveType leaveType12= new LeaveType();
+
+        LeaveType leaveType12 = new LeaveType();
         leaveType12.setName("Special Emergency (Calamaity) Leave");
         leaveType12.setReference("CSC MC No.2, s.2012 as amended");
-        
-        LeaveType leaveType13= new LeaveType();
+
+        LeaveType leaveType13 = new LeaveType();
         leaveType13.setName("Adoption Leave");
         leaveType13.setReference("R.A. No. 8552");
-        
-        
+
         try {
             controller.addLeaveType(leaveType1);
             controller.addLeaveType(leaveType2);
@@ -244,7 +241,6 @@ public class TempData {
             controller.addLeaveType(leaveType11);
             controller.addLeaveType(leaveType12);
             controller.addLeaveType(leaveType13);
-           
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -263,15 +259,34 @@ public class TempData {
             position2.setName("Registrar");
             position2.setCategory("Non-Teaching");
 
+            Position position3 = new Position();
+            position3.setName("Administrative Officer IV");
+            position3.setCategory("Non-Teaching");
+
+            Position position4 = new Position();
+            position4.setName("Administrative Officer V");
+            position4.setCategory("Non-Teaching");
+
+            Position position5 = new Position();
+            position5.setName("School Principal IV");
+            position5.setCategory("Non-Teaching");
+
+
+
             employeeController.addPosition(position1);
 
             employeeController.addPosition(position2);
+
+            employeeController.addPosition(position3);
+
+            employeeController.addPosition(position4);
+
+            employeeController.addPosition(position5);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
-    
-    
+
 }

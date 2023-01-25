@@ -48,7 +48,5 @@ public interface EmployeeDao {
     public List<Position> getPositions()
             throws SQLException;
     
-    public int addPersonnel(Personnel personnel)
-            throws SQLException;
 
 }

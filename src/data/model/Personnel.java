@@ -11,14 +11,14 @@ package data.model;
 public class Personnel {
     
     private int id;
-    private String title;
+    private int positionId;
     private String employeeId;
     
     public Personnel(){}
 
-    public Personnel(int id, String title, String employeeId) {
+    public Personnel(int id, int positionId, String employeeId) {
         this.id = id;
-        this.title = title;
+        this.positionId = positionId;
         this.employeeId = employeeId;
     }
 
@@ -30,13 +30,7 @@ public class Personnel {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
+  
 
     public String getEmployeeId() {
         return employeeId;
@@ -44,6 +38,14 @@ public class Personnel {
 
     public void setEmployeeId(String employeeId) {
         this.employeeId = employeeId;
+    }
+
+    public int getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(int positionId) {
+        this.positionId = positionId;
     }
     
     

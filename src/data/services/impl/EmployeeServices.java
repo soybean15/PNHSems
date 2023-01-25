@@ -94,8 +94,6 @@ public class EmployeeServices {
         return employeeAndServiceCreditService.deleteEmployeeServiceCredits(employeeId, serviceCreditId);
     }
 
-    public int addPersonnel(Personnel personnel) throws SQLException {
-        return employeeDao.addPersonnel(personnel);
-    }
+  
 
 }
