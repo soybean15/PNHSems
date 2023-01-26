@@ -6,11 +6,15 @@ package data.dao.implement;
 
 import data.dao.PersonnelDao;
 import data.database.DbConnection;
+import data.model.Employee;
 import data.model.Personnel;
+import data.model.Position;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -23,12 +27,12 @@ public class PersonnelDaoImplement implements PersonnelDao {
     
     @Override
     public int addPersonnel(Personnel personnel) throws SQLException {
-        String query ="insert into personnels(id, title, employee_id) values(?,?,?)";
+        String query ="insert into personnels(id, position_id, employee_id) values(?,?,?)";
         
         PreparedStatement pst = conn.prepareStatement(query);
         pst.setInt(1, personnel.getId());
-        pst.setInt(2, personnel.getPositionId());
-        pst.setString(3, personnel.getEmployeeId());
+        pst.setInt(2, personnel.getPosition().getId());
+        pst.setString(3, personnel.getEmployee() ==null? null : personnel.getEmployee().getId());
         
         return pst.executeUpdate();
       
@@ -41,8 +45,34 @@ public class PersonnelDaoImplement implements PersonnelDao {
        PreparedStatement pst = conn.prepareStatement(query);
        ResultSet rs = pst.executeQuery();
        
+       rs.next();
+     
+       
        return rs.getInt("total");
        
+    }
+
+    @Override
+    public List<Personnel> getPersonnels() throws SQLException {
+        List<Personnel> personnels = new ArrayList<>();
+        String query = "select * from personnels inner join positions on positions.id = personnels.position_id "
+                + "left join employee on employee.id = personnels.employee_id";
+        
+        
+        PreparedStatement pst = conn.prepareStatement(query);
+        ResultSet rs = pst.executeQuery();
+        
+        while(rs.next()){
+         
+            Personnel personnel = new Personnel(
+                    rs.getInt("id"),
+                    new Position().setId(rs.getInt("position_id")),
+                    new Employee().setId(rs.getString("employee_id"))
+            );
+            
+            personnels.add(personnel);
+        }
+       return personnels;
     }
 
    

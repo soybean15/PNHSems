@@ -11,15 +11,15 @@ package data.model;
 public class Personnel {
     
     private int id;
-    private int positionId;
-    private String employeeId;
+    private Position position;
+    private Employee employee;
     
     public Personnel(){}
 
-    public Personnel(int id, int positionId, String employeeId) {
+    public Personnel(int id, Position position, Employee employee) {
         this.id = id;
-        this.positionId = positionId;
-        this.employeeId = employeeId;
+        this.position = position;
+        this.employee = employee;
     }
 
     public int getId() {
@@ -30,26 +30,23 @@ public class Personnel {
         this.id = id;
     }
 
-  
-
-    public String getEmployeeId() {
-        return employeeId;
+    public Position getPosition() {
+        return position;
     }
 
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
-    public int getPositionId() {
-        return positionId;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setPositionId(int positionId) {
-        this.positionId = positionId;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
-    
-    
-    
+
+   
     
     
     

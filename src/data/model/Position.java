@@ -17,8 +17,10 @@ public class Position {
         return id;
     }
 
-    public void setId(int id) {
+    public Position setId(int id) {
         this.id = id;
+        
+        return this;
     }
 
 

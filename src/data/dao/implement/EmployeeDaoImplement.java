@@ -220,8 +220,9 @@ public class EmployeeDaoImplement implements EmployeeDao {
       ps.setString(1, id);
       ResultSet rs = ps.executeQuery();
       
-      Employee employee = new Employee();
+    
       if(rs.next()){
+            Employee employee = new Employee();
            String employee_id =rs.getString("id");
             
             //basic info
@@ -265,8 +266,9 @@ public class EmployeeDaoImplement implements EmployeeDao {
             personalInfo.setPermanentAddress(rs.getString("permanent_address"));
             
             employee.setPersonalInfo(personalInfo);
+            return employee;
       }
-      return employee;
+      return null;
     }
 
     @Override

@@ -36,8 +36,9 @@ public class Employee {
         return id;
     }
 
-    public void setId(String id) {
+    public Employee setId(String id) {
         this.id = id;
+        return this;
     }
 
     public String getFirstName() {

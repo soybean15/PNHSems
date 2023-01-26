@@ -5,6 +5,10 @@
 package frames.panels;
 
 import data.controllers.EmployeeController;
+import data.controllers.PersonnelController;
+import data.model.Personnel;
+import java.awt.GridLayout;
+import java.util.List;
 
 /**
  *
@@ -16,9 +20,62 @@ public class PersonnelPanel extends javax.swing.JPanel {
      * Creates new form PersonnelPanel
      */
     
-    EmployeeController controller = new EmployeeController();
+    private List<Personnel> personnels;
+    PersonnelController controller = new PersonnelController();
     public PersonnelPanel() {
         initComponents();
+        
+        try{
+            
+            controller.addPersonnels();
+            
+            personnels = controller.getPersonnels();
+            
+            createPersonnelPanel();
+        }catch(java.sql.SQLException e){
+            e.printStackTrace();
+        }
+        
+    }
+
+    private void createPersonnelPanel() {
+         mainContainer.setLayout(new GridLayout(4,0));
+        for (Personnel item : personnels) {
+            javax.swing.JPanel jPanel2 = new javax.swing.JPanel();
+            jPanel2.setOpaque(false);
+            
+            javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
+            jLabel1.setFont(new java.awt.Font("Liberation Serif", 0, 18)); // NOI18N
+            jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            jLabel1.setText(item.getPosition().getName());
+           
+            javax.swing.JLabel jLabel2 = new javax.swing.JLabel();
+            jLabel2.setText(item.getEmployee()==null?"N/A" : item.getEmployee().getFullname());
+            jPanel2.add(jLabel2);
+
+            javax.swing.JButton jButton1 = new javax.swing.JButton();
+            jButton1.setText("Change");
+            jPanel2.add(jButton1);
+
+           
+           
+
+            javax.swing.JPanel jPanel1 = new javax.swing.JPanel();
+
+            jPanel1.setOpaque(false);
+            jPanel1.setLayout(new java.awt.GridLayout(2, 0));
+            
+            jPanel1.add(jLabel1);
+            jPanel1.add(jPanel2);
+            
+           mainContainer.add(jPanel1);
+
+       
+
+
+
+
+        }
     }
 
     /**
@@ -30,132 +87,27 @@ public class PersonnelPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        mainContainer = new javax.swing.JPanel();
+        jPanelfiller = new javax.swing.JPanel();
+        jPanelfiller1 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setLayout(new java.awt.GridLayout(5, 0));
+        setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setOpaque(false);
-        jPanel1.setLayout(new java.awt.GridLayout(2, 0));
+        mainContainer.setOpaque(false);
+        add(mainContainer, java.awt.BorderLayout.CENTER);
 
-        jLabel1.setFont(new java.awt.Font("Liberation Serif", 0, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Administrative Officer IV");
-        jPanel1.add(jLabel1);
+        jPanelfiller.setPreferredSize(new java.awt.Dimension(110, 80));
+        add(jPanelfiller, java.awt.BorderLayout.NORTH);
 
-        jPanel2.setOpaque(false);
-
-        jLabel2.setText("Name");
-        jPanel2.add(jLabel2);
-
-        jButton1.setText("Change");
-        jPanel2.add(jButton1);
-
-        jPanel1.add(jPanel2);
-
-        add(jPanel1);
-
-        jPanel3.setOpaque(false);
-        jPanel3.setLayout(new java.awt.GridLayout(2, 0));
-
-        jLabel3.setFont(new java.awt.Font("Liberation Serif", 0, 18)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Administrative Officer IV");
-        jPanel3.add(jLabel3);
-
-        jPanel4.setOpaque(false);
-
-        jLabel4.setText("Name");
-        jPanel4.add(jLabel4);
-
-        jButton2.setText("Change");
-        jPanel4.add(jButton2);
-
-        jPanel3.add(jPanel4);
-
-        add(jPanel3);
-
-        jPanel5.setOpaque(false);
-        jPanel5.setLayout(new java.awt.GridLayout(2, 0));
-
-        jLabel5.setFont(new java.awt.Font("Liberation Serif", 0, 18)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("School Principal");
-        jPanel5.add(jLabel5);
-
-        jPanel6.setOpaque(false);
-
-        jLabel6.setText("Name");
-        jPanel6.add(jLabel6);
-
-        jButton3.setText("Change");
-        jPanel6.add(jButton3);
-
-        jPanel5.add(jPanel6);
-
-        add(jPanel5);
-
-        jPanel7.setOpaque(false);
-        jPanel7.setLayout(new java.awt.GridLayout(2, 0));
-
-        jLabel7.setFont(new java.awt.Font("Liberation Serif", 0, 18)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Administrative Officer V");
-        jPanel7.add(jLabel7);
-
-        jPanel8.setOpaque(false);
-
-        jLabel8.setText("Name");
-        jPanel8.add(jLabel8);
-
-        jButton4.setText("Change");
-        jPanel8.add(jButton4);
-
-        jPanel7.add(jPanel8);
-
-        add(jPanel7);
+        jPanelfiller1.setPreferredSize(new java.awt.Dimension(110, 80));
+        add(jPanelfiller1, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanelfiller;
+    private javax.swing.JPanel jPanelfiller1;
+    private javax.swing.JPanel mainContainer;
     // End of variables declaration//GEN-END:variables
 }

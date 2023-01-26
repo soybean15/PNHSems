@@ -6,6 +6,7 @@ package data.dao;
 
 import data.model.Personnel;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -18,6 +19,11 @@ public interface PersonnelDao {
 
     public int checkPersonnelCount()
             throws SQLException;
+    
+    public List<Personnel> getPersonnels()
+            throws SQLException;
+    
+
     
 
 
