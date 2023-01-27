@@ -36,25 +36,14 @@ public class Table {
         return this;
     }
 
-    static void addToDatabase(Table table) {
-        String url = DbConnection.URL + DbConnection.DB_NAME;
-        String user = DbConnection.USERNAME;
-        String pass = DbConnection.PASS;
+ 
+    
+    
 
-        String sql = tableToSqlString(table);
-        try {
-            Connection con = DriverManager.getConnection(url, user, pass);
-            PreparedStatement pst = con.prepareStatement(sql);
-            pst.execute();
-            System.out.println("new table created");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    static void createAll() {
-        Table user = new Table("users")
+    static List<Table> createAll() {
+        List<Table> tables =new ArrayList<>();
+        
+        tables.add( new Table("users")
                 .addField("username varchar(50) not null")
                 .addField("password varchar(50) not null")
                 .addField("name varchar(100) not null")
@@ -63,9 +52,9 @@ public class Table {
                 .addField("isenable varchar(5) not null default 'false'")
                 .addField("created_at timestamp NOT NULL DEFAULT current_timestamp()")
                 .addField("updated_at timestamp NOT NULL DEFAULT current_timestamp()")
-                .setPK("username");
+                .setPK("username"));
 
-        Table employee = new Table("employee")
+        tables.add(new Table("employee")
                 .addField("id varchar(12) not null")
                 .addField("firstname varchar(50) not null")
                 .addField("lastname varchar(50) not null")
@@ -78,9 +67,9 @@ public class Table {
                 .addField("position_id int(11) not null")
                 .addField("created_at timestamp NOT NULL DEFAULT current_timestamp()")
                 .addField("updated_at timestamp NOT NULL DEFAULT current_timestamp()")
-                .setPK("id");
+                .setPK("id"));
 
-        Table employeeInfo = new Table("employee_info")
+        tables.add( new Table("employee_info")
                 .addField("id int(11) not null auto_increment")
                 .addField("employee_id varchar(12) not null")              
                 .addField("civil_status varchar(50) ")
@@ -98,15 +87,15 @@ public class Table {
                 .addField("email varchar(20)")
                 .addField("current_address text")
                 .addField("permanent_address text")
-                .setPK("id");
+                .setPK("id"));
 
-        Table position = new Table("positions")
+        tables.add( new Table("positions")
                 .addField("id int(11) not null auto_increment")
                 .addField("name varchar(200) not null")
                 .addField("category varchar(50) not null")
-                .setPK("id");
+                .setPK("id"));
         
-        Table serviceCredits = new Table("service_credits")
+       tables.add(new Table("service_credits")
                 .addField("id int(11) not null auto_increment")
                 .addField("order_no varchar(50) not null")
                 .addField("memorandum varchar(255) not null")
@@ -114,21 +103,21 @@ public class Table {
                 .addField("title varchar(255) not null")
                 .addField("created_at timestamp NOT NULL DEFAULT current_timestamp()")
                 .addField("updated_at timestamp NOT NULL DEFAULT current_timestamp()")
-                .setPK("id");
+                .setPK("id"));
         
-        Table employeeAndServiceCredits = new Table("employee_and_service_credits")
+        tables.add( new Table("employee_and_service_credits")
                 .addField("employeeId varchar(12) not null")
                 .addField("service_credits_id int(11) not null")
-                .addField("remaining_days int(11) not null");
+                .addField("remaining_days int(11) not null"));
         
-        Table typeOfLeave = new Table("leave_type")
+        tables.add(new Table("leave_type")
                 .addField("id int(11) not null auto_increment")
                 .addField("name varchar(255) not null")
                 .addField("reference text not null")
-                .setPK("id");
+                .setPK("id"));
         
         
-        Table employeeLeave = new Table("employee_leave")
+        tables.add( new Table("employee_leave")
                 .addField("reference_num varchar(12) not null")
                 .addField("employeeId varchar(12) not null")
                 .addField("date_filed date not null")
@@ -139,33 +128,22 @@ public class Table {
                 .addField("details text")
                 .addField("created_at timestamp NOT NULL DEFAULT current_timestamp()")
                 .addField("user_id varchar(50) not null")
-                .setPK("reference_num");
+                .setPK("reference_num"));
         
-          Table leaveAndServiceCredits = new Table("leave_service_credits")
+          tables.add(new Table("leave_service_credits")
                 .addField("service_credit_id int(11) not null")
                 .addField("leave_id int(11) not null")
-                .addField("credit_used int(11) not null");
+                .addField("credit_used int(11) not null"));
           
-          Table personnels = new Table("personnels")
+          tables.add(new Table("personnels")
                   .addField("id int(11) not null")
                   .addField("position_id int(11) not null")
                   .addField("employee_id varchar(12)")
-                  .setPK("id");
+                  .setPK("id"));
       
-
-
        
-
-        addToDatabase(user);
-        addToDatabase(employee);
-        addToDatabase(employeeInfo);
-        addToDatabase(position);
-        addToDatabase(serviceCredits);
-        addToDatabase(employeeAndServiceCredits);
-        addToDatabase(typeOfLeave);
-        addToDatabase(employeeLeave);
-        addToDatabase(leaveAndServiceCredits);
-        addToDatabase(personnels);
+          return tables;
+ 
   
 
     }

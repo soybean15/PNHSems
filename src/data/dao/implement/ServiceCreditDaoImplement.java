@@ -26,15 +26,25 @@ public class ServiceCreditDaoImplement implements ServiceCreditsDao{
 
     @Override
     public int add(ServiceCredit serviceCredit) throws SQLException {
-        String query ="insert into service_credits(order_no,title,memorandum,no_of_days) values(?,?,?,?)";
-        
-        PreparedStatement ps = conn.prepareStatement(query);
-        ps.setString(1, serviceCredit.getOrderNo());
-        ps.setString(2, serviceCredit.getTitle());
-        ps.setString(3, serviceCredit.getMemorandum());
-        ps.setInt(4, serviceCredit.getNumberOfDays());
-        
-        return ps.executeUpdate();
+        String query = "insert into service_credits(order_no,title,memorandum,no_of_days) values(?,?,?,?)";
+        int n = 0;
+        try {
+            conn.setAutoCommit(false);
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, serviceCredit.getOrderNo());
+            ps.setString(2, serviceCredit.getTitle());
+            ps.setString(3, serviceCredit.getMemorandum());
+            ps.setInt(4, serviceCredit.getNumberOfDays());
+
+            n = ps.executeUpdate();
+
+            conn.commit();
+        } catch (SQLException e) {
+            conn.rollback();
+        }
+
+        return n;
+
     }
 
     @Override

@@ -54,16 +54,7 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
 
         this.employee = employee;
 
-        try {
-            this.leaveLogs = controller.getLeaveLogs(employee);
-            lblHeader.setText(employee.getFirstName() + "'s Leave Logs");
-
-            update();
-
-        } catch (java.sql.SQLException e) {
-            e.printStackTrace();
-        }
-
+        reload();
         init();
         // print();
        
@@ -85,6 +76,19 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
             comboIndex = cmbSort.getSelectedIndex();
             sort = false;
         });
+
+    }
+    
+    public void reload(){
+           try {
+            this.leaveLogs = controller.getLeaveLogs(employee);
+            lblHeader.setText(employee.getFirstName() + "'s Leave Logs");
+
+            update();
+
+        } catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 

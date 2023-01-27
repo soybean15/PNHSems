@@ -54,4 +54,8 @@ public class PersonnelService {
         return personnels;
     }
     
+    public int updatePersonnel(Personnel personnel) throws SQLException{
+        return personnelDao.updatePersonnel(personnel);
+    }
+    
 }

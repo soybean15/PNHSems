@@ -29,6 +29,13 @@ public class UtilClass {
 
     }
     
+     public static int splitRefNum(String id) {
+    
+
+        return Integer.parseInt(id.substring(4, id.length()))+1;
+
+    }
+    
     public static String getPrefix(String id){
         LocalDate localDate = LocalDate.now();
         int day = localDate.getDayOfMonth();
@@ -37,7 +44,7 @@ public class UtilClass {
         
         String dayStr = String.valueOf(day).substring(0, 2);
         
-        System.out.println("prefix>>>"+ dayStr+lastTwo);
+        System.out.println("prefix>>>"+ lastTwo+dayStr);
         return dayStr+lastTwo;
     }
 

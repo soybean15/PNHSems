@@ -58,6 +58,7 @@ public class LogsItem extends javax.swing.JPanel {
     }
     
     public void selected(){
+        lblId.setFont(Theme.PRIMARY.FONT.tableFontBig(12));
          lblDateFiled.setFont(Theme.PRIMARY.FONT.tableFontBig(12));
         
         lblLeaveType.setFont(Theme.PRIMARY.FONT.tableFontBig(12));
@@ -65,6 +66,7 @@ public class LogsItem extends javax.swing.JPanel {
 //        lblEnd.setFont(Theme.PRIMARY.FONT.tableFontBig(12));
     }
     public void unSelected(){
+        lblId.setFont(Theme.PRIMARY.FONT.tableFontDefault(12));
          lblDateFiled.setFont(Theme.PRIMARY.FONT.tableFontDefault(12));
         
         lblLeaveType.setFont(Theme.PRIMARY.FONT.tableFontDefault(12));
@@ -98,6 +100,7 @@ public class LogsItem extends javax.swing.JPanel {
         lblDateFiled.setPreferredSize(new java.awt.Dimension(100, 17));
         add(lblDateFiled, java.awt.BorderLayout.EAST);
 
+        lblId.setFont(Theme.PRIMARY.FONT.tableFontDefault(12));
         lblId.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblId.setText("Ref_Num");
         lblId.setPreferredSize(new java.awt.Dimension(200, 17));

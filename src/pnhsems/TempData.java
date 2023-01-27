@@ -8,6 +8,7 @@ import data.controllers.EmployeeController;
 import data.controllers.LeaveFormController;
 import data.controllers.ServiceCreditController;
 import data.dao.implement.UserDaoImplement;
+import data.database.Database;
 import data.database.DbConnection;
 import data.model.Employee;
 import data.model.EmployeeServiceCredit;
@@ -29,8 +30,20 @@ public class TempData {
     static int counter;
 
     static void start() {
-        DbConnection.dropDatabase();
+        Database.dropDatabase();
         DbConnection.getConnection();
+      
+        addUsers();
+        addPositions();
+        addEmployee();
+        addEmployee();
+        addEmployee();
+        addServiceCredit();
+        addServiceCreditOnEmployee();
+        addLeaveType();
+    }
+    
+    static void addUsers(){
         User user = new User("Marlon", "user123", "user@gmail.com", "password123", false);
         User user2 = new User("George", "george123", "george@gmail.com", "george123", false);
         User user3 = new User("Maymay", "Maymay123", "Maymay@gmail.com", "Maymay123", false);
@@ -53,10 +66,6 @@ public class TempData {
             e.printStackTrace();
 
         }
-        addPositions();
-        addEmployee();
-        addEmployee();
-        addEmployee();
     }
 
     static void addServiceCredit() {
@@ -78,7 +87,10 @@ public class TempData {
 
         try {
             controller.addServiceCredit(serviceCredit);
+            System.out.println(serviceCredit.getMemorandum()+" Added");
             controller.addServiceCredit(serviceCredit2);
+              System.out.println(serviceCredit2.getMemorandum()+" Added");
+            
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (InvalidInputException e) {
@@ -91,9 +103,13 @@ public class TempData {
         EmployeeController employeeController = new EmployeeController();
         try {
             employeeController.addServiceCredit("PEN-230001", 1);
+            System.out.println("ServiceCredit on PEN-230001 added");
             employeeController.addServiceCredit("PEN-230002", 1);
+            System.out.println("ServiceCredit on PEN-230002 added");
             employeeController.addServiceCredit("PEN-230003", 1);
+            System.out.println("ServiceCredit on PEN-230003 added");
             employeeController.addServiceCredit("PEN-230002", 2);
+            System.out.println("ServiceCredit on PEN-230002 added");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -241,6 +257,8 @@ public class TempData {
             controller.addLeaveType(leaveType11);
             controller.addLeaveType(leaveType12);
             controller.addLeaveType(leaveType13);
+            
+            System.out.println("LeaveTypes added");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -282,6 +300,9 @@ public class TempData {
             employeeController.addPosition(position4);
 
             employeeController.addPosition(position5);
+            
+            
+            System.out.println("Positions Added");
 
         } catch (SQLException e) {
             e.printStackTrace();

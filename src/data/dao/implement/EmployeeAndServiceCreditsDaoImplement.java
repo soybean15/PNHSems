@@ -26,12 +26,21 @@ public class EmployeeAndServiceCreditsDaoImplement implements EmployeeAndService
     @Override
     public int addServiceCredit(String employeeId, int serviceCreditId) throws SQLException {
         String query = "Insert into employee_and_service_credits(employeeId,service_credits_id, remaining_days) values(?,?,(SELECT no_of_days from service_credits WHERE service_credits.id = ?))";
-        PreparedStatement pst = conn.prepareStatement(query);
-        pst.setString(1, employeeId);
-        pst.setInt(2, serviceCreditId);
-        pst.setInt(3, serviceCreditId);
 
-        return pst.executeUpdate();
+        int n = 0;
+        try {
+            conn.setAutoCommit(false);
+            PreparedStatement pst = conn.prepareStatement(query);
+            pst.setString(1, employeeId);
+            pst.setInt(2, serviceCreditId);
+            pst.setInt(3, serviceCreditId);
+            n = pst.executeUpdate();
+            conn.commit();
+        } catch (SQLException e) {
+            conn.rollback();
+        }
+
+        return n;
     }
 
     @Override

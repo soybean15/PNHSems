@@ -107,7 +107,7 @@ public class LeaveFormService {
        
         String prefix = UtilClass.getPrefix(employee.getId());
         
-        return id == null ?prefix+UtilClass.splitId("0000-00000") : prefix + UtilClass.splitId(id);
+        return id == null ?prefix+UtilClass.splitRefNum("000010000") : prefix + UtilClass.splitRefNum(id);
     }
     
      public List<LeaveForm> searchByReferenceNumber(Employee employee,String refNum) throws SQLException {

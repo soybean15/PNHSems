@@ -206,7 +206,7 @@ public class EmployeeDaoImplement implements EmployeeDao {
     @Override
     public List<Employee> getAll() throws SQLException {
         
-        String query ="select * from employee , employee_info WHERE employee.id = employee_info.employee_id ";
+        String query ="select * from employee , employee_info WHERE employee.id = employee_info.employee_id limit 20";
         PreparedStatement ps = conn.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
       

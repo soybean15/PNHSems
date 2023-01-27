@@ -23,6 +23,9 @@ public interface PersonnelDao {
     public List<Personnel> getPersonnels()
             throws SQLException;
     
+    public int updatePersonnel(Personnel personnel)
+            throws SQLException;
+    
 
     
 

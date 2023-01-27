@@ -75,5 +75,18 @@ public class PersonnelDaoImplement implements PersonnelDao {
        return personnels;
     }
 
+    @Override
+    public int updatePersonnel(Personnel personnel) throws SQLException {
+        String query = "update personnels set employee_id = ? where id = ?";
+        
+        PreparedStatement pst = conn.prepareStatement(query);
+        
+          pst.setString(1, personnel.getEmployee().getId());
+        pst.setInt(2, personnel.getId());
+        
+      
+        return pst.executeUpdate();
+    }
+
    
 }

@@ -14,15 +14,19 @@ import java.util.List;
  * @author root
  */
 public class PersonnelController {
-    
+
     PersonnelService service = new PersonnelService();
-    
-    public int addPersonnels() throws SQLException{
+
+    public int addPersonnels() throws SQLException {
         return service.addPersonnels();
     }
-    
-     public List<Personnel> getPersonnels() throws SQLException{
-         return service.getPersonnels();
-     }
-    
+
+    public List<Personnel> getPersonnels() throws SQLException {
+        return service.getPersonnels();
+    }
+
+    public int updatePersonnel(Personnel personnel) throws SQLException {
+        return service.updatePersonnel(personnel);
+    }
+
 }

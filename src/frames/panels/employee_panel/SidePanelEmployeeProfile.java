@@ -414,6 +414,7 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         } else {
             activePanel(employeeLeaveLogsPanel, lblLeaveLogs);
         }
+        employeeLeaveLogsPanel.reload();
 
     }//GEN-LAST:event_panelLeaveLogsMouseClicked
 

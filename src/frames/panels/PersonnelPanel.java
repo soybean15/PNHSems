@@ -7,8 +7,13 @@ package frames.panels;
 import data.controllers.EmployeeController;
 import data.controllers.PersonnelController;
 import data.model.Personnel;
+import frames.components.windows.AddPersonnelWindow;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JPanel;
 
 /**
  *
@@ -37,8 +42,27 @@ public class PersonnelPanel extends javax.swing.JPanel {
         }
         
     }
+    
+    public void updatePersonel(Personnel personnel){
+        
+        try {
+            int n = controller.updatePersonnel(personnel);
+            System.out.println(n);
+            this.personnels = controller.getPersonnels();
+            
+            createPersonnelPanel();
+        } catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
+
+    
+        
+    }
 
     private void createPersonnelPanel() {
+        mainContainer.removeAll();
+        mainContainer.repaint();
+        mainContainer.revalidate();
          mainContainer.setLayout(new GridLayout(4,0));
         for (Personnel item : personnels) {
             javax.swing.JPanel jPanel2 = new javax.swing.JPanel();
@@ -56,6 +80,19 @@ public class PersonnelPanel extends javax.swing.JPanel {
             javax.swing.JButton jButton1 = new javax.swing.JButton();
             jButton1.setText("Change");
             jPanel2.add(jButton1);
+            
+            JPanel parent = this;
+            
+            jButton1.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    AddPersonnelWindow addPersonnel = new AddPersonnelWindow();
+                    addPersonnel.setFrame(item.getId(),parent,new ArrayList<>());
+                    addPersonnel.setVisible(true);
+                    
+                }
+                
+            });
 
            
            
