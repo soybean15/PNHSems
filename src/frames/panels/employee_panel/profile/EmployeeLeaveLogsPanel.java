@@ -756,7 +756,7 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
         firstPage = false;
         lastPage = pageCounter == numberOfPagesSet;
 
-        System.out.println(lastPage);
+    
         createPagination(current);
 
     }//GEN-LAST:event_lblNxtMouseClicked

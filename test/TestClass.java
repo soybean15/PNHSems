@@ -13,30 +13,14 @@ import java.util.Scanner;
  * @author root
  */
 
-class Music{
+
+public class TestClass {
     String title;
     String artist;
     
-    public Music(String title, String artist) {
+    public TestClass(String title, String artist) {
         this.title = title;
         this.artist = artist;
-        
-    }
-    
-    
-}
-
-public class TestClass {
-    public static void main(String[] args) {
-       
-        ArrayList<Object> arr = new ArrayList<>();
-        
-        arr.add(1);
-        arr.add(2);
-        arr.add(new int[]{1,2,3});
-        
-        System.out.println(arr);
-       
         
     }
 }

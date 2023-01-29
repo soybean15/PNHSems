@@ -1,10 +1,14 @@
 
 import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingWorker;
+import pagination.Pagination;
+import pagination.PaginationHandler;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -20,39 +24,31 @@ public class TestFrame extends javax.swing.JFrame {
      * Creates new form TestFrame
      */
     public TestFrame() {
-        list = new JPanel();
+        setSize(300,400);
+        int testSize = 10;
         
-        final JLabel label = new JLabel("Initial text");
+  
         
-        setSize(200, 300);
-       
+        List<TestClass> musics= new ArrayList<>();
         
-        list.setLayout(new GridLayout(100, 0));
-      //  add(list);
-        SwingWorker<Void, String> worker = new SwingWorker<Void, String>() {
-            @Override
-            protected Void doInBackground() throws Exception {
-                for (int i = 0; i < 100; i++) {
-                    Thread.sleep(100);
-                    publish("Iteration: " + i);
-                }
-                return null;
-            }
-            
-            @Override
-            protected void process(List<String> chunks) {
-                for (final String text : chunks) {
-                    EventQueue.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            add(new JLabel(text));
-                        }
-                    });
-                }
-            }
-        };
+        for(int i =0; i<100; i++){
+            musics.add(new TestClass("music"+i,"artist"+i));
+        }
         
-        worker.execute();
+        add(new JLabel("Page "));
+        
+        
+        setLayout(new GridLayout(13, 0));
+        
+       for(int i =0; i<10; i++){
+            JLabel item = new JLabel(musics.get(i).title);
+            add(item);
+        }
+        PaginationHandler paginationHandler = new PaginationHandler(10,musics.size(),5);
+      
+      
+        add(paginationHandler.createPageButtons());
+        
     }
 
     /**
@@ -64,16 +60,11 @@ public class TestFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        list = new javax.swing.JPanel();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(664, 520));
         setMinimumSize(new java.awt.Dimension(664, 520));
         setPreferredSize(new java.awt.Dimension(664, 520));
-        getContentPane().setLayout(new java.awt.FlowLayout());
-
-        list.setLayout(new java.awt.GridLayout());
-        getContentPane().add(list);
+        getContentPane().setLayout(new java.awt.GridLayout());
 
         pack();
         setLocationRelativeTo(null);
@@ -115,6 +106,5 @@ public class TestFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel list;
     // End of variables declaration//GEN-END:variables
 }
