@@ -1,4 +1,6 @@
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.util.ArrayList;
@@ -9,6 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingWorker;
 import pagination.Pagination;
 import pagination.PaginationHandler;
+import pagination.event.PaginationEvent;
+import pagination.listener.PaginationMouseListener;
+import themes.Theme;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -23,32 +28,88 @@ public class TestFrame extends javax.swing.JFrame {
     /**
      * Creates new form TestFrame
      */
+    List<TestClass> musics = new ArrayList<>();
+    JPanel container = new JPanel();
+    JLabel pages;
+    int page;
+    int totalPage;
+    
+    
+    public void populate(int start, int end){
+        container.removeAll();
+        container.repaint();
+        container.revalidate();
+       
+        List<TestClass> _musics = musics.subList(start, end+1);
+        
+
+       
+        for (int i = 0; i < 10; i++) {
+            try{
+                 JLabel item = new JLabel(_musics.get(i).title);
+                 container.add(item);
+                 System.out.println(_musics.get(i).title);
+          
+            }catch(Exception e){
+               
+                break;
+            }
+          
+        }
+    }
+    
     public TestFrame() {
-        setSize(300,400);
+        
+        setSize(300, 400);
         int testSize = 10;
-        
-  
-        
-        List<TestClass> musics= new ArrayList<>();
-        
-        for(int i =0; i<100; i++){
-            musics.add(new TestClass("music"+i,"artist"+i));
+
+    
+
+        for (int i = 0; i < 101; i++) {
+            musics.add(new TestClass("music" + i, "artist" + i));
         }
+        setLayout(new BorderLayout());
         
-        add(new JLabel("Page "));
+
+        pages = new JLabel("Page "+page+" of "+totalPage);
+        add(pages,BorderLayout.NORTH);
+        container.setLayout(new GridLayout(10,0));
+        
+        add(container,BorderLayout.CENTER);
+        populate( 0,  9);
+
+       
+        PaginationHandler paginationHandler = new PaginationHandler(10, musics.size(), 5);
+        paginationHandler.modifyButton(label -> {
+//            label.setOpaque(true);
+//            label.setBackground(Color.WHITE);
+//            label.setFont(Theme.PRIMARY.FONT.defaultFont(15));
+//            label.setForeground(Color.BLACK);
+        });
+        
+        paginationHandler.addMouseListener(new PaginationMouseListener(){
+            
+              @Override
+            public void onClick(PaginationEvent e) {    
+                populate( e.startIndex(),  e.endIndex());
+                pages.setText("Page "+e.getCurrentPage()+" of "+e.getTotalPage());
+
+            }
+            @Override
+            public void onSelected(PaginationEvent e){
+              
+                e.getButton().setBackground(Color.red);
+                e.getButton().setForeground(Color.yellow);
+                
+            }
+
+          
+        });
         
         
-        setLayout(new GridLayout(13, 0));
         
-       for(int i =0; i<10; i++){
-            JLabel item = new JLabel(musics.get(i).title);
-            add(item);
-        }
-        PaginationHandler paginationHandler = new PaginationHandler(10,musics.size(),5);
-      
-      
-        add(paginationHandler.createPageButtons());
-        
+        add(paginationHandler.getPagination(),BorderLayout.SOUTH);
+
     }
 
     /**
@@ -64,7 +125,7 @@ public class TestFrame extends javax.swing.JFrame {
         setMaximumSize(new java.awt.Dimension(664, 520));
         setMinimumSize(new java.awt.Dimension(664, 520));
         setPreferredSize(new java.awt.Dimension(664, 520));
-        getContentPane().setLayout(new java.awt.GridLayout());
+        getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         pack();
         setLocationRelativeTo(null);

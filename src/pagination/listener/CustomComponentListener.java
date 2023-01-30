@@ -4,14 +4,21 @@
  */
 package pagination.listener;
 
+import java.util.function.Consumer;
+import javax.swing.JLabel;
+import pagination.event.PaginationEvent;
+
 /**
  *
  * @author root
  */
 public interface CustomComponentListener {
     
-    public void onClick(int index);
+    public PaginationEvent onClick();
     public void onNext();
     public void onPrevious();
+   // public default void onSelected(Consumer<JLabel> label){
+        
+    
     
 }

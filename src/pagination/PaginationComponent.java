@@ -4,6 +4,8 @@
  */
 package pagination;
 
+import java.awt.Color;
+import java.awt.Cursor;
 import pagination.listener.CustomComponentListener;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
@@ -11,8 +13,11 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import pagination.event.PaginationEvent;
+import pagination.listener.PaginationMouseListener;
 
 /**
  *
@@ -31,7 +36,11 @@ class PaginationComponent{
     
     private int numberOfPageToShow;
     JLabel[] pageButtons;
-
+    Consumer<JLabel> pageButton;
+    
+    private CustomComponentListener listener;
+    private List<PaginationMouseListener> mouseListeners = new ArrayList<>();
+ 
     public PaginationComponent(int numberOfPageToShow) {
         this.numberOfPageToShow = numberOfPageToShow;
        
@@ -40,21 +49,37 @@ class PaginationComponent{
     }
     
     
-    public void modifyButton(JLabel label ,Consumer<JLabel> c){
+    
+    public void modify(JLabel label ,Consumer<JLabel> c){
+      
+        label.setCursor(new Cursor(Cursor.HAND_CURSOR));
         c.accept(label);
+        
+    }
+    
+    public void modifyButton(Consumer<JLabel> c){
+        this.pageButton=c;
+        
+        for(JLabel label:pageButtons){
+            modify( label ,c);
+        }
     }
     
     
     
-    private List<CustomComponentListener> listeners = new ArrayList<>();
+    
+  
     
     
     public void addListener(CustomComponentListener listener){
-        listeners.add(listener);
+        this.listener = listener;
+    }
+    public void addMouseListener(PaginationMouseListener mouseListener){
+        mouseListeners.add(mouseListener);
     }
  
-    private void createPageButton(int start, int end,Consumer<JLabel> c){
-      
+    private void createPageButton(int start, int end){
+       
        
         pageButtons= new JLabel[numberOfPageToShow];
         System.out.println("start "+start +" end: "+end);
@@ -69,13 +94,20 @@ class PaginationComponent{
         }
      
         for(int i=_start-1; i<numberOfPageToShow;i++){
-           if( i < end){
-                pageButtons[i]=new JLabel(String.valueOf(i+start));
-                modifyButton(pageButtons[i], c);
-                addPageListener( pageButtons[i]);
-               
-            }else{
-                 pageButtons[i]= new JLabel("");
+            if (i < end) {
+                pageButtons[i] = new JLabel(String.valueOf(i + start));
+
+                onClick(pageButtons[i]);
+                pageButtons[i].setHorizontalAlignment(JLabel.CENTER);
+                pageButtons[i].setOpaque(true);
+                pageButtons[i].setBackground(Color.white);
+                pageButtons[i].setForeground(Color.black);
+                if (pageButton != null) {
+                    modify(pageButtons[i], pageButton);
+                }
+
+            } else {
+                pageButtons[i] = new JLabel("");
             }
             
         }
@@ -89,11 +121,10 @@ class PaginationComponent{
         NEXT.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e) {
-                
-                for(CustomComponentListener listener:listeners){
+                            
                    
                     listener.onNext();
-                }
+                
             
             }
         });
@@ -105,29 +136,30 @@ class PaginationComponent{
           PREVIOUS.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e) {
-                for(CustomComponentListener listener:listeners){
-                    
+                
                     
                     listener.onPrevious();
-                }
+                
             
             }
         });
          return PREVIOUS;
     }
+    
+
 
    
     
     
     
     
-    public JPanel createPages( int start, int end, boolean onFirst, boolean onLast,Consumer<JLabel> c){
+    public JPanel createPages( int start, int end, boolean onFirst, boolean onLast){
       container.removeAll();
       container.repaint();
       container.revalidate();
-        container.setLayout(new GridLayout(0,2+numberOfPageToShow));
+      container.setLayout(new GridLayout(0,2+numberOfPageToShow));
         
-        createPageButton( start,  end,c);
+        createPageButton( start,  end);
        
         
         previous.setVisible(!onFirst);
@@ -148,21 +180,41 @@ class PaginationComponent{
     }
     
     
-    private void addPageListener(JLabel label){
-        label.addMouseListener(new MouseAdapter(){
+    private void onClick(JLabel label) {
+        label.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                
-            
-                
-                for(CustomComponentListener listener:listeners){
-                    JLabel label = (JLabel)e.getComponent();
-                    listener.onClick(Integer.parseInt(label.getText()));
+
+                JLabel label = (JLabel) e.getComponent();
+                PaginationEvent event = listener.onClick();
+               event.setButton(label);
+                for (PaginationMouseListener mouseListener : mouseListeners) {
+                    if ( selectedPage!= null) {
+                        event.setButton(selectedPage);
+                        mouseListener.onUnselected(event);
+                    }
+                    selectedPage = label;
+                    event.setButton(label);
+                    mouseListener.onSelected(event);
+                    mouseListener.onClick(event);
+                  
                 }
-            
+
+               // 
+
             }
         });
     }
     
-    
+//    private void onSelected(JLabel label){
+//        label.setBackground(Color.BLUE);
+//        label.setForeground(Color.white);
+//    }
+//    
+//     private void onUnselected(JLabel label){
+//        label.setBackground(Color.white);
+//        label.setForeground(Color.black);
+//    }
+//    
+//    
 }

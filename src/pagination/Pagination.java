@@ -5,6 +5,7 @@
 package pagination;
 
 import javax.swing.JPanel;
+import pagination.event.PaginationEvent;
 
 /**
  *
@@ -87,6 +88,19 @@ public class Pagination {
     public int getSet() {
         return set;
     }
+    
+    public int getLimit(){
+        if(!onLast()){
+            return set;
+        }else{
+            if(remainingItem>0){
+                return remainingItem;
+            }else{
+                return set;
+            }
+        }
+    }
+
 
     public int getTotalItems() {
         return totalItems;
@@ -94,6 +108,10 @@ public class Pagination {
 
     public int getNumberOfPages() {
         return numberOfPages;
+    }
+    
+    public int getCurrent(){
+        return currentPage;
     }
 
     public int getRemaining() {
@@ -143,10 +161,11 @@ public class Pagination {
 //       end = start+(remainingPage==0 ? numberOfPageToShow : remainingPage);
     }
 
-    public void onClick(int index) {
-
-        System.out.println("Testing " + index);
-
-    }
+    
+//    public PaginationEvent onClick(int index) {
+//
+//       return new PaginationEvent(this);
+//
+//    }
 
 }
