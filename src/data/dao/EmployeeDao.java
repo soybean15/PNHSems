@@ -5,10 +5,7 @@
 package data.dao;
 
 import data.model.Employee;
-import data.model.Personnel;
-
 import data.model.Position;
-import data.model.ServiceCredit;
 import java.sql.SQLException;
 import java.util.List;
 

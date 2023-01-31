@@ -72,7 +72,7 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
 
     private void init() {
         
-         BaseClass.user = UserController.getUser();
+       //  BaseClass.user = UserController.getUser();
 
          if(!BaseClass.user.getRole().equals("superadmin")){
         sidePanelMenu.remove(sidePanelUsers);

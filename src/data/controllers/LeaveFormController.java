@@ -64,4 +64,13 @@ public class LeaveFormController {
       public List<LeaveForm> searchByReferenceNumber(Employee employee,String refNum) throws SQLException {
           return service.searchByReferenceNumber(employee, refNum);
       }
+      
+      public int getLeaveCount(){
+          try{
+             return service.getLeaveCount();
+          }catch(SQLException e){
+              e.printStackTrace();
+              return 0;
+          }
+      }
 }

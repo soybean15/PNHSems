@@ -40,4 +40,7 @@ public interface LeaveDao {
   
     public String getLastId()
             throws SQLException;
+    
+     public int getLeaveCount()
+            throws SQLException;
 }

@@ -24,6 +24,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import otherclasses.UtilClass;
+import pagination.PaginationHandler;
+import pagination.event.PaginationEvent;
+import pagination.listener.PaginationMouseListener;
 import themes.Theme;
 
 /**
@@ -48,18 +51,24 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
     int comboIndex = -1;
 
     boolean sort;
+    private final int SET=10;
 
     public EmployeeLeaveLogsPanel(Employee employee) {
         initComponents();
 
         this.employee = employee;
 
-        reload();
+        loadData();
         init();
+        
+      
+      
         // print();
        
        
     }
+    
+    
 
     private void init() {
         cmbSort.addActionListener((ActionEvent e) -> {
@@ -79,10 +88,19 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
 
     }
     
+    
     public void reload(){
-           try {
+        paginationContainer.removeAll();
+        paginationContainer.repaint();
+        paginationContainer.revalidate();
+        createPagination();
+        loadData();
+    }
+    private void loadData() {
+        
+        try {
             this.leaveLogs = controller.getLeaveLogs(employee);
-            lblHeader.setText(employee.getFirstName() + "'s Leave Logs");
+            // lblHeader.setText(employee.getFirstName() + "'s Leave Logs");
 
             update();
 
@@ -97,152 +115,175 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
             Collections.reverse(leaveLogs);
         }
 
-        int to = 10;
+        int to = SET;
 
-        if (leaveLogs.size() < 10) {
+        if (leaveLogs.size() < SET) {
             to = leaveLogs.size();
         }
 
         populateList(leaveLogs.subList(0, to));
-         setPagination();
+//         setPagination();
     }
-
-    boolean firstPage;
-
-    boolean lastPage;
-    boolean moreThan5;
-    int size;
-    int remaining;
-    int remainingPages;
-    int total;
-    int numberOfPages;
-    int numberOfPagesSet;
-    int current;
-    int pageCounter = 1;
-    final int SET = 10;
-
-    private void setPagination() {
-        size = leaveLogs.size();
-        remaining = size % SET;
-        total = size - remaining;
-        numberOfPages = total / SET;
-
-        if (remaining > 0) {
-            numberOfPages++;
-        }
-
-        if (numberOfPages > 5) {
-            remainingPages = numberOfPages % 5;
-            total = numberOfPages - remaining;
-            numberOfPagesSet = numberOfPages / 5;
-
-            if (remainingPages > 0) {
-                numberOfPagesSet++;
+    
+    private void createPagination(){
+          int totalItem = controller.getLeaveCount();
+        PaginationHandler pagination = new PaginationHandler(SET,totalItem,2);
+        pagination.modifyButton(label->{
+            label.setBackground(Color.white);
+            label.setForeground(Color.black);
+            label.setFont(Theme.PRIMARY.FONT.tableFontDefault(10));
+        });
+        pagination.modifyNextAndPreviousButton((label1,label2)->{
+            label1.setBackground(Theme.PRIMARY.COLOR.background_primary);
+            label1.setForeground(Theme.PRIMARY.COLOR.foregroundOnTop);
+        });
+        pagination.addMouseListener(new PaginationMouseListener(){
+            @Override
+            public void onClick(PaginationEvent e) {
+                
+                populateList(leaveLogs.subList(e.startIndex(), e.endIndex()+1));
             }
-            moreThan5 = true;
-            firstPage = true;
-
-        } else {
-            remainingPages = numberOfPages;
-            lastPage = true;
-        }
-
-//        if (numberOfPages > 5) {
-//            
+            
+        });
+        paginationContainer.add(pagination.getPagination());
+    }
+//
+//    boolean firstPage;
+//
+//    boolean lastPage;
+//    boolean moreThan5;
+//    int size;
+//    int remaining;
+//    int remainingPages;
+//    int total;
+//    int numberOfPages;
+//    int numberOfPagesSet;
+//    int current;
+//    int pageCounter = 1;
+//    final int SET = 10;
+//
+//    private void setPagination() {
+//        size = leaveLogs.size();
+//        remaining = size % SET;
+//        total = size - remaining;
+//        numberOfPages = total / SET;
+//
+//        if (remaining > 0) {
+//            numberOfPages++;
 //        }
-        lblPrev.setVisible(false);
-        lblNxt.setVisible(false);
-        current = 1;
-        createPagination(current);
+//
+//        if (numberOfPages > 5) {
+//            remainingPages = numberOfPages % 5;
+//            total = numberOfPages - remaining;
+//            numberOfPagesSet = numberOfPages / 5;
+//
+//            if (remainingPages > 0) {
+//                numberOfPagesSet++;
+//            }
+//            moreThan5 = true;
+//            firstPage = true;
+//
+//        } else {
+//            remainingPages = numberOfPages;
+//            lastPage = true;
+//        }
+//
+////        if (numberOfPages > 5) {
+////            
+////        }
+//        lblPrev.setVisible(false);
+//        lblNxt.setVisible(false);
+//        current = 1;
+//        createPagination(current);
+//
+//    }
+//
+//    private void createPagination(int start) {
+//        buttonContainer.removeAll();
+//        buttonContainer.repaint();
+//        buttonContainer.revalidate();
+//        buttonContainer.setLayout(new GridLayout(0, 5));
+//        pages = new JLabel[5];
+//
+//        if (moreThan5) {
+//            if (firstPage) {
+//                lblPrev.setVisible(false);
+//            } else {
+//                lblPrev.setVisible(true);
+//            }
+//            if (lastPage) {
+//
+//                lblNxt.setVisible(false);
+//
+//            } else {
+//                lblNxt.setVisible(true);
+//            }
+//        }
+//
+//        for (int i = 0; i < 5; i++) {
+//            if (lastPage) {
+//                if (i == remainingPages) {
+//                    break;
+//                }
+//            }
+//
+//            pages[i] = new JLabel(String.valueOf(start++));
+//
+//            if (activePage == null) {
+//                pages[0].setForeground(Color.white);
+//                pages[0].setOpaque(true);
+//
+//                pages[0].setBackground(new Color(204, 204, 255));
+//                activePage = pages[0];
+//            }
+//            pages[i].setFont(Theme.PRIMARY.FONT.tableFontDefault(10));
+//            pages[i].setHorizontalAlignment(JLabel.CENTER);
+//            Border border = BorderFactory.createLineBorder(new Color(204, 204, 255), 1);
+//            pages[i].setBorder(border);
+//            pages[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+//            pages[i].addMouseListener(new MouseAdapter() {
+//                @Override
+//                public void mouseClicked(MouseEvent e) {
+//                    if (activePage != null) {
+//                        activePage.setFont(Theme.PRIMARY.FONT.tableFontDefault(10));
+//                        activePage.setBackground(Color.WHITE);
+//                        activePage.setForeground(Color.BLACK);
+//                        activePage.setOpaque(false);
+//                    }
+//
+//                    selectedPage = (JLabel) e.getSource();
+//                    selectedPage.setForeground(Color.white);
+//                    selectedPage.setOpaque(true);
+//
+//                    selectedPage.setBackground(new Color(204, 204, 255));
+//                    int pageNum = Integer.parseInt(selectedPage.getText());
+//                    int from = (pageNum * SET) - SET;
+//                    int to = from + SET;
+//                    if (to > leaveLogs.size()) {
+//                        to = leaveLogs.size();
+//                    }
+//                    List<LeaveForm> subList = leaveLogs.subList(from, to);
+//
+//                    loadPage(subList);
+//                    activePage = selectedPage;
+////                    JOptionPane.showMessageDialog(null, "Clicked" + selectedPage.getText() + "\n"
+////                            + "from: " + from + "\nto :" + to);
+//                }
+//            });
+//
+//        }
+//
+//        for (JLabel label : pages) {
+//            if (label != null) {
+//                buttonContainer.add(label);
+//
+//            }
+//        }
+//    }
 
-    }
-
-    private void createPagination(int start) {
-        buttonContainer.removeAll();
-        buttonContainer.repaint();
-        buttonContainer.revalidate();
-        buttonContainer.setLayout(new GridLayout(0, 5));
-        pages = new JLabel[5];
-
-        if (moreThan5) {
-            if (firstPage) {
-                lblPrev.setVisible(false);
-            } else {
-                lblPrev.setVisible(true);
-            }
-            if (lastPage) {
-
-                lblNxt.setVisible(false);
-
-            } else {
-                lblNxt.setVisible(true);
-            }
-        }
-
-        for (int i = 0; i < 5; i++) {
-            if (lastPage) {
-                if (i == remainingPages) {
-                    break;
-                }
-            }
-
-            pages[i] = new JLabel(String.valueOf(start++));
-
-            if (activePage == null) {
-                pages[0].setForeground(Color.white);
-                pages[0].setOpaque(true);
-
-                pages[0].setBackground(new Color(204, 204, 255));
-                activePage = pages[0];
-            }
-            pages[i].setFont(Theme.PRIMARY.FONT.tableFontDefault(10));
-            pages[i].setHorizontalAlignment(JLabel.CENTER);
-            Border border = BorderFactory.createLineBorder(new Color(204, 204, 255), 1);
-            pages[i].setBorder(border);
-            pages[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            pages[i].addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    if (activePage != null) {
-                        activePage.setFont(Theme.PRIMARY.FONT.tableFontDefault(10));
-                        activePage.setBackground(Color.WHITE);
-                        activePage.setForeground(Color.BLACK);
-                        activePage.setOpaque(false);
-                    }
-
-                    selectedPage = (JLabel) e.getSource();
-                    selectedPage.setForeground(Color.white);
-                    selectedPage.setOpaque(true);
-
-                    selectedPage.setBackground(new Color(204, 204, 255));
-                    int pageNum = Integer.parseInt(selectedPage.getText());
-                    int from = (pageNum * SET) - SET;
-                    int to = from + SET;
-                    if (to > leaveLogs.size()) {
-                        to = leaveLogs.size();
-                    }
-                    List<LeaveForm> subList = leaveLogs.subList(from, to);
-
-                    loadPage(subList);
-                    activePage = selectedPage;
-//                    JOptionPane.showMessageDialog(null, "Clicked" + selectedPage.getText() + "\n"
-//                            + "from: " + from + "\nto :" + to);
-                }
-            });
-
-        }
-
-        for (JLabel label : pages) {
-            if (label != null) {
-                buttonContainer.add(label);
-
-            }
-        }
-    }
-
-    private void loadPage(List<LeaveForm> leaveLogs) {
-        populateList(leaveLogs);
-    }
+//    private void loadPage(List<LeaveForm> leaveLogs) {
+//        populateList(leaveLogs);
+//    }
 
     private void populateList(List<LeaveForm> leaveLogs) {
 //        int row = leaveLogs.size();
@@ -331,25 +372,24 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         txtSearchRefNum = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        jPanel10 = new javax.swing.JPanel();
-        buttonContainer = new javax.swing.JPanel();
-        lblNxt = new javax.swing.JLabel();
-        lblPrev = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         dateChooser = new datechooser.beans.DateChooserCombo();
         cmbSort = new javax.swing.JComboBox<>();
-        lblHeader = new javax.swing.JLabel();
+        paginationContainer = new javax.swing.JPanel();
+        jPanel21 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        buttonContainer = new javax.swing.JPanel();
+        lblNxt = new javax.swing.JLabel();
+        lblPrev = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         panelLogs = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        lbl1 = new javax.swing.JLabel();
-        lbl2 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        lbl4 = new javax.swing.JLabel();
-        lbl3 = new javax.swing.JLabel();
+        jPanel22 = new javax.swing.JPanel();
+        lblLeaveType1 = new javax.swing.JLabel();
+        lblUser = new javax.swing.JLabel();
+        lblId = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
@@ -418,42 +458,6 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
 
         jPanel6.add(jPanel9, java.awt.BorderLayout.EAST);
 
-        jPanel10.setMaximumSize(new java.awt.Dimension(200, 30));
-        jPanel10.setMinimumSize(new java.awt.Dimension(200, 30));
-        jPanel10.setOpaque(false);
-        jPanel10.setPreferredSize(new java.awt.Dimension(200, 30));
-        jPanel10.setLayout(new java.awt.BorderLayout());
-
-        buttonContainer.setMaximumSize(new java.awt.Dimension(200, 30));
-        buttonContainer.setMinimumSize(new java.awt.Dimension(200, 30));
-        buttonContainer.setOpaque(false);
-        buttonContainer.setPreferredSize(new java.awt.Dimension(200, 30));
-        buttonContainer.setLayout(new java.awt.BorderLayout());
-        jPanel10.add(buttonContainer, java.awt.BorderLayout.CENTER);
-        buttonContainer.getAccessibleContext().setAccessibleName("");
-
-        lblNxt.setText(">");
-        lblNxt.setToolTipText("");
-        lblNxt.setPreferredSize(new java.awt.Dimension(30, 17));
-        lblNxt.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblNxtMouseClicked(evt);
-            }
-        });
-        jPanel10.add(lblNxt, java.awt.BorderLayout.EAST);
-
-        lblPrev.setText("<");
-        lblPrev.setToolTipText("");
-        lblPrev.setPreferredSize(new java.awt.Dimension(30, 17));
-        lblPrev.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblPrevMouseClicked(evt);
-            }
-        });
-        jPanel10.add(lblPrev, java.awt.BorderLayout.WEST);
-
-        jPanel6.add(jPanel10, java.awt.BorderLayout.CENTER);
-
         jPanel11.setOpaque(false);
         jPanel11.setPreferredSize(new java.awt.Dimension(300, 300));
         jPanel11.setLayout(new java.awt.BorderLayout());
@@ -516,6 +520,7 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
                 (datechooser.view.BackRenderer)null,
                 false,
                 true)));
+    dateChooser.setCalendarBackground(new java.awt.Color(255, 255, 255));
     dateChooser.addSelectionChangedListener(new datechooser.events.SelectionChangedListener() {
         public void onSelectionChange(datechooser.events.SelectionChangedEvent evt) {
             dateChooserOnSelectionChange(evt);
@@ -533,13 +538,54 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
 
     jPanel6.add(jPanel11, java.awt.BorderLayout.WEST);
 
+    paginationContainer.setOpaque(false);
+    paginationContainer.setLayout(new java.awt.GridLayout());
+    jPanel6.add(paginationContainer, java.awt.BorderLayout.CENTER);
+
     jPanel5.add(jPanel6, java.awt.BorderLayout.CENTER);
 
     jPanel1.add(jPanel5, java.awt.BorderLayout.SOUTH);
 
-    lblHeader.setFont(Theme.PRIMARY.FONT.big(24)
-    );
-    jPanel1.add(lblHeader, java.awt.BorderLayout.CENTER);
+    jPanel21.setBackground(new java.awt.Color(255, 255, 255));
+    jPanel21.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+    jPanel10.setMaximumSize(new java.awt.Dimension(200, 30));
+    jPanel10.setMinimumSize(new java.awt.Dimension(200, 30));
+    jPanel10.setOpaque(false);
+    jPanel10.setPreferredSize(new java.awt.Dimension(200, 30));
+    jPanel10.setLayout(new java.awt.BorderLayout());
+
+    buttonContainer.setMaximumSize(new java.awt.Dimension(200, 30));
+    buttonContainer.setMinimumSize(new java.awt.Dimension(200, 30));
+    buttonContainer.setOpaque(false);
+    buttonContainer.setPreferredSize(new java.awt.Dimension(200, 30));
+    buttonContainer.setLayout(new java.awt.BorderLayout());
+    jPanel10.add(buttonContainer, java.awt.BorderLayout.CENTER);
+    buttonContainer.getAccessibleContext().setAccessibleName("");
+
+    lblNxt.setText(">");
+    lblNxt.setToolTipText("");
+    lblNxt.setPreferredSize(new java.awt.Dimension(30, 17));
+    lblNxt.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            lblNxtMouseClicked(evt);
+        }
+    });
+    jPanel10.add(lblNxt, java.awt.BorderLayout.EAST);
+
+    lblPrev.setText("<");
+    lblPrev.setToolTipText("");
+    lblPrev.setPreferredSize(new java.awt.Dimension(30, 17));
+    lblPrev.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            lblPrevMouseClicked(evt);
+        }
+    });
+    jPanel10.add(lblPrev, java.awt.BorderLayout.WEST);
+
+    jPanel21.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+    jPanel1.add(jPanel21, java.awt.BorderLayout.CENTER);
 
     add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
@@ -556,44 +602,38 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
     );
     panelLogsLayout.setVerticalGroup(
         panelLogsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGap(0, 335, Short.MAX_VALUE)
+        .addGap(0, 342, Short.MAX_VALUE)
     );
 
     jPanel2.add(panelLogs, java.awt.BorderLayout.CENTER);
 
-    jPanel3.setBackground(new java.awt.Color(0, 204, 204));
-    jPanel3.setLayout(new java.awt.BorderLayout());
+    jPanel22.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    jPanel22.setPreferredSize(new java.awt.Dimension(265, 30));
+    jPanel22.setRequestFocusEnabled(false);
+    jPanel22.setLayout(new java.awt.BorderLayout());
 
-    lbl1.setFont(Theme.PRIMARY.FONT.tableFontBig(12)
-    );
-    lbl1.setText(" DateFiled");
-    lbl1.setPreferredSize(new java.awt.Dimension(100, 17));
-    jPanel3.add(lbl1, java.awt.BorderLayout.LINE_START);
+    lblLeaveType1.setBackground(new java.awt.Color(0, 204, 153));
+    lblLeaveType1.setFont(new java.awt.Font("Chandas", 1, 14)); // NOI18N
+    lblLeaveType1.setText("Leave Type");
+    lblLeaveType1.setOpaque(true);
+    jPanel22.add(lblLeaveType1, java.awt.BorderLayout.CENTER);
 
-    lbl2.setFont(Theme.PRIMARY.FONT.tableFontBig(12)
-    );
-    lbl2.setText(" LeaveType");
-    jPanel3.add(lbl2, java.awt.BorderLayout.CENTER);
+    lblUser.setBackground(new java.awt.Color(0, 204, 153));
+    lblUser.setFont(new java.awt.Font("Chandas", 1, 14)); // NOI18N
+    lblUser.setText("User");
+    lblUser.setOpaque(true);
+    lblUser.setPreferredSize(new java.awt.Dimension(100, 17));
+    jPanel22.add(lblUser, java.awt.BorderLayout.EAST);
 
-    jPanel4.setOpaque(false);
-    jPanel4.setPreferredSize(new java.awt.Dimension(200, 36));
-    jPanel4.setLayout(new java.awt.GridLayout(1, 2));
+    lblId.setBackground(new java.awt.Color(0, 204, 153));
+    lblId.setFont(new java.awt.Font("Chandas", 1, 14)); // NOI18N
+    lblId.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    lblId.setText("Ref Num");
+    lblId.setOpaque(true);
+    lblId.setPreferredSize(new java.awt.Dimension(100, 17));
+    jPanel22.add(lblId, java.awt.BorderLayout.WEST);
 
-    lbl4.setFont(Theme.PRIMARY.FONT.tableFontBig(12)
-    );
-    lbl4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    lbl4.setText("Start");
-    jPanel4.add(lbl4);
-
-    lbl3.setFont(Theme.PRIMARY.FONT.tableFontBig(12)
-    );
-    lbl3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    lbl3.setText("End");
-    jPanel4.add(lbl3);
-
-    jPanel3.add(jPanel4, java.awt.BorderLayout.LINE_END);
-
-    jPanel2.add(jPanel3, java.awt.BorderLayout.NORTH);
+    jPanel2.add(jPanel22, java.awt.BorderLayout.NORTH);
 
     add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -608,7 +648,7 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
     );
     jPanel7Layout.setVerticalGroup(
         jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGap(0, 371, Short.MAX_VALUE)
+        .addGap(0, 372, Short.MAX_VALUE)
     );
 
     add(jPanel7, java.awt.BorderLayout.WEST);
@@ -719,7 +759,7 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
     );
     panelServiceCreditsLayout.setVerticalGroup(
         panelServiceCreditsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGap(0, 67, Short.MAX_VALUE)
+        .addGap(0, 68, Short.MAX_VALUE)
     );
 
     jPanel18.add(panelServiceCredits, java.awt.BorderLayout.CENTER);
@@ -751,23 +791,23 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblNxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNxtMouseClicked
-        current += SET;
-        pageCounter++;
-        firstPage = false;
-        lastPage = pageCounter == numberOfPagesSet;
-
-    
-        createPagination(current);
+//        current += SET;
+//        pageCounter++;
+//        firstPage = false;
+//        lastPage = pageCounter == numberOfPagesSet;
+//
+//    
+//        createPagination(current);
 
     }//GEN-LAST:event_lblNxtMouseClicked
 
     private void lblPrevMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPrevMouseClicked
-        current -= SET;
-        pageCounter--;
-        lastPage = false;
-        firstPage = current == 1;
-
-        createPagination(current);
+//        current -= SET;
+//        pageCounter--;
+//        lastPage = false;
+//        firstPage = current == 1;
+//
+//        createPagination(current);
     }//GEN-LAST:event_lblPrevMouseClicked
 
     private void dateChooserOnSelectionChange(datechooser.events.SelectionChangedEvent evt) {//GEN-FIRST:event_dateChooserOnSelectionChange
@@ -850,26 +890,25 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JLabel lbl1;
-    private javax.swing.JLabel lbl2;
-    private javax.swing.JLabel lbl3;
-    private javax.swing.JLabel lbl4;
     private javax.swing.JLabel lblDateFiled;
     private javax.swing.JLabel lblDetails;
     private javax.swing.JLabel lblEnd;
-    private javax.swing.JLabel lblHeader;
+    private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblLeaveType;
+    private javax.swing.JLabel lblLeaveType1;
     private javax.swing.JLabel lblNxt;
     private javax.swing.JLabel lblPrev;
     private javax.swing.JLabel lblStart;
     private javax.swing.JLabel lblTotal;
+    private javax.swing.JLabel lblUser;
+    private javax.swing.JPanel paginationContainer;
     private javax.swing.JPanel panelLogs;
     private javax.swing.JPanel panelServiceCredits;
     private javax.swing.JTextField txtSearchRefNum;

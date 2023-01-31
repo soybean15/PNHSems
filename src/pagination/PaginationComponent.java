@@ -12,6 +12,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import javax.swing.JLabel;
@@ -26,17 +27,27 @@ import pagination.listener.PaginationMouseListener;
 
 class PaginationComponent{
    
+    
+   
     private final JLabel NEXT = new JLabel(">");
     private final JLabel PREVIOUS = new JLabel("<");
-    JPanel container =new JPanel();
     JLabel next;
     JLabel previous;
+    Color backgroundColor;
+    Color foregroundColor;
+     /**Seems to me that onPrevious event is firing twice if I use the NEXT and PREVIOUS
+      * I can't remember how I came up with the solution that's why I created 2 JLabel for
+      * next and previous so Yeah, it is what it is
+     */
     
+    
+    JPanel container =new JPanel();
+
     JLabel selectedPage;
     
     private int numberOfPageToShow;
     JLabel[] pageButtons;
-    Consumer<JLabel> pageButton;
+    Consumer<JLabel> pageButtonConsumer;
     
     private CustomComponentListener listener;
     private List<PaginationMouseListener> mouseListeners = new ArrayList<>();
@@ -44,25 +55,39 @@ class PaginationComponent{
     public PaginationComponent(int numberOfPageToShow) {
         this.numberOfPageToShow = numberOfPageToShow;
        
-        next =getNext(">");
-        previous = getPrev("<");
+        next =getNext();
+        previous = getPrev();
+      
     }
     
     
     
-    public void modify(JLabel label ,Consumer<JLabel> c){
-      
+    public void modify(JLabel label ){
+        
+       
+    
         label.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        c.accept(label);
+        pageButtonConsumer.accept(label);
+          backgroundColor = label.getBackground();
+        foregroundColor = label.getForeground();
         
     }
     
     public void modifyButton(Consumer<JLabel> c){
-        this.pageButton=c;
+        this.pageButtonConsumer=c;
         
-        for(JLabel label:pageButtons){
-            modify( label ,c);
+        for (JLabel label : pageButtons) {
+          
+         
+            modify(label);
         }
+    }
+    
+   
+    public void modifyPreviousAndNextButton(BiConsumer<JLabel,JLabel> c){
+        
+        c.accept(PREVIOUS, NEXT);
+        
     }
     
     
@@ -82,8 +107,9 @@ class PaginationComponent{
        
        
         pageButtons= new JLabel[numberOfPageToShow];
-        System.out.println("start "+start +" end: "+end);
-                
+      
+
+         
                 
         int _start = start%numberOfPageToShow;
         int _end = end%numberOfPageToShow;
@@ -101,9 +127,10 @@ class PaginationComponent{
                 pageButtons[i].setHorizontalAlignment(JLabel.CENTER);
                 pageButtons[i].setOpaque(true);
                 pageButtons[i].setBackground(Color.white);
+              
                 pageButtons[i].setForeground(Color.black);
-                if (pageButton != null) {
-                    modify(pageButtons[i], pageButton);
+                if (pageButtonConsumer != null) {
+                    modify(pageButtons[i]);
                 }
 
             } else {
@@ -116,8 +143,13 @@ class PaginationComponent{
     }
     
 
-    private JLabel getNext(String label) {
-        NEXT.setText(label);
+    private JLabel getNext() {
+       // NEXT.setText(label);
+        NEXT.setBackground(Color.gray);
+        NEXT.setHorizontalAlignment(JLabel.CENTER);
+        NEXT.setForeground(Color.black);
+        NEXT.setOpaque(true);
+        NEXT.setCursor(new Cursor(Cursor.HAND_CURSOR));
         NEXT.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -131,8 +163,13 @@ class PaginationComponent{
         return NEXT;
     }
 
-    private JLabel getPrev(String label) {
-          PREVIOUS.setText(label);
+    private JLabel getPrev() {
+      //    PREVIOUS.setText(label);
+          PREVIOUS.setBackground(Color.gray);
+          PREVIOUS.setHorizontalAlignment(JLabel.CENTER);
+          PREVIOUS.setOpaque(true);
+          PREVIOUS.setForeground(Color.black);
+           PREVIOUS.setCursor(new Cursor(Cursor.HAND_CURSOR));
           PREVIOUS.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -161,9 +198,10 @@ class PaginationComponent{
         
         createPageButton( start,  end);
        
-        
+        //getPrev();
         previous.setVisible(!onFirst);
-        container.add(previous);
+        
+        container.add(PREVIOUS);
         for(JLabel page:pageButtons){
             
             container.add(page);
@@ -171,9 +209,11 @@ class PaginationComponent{
             
         }
         
-    
+       // getNext();
         next.setVisible(!onLast);
-        container.add(next);
+        
+        
+        container.add(NEXT);
         
         return container;
         
@@ -191,6 +231,8 @@ class PaginationComponent{
                 for (PaginationMouseListener mouseListener : mouseListeners) {
                     if ( selectedPage!= null) {
                         event.setButton(selectedPage);
+                        selectedPage.setBackground(backgroundColor);
+                        selectedPage.setForeground(foregroundColor);
                         mouseListener.onUnselected(event);
                     }
                     selectedPage = label;
@@ -202,6 +244,32 @@ class PaginationComponent{
 
                // 
 
+            }
+            
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                JLabel label = (JLabel) e.getComponent();
+               
+                if (label != selectedPage) {
+                    for (PaginationMouseListener mouseListener : mouseListeners) {
+                        PaginationEvent event = listener.onClick();
+                        event.setButton(label);
+                        mouseListener.onHover(event);
+                    }
+                }
+
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                JLabel label = (JLabel) e.getComponent();
+               
+                  if (label != selectedPage) {
+                
+                    label.setBackground(backgroundColor);
+                    label.setForeground(foregroundColor);
+                  }
+                
+          
             }
         });
     }

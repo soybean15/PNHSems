@@ -4,17 +4,59 @@
  */
 package frames.panels;
 
+import data.controllers.UserController;
+import data.model.User;
+import java.awt.Color;
+import pnhsems.InvalidInputException;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import otherclasses.BaseClass;
+import themes.Theme;
 /**
  *
  * @author root
  */
+
+
 public class AccountSettingPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form AccountSettingPanel
      */
+    UserController controller = new UserController();
+    Theme primary = Theme.PRIMARY;
+    User user;
+    boolean username;
+    boolean password;
+    boolean email;
+    boolean name;
     public AccountSettingPanel() {
         initComponents();
+        user =  BaseClass.user;
+        setDetails();
+    }
+    
+    private void setDetails(){
+        txtRegUsername.setText(user.getUserName());
+        txtRegName.setText(user.getName());
+        txtRegEmail.setText(user.getEmail());
+    }
+    
+     private void checkAllField(){
+        
+        if( username && password && name && email){
+            
+            
+        lblSave.setBackground(primary.COLOR.background_primary);
+        lblSave.setForeground(primary.COLOR.foreground_white);
+        lblSave.setFont(primary.FONT.defaultFont(13));
+            
+        }else{
+            lblSave.setBackground(new Color(102,102,102));
+            lblSave.setForeground(primary.COLOR.foreground_white);
+            lblSave.setFont(primary.FONT.defaultFont(13));
+        }
+       
     }
 
     /**
@@ -26,21 +68,298 @@ public class AccountSettingPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setBackground(new java.awt.Color(0, 51, 0));
+        panelRegister = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        txtRegUsername = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtRegName = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtRegEmail = new javax.swing.JTextField();
+        txtRegPassword = new javax.swing.JPasswordField();
+        jLabel9 = new javax.swing.JLabel();
+        lblSave = new javax.swing.JLabel();
+        password_warning = new javax.swing.JLabel();
+        username_warning = new javax.swing.JLabel();
+        name_warning = new javax.swing.JLabel();
+        email_warning = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(new java.awt.GridLayout());
+
+        panelRegister.setOpaque(false);
+        panelRegister.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setFont(new java.awt.Font("AnjaliOldLipi", 1, 14)); // NOI18N
+        jLabel6.setText("Username");
+        panelRegister.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
+
+        txtRegUsername.setEnabled(false);
+        txtRegUsername.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtRegUsernameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtRegUsernameFocusLost(evt);
+            }
+        });
+        panelRegister.add(txtRegUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 250, 25));
+
+        jLabel7.setFont(new java.awt.Font("AnjaliOldLipi", 1, 14)); // NOI18N
+        jLabel7.setText("FullName");
+        panelRegister.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
+
+        txtRegName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtRegNameFocusLost(evt);
+            }
+        });
+        txtRegName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRegNameActionPerformed(evt);
+            }
+        });
+        panelRegister.add(txtRegName, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 250, 25));
+
+        jLabel8.setFont(new java.awt.Font("AnjaliOldLipi", 1, 14)); // NOI18N
+        jLabel8.setText("Email");
+        panelRegister.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
+
+        txtRegEmail.setEnabled(false);
+        txtRegEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtRegEmailFocusLost(evt);
+            }
+        });
+        panelRegister.add(txtRegEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 250, 25));
+
+        txtRegPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtRegPasswordFocusLost(evt);
+            }
+        });
+        panelRegister.add(txtRegPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 250, 25));
+
+        jLabel9.setFont(new java.awt.Font("AnjaliOldLipi", 1, 14)); // NOI18N
+        jLabel9.setText("Password");
+        panelRegister.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, -1, -1));
+
+        lblSave.setBackground(new java.awt.Color(102, 102, 102));
+        lblSave.setForeground(new java.awt.Color(255, 255, 255));
+        lblSave.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSave.setText("Update");
+        lblSave.setOpaque(true);
+        lblSave.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSaveMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblSaveMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblSaveMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblSaveMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblSaveMouseReleased(evt);
+            }
+        });
+        panelRegister.add(lblSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 280, 70, 30));
+
+        password_warning.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        password_warning.setForeground(new java.awt.Color(204, 0, 0));
+        password_warning.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        password_warning.setText("jLabel10");
+        panelRegister.add(password_warning, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 225, 180, -1));
+
+        username_warning.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        username_warning.setForeground(new java.awt.Color(204, 0, 0));
+        username_warning.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        panelRegister.add(username_warning, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 45, 180, -1));
+
+        name_warning.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        name_warning.setForeground(new java.awt.Color(204, 0, 0));
+        name_warning.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        name_warning.setText("jLabel10");
+        panelRegister.add(name_warning, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 105, 180, -1));
+
+        email_warning.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        email_warning.setForeground(new java.awt.Color(204, 0, 0));
+        email_warning.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        panelRegister.add(email_warning, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 165, 180, -1));
+
+        add(panelRegister);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtRegUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRegUsernameFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRegUsernameFocusGained
+
+    private void txtRegUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRegUsernameFocusLost
+
+        try {
+            if (controller.checkUserName(txtRegUsername.getText())) {
+
+                throw new InvalidInputException("Username Already exist");
+
+            }else if(txtRegUsername.getText().equals("")){
+                throw new InvalidInputException("Username field is empty");
+            }
+            username_warning.setVisible(false);
+            username=true;
+        } catch (InvalidInputException iie) {
+
+            username_warning.setVisible(true);
+            username_warning.setText(iie.getMessage());
+            username =false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            checkAllField();
+        }
+
+    }//GEN-LAST:event_txtRegUsernameFocusLost
+
+    private void txtRegNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRegNameFocusLost
+
+        try{
+            if(txtRegName.getText().equals("")){
+                throw new InvalidInputException("Name field is empty");
+            }
+            name_warning.setVisible(false);
+            name = true;
+        }catch(InvalidInputException iie){
+            name_warning.setVisible(true);
+            name_warning.setText(iie.getMessage());
+            name=false;
+        }finally{
+            checkAllField();
+        }
+
+    }//GEN-LAST:event_txtRegNameFocusLost
+
+    private void txtRegEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRegEmailFocusLost
+
+        try {
+            if (controller.checkEmail(txtRegEmail.getText())) {
+
+                throw new InvalidInputException("Email Already exist");
+
+            }else if(txtRegEmail.getText().equals("")){
+                throw new InvalidInputException("Email field is Empty");
+            }
+            email_warning.setVisible(false);
+            email =true;
+        } catch (InvalidInputException iie) {
+            email_warning.setVisible(true);
+            email_warning.setText(iie.getMessage());
+            email = false;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            checkAllField();
+        }
+
+    }//GEN-LAST:event_txtRegEmailFocusLost
+
+    private void txtRegPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRegPasswordFocusLost
+
+        try{
+            if(String.valueOf(txtRegPassword.getPassword()).equals("")){
+                throw new InvalidInputException("Password field is empty");
+            }
+            password_warning.setVisible(false);
+            password = true;
+        }catch(InvalidInputException iie){
+            password_warning.setVisible(true);
+            password_warning.setText(iie.getMessage());
+            password = false;
+        }finally{
+            checkAllField();
+        }
+
+    }//GEN-LAST:event_txtRegPasswordFocusLost
+
+    private void lblSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSaveMouseClicked
+        if(   password && name  ){
+            try{
+                String _name = txtRegName.getText();
+                String _email = txtRegEmail.getText();
+                String _password = String.valueOf(txtRegPassword.getPassword());
+                String _username = txtRegUsername.getText();
+
+                User user = new User(_name, _username, _email, _password,false);
+
+                controller.updateUser(user);
+
+                JOptionPane.showMessageDialog(this, "New user successfully Updated");
+
+                txtRegName.setText("");
+                txtRegEmail.setText("");
+                txtRegPassword.setText("");
+                txtRegUsername.setText("");
+
+                username= false;
+                name =false ;
+                email = false;
+                password = false;
+
+                checkAllField();
+
+            }catch(SQLException ex){
+                ex.printStackTrace();
+            }
+
+        }
+    }//GEN-LAST:event_lblSaveMouseClicked
+
+    private void lblSaveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSaveMouseEntered
+        if(  password && name )
+        lblSave.setBackground(primary.COLOR.backgroundOnTop);
+    }//GEN-LAST:event_lblSaveMouseEntered
+
+    private void lblSaveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSaveMouseExited
+        if(password && name ){
+            lblSave.setFont(primary.FONT.defaultFont(13));
+            lblSave.setBackground(primary.COLOR.background_primary);
+        }
+    }//GEN-LAST:event_lblSaveMouseExited
+
+    private void lblSaveMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSaveMousePressed
+        if(  password && name ){
+            lblSave.setForeground(primary.COLOR.foregroundOnTop);
+            lblSave.setBackground(primary.COLOR.background_primary);
+        }
+    }//GEN-LAST:event_lblSaveMousePressed
+
+    private void lblSaveMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSaveMouseReleased
+        if( password && name ){
+            lblSave.setForeground(primary.COLOR.foreground_white);
+            lblSave.setBackground(primary.COLOR.backgroundOnTop);
+        }
+    }//GEN-LAST:event_lblSaveMouseReleased
+
+    private void txtRegNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRegNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRegNameActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel email_warning;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel lblSave;
+    private javax.swing.JLabel name_warning;
+    private javax.swing.JPanel panelRegister;
+    private javax.swing.JLabel password_warning;
+    private javax.swing.JTextField txtRegEmail;
+    private javax.swing.JTextField txtRegName;
+    private javax.swing.JPasswordField txtRegPassword;
+    private javax.swing.JTextField txtRegUsername;
+    private javax.swing.JLabel username_warning;
     // End of variables declaration//GEN-END:variables
 }

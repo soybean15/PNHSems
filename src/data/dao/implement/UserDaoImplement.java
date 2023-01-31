@@ -4,6 +4,8 @@
  */
 package data.dao.implement;
 
+import data.controllers.form.LeaveFormValidation;
+import data.controllers.form.UserValidation;
 import data.database.DbConnection;
 import data.dao.UserDao;
 import data.model.User;
@@ -39,7 +41,9 @@ public class UserDaoImplement implements UserDao {
     public int update(User user) throws SQLException {
        String query = "update users set  password =?, name=?, email =?, isenable=?, updated_at = CURRENT_TIMESTAMP where username =?";
         PreparedStatement ps = conn.prepareStatement(query);
-        ps.setString(1, user.getPassword());
+       
+      
+        if(!user.checkPasswordOnUpdate()) ps.setString(1, user.getPassword());
         ps.setString(2, user.getName());
         ps.setString(3, user.getEmail());
         ps.setString(4, user.isEnable()?"true":"false");

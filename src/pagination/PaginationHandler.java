@@ -4,6 +4,7 @@
  */
 package pagination;
 
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import javax.swing.JLabel;
 import pagination.listener.CustomComponentListener;
@@ -21,9 +22,16 @@ public class PaginationHandler implements CustomComponentListener {
     private final PaginationComponent COMPONENT;
     private JPanel CONTAINER;
 
+  
+    /**
+     * 
+     * @param set how many items you want to show per page
+     * @param totalItems total item of data you want to fetch
+     * @param numberOfPageToShow how many page button you want to display
+     */
     public PaginationHandler(int set, int totalItems, int numberOfPageToShow) {
 
-        this.PAGINATION = new Pagination(set, totalItems, numberOfPageToShow);
+        this.PAGINATION = new Pagination(set, totalItems, numberOfPageToShow < 5 ? 5 : numberOfPageToShow);
         COMPONENT = new PaginationComponent(numberOfPageToShow < 5 ? 5 : numberOfPageToShow);
 
         addListener();
@@ -64,6 +72,11 @@ public class PaginationHandler implements CustomComponentListener {
 
     public void modifyButton(Consumer<JLabel> c) {
         COMPONENT.modifyButton(c);
+    }
+    
+    
+    public void modifyNextAndPreviousButton(BiConsumer<JLabel,JLabel> c) {
+        COMPONENT.modifyPreviousAndNextButton(c);
     }
 
     @Override

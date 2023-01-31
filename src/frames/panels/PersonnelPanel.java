@@ -4,7 +4,7 @@
  */
 package frames.panels;
 
-import data.controllers.EmployeeController;
+
 import data.controllers.PersonnelController;
 import data.model.Personnel;
 import frames.components.windows.AddPersonnelWindow;
@@ -134,6 +134,7 @@ public class PersonnelPanel extends javax.swing.JPanel {
         mainContainer.setOpaque(false);
         add(mainContainer, java.awt.BorderLayout.CENTER);
 
+        jPanelfiller.setBackground(new java.awt.Color(255, 255, 255));
         jPanelfiller.setPreferredSize(new java.awt.Dimension(110, 80));
         add(jPanelfiller, java.awt.BorderLayout.NORTH);
 

@@ -20,10 +20,13 @@ public interface PaginationMouseListener {
 
     }
 
-    ;
+    
     default void onUnselected(PaginationEvent e) {
-        e.getButton().setBackground(Color.white);
-        e.getButton().setForeground(Color.black);
+      
+    }
+    
+    default void onHover(PaginationEvent e){
+       
     }
 
     public void onClick(PaginationEvent e);

@@ -1,5 +1,7 @@
 package data.model;
 
+import data.controllers.form.UserValidation;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -84,6 +86,10 @@ public class User {
 
     public String getRole() {
         return role;
+    }
+    
+    public boolean checkPasswordOnUpdate(){
+        return UserValidation.checkField(password)==null;
     }
     
 

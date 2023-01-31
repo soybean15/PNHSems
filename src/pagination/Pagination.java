@@ -48,7 +48,8 @@ public class Pagination {
         }
        
         remainingPage = numberOfItem % numberOfPageToShow;
-
+        
+      
         this.numberOfPages = (numberOfItem - remainingPage) / numberOfPageToShow;
      
         if (remainingPage > 0) {
@@ -71,6 +72,7 @@ public class Pagination {
     }
 
     public boolean onLast() {
+      
        
         return currentPage == numberOfPages;
     }
@@ -89,10 +91,17 @@ public class Pagination {
         return set;
     }
     
+
     public int getLimit(){
+        
+        
+      
         if(!onLast()){
+          
             return set;
         }else{
+        
+                
             if(remainingItem>0){
                 return remainingItem;
             }else{
@@ -105,6 +114,10 @@ public class Pagination {
     public int getTotalItems() {
         return totalItems;
     }
+    public int getNumberOfItem(){
+        return numberOfItem;
+    }
+
 
     public int getNumberOfPages() {
         return numberOfPages;
@@ -156,6 +169,9 @@ public class Pagination {
                 start -= numberOfPageToShow;
             }
         }
+        System.out.println("from paginatiom remainingPage"+remainingPage+" numberOfPageToShow"+numberOfPageToShow);
+        System.out.println("start "+start);
+        System.out.println("end "+end);
 
 //       start -=numberOfPageToShow;
 //       end = start+(remainingPage==0 ? numberOfPageToShow : remainingPage);

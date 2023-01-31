@@ -114,5 +114,9 @@ public class LeaveFormService {
          
          return leaveDao.searchByReferenceNumber(employee, refNum);
      }
+     
+     public int getLeaveCount()throws SQLException{
+         return leaveDao.getLeaveCount();
+     }
 
 }

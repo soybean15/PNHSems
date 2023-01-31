@@ -108,7 +108,7 @@ public class LeaveDaoImplement implements LeaveDao {
                 for (EmployeeServiceCredit item : leaveForm.getServiceCredit()) {
                     pst = conn.prepareStatement(query);
                     pst.setInt(1, item.getServiceCredit().getId());
-                    pst.setInt(2, rs.getInt(1));
+                    pst.setInt(2, Integer.parseInt(getLastId()));
                     pst.setInt(3, item.getDays_used());
 
                     pst.executeUpdate();
@@ -310,6 +310,14 @@ public class LeaveDaoImplement implements LeaveDao {
             leaveLogs = new ArrayList<>();
             return leaveLogs;
         }
+    }
+
+    @Override
+    public int getLeaveCount() throws SQLException {
+        String query = "select count(*) as total from employee_leave";
+        PreparedStatement pst = conn.prepareStatement(query);
+        ResultSet rs = pst.executeQuery();
+        return  rs.next() ? rs.getInt("total") : 0;
     }
 
 }

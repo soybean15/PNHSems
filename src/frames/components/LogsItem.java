@@ -32,7 +32,7 @@ public class LogsItem extends javax.swing.JPanel {
     
     private void init(){
         lblId.setText(leaveForm.getId());
-        lblDateFiled.setText(leaveForm.getDateFiled().toString());
+        lblUser.setText(leaveForm.getUserId());
         lblLeaveType.setText(leaveForm.getLeaveType()!=null? leaveForm.getLeaveType().getName():leaveForm.getDetails());
 
         
@@ -59,7 +59,7 @@ public class LogsItem extends javax.swing.JPanel {
     
     public void selected(){
         lblId.setFont(Theme.PRIMARY.FONT.tableFontBig(12));
-         lblDateFiled.setFont(Theme.PRIMARY.FONT.tableFontBig(12));
+         lblUser.setFont(Theme.PRIMARY.FONT.tableFontBig(12));
         
         lblLeaveType.setFont(Theme.PRIMARY.FONT.tableFontBig(12));
 //        lblStart.setFont(Theme.PRIMARY.FONT.tableFontBig(12));
@@ -67,7 +67,7 @@ public class LogsItem extends javax.swing.JPanel {
     }
     public void unSelected(){
         lblId.setFont(Theme.PRIMARY.FONT.tableFontDefault(12));
-         lblDateFiled.setFont(Theme.PRIMARY.FONT.tableFontDefault(12));
+         lblUser.setFont(Theme.PRIMARY.FONT.tableFontDefault(12));
         
         lblLeaveType.setFont(Theme.PRIMARY.FONT.tableFontDefault(12));
 //        lblStart.setFont(Theme.PRIMARY.FONT.tableFontDefault(12));
@@ -83,7 +83,7 @@ public class LogsItem extends javax.swing.JPanel {
     private void initComponents() {
 
         lblLeaveType = new javax.swing.JLabel();
-        lblDateFiled = new javax.swing.JLabel();
+        lblUser = new javax.swing.JLabel();
         lblId = new javax.swing.JLabel();
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -94,23 +94,23 @@ public class LogsItem extends javax.swing.JPanel {
         lblLeaveType.setText("LeaveType");
         add(lblLeaveType, java.awt.BorderLayout.CENTER);
 
-        lblDateFiled.setFont(Theme.PRIMARY.FONT.tableFontDefault(12)
+        lblUser.setFont(Theme.PRIMARY.FONT.tableFontDefault(12)
         );
-        lblDateFiled.setText("DateFiled");
-        lblDateFiled.setPreferredSize(new java.awt.Dimension(100, 17));
-        add(lblDateFiled, java.awt.BorderLayout.EAST);
+        lblUser.setText("User");
+        lblUser.setPreferredSize(new java.awt.Dimension(100, 17));
+        add(lblUser, java.awt.BorderLayout.EAST);
 
         lblId.setFont(Theme.PRIMARY.FONT.tableFontDefault(12));
         lblId.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblId.setText("Ref_Num");
-        lblId.setPreferredSize(new java.awt.Dimension(200, 17));
+        lblId.setPreferredSize(new java.awt.Dimension(100, 17));
         add(lblId, java.awt.BorderLayout.WEST);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel lblDateFiled;
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblLeaveType;
+    private javax.swing.JLabel lblUser;
     // End of variables declaration//GEN-END:variables
 }

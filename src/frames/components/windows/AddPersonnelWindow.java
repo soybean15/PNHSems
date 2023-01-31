@@ -257,6 +257,7 @@ public class AddPersonnelWindow extends javax.swing.JDialog {
            selectedPersonnel.setId(this.personnelId);
        
            panel.updatePersonel(selectedPersonnel);
+           dispose();
        }else{
            JOptionPane.showMessageDialog(this, "No Item Selected");
        }

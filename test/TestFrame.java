@@ -65,7 +65,7 @@ public class TestFrame extends javax.swing.JFrame {
 
     
 
-        for (int i = 0; i < 101; i++) {
+        for (int i = 0; i < 102; i++) {
             musics.add(new TestClass("music" + i, "artist" + i));
         }
         setLayout(new BorderLayout());
@@ -79,14 +79,30 @@ public class TestFrame extends javax.swing.JFrame {
         populate( 0,  9);
 
        
-        PaginationHandler paginationHandler = new PaginationHandler(10, musics.size(), 5);
-        paginationHandler.modifyButton(label -> {
-//            label.setOpaque(true);
-//            label.setBackground(Color.WHITE);
-//            label.setFont(Theme.PRIMARY.FONT.defaultFont(15));
-//            label.setForeground(Color.BLACK);
+       
+        PaginationHandler paginationHandler = new PaginationHandler(10, musics.size(), 4);
+        
+        paginationHandler.modifyNextAndPreviousButton((previous, next)->{
+            previous.setBackground(Color.blue);
+            previous.setForeground(Color.green);
+            next.setBackground(Color.red);
+            next.setForeground(Color.white);
+            next.setText("Next");
+            
         });
         
+        
+        paginationHandler.modifyButton(label -> {
+            label.setOpaque(true);
+            label.setBackground(Color.ORANGE);
+            label.setFont(Theme.PRIMARY.FONT.defaultFont(15));
+            label.setForeground(Color.BLACK);
+        });
+        
+        
+        
+        
+       
         paginationHandler.addMouseListener(new PaginationMouseListener(){
             
               @Override
@@ -100,6 +116,12 @@ public class TestFrame extends javax.swing.JFrame {
               
                 e.getButton().setBackground(Color.red);
                 e.getButton().setForeground(Color.yellow);
+                
+            }
+            @Override
+            public void onHover(PaginationEvent e){
+              
+                e.getButton().setBackground(Color.green);               
                 
             }
 

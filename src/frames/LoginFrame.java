@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import otherclasses.BaseClass;
 import pnhsems.InvalidInputException;
 import themes.Theme;
 
@@ -512,9 +513,12 @@ public class LoginFrame extends javax.swing.JFrame {
        String password = String.valueOf(txtLoginPassword.getPassword());
         try{
             
-            User user = controller.login(username, password);
             
-            if(user != null){
+           
+            
+            BaseClass.user = controller.login(username, password);
+            
+            if(BaseClass.user != null){
                 new MainFrame().setVisible(true);
                 dispose();
             }else{
