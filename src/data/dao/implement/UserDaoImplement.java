@@ -39,15 +39,19 @@ public class UserDaoImplement implements UserDao {
 
     @Override
     public int update(User user) throws SQLException {
-       String query = "update users set  password =?, name=?, email =?, isenable=?, updated_at = CURRENT_TIMESTAMP where username =?";
+       String query = "update users set  password =?, name=?, email =?, isenable=?, role=?, updated_at = CURRENT_TIMESTAMP where username =?";
         PreparedStatement ps = conn.prepareStatement(query);
        
+          System.out.println("from dao "+user.getUserName());
+        System.out.println("from dao "+user.getPassword());
       
-        if(!user.checkPasswordOnUpdate()) ps.setString(1, user.getPassword());
+        ps.setString(1, user.getPassword());
         ps.setString(2, user.getName());
         ps.setString(3, user.getEmail());
         ps.setString(4, user.isEnable()?"true":"false");
-        ps.setString(5, user.getUserName());
+         ps.setString(5, user.getRole());
+        ps.setString(6, user.getUserName());
+       
        
        
         
@@ -66,7 +70,8 @@ public class UserDaoImplement implements UserDao {
 
     @Override
     public User getUser() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       // String query
+       return null;
     }
 
     @Override

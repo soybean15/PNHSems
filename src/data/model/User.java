@@ -13,7 +13,7 @@ import data.controllers.form.UserValidation;
 public class User {
 
     private String name;
-    private final String userName;
+    private String userName;
     private String role;
     private String email;
     private String password;
@@ -36,6 +36,14 @@ public class User {
         this.enable = enable;
 
     }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
     
     
 
@@ -43,6 +51,7 @@ public class User {
     public boolean isEnable() {
         return enable;
     }
+     public User(){}
 
     public User(String name, String userName, String email) {
 

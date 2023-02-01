@@ -519,6 +519,7 @@ public class LoginFrame extends javax.swing.JFrame {
             BaseClass.user = controller.login(username, password);
             
             if(BaseClass.user != null){
+                System.out.println( BaseClass.user.getRole());
                 new MainFrame().setVisible(true);
                 dispose();
             }else{

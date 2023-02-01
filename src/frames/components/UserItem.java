@@ -136,7 +136,7 @@ public class UserItem extends javax.swing.JPanel {
     private void btnEnableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnableActionPerformed
        user.setEnable(!user.isEnable());
        try{
-            controller.updateUser(user);
+            controller.updateStatus(user);
             
        }catch(SQLException e){
            e.printStackTrace();

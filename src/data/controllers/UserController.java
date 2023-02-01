@@ -50,8 +50,13 @@ public class UserController {
         userDao.add(user);
     }
     
-    public void updateUser(User user)throws SQLException{
+    public void updateStatus(User user)throws SQLException{
         userDao.update(user);
+    }
+    
+    public int updateUser(User user)throws SQLException{
+         return userDao.update(user);
+      
     }
     
     public void deleteUser(User user)throws SQLException{
@@ -61,6 +66,10 @@ public class UserController {
     
     public List<User> getAllUsers()throws SQLException{
        return userDao.getUsers();
+    }
+    
+    public boolean checkUser(String username, String password)throws SQLException{
+        return userDao.getUser(username, password)!=null;
     }
     
     
