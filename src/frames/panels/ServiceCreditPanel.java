@@ -15,6 +15,7 @@ import java.awt.GridLayout;
 import java.util.List;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import otherclasses.ImageHandler;
 import pnhsems.InvalidInputException;
 import themes.Theme;
 
@@ -555,7 +556,7 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
         jPanel2.setPreferredSize(new java.awt.Dimension(670, 50));
         jPanel2.setLayout(new java.awt.BorderLayout());
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/add-file.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(ImageHandler.getIconPath("/img/icons/add-file.png")));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);

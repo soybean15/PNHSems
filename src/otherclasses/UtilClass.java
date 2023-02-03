@@ -42,10 +42,10 @@ public class UtilClass {
         
         String lastTwo = id.substring(id.length()-2);
         
-        String dayStr = String.valueOf(day).substring(0, 2);
-        
+        //String dayStr = String.valueOf(day).substring(0, 2);
+        String dayStr = String.valueOf(day);
         System.out.println("prefix>>>"+ lastTwo+dayStr);
-        return dayStr+lastTwo;
+        return lastTwo;
     }
 
     private static String cut(String str) {

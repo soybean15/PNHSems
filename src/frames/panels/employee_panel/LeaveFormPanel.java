@@ -73,7 +73,9 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
      * @param employee, to get the employee details
      */
     public LeaveFormPanel(MainFrame root, Employee employee) {
+       
         initComponents();
+         System.out.println("HEre"+startDate.getText());
         this.root = root;
 
         this.employee = employee;
@@ -745,7 +747,7 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         lblBadge.setBorder(new CircleBorder(Color.red, 1));
         jPanel36.add(lblBadge, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 0, 13, 13));
 
-        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/credit-card(1).png"))); // NOI18N
+        jLabel24.setIcon(new javax.swing.ImageIcon("/root/NetBeansProjects/PNHSEMS/src/img/icons/credit-card(1).png"));
         jLabel24.setPreferredSize(new java.awt.Dimension(25, 25));
         jPanel36.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 2, 24, 24));
 

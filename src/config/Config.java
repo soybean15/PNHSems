@@ -28,6 +28,10 @@ public class Config {
 //        return imagePath;
 //    }
     
+    public static String getClassPath(){
+         return System.getProperty("user.dir");
+    }
+    
     
         
     public static String getImagePath(){

@@ -9,6 +9,7 @@ import data.model.Employee;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -23,6 +24,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class ImageHandler {
 
+    URL im = this.getClass().getClassLoader().getResource("img/app_img/male-default-img.jpg");
     //app images
     private final ImageIcon male_default = new ImageIcon(this.getClass().getClassLoader().getResource("img/app_img/male-default-img.jpg"));
     private final ImageIcon female_default = new ImageIcon(this.getClass().getClassLoader().getResource("img/app_img/female-default-img.jpg"));
@@ -87,6 +89,11 @@ public class ImageHandler {
             return new ImageIcon(ih.female_default.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
         }
 
+    }
+    
+    public static String getIconPath(String iconPath){
+        String path = System.getProperty("user.dir");
+        return path+"/src"+iconPath;
     }
 
 }
