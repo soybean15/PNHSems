@@ -25,7 +25,7 @@ import themes.Theme;
  *
  * @author root
  */
-public class AddPersonnelWindow extends javax.swing.JDialog {
+public class AddPersonnelWindow extends javax.swing.JFrame {
 
     /**
      * Creates new form AddPersonnelWindow

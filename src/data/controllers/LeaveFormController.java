@@ -24,7 +24,7 @@ public class LeaveFormController {
     LeaveFormService service = new LeaveFormService();
     
     public String generateRefNum(Employee employee) throws SQLException{
-        return service.getLastId( employee);
+        return service.generateReferenceNumber( );
     }
 
     public int addLeaveType(LeaveType leaveType) throws SQLException {
@@ -72,5 +72,9 @@ public class LeaveFormController {
               e.printStackTrace();
               return 0;
           }
+      }
+      
+      public LeaveForm getRecet(Employee employee)throws SQLException {
+          return service.getRecent(employee);
       }
 }

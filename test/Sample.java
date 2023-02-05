@@ -1,5 +1,6 @@
 
 import java.net.URL;
+import java.util.LinkedList;
 import otherclasses.ImageHandler;
 
 /*
@@ -14,12 +15,11 @@ import otherclasses.ImageHandler;
 public class Sample {
     
     public static void main(String[] args) {
-        Sample sample = new Sample();
-  
-           ///root/NetBeansProjects/PNHSEMS/src/img/icons/add-file.png
-              System.out.println(ImageHandler.getIconPath("/img/icons/add-file.png"));
-                
-             // System.out.println(sample.im);
+       LinkedList<String> list = new LinkedList<>();
+       list.add("set");
+       
+        System.out.println(list.size());
+        System.out.println(list.get(0));
     }
     
 }

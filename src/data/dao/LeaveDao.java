@@ -43,4 +43,10 @@ public interface LeaveDao {
     
      public int getLeaveCount()
             throws SQLException;
+     
+     public LeaveForm getEmployeeRecentLeave(Employee employee)
+               throws SQLException;
+     
+
+    
 }

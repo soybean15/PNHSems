@@ -52,6 +52,8 @@ public class ImageHandler {
 
     public static void copyToTargetFolder(String sourcePath, String name) throws IOException {
         Path source = Paths.get(sourcePath);
+        System.out.println(Config.getImagePath());
+         System.out.println(name);
         Path targetDir = Paths.get(Config.getImagePath());
         Files.createDirectories(targetDir);
 
@@ -60,15 +62,14 @@ public class ImageHandler {
         Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
     }
 
-    public static String getName(String id) {
-        return "employee_" + id;
-    }
+
 
     public static String getImagePath(String name) {
         return Config.getImagePath() + "/" + name;
     }
 
     public static ImageIcon getImage(int width, int height, Employee employee) {
+          System.out.println(getImagePath(employee.getImage()));
         if (employee.getImage() == null) {
             return getDefaultImage(width, height, employee.getGender());
         }
@@ -82,7 +83,7 @@ public class ImageHandler {
 
     private static ImageIcon getDefaultImage(int width, int height, String gender) {
         ImageHandler ih = new ImageHandler();
-
+      
         if (gender.equals("Male")) {
             return new ImageIcon(ih.male_default.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
         } else {

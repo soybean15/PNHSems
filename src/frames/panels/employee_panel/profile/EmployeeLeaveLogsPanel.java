@@ -9,6 +9,7 @@ import data.model.Employee;
 import data.model.EmployeeServiceCredit;
 import data.model.LeaveForm;
 import frames.components.LogsItem;
+import frames.components.windows.Form;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -21,6 +22,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import otherclasses.UtilClass;
@@ -100,7 +102,7 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
         
         try {
             this.leaveLogs = controller.getLeaveLogs(employee);
-            // lblHeader.setText(employee.getFirstName() + "'s Leave Logs");
+            lblHeader.setText(employee.getFirstName() + "'s Leave Logs");
 
             update();
 
@@ -380,10 +382,7 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
         cmbSort = new javax.swing.JComboBox<>();
         paginationContainer = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
-        buttonContainer = new javax.swing.JPanel();
-        lblNxt = new javax.swing.JLabel();
-        lblPrev = new javax.swing.JLabel();
+        lblHeader = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         panelLogs = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
@@ -412,6 +411,7 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         lblTotal = new javax.swing.JLabel();
         panelServiceCredits = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
 
@@ -539,7 +539,7 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
     jPanel6.add(jPanel11, java.awt.BorderLayout.WEST);
 
     paginationContainer.setOpaque(false);
-    paginationContainer.setLayout(new java.awt.GridLayout());
+    paginationContainer.setLayout(new java.awt.GridLayout(1, 0));
     jPanel6.add(paginationContainer, java.awt.BorderLayout.CENTER);
 
     jPanel5.add(jPanel6, java.awt.BorderLayout.CENTER);
@@ -549,41 +549,8 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
     jPanel21.setBackground(new java.awt.Color(255, 255, 255));
     jPanel21.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-    jPanel10.setMaximumSize(new java.awt.Dimension(200, 30));
-    jPanel10.setMinimumSize(new java.awt.Dimension(200, 30));
-    jPanel10.setOpaque(false);
-    jPanel10.setPreferredSize(new java.awt.Dimension(200, 30));
-    jPanel10.setLayout(new java.awt.BorderLayout());
-
-    buttonContainer.setMaximumSize(new java.awt.Dimension(200, 30));
-    buttonContainer.setMinimumSize(new java.awt.Dimension(200, 30));
-    buttonContainer.setOpaque(false);
-    buttonContainer.setPreferredSize(new java.awt.Dimension(200, 30));
-    buttonContainer.setLayout(new java.awt.BorderLayout());
-    jPanel10.add(buttonContainer, java.awt.BorderLayout.CENTER);
-    buttonContainer.getAccessibleContext().setAccessibleName("");
-
-    lblNxt.setText(">");
-    lblNxt.setToolTipText("");
-    lblNxt.setPreferredSize(new java.awt.Dimension(30, 17));
-    lblNxt.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            lblNxtMouseClicked(evt);
-        }
-    });
-    jPanel10.add(lblNxt, java.awt.BorderLayout.EAST);
-
-    lblPrev.setText("<");
-    lblPrev.setToolTipText("");
-    lblPrev.setPreferredSize(new java.awt.Dimension(30, 17));
-    lblPrev.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            lblPrevMouseClicked(evt);
-        }
-    });
-    jPanel10.add(lblPrev, java.awt.BorderLayout.WEST);
-
-    jPanel21.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+    lblHeader.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+    jPanel21.add(lblHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 410, 40));
 
     jPanel1.add(jPanel21, java.awt.BorderLayout.CENTER);
 
@@ -602,7 +569,7 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
     );
     panelLogsLayout.setVerticalGroup(
         panelLogsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGap(0, 342, Short.MAX_VALUE)
+        .addGap(0, 380, Short.MAX_VALUE)
     );
 
     jPanel2.add(panelLogs, java.awt.BorderLayout.CENTER);
@@ -648,7 +615,7 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
     );
     jPanel7Layout.setVerticalGroup(
         jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGap(0, 372, Short.MAX_VALUE)
+        .addGap(0, 410, Short.MAX_VALUE)
     );
 
     add(jPanel7, java.awt.BorderLayout.WEST);
@@ -759,10 +726,18 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
     );
     panelServiceCreditsLayout.setVerticalGroup(
         panelServiceCreditsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGap(0, 68, Short.MAX_VALUE)
+        .addGap(0, 83, Short.MAX_VALUE)
     );
 
     jPanel18.add(panelServiceCredits, java.awt.BorderLayout.CENTER);
+
+    jButton3.setText("Print");
+    jButton3.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jButton3ActionPerformed(evt);
+        }
+    });
+    jPanel18.add(jButton3, java.awt.BorderLayout.PAGE_END);
 
     jPanel8.add(jPanel18, java.awt.BorderLayout.CENTER);
 
@@ -789,26 +764,6 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
 
     add(jPanel12, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void lblNxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNxtMouseClicked
-//        current += SET;
-//        pageCounter++;
-//        firstPage = false;
-//        lastPage = pageCounter == numberOfPagesSet;
-//
-//    
-//        createPagination(current);
-
-    }//GEN-LAST:event_lblNxtMouseClicked
-
-    private void lblPrevMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPrevMouseClicked
-//        current -= SET;
-//        pageCounter--;
-//        lastPage = false;
-//        firstPage = current == 1;
-//
-//        createPagination(current);
-    }//GEN-LAST:event_lblPrevMouseClicked
 
     private void dateChooserOnSelectionChange(datechooser.events.SelectionChangedEvent evt) {//GEN-FIRST:event_dateChooserOnSelectionChange
         // TODO add your handling code here:
@@ -861,13 +816,23 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if(selectedLeaveForm != null){
+            Form form = new Form();
+            form.setLeaveForm(selectedLeaveForm, false);
+            form.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(this, "No Selected Item");
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel buttonContainer;
     private javax.swing.JComboBox<String> cmbSort;
     private datechooser.beans.DateChooserCombo dateChooser;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
@@ -878,7 +843,6 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
@@ -900,11 +864,10 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblDateFiled;
     private javax.swing.JLabel lblDetails;
     private javax.swing.JLabel lblEnd;
+    private javax.swing.JLabel lblHeader;
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblLeaveType;
     private javax.swing.JLabel lblLeaveType1;
-    private javax.swing.JLabel lblNxt;
-    private javax.swing.JLabel lblPrev;
     private javax.swing.JLabel lblStart;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lblUser;

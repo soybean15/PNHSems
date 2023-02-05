@@ -132,7 +132,7 @@ public class Table {
         
           tables.add(new Table("leave_service_credits")
                 .addField("service_credit_id int(11) not null")
-                .addField("leave_id int(11) not null")
+                .addField("leave_id varchar(11) not null")
                 .addField("credit_used int(11) not null"));
           
           tables.add(new Table("personnels")

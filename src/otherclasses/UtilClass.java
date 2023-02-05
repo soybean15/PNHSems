@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 import java.util.List;
 
@@ -119,6 +120,14 @@ public class UtilClass {
         String[] arr =date.split("/");
         
         return arr[2]+"-"+arr[1]+"-"+arr[0];
+    }
+   
+        
+    public static java.sql.Date getSQLDate(Calendar calendar) {
+//        int year = calendar.get(Calendar.YEAR);
+//        int month = calendar.get(Calendar.MONTH + 1);
+//        int day = calendar.get(Calendar.DATE);
+        return new  java.sql.Date(calendar.getTimeInMillis());
     }
    
 

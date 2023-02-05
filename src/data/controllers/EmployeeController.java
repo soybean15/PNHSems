@@ -79,6 +79,10 @@ public class EmployeeController {
         return service.deleteEmployeeServiceCredits(employeeId, serviceCreditId);
     }
     
-
+    
+    public int deleteEmployee(Employee employee)throws SQLException
+    {
+        return service.deleteEmployee(employee);
+    }
 
 }

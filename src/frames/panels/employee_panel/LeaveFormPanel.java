@@ -31,6 +31,7 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import otherclasses.CircleBorder;
+import otherclasses.ImageHandler;
 
 
 import otherclasses.UtilClass;
@@ -747,7 +748,7 @@ public class LeaveFormPanel extends javax.swing.JPanel  {
         lblBadge.setBorder(new CircleBorder(Color.red, 1));
         jPanel36.add(lblBadge, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 0, 13, 13));
 
-        jLabel24.setIcon(new javax.swing.ImageIcon("/root/NetBeansProjects/PNHSEMS/src/img/icons/credit-card(1).png"));
+        jLabel24.setIcon(new javax.swing.ImageIcon(ImageHandler.getIconPath("/img/icons/credit-card(1).png")));
         jLabel24.setPreferredSize(new java.awt.Dimension(25, 25));
         jPanel36.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 2, 24, 24));
 
@@ -1202,11 +1203,13 @@ endDate.addSelectionChangedListener(new datechooser.events.SelectionChangedListe
         if (validDate) {
             
            
-            String _startDate = startDate.getText();
-            String _endDate = endDate.getText();
+            Calendar start = startDate.getSelectedDate();
+           
+            
+            Calendar _end = endDate.getSelectedDate();
 
-            java.sql.Date date1 = java.sql.Date.valueOf(UtilClass.convertToSqlDate(_startDate));
-            java.sql.Date date2 = java.sql.Date.valueOf(UtilClass.convertToSqlDate(_endDate));
+            java.sql.Date date1 = UtilClass.getSQLDate(start);
+            java.sql.Date date2 =UtilClass.getSQLDate(_end);
        
           
 
@@ -1240,7 +1243,7 @@ endDate.addSelectionChangedListener(new datechooser.events.SelectionChangedListe
 
 
 
- System.out.println(UtilClass.getCurrentDate().toString());
+
 
 
     }//GEN-LAST:event_jButton1ActionPerformed

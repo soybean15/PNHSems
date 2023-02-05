@@ -200,7 +200,38 @@ public class EmployeeDaoImplement implements EmployeeDao {
 
     @Override
     public int delete(Employee employee) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String id = employee.getId();
+        int n=0;
+        
+        try {
+            conn.setAutoCommit(false);
+            String query = "delete from employee where id = ?";
+            PreparedStatement pst = conn.prepareStatement(query);
+            pst.setString(1, id);
+            n = pst.executeUpdate();
+            
+            
+            query = "delete from employee_info where employee_id = ?";
+            pst = conn.prepareStatement(query);
+            pst.setString(1, id);
+            n = pst.executeUpdate();
+            
+            query = "delete from employee_and_service_credits where employeeId = ?";
+            pst = conn.prepareStatement(query);
+            pst.setString(1, id);
+            n = pst.executeUpdate();
+            
+            query = "delete from employee_leave where employeeId = ?";
+            pst = conn.prepareStatement(query);
+            pst.setString(1, id);
+            
+            n = pst.executeUpdate();
+            
+            conn.commit();
+        } catch (SQLException e) {
+            
+        }
+        return n;
     }
 
     @Override

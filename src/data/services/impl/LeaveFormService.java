@@ -100,14 +100,16 @@ public class LeaveFormService {
         return leaveLogs;
     }
 
-    public String getLastId(Employee employee) throws SQLException {
+    public String generateReferenceNumber() throws SQLException {
+        long timestamp = System.currentTimeMillis();
+        java.util.Random random = new java.util.Random();
+        int randomNumber = 100+random.nextInt(900);
         
-        String id = leaveDao.getLastId();
+       // System.out.println("size = "+(timestamp)+""+randomNumber).length() );
+
+        System.out.println("size===="+(String.valueOf(timestamp).substring(6)+randomNumber).length());
         
-       
-        String prefix = UtilClass.getPrefix(employee.getId());
-        
-        return id == null ?prefix+UtilClass.splitRefNum("000010000") : prefix + UtilClass.splitRefNum(id);
+        return String.valueOf(timestamp).substring(6)+randomNumber;
     }
     
      public List<LeaveForm> searchByReferenceNumber(Employee employee,String refNum) throws SQLException {
@@ -119,4 +121,7 @@ public class LeaveFormService {
          return leaveDao.getLeaveCount();
      }
 
+     public LeaveForm getRecent(Employee employee)throws SQLException{
+         return leaveDao.getEmployeeRecentLeave(employee);
+     }
 }

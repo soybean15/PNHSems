@@ -4,8 +4,12 @@
  */
 package frames.panels.employee_panel;
 
+import data.controllers.LeaveFormController;
 import data.model.Employee;
 import data.model.EmployeeServiceCredit;
+import data.model.LeaveForm;
+import frames.components.windows.Form;
+
 
 import frames.panels.employee_panel.profile.EmployeeProfilePanel;
 import javax.swing.JLabel;
@@ -17,6 +21,7 @@ import frames.panels.employee_panel.profile.EmployeeServiceCreditsPanel;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import otherclasses.ImageHandler;
+import otherclasses.UtilClass;
 
 /**
  *
@@ -38,6 +43,7 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
     private HashMap<String,JPanel> panels ;
     
     boolean openLeaveForm;
+    LeaveFormController controller = new LeaveFormController();
     
     
     
@@ -83,6 +89,7 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         }else{
           
              activePanel(employeeProfile,lblProfile);
+             employeeProfile.setListener(listener);
         }
       
         
@@ -98,7 +105,7 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
     public void exitForm(){
         openLeaveForm=false;
         activePanel(employeeServiceCreditsPanel,lblServiceCredit);
-       employeeServiceCreditsPanel.updatePanel();
+        employeeServiceCreditsPanel.updatePanel();
         
     }
 
@@ -200,6 +207,11 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         jPanel4.add(btnEdit);
 
         jButton2.setText("View");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel4.add(jButton2);
 
         jPanel3.add(jPanel4, java.awt.BorderLayout.CENTER);
@@ -380,9 +392,11 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
             if(exitLeaveForm()){
                openLeaveForm=false;
                activePanel(employeeProfile,lblProfile);
+               employeeProfile.setListener(listener);
             }
         }else{
               activePanel(employeeProfile,lblProfile);
+              employeeProfile.setListener(listener);
          }
        
 
@@ -430,6 +444,27 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
             activePanel(employeeProfile,lblProfile);
         }
     }//GEN-LAST:event_btnEditActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+
+            LeaveForm form = controller.getRecet(employee);
+            Form printForm = new Form();
+            if (form == null) {
+                form = new LeaveForm();
+                form.setEmployee(employee);
+                form.setDateFiled(UtilClass.getCurrentDate());
+
+            }
+            printForm.setLeaveForm(form, true);
+
+            printForm.setVisible(true);
+
+           
+        }catch(java.sql.SQLException e){
+            
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -513,5 +548,7 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
          }
          return false;
     }
+    
+    
      
 }

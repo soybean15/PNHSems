@@ -108,7 +108,7 @@ public class LeaveDaoImplement implements LeaveDao {
                 for (EmployeeServiceCredit item : leaveForm.getServiceCredit()) {
                     pst = conn.prepareStatement(query);
                     pst.setInt(1, item.getServiceCredit().getId());
-                    pst.setInt(2, Integer.parseInt(getLastId()));
+                    pst.setString(2,getLastId());
                     pst.setInt(3, item.getDays_used());
 
                     pst.executeUpdate();
@@ -139,8 +139,7 @@ public class LeaveDaoImplement implements LeaveDao {
     @Override
     public List<LeaveForm> getEmployeeLeaveLogs(Employee employee) throws SQLException {
         List<LeaveForm> leaveLogs = new ArrayList<>();
-        String query = "select * from employee_leave left join leave_type on leave_type.id = leave_type_id "
-                + "where employeeId =?";
+        String query = "select * from employee_leave left join leave_type on leave_type.id = leave_type_id where employeeId =? ORDER BY created_at DESC";
         try {
             conn.setAutoCommit(false);
             PreparedStatement pst = conn.prepareStatement(query);
@@ -172,6 +171,7 @@ public class LeaveDaoImplement implements LeaveDao {
                 leaveLogs.add(leaveForm);
             }
 
+            conn.commit();
             return leaveLogs;
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -318,6 +318,53 @@ public class LeaveDaoImplement implements LeaveDao {
         PreparedStatement pst = conn.prepareStatement(query);
         ResultSet rs = pst.executeQuery();
         return  rs.next() ? rs.getInt("total") : 0;
+    }
+
+    @Override
+    public LeaveForm getEmployeeRecentLeave(Employee employee) throws SQLException {
+     
+        String query = "select * from employee_leave left join leave_type on leave_type.id = leave_type_id where employeeId =? ORDER BY created_at DESC limit 1";
+        try {
+            conn.setAutoCommit(false);
+            PreparedStatement pst = conn.prepareStatement(query);
+            pst.setString(1, employee.getId());
+            ResultSet rs = pst.executeQuery();
+            LeaveForm leaveForm = null;
+          
+            if (rs.next()) {
+               leaveForm = new LeaveForm();
+                 leaveForm.setEmployee(employee);
+                leaveForm.setId(rs.getString("reference_num"));
+                leaveForm.setDateFiled(rs.getDate("date_filed"));
+                leaveForm.setInclusiveDate_start(rs.getDate("inclusive_date_start"));
+                leaveForm.setInclusiveDate_end(rs.getDate("inclusive_date_end"));
+                leaveForm.setCreditUsed(rs.getInt("days_used"));
+                leaveForm.setDetails(rs.getString("details"));
+                leaveForm.setCreated_at(rs.getTimestamp("created_at"));
+                leaveForm.setUserId(rs.getString("user_id"));
+
+                if (rs.getString("leave_type_id") != null) {
+                    LeaveType leaveType = new LeaveType();
+
+                    leaveType.setId(rs.getInt("id"));
+                    leaveType.setName(rs.getString("name"));
+                    leaveType.setReference("reference");
+
+                    leaveForm.setLeaveType(leaveType);
+
+                }
+
+             
+            }
+
+            return leaveForm;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            conn.rollback();
+
+           
+            return null;
+        }
     }
 
 }

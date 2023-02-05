@@ -7,9 +7,11 @@ package frames.panels.employee_panel.profile;
 import data.controllers.EmployeeController;
 import data.model.Employee;
 import data.model.Employee_PersonalInfo;
+import frames.listener.SidePanelListener;
 import otherclasses.UtilClass;
 import themes.Theme;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,7 +19,7 @@ import java.sql.SQLException;
  */
 public class EmployeeProfilePanel extends javax.swing.JPanel {
     
-    
+      SidePanelListener listener ;
 
     /**
      * Creates new form EmployeePanel
@@ -33,6 +35,10 @@ public class EmployeeProfilePanel extends javax.swing.JPanel {
         this.employee = employee;
         personalInfo = employee.getPersonalInfo();
         init();
+    }
+    
+    public void setListener(  SidePanelListener listener ){
+        this.listener =listener;
     }
     
     
@@ -96,6 +102,7 @@ public class EmployeeProfilePanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jSplitPane1 = new javax.swing.JSplitPane();
@@ -229,14 +236,24 @@ public class EmployeeProfilePanel extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(153, 153, 255));
         jPanel2.setOpaque(false);
-        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel2.setLayout(new java.awt.BorderLayout());
 
         jLabel1.setBackground(new java.awt.Color(204, 230, 192));
         jLabel1.setFont(Theme.PRIMARY.FONT.big(22)
         );
         jLabel1.setText("Basic Information");
         jLabel1.setOpaque(true);
-        jPanel2.add(jLabel1);
+        jPanel2.add(jLabel1, java.awt.BorderLayout.CENTER);
+
+        jButton1.setBackground(new java.awt.Color(255, 0, 0));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Delete");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, java.awt.BorderLayout.LINE_END);
 
         jPanel1.add(jPanel2);
 
@@ -798,8 +815,21 @@ public class EmployeeProfilePanel extends javax.swing.JPanel {
         add(jScrollPane1);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete " + employee.getFullname() + "?", "Delete Employee", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
+                controller.deleteEmployee(employee);
+                listener.onEmployeeProfileExit();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;

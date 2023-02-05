@@ -155,6 +155,9 @@ public class AddEmployeePanel extends javax.swing.JPanel {
         txtPermanent.setText("");
         txtCurrent.setText("");
         
+        txtDay.setText("");
+        txtMonth.setText("");
+        txtYear.setText("");
         cmbGender.setSelectedIndex(0);
         cmbPosition.setSelectedIndex(0);
         cmbStatus.setSelectedIndex(0);
@@ -1270,11 +1273,13 @@ public class AddEmployeePanel extends javax.swing.JPanel {
         try {
 
            validation.checkGender(cmbGender);
-            gender_warning.setText("*");
+           gender_warning.setText("*");
+            employee.setGender(validation.checkGender(cmbGender));
         } catch (InvalidInputException iie) {
             employee.setGender(null);
             gender_warning.setText("*" + iie.getMessage());
         }
+        
     }//GEN-LAST:event_cmbGenderFocusLost
 
     private void cmbPositionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbPositionFocusLost
@@ -1409,12 +1414,14 @@ public class AddEmployeePanel extends javax.swing.JPanel {
             }
             
             if (imageSource != null){
-                ImageHandler.copyToTargetFolder(imageSource, employee.getImage());
+                ImageHandler.copyToTargetFolder(imageSource, employee.getId());
             }
             
             
-            editButton.setText("Edit");
-            imageLabel.setIcon(ImageHandler.getImage(150, 150, employee));
+           if(editButton !=null) {editButton.setText("Edit");
+              imageLabel.setIcon(ImageHandler.getImage(150, 150, employee));
+        }
+          
 
 
            
@@ -1433,13 +1440,13 @@ public class AddEmployeePanel extends javax.swing.JPanel {
        try{
            imageSource = ImageHandler.upload();
            ImageIcon imgIcon = ImageHandler.getImage(50, 50, imageSource);
-           employee.setImage(ImageHandler.getName(id));
+           employee.setImage(id);
            
            
            btnUpload.setIcon(imgIcon);
            
        }catch(NullPointerException npe){
-           
+           npe.printStackTrace();
           //do nothing
        }
     }//GEN-LAST:event_btnUploadActionPerformed

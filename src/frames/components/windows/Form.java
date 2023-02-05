@@ -6,10 +6,13 @@ package frames.components.windows;
 
 import data.controllers.LeaveFormController;
 import data.model.LeaveForm;
-import java.awt.Color;
-import otherclasses.CircleBorder;
-import otherclasses.UtilClass;
-import themes.Theme;
+import java.awt.print.PageFormat;
+import java.awt.print.Paper;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.util.Calendar;
+import otherclasses.ImageHandler;
+import otherclasses.PanelPrintable;
 
 /**
  *
@@ -22,22 +25,57 @@ public class Form extends javax.swing.JFrame {
      */
     LeaveForm form ;
     LeaveFormController controller = new LeaveFormController();
+    
+     boolean isBlank;
     public Form( ) {
         initComponents();
         
+        ///root/NetBeansProjects/PNHSEMS/src/img/app_img/deped-logo.jpg
+    
+        
+        
     }
-    public void setLeaveForm(LeaveForm form ){
+    
+    private void header(){
+        lblLogo.setIcon(ImageHandler.getImage(80, 80, ImageHandler.getIconPath("/img/app_img/deped-logo.png")));
+        headerContent1.setText("<html>CSC Form No.6<br>Revised 1984</html>");
+
+    }
+    public void setLeaveForm(LeaveForm form, boolean isBlank){
+        this.form= form;
+        this.isBlank = isBlank;
+         header();
+         setDetails();
         
-        this.form=form;
-        
-        lblDateOfFiling.setText(" "+UtilClass.getCurrent());
+    }
+    
+    private void setDetails(){
+        lblDateFiled.setText(form.getDateFiled().toString());
         lblFirstName.setText(form.getEmployee().getFirstName());
         lblLastName.setText(form.getEmployee().getLastName());
-        lblMiddleName.setText(form.getEmployee().getMiddleName());
-        lblPosition.setText(" "+form.getEmployee().getPosition().getName());
+        lblMiddleName.setText(form.getEmployee().getMiddleName() == null ? "" :form.getEmployee().getMiddleName());
+        lblPosition.setText(form.getEmployee().getPosition().getName());
         
+        if(!isBlank){
+             lblDaysApplied.setText(""+form.getCreditUsed());
+             lblStart.setText(form.getInclusiveDate_start().toString());
+             lblEnd.setText(form.getInclusiveDate_end().toString());
+          
+        }
+       
     }
-   
+
+//    private int subtractDate(java.sql.Date start, java.sql.Date end) {
+//        Calendar calendar1 = Calendar.getInstance();
+//        calendar1.setTime(start);
+//        Calendar calendar2 = Calendar.getInstance();
+//        calendar2.setTime(end);
+//        long milliseconds1 = calendar1.getTimeInMillis();
+//        long milliseconds2 = calendar2.getTimeInMillis();
+//        long diff = milliseconds1 - milliseconds2;
+//        return (int) diff / (24 * 60 * 60 * 1000);
+//    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,787 +86,833 @@ public class Form extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        container = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblLogo = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        headerContent1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        lblDateOfFiling = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        jPanel11 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        lblDateFiled = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jPanel13 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jPanel15 = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
         lblLastName = new javax.swing.JLabel();
         lblFirstName = new javax.swing.JLabel();
         lblMiddleName = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        lblPosition = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jPanel14 = new javax.swing.JPanel();
-        jPanel35 = new javax.swing.JPanel();
-        part1 = new javax.swing.JPanel();
-        jPanel15 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        jPanel18 = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        leaveTypeList = new javax.swing.JPanel();
-        othersPanel = new javax.swing.JPanel();
-        radioOthers = new javax.swing.JRadioButton();
-        specifyPanel = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
-        txtOthers = new javax.swing.JTextField();
         jPanel16 = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
+        jPanel13 = new javax.swing.JPanel();
+        lblPosition = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jPanel17 = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        lblDateFiled2 = new javax.swing.JLabel();
+        jPanel18 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
-        jLabel18 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
         jPanel20 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
-        jPanel17 = new javax.swing.JPanel();
-        jPanel37 = new javax.swing.JPanel();
-        jPanel39 = new javax.swing.JPanel();
-        jPanel40 = new javax.swing.JPanel();
-        jLabel29 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jPanel22 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jPanel27 = new javax.swing.JPanel();
+        jPanel28 = new javax.swing.JPanel();
+        jLabel26 = new javax.swing.JLabel();
+        jPanel29 = new javax.swing.JPanel();
+        jPanel30 = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
-        startDate = new datechooser.beans.DateChooserCombo();
-        jPanel41 = new javax.swing.JPanel();
-        endDate = new datechooser.beans.DateChooserCombo();
-        jLabel30 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
+        lblDaysApplied = new javax.swing.JLabel();
+        jPanel31 = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
+        lblStart = new javax.swing.JLabel();
+        jPanel32 = new javax.swing.JPanel();
+        jLabel29 = new javax.swing.JLabel();
+        lblEnd = new javax.swing.JLabel();
+        jPanel33 = new javax.swing.JPanel();
+        jLabel33 = new javax.swing.JLabel();
+        jPanel34 = new javax.swing.JPanel();
         jLabel34 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
-        jPanel22 = new javax.swing.JPanel();
-        vacationLeavePanel = new javax.swing.JPanel();
-        jPanel31 = new javax.swing.JPanel();
-        jPanel25 = new javax.swing.JPanel();
-        abroad = new javax.swing.JPanel();
-        radioAbroad = new javax.swing.JRadioButton();
-        specifyAbroad = new javax.swing.JPanel();
-        jLabel20 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
         jPanel23 = new javax.swing.JPanel();
-        radioWithinPh = new javax.swing.JRadioButton();
-        specifyWithinPh = new javax.swing.JPanel();
-        jLabel19 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jPanel27 = new javax.swing.JPanel();
-        jLabel25 = new javax.swing.JLabel();
-        studyLeavePanel = new javax.swing.JPanel();
-        jPanel30 = new javax.swing.JPanel();
-        radioBar = new javax.swing.JRadioButton();
-        radioMaster = new javax.swing.JRadioButton();
-        jLabel26 = new javax.swing.JLabel();
-        jPanel32 = new javax.swing.JPanel();
-        sickLeavePanel = new javax.swing.JPanel();
-        jPanel26 = new javax.swing.JPanel();
-        jPanel29 = new javax.swing.JPanel();
-        radioOutPatient = new javax.swing.JRadioButton();
-        panelOutPatient = new javax.swing.JPanel();
-        jLabel22 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
         jPanel24 = new javax.swing.JPanel();
-        radioInHospital = new javax.swing.JRadioButton();
-        panelInHospital = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jLabel28 = new javax.swing.JLabel();
-        jPanel33 = new javax.swing.JPanel();
-        otherPurposePanel = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
-        jPanel28 = new javax.swing.JPanel();
-        radioMonetize = new javax.swing.JRadioButton();
-        radioTerminal = new javax.swing.JRadioButton();
-        jPanel34 = new javax.swing.JPanel();
+        jPanel25 = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
+        jPanel35 = new javax.swing.JPanel();
+        jPanel37 = new javax.swing.JPanel();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel65 = new javax.swing.JLabel();
+        jPanel39 = new javax.swing.JPanel();
+        jLabel44 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        jLabel47 = new javax.swing.JLabel();
+        jPanel40 = new javax.swing.JPanel();
+        jLabel48 = new javax.swing.JLabel();
+        jLabel49 = new javax.swing.JLabel();
+        jLabel50 = new javax.swing.JLabel();
+        lblCreditUsed = new javax.swing.JLabel();
         jPanel38 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        jLabel41 = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
+        lblBalance = new javax.swing.JLabel();
+        jPanel49 = new javax.swing.JPanel();
+        jPanel50 = new javax.swing.JPanel();
+        jLabel61 = new javax.swing.JLabel();
+        jLabel62 = new javax.swing.JLabel();
+        jPanel51 = new javax.swing.JPanel();
+        jLabel63 = new javax.swing.JLabel();
+        jLabel64 = new javax.swing.JLabel();
+        jPanel26 = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        jPanel42 = new javax.swing.JPanel();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox2 = new javax.swing.JCheckBox();
+        jPanel48 = new javax.swing.JPanel();
+        jLabel59 = new javax.swing.JLabel();
+        jLabel60 = new javax.swing.JLabel();
+        jPanel43 = new javax.swing.JPanel();
+        jPanel44 = new javax.swing.JPanel();
+        jLabel52 = new javax.swing.JLabel();
+        jPanel46 = new javax.swing.JPanel();
+        jLabel54 = new javax.swing.JLabel();
+        jLabel55 = new javax.swing.JLabel();
+        jLabel56 = new javax.swing.JLabel();
+        jPanel45 = new javax.swing.JPanel();
+        jLabel53 = new javax.swing.JLabel();
+        jPanel36 = new javax.swing.JPanel();
+        jPanel41 = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jPanel52 = new javax.swing.JPanel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jPanel53 = new javax.swing.JPanel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jPanel47 = new javax.swing.JPanel();
+        jLabel57 = new javax.swing.JLabel();
+        jLabel58 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridLayout());
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(595, 800));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        container.setLayout(new java.awt.BorderLayout());
 
-        jPanel2.setBackground(Theme.PRIMARY.COLOR.background_secondary);
-        jPanel2.setMinimumSize(new java.awt.Dimension(613, 100));
-        jPanel2.setOpaque(false);
-        jPanel2.setLayout(new java.awt.BorderLayout());
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new java.awt.GridLayout(2, 0));
 
-        jPanel3.setOpaque(false);
-        jPanel3.setPreferredSize(new java.awt.Dimension(613, 20));
-        jPanel3.setLayout(new java.awt.GridLayout());
+        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogo.setPreferredSize(new java.awt.Dimension(80, 80));
+        jPanel2.add(lblLogo);
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Norasi", 1, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("APPLICATION FOR LEAVE");
-        jPanel3.add(jLabel1);
+        jPanel1.setOpaque(false);
+        jPanel1.setLayout(new java.awt.GridLayout());
 
-        jPanel2.add(jPanel3, java.awt.BorderLayout.NORTH);
+        headerContent1.setFont(new java.awt.Font("Liberation Sans", 2, 11)); // NOI18N
+        headerContent1.setText("CSC Form No. 6");
+        headerContent1.setToolTipText("");
+        headerContent1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jPanel1.add(headerContent1);
 
         jPanel4.setOpaque(false);
-        jPanel4.setPreferredSize(new java.awt.Dimension(250, 100));
-        jPanel4.setLayout(new java.awt.GridLayout(2, 0));
+        jPanel4.setLayout(new java.awt.GridLayout(4, 0));
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jLabel1.setFont(new java.awt.Font("MathJax_Fraktur", 1, 14)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Republic of the Philippines");
+        jPanel4.add(jLabel1);
+
+        jLabel2.setFont(new java.awt.Font("MathJax_Fraktur", 1, 13)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Department of Education");
+        jPanel4.add(jLabel2);
+
+        jLabel4.setFont(new java.awt.Font("MathJax_Main", 0, 13)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Schools Division of Nueva Ecija");
+        jPanel4.add(jLabel4);
+
+        jLabel5.setFont(new java.awt.Font("MathJax_Main", 0, 13)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Sta. Rosa, Nueva Ecija");
+        jPanel4.add(jLabel5);
+
+        jPanel1.add(jPanel4);
+        jPanel1.add(jLabel3);
+
+        jPanel2.add(jPanel1);
+
+        container.add(jPanel2, java.awt.BorderLayout.PAGE_START);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel5.setOpaque(false);
-        jPanel5.setLayout(new java.awt.GridLayout(2, 0));
+        jPanel5.setLayout(new java.awt.BorderLayout());
 
-        jLabel2.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
-        jLabel2.setText("1. Office/Department");
-        jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jPanel5.add(jLabel2);
-
-        jLabel3.setFont(new java.awt.Font("Liberation Sans", 0, 15)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
-        jPanel5.add(jLabel3);
-
-        jPanel4.add(jPanel5);
-
-        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jPanel6.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         jPanel6.setOpaque(false);
-        jPanel6.setLayout(new java.awt.GridLayout(2, 0));
 
-        jLabel4.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
-        jLabel4.setText("3.Date of Filing");
-        jLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jPanel6.add(jLabel4);
+        jLabel7.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        jLabel7.setText("APPLICATION FORM");
+        jPanel6.add(jLabel7);
 
-        lblDateOfFiling.setFont(new java.awt.Font("Liberation Sans", 0, 15)); // NOI18N
-        lblDateOfFiling.setForeground(new java.awt.Color(51, 51, 51));
-        jPanel6.add(lblDateOfFiling);
-
-        jPanel4.add(jPanel6);
-
-        jPanel2.add(jPanel4, java.awt.BorderLayout.WEST);
+        jPanel5.add(jPanel6, java.awt.BorderLayout.NORTH);
 
         jPanel7.setOpaque(false);
-        jPanel7.setLayout(new java.awt.GridLayout(2, 0));
+        jPanel7.setLayout(new java.awt.BorderLayout());
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        jPanel8.setForeground(new java.awt.Color(153, 153, 153));
+        jPanel8.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         jPanel8.setOpaque(false);
-        jPanel8.setLayout(new java.awt.GridLayout(2, 0));
+        jPanel8.setPreferredSize(new java.awt.Dimension(250, 70));
+        jPanel8.setLayout(new java.awt.BorderLayout());
 
-        jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jPanel9.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         jPanel9.setOpaque(false);
+        jPanel9.setPreferredSize(new java.awt.Dimension(100, 40));
         jPanel9.setLayout(new java.awt.BorderLayout());
 
-        jLabel13.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
-        jLabel13.setText("1. Name");
-        jLabel13.setPreferredSize(new java.awt.Dimension(60, 20));
-        jPanel9.add(jLabel13, java.awt.BorderLayout.WEST);
+        jLabel6.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        jLabel6.setText("1. OFFICE/DEPARTMENT:");
+        jPanel9.add(jLabel6, java.awt.BorderLayout.PAGE_START);
+
+        jLabel8.setFont(new java.awt.Font("Liberation Sans", 1, 11)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("<html>DEPED - PENARANDA NATIONAL HIGH SCHOOL<br>\nSchool Division of Nueva Ecija\n\n</html>");
+        jPanel9.add(jLabel8, java.awt.BorderLayout.CENTER);
+
+        jPanel8.add(jPanel9, java.awt.BorderLayout.NORTH);
+
+        jPanel10.setOpaque(false);
+        jPanel10.setLayout(new java.awt.BorderLayout());
+
+        jLabel9.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        jLabel9.setText("3. DATE OF FILING: ");
+        jLabel9.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jPanel10.add(jLabel9, java.awt.BorderLayout.WEST);
+
+        lblDateFiled.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
+        lblDateFiled.setAutoscrolls(true);
+        jPanel10.add(lblDateFiled, java.awt.BorderLayout.CENTER);
+
+        jPanel8.add(jPanel10, java.awt.BorderLayout.CENTER);
+
+        jPanel7.add(jPanel8, java.awt.BorderLayout.WEST);
 
         jPanel11.setOpaque(false);
-        jPanel11.setLayout(new java.awt.GridLayout(1, 3));
+        jPanel11.setPreferredSize(new java.awt.Dimension(300, 70));
+        jPanel11.setLayout(new java.awt.BorderLayout());
 
-        jLabel6.setText("(Last)");
-        jPanel11.add(jLabel6);
-
-        jLabel5.setText("(First)");
-        jPanel11.add(jLabel5);
-
-        jLabel7.setText("(Middle)");
-        jPanel11.add(jLabel7);
-
-        jPanel9.add(jPanel11, java.awt.BorderLayout.CENTER);
-
-        jPanel8.add(jPanel9);
-
-        jPanel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         jPanel12.setOpaque(false);
+        jPanel12.setPreferredSize(new java.awt.Dimension(100, 40));
         jPanel12.setLayout(new java.awt.BorderLayout());
 
-        jLabel14.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
-        jLabel14.setText(" ");
-        jLabel14.setPreferredSize(new java.awt.Dimension(60, 20));
-        jPanel12.add(jLabel14, java.awt.BorderLayout.WEST);
+        jPanel14.setOpaque(false);
+        jPanel14.setLayout(new java.awt.GridLayout(1, 4));
+
+        jLabel13.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        jLabel13.setText("2. NAME");
+        jPanel14.add(jLabel13);
+
+        jLabel14.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
+        jLabel14.setText("(Last)");
+        jPanel14.add(jLabel14);
+
+        jLabel10.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
+        jLabel10.setText("(First)");
+        jPanel14.add(jLabel10);
+
+        jLabel15.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
+        jLabel15.setText("(Middle)");
+        jPanel14.add(jLabel15);
+
+        jPanel12.add(jPanel14, java.awt.BorderLayout.PAGE_START);
+
+        jPanel15.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel15.setOpaque(false);
+        jPanel15.setLayout(new java.awt.GridLayout(1, 4));
+
+        jLabel16.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
+        jPanel15.add(jLabel16);
+
+        lblLastName.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
+        lblLastName.setText("Padilla");
+        jPanel15.add(lblLastName);
+
+        lblFirstName.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
+        lblFirstName.setText("Marlon");
+        jPanel15.add(lblFirstName);
+
+        lblMiddleName.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
+        lblMiddleName.setText("Tampos");
+        jPanel15.add(lblMiddleName);
+
+        jPanel12.add(jPanel15, java.awt.BorderLayout.CENTER);
+
+        jPanel11.add(jPanel12, java.awt.BorderLayout.NORTH);
+
+        jPanel16.setOpaque(false);
+        jPanel16.setLayout(new java.awt.BorderLayout());
 
         jPanel13.setOpaque(false);
-        jPanel13.setLayout(new java.awt.GridLayout(1, 3));
+        jPanel13.setPreferredSize(new java.awt.Dimension(200, 13));
+        jPanel13.setLayout(new java.awt.BorderLayout());
 
-        lblLastName.setForeground(new java.awt.Color(51, 51, 51));
-        jPanel13.add(lblLastName);
+        lblPosition.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
+        lblPosition.setAutoscrolls(true);
+        jPanel13.add(lblPosition, java.awt.BorderLayout.CENTER);
 
-        lblFirstName.setForeground(new java.awt.Color(51, 51, 51));
-        jPanel13.add(lblFirstName);
+        jLabel21.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
+        jLabel21.setText("4. Position");
+        jLabel21.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jPanel13.add(jLabel21, java.awt.BorderLayout.WEST);
 
-        lblMiddleName.setForeground(new java.awt.Color(51, 51, 51));
-        jPanel13.add(lblMiddleName);
+        jPanel16.add(jPanel13, java.awt.BorderLayout.WEST);
 
-        jPanel12.add(jPanel13, java.awt.BorderLayout.CENTER);
+        jPanel17.setOpaque(false);
+        jPanel17.setLayout(new java.awt.BorderLayout());
 
-        jPanel8.add(jPanel12);
+        jLabel20.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
+        jLabel20.setText("5. Salary");
+        jLabel20.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jPanel17.add(jLabel20, java.awt.BorderLayout.WEST);
 
-        jPanel7.add(jPanel8);
+        lblDateFiled2.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
+        lblDateFiled2.setAutoscrolls(true);
+        jPanel17.add(lblDateFiled2, java.awt.BorderLayout.CENTER);
 
-        jPanel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        jPanel10.setForeground(new java.awt.Color(153, 153, 153));
-        jPanel10.setOpaque(false);
-        jPanel10.setLayout(new java.awt.GridLayout(2, 4));
+        jPanel16.add(jPanel17, java.awt.BorderLayout.CENTER);
 
-        jLabel8.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
-        jLabel8.setText("4. Position");
-        jLabel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jPanel10.add(jLabel8);
+        jPanel11.add(jPanel16, java.awt.BorderLayout.CENTER);
 
-        jLabel9.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
-        jLabel9.setText("5. Salary");
-        jLabel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jPanel10.add(jLabel9);
+        jPanel7.add(jPanel11, java.awt.BorderLayout.CENTER);
 
-        lblPosition.setForeground(new java.awt.Color(51, 51, 51));
-        lblPosition.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jPanel10.add(lblPosition);
+        jPanel5.add(jPanel7, java.awt.BorderLayout.CENTER);
 
-        jLabel11.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jPanel10.add(jLabel11);
-
-        jPanel7.add(jPanel10);
-
-        jPanel2.add(jPanel7, java.awt.BorderLayout.CENTER);
-
-        jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_START);
-
-        jPanel14.setOpaque(false);
-        jPanel14.setPreferredSize(new java.awt.Dimension(100, 30));
-        jPanel1.add(jPanel14, java.awt.BorderLayout.SOUTH);
-
-        jPanel35.setOpaque(false);
-        jPanel35.setPreferredSize(new java.awt.Dimension(100, 30));
-        jPanel35.setLayout(new javax.swing.OverlayLayout(jPanel35));
-
-        part1.setOpaque(false);
-        part1.setLayout(new java.awt.BorderLayout());
-
-        jPanel15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        jPanel15.setOpaque(false);
-        jPanel15.setLayout(new java.awt.BorderLayout());
-
-        jLabel12.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
-        jLabel12.setText("3. Type of leave to be availed of");
-        jLabel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jPanel15.add(jLabel12, java.awt.BorderLayout.NORTH);
+        jPanel3.add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
         jPanel18.setOpaque(false);
         jPanel18.setLayout(new java.awt.BorderLayout());
 
-        jLabel15.setText(" ");
-        jPanel18.add(jLabel15, java.awt.BorderLayout.PAGE_START);
-
-        leaveTypeList.setOpaque(false);
-        jPanel18.add(leaveTypeList, java.awt.BorderLayout.CENTER);
-
-        othersPanel.setOpaque(false);
-        othersPanel.setPreferredSize(new java.awt.Dimension(100, 30));
-        othersPanel.setLayout(new java.awt.BorderLayout());
-
-        radioOthers.setFont(Theme.PRIMARY.FONT.tableFontBig(10)
-        );
-        radioOthers.setText("Other");
-        radioOthers.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                radioOthersStateChanged(evt);
-            }
-        });
-        radioOthers.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                radioOthersFocusLost(evt);
-            }
-        });
-        radioOthers.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioOthersActionPerformed(evt);
-            }
-        });
-        othersPanel.add(radioOthers, java.awt.BorderLayout.WEST);
-
-        specifyPanel.setOpaque(false);
-        specifyPanel.setLayout(new java.awt.BorderLayout());
-
-        jLabel16.setText(" Specify: ");
-        specifyPanel.add(jLabel16, java.awt.BorderLayout.LINE_START);
-
-        txtOthers.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtOthersFocusLost(evt);
-            }
-        });
-        specifyPanel.add(txtOthers, java.awt.BorderLayout.CENTER);
-
-        othersPanel.add(specifyPanel, java.awt.BorderLayout.CENTER);
-
-        jPanel18.add(othersPanel, java.awt.BorderLayout.SOUTH);
-
-        jPanel15.add(jPanel18, java.awt.BorderLayout.CENTER);
-
-        part1.add(jPanel15, java.awt.BorderLayout.CENTER);
-
-        jPanel16.setOpaque(false);
-        jPanel16.setPreferredSize(new java.awt.Dimension(350, 100));
-        jPanel16.setRequestFocusEnabled(false);
-        jPanel16.setLayout(new java.awt.BorderLayout());
-
-        jLabel17.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
-        jLabel17.setText("3. Type of leave to be availed of");
-        jLabel17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jPanel16.add(jLabel17, java.awt.BorderLayout.NORTH);
-
+        jPanel19.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 1, new java.awt.Color(0, 0, 0)));
         jPanel19.setOpaque(false);
-        jPanel19.setLayout(new java.awt.BorderLayout());
 
-        jLabel18.setText(" ");
-        jLabel18.setPreferredSize(new java.awt.Dimension(4, 5));
-        jPanel19.add(jLabel18, java.awt.BorderLayout.NORTH);
+        jLabel22.setFont(new java.awt.Font("Liberation Sans", 1, 12)); // NOI18N
+        jLabel22.setText("6. DETAILS OF APPLICATION");
+        jPanel19.add(jLabel22);
 
+        jPanel18.add(jPanel19, java.awt.BorderLayout.PAGE_START);
+
+        jPanel20.setMinimumSize(new java.awt.Dimension(50, 13));
         jPanel20.setOpaque(false);
         jPanel20.setLayout(new java.awt.BorderLayout());
 
-        jPanel21.setOpaque(false);
-        jPanel21.setPreferredSize(new java.awt.Dimension(100, 200));
+        jPanel21.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel21.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 1, new java.awt.Color(0, 0, 0)));
+        jPanel21.setPreferredSize(new java.awt.Dimension(300, 100));
         jPanel21.setLayout(new java.awt.BorderLayout());
 
-        jPanel17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jPanel17.setForeground(new java.awt.Color(255, 102, 102));
-        jPanel17.setOpaque(false);
-        jPanel17.setPreferredSize(new java.awt.Dimension(100, 30));
-        jPanel17.setLayout(new java.awt.BorderLayout());
-        jPanel21.add(jPanel17, java.awt.BorderLayout.NORTH);
-
-        jPanel37.setLayout(new java.awt.BorderLayout());
-
-        jPanel39.setLayout(new java.awt.GridLayout(2, 0));
-
-        jPanel40.setPreferredSize(new java.awt.Dimension(100, 30));
-        jPanel40.setLayout(new java.awt.BorderLayout());
-
-        jLabel29.setText("Start Date");
-        jLabel29.setPreferredSize(new java.awt.Dimension(80, 50));
-        jPanel40.add(jLabel29, java.awt.BorderLayout.WEST);
-
-        jLabel27.setPreferredSize(new java.awt.Dimension(40, 17));
-        jPanel40.add(jLabel27, java.awt.BorderLayout.EAST);
-
-        startDate.setCurrentView(new datechooser.view.appearance.AppearancesList("Light",
-            new datechooser.view.appearance.ViewAppearance("custom",
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
-                    new java.awt.Color(0, 0, 0),
-                    new java.awt.Color(0, 0, 255),
-                    false,
-                    true,
-                    new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
-                    new java.awt.Color(0, 0, 0),
-                    new java.awt.Color(0, 0, 255),
-                    true,
-                    true,
-                    new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
-                    new java.awt.Color(0, 0, 255),
-                    new java.awt.Color(0, 0, 255),
-                    false,
-                    true,
-                    new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
-                    new java.awt.Color(128, 128, 128),
-                    new java.awt.Color(0, 0, 255),
-                    false,
-                    true,
-                    new datechooser.view.appearance.swing.LabelPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
-                    new java.awt.Color(0, 0, 0),
-                    new java.awt.Color(0, 0, 255),
-                    false,
-                    true,
-                    new datechooser.view.appearance.swing.LabelPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
-                    new java.awt.Color(0, 0, 0),
-                    new java.awt.Color(255, 0, 0),
-                    false,
-                    false,
-                    new datechooser.view.appearance.swing.ButtonPainter()),
-                (datechooser.view.BackRenderer)null,
-                false,
-                true)));
-    startDate.setFieldFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 14));
-    startDate.addSelectionChangedListener(new datechooser.events.SelectionChangedListener() {
-        public void onSelectionChange(datechooser.events.SelectionChangedEvent evt) {
-            startDateOnSelectionChange(evt);
-        }
-    });
-    startDate.addCommitListener(new datechooser.events.CommitListener() {
-        public void onCommit(datechooser.events.CommitEvent evt) {
-            startDateOnCommit(evt);
-        }
-    });
-    jPanel40.add(startDate, java.awt.BorderLayout.CENTER);
-
-    jPanel39.add(jPanel40);
-
-    jPanel41.setPreferredSize(new java.awt.Dimension(100, 30));
-    jPanel41.setLayout(new java.awt.BorderLayout());
-
-    endDate.setCurrentView(new datechooser.view.appearance.AppearancesList("Light",
-        new datechooser.view.appearance.ViewAppearance("custom",
-            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
-                new java.awt.Color(0, 0, 0),
-                new java.awt.Color(0, 0, 255),
-                false,
-                true,
-                new datechooser.view.appearance.swing.ButtonPainter()),
-            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
-                new java.awt.Color(0, 0, 0),
-                new java.awt.Color(0, 0, 255),
-                true,
-                true,
-                new datechooser.view.appearance.swing.ButtonPainter()),
-            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
-                new java.awt.Color(0, 0, 255),
-                new java.awt.Color(0, 0, 255),
-                false,
-                true,
-                new datechooser.view.appearance.swing.ButtonPainter()),
-            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
-                new java.awt.Color(128, 128, 128),
-                new java.awt.Color(0, 0, 255),
-                false,
-                true,
-                new datechooser.view.appearance.swing.LabelPainter()),
-            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
-                new java.awt.Color(0, 0, 0),
-                new java.awt.Color(0, 0, 255),
-                false,
-                true,
-                new datechooser.view.appearance.swing.LabelPainter()),
-            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Liberation Sans", java.awt.Font.PLAIN, 13),
-                new java.awt.Color(0, 0, 0),
-                new java.awt.Color(255, 0, 0),
-                false,
-                false,
-                new datechooser.view.appearance.swing.ButtonPainter()),
-            (datechooser.view.BackRenderer)null,
-            false,
-            true)));
-endDate.setFieldFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 14));
-endDate.addSelectionChangedListener(new datechooser.events.SelectionChangedListener() {
-    public void onSelectionChange(datechooser.events.SelectionChangedEvent evt) {
-        endDateOnSelectionChange(evt);
-    }
-    });
-    jPanel41.add(endDate, java.awt.BorderLayout.CENTER);
+        jLabel11.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        jLabel11.setText("6. A TYPE OF LEAVE TO BE AVAIL OF");
+        jPanel21.add(jLabel11, java.awt.BorderLayout.PAGE_START);
 
-    jLabel30.setText("End Date");
-    jLabel30.setPreferredSize(new java.awt.Dimension(80, 50));
-    jPanel41.add(jLabel30, java.awt.BorderLayout.WEST);
+        jPanel20.add(jPanel21, java.awt.BorderLayout.WEST);
 
-    jLabel31.setPreferredSize(new java.awt.Dimension(40, 17));
-    jPanel41.add(jLabel31, java.awt.BorderLayout.EAST);
+        jPanel22.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(0, 0, 0)));
+        jPanel22.setOpaque(false);
+        jPanel22.setLayout(new java.awt.BorderLayout());
 
-    jPanel39.add(jPanel41);
+        jLabel12.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        jLabel12.setText("6. B DETAILS OF LEAVE");
+        jPanel22.add(jLabel12, java.awt.BorderLayout.PAGE_START);
 
-    jPanel37.add(jPanel39, java.awt.BorderLayout.NORTH);
+        jPanel20.add(jPanel22, java.awt.BorderLayout.CENTER);
 
-    jLabel32.setPreferredSize(new java.awt.Dimension(0, 10));
-    jPanel37.add(jLabel32, java.awt.BorderLayout.PAGE_END);
+        jPanel18.add(jPanel20, java.awt.BorderLayout.CENTER);
 
-    jLabel34.setPreferredSize(new java.awt.Dimension(30, 17));
-    jPanel37.add(jLabel34, java.awt.BorderLayout.LINE_START);
+        jPanel27.setOpaque(false);
+        jPanel27.setLayout(new java.awt.BorderLayout());
 
-    jLabel35.setPreferredSize(new java.awt.Dimension(30, 17));
-    jPanel37.add(jLabel35, java.awt.BorderLayout.LINE_END);
+        jPanel28.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel28.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 0, 1, new java.awt.Color(0, 0, 0)));
+        jPanel28.setOpaque(false);
+        jPanel28.setPreferredSize(new java.awt.Dimension(300, 50));
+        jPanel28.setLayout(new java.awt.BorderLayout());
 
-    jPanel21.add(jPanel37, java.awt.BorderLayout.CENTER);
+        jLabel26.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        jLabel26.setText("6. C NUMBER OF WORKING DAYS APPLIED FOR");
+        jPanel28.add(jLabel26, java.awt.BorderLayout.PAGE_START);
 
-    jPanel20.add(jPanel21, java.awt.BorderLayout.PAGE_END);
+        jPanel29.setOpaque(false);
+        jPanel29.setLayout(new java.awt.GridLayout(3, 0));
 
-    jPanel22.setOpaque(false);
-    jPanel22.setLayout(new javax.swing.OverlayLayout(jPanel22));
+        jPanel30.setOpaque(false);
+        jPanel30.setLayout(new java.awt.BorderLayout());
 
-    vacationLeavePanel.setOpaque(false);
-    vacationLeavePanel.setPreferredSize(new java.awt.Dimension(253, 150));
-    vacationLeavePanel.setLayout(new java.awt.BorderLayout());
+        jLabel27.setFont(new java.awt.Font("Liberation Sans", 0, 9)); // NOI18N
+        jLabel27.setText("Working Day(s) applied for :");
+        jPanel30.add(jLabel27, java.awt.BorderLayout.LINE_START);
 
-    jPanel31.setOpaque(false);
-    jPanel31.setPreferredSize(new java.awt.Dimension(20, 100));
-    vacationLeavePanel.add(jPanel31, java.awt.BorderLayout.WEST);
+        lblDaysApplied.setFont(new java.awt.Font("Liberation Sans", 0, 9)); // NOI18N
+        lblDaysApplied.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDaysApplied.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel30.add(lblDaysApplied, java.awt.BorderLayout.CENTER);
 
-    jPanel25.setOpaque(false);
-    jPanel25.setLayout(new java.awt.GridLayout(2, 0));
+        jPanel29.add(jPanel30);
 
-    abroad.setOpaque(false);
-    abroad.setLayout(new java.awt.GridLayout(2, 0));
+        jPanel31.setOpaque(false);
+        jPanel31.setLayout(new java.awt.BorderLayout());
 
-    radioAbroad.setText("Abroad");
-    radioAbroad.setPreferredSize(new java.awt.Dimension(170, 20));
-    abroad.add(radioAbroad);
+        jLabel28.setFont(new java.awt.Font("Liberation Sans", 0, 9)); // NOI18N
+        jLabel28.setText("Inclusive date(start) :");
+        jPanel31.add(jLabel28, java.awt.BorderLayout.LINE_START);
 
-    specifyAbroad.setOpaque(false);
-    specifyAbroad.setLayout(new java.awt.BorderLayout());
+        lblStart.setFont(new java.awt.Font("Liberation Sans", 0, 9)); // NOI18N
+        lblStart.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblStart.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel31.add(lblStart, java.awt.BorderLayout.CENTER);
 
-    jLabel20.setText("Specify:");
-    specifyAbroad.add(jLabel20, java.awt.BorderLayout.LINE_START);
+        jPanel29.add(jPanel31);
 
-    jTextField3.addFocusListener(new java.awt.event.FocusAdapter() {
-        public void focusLost(java.awt.event.FocusEvent evt) {
-            jTextField3FocusLost(evt);
-        }
-    });
-    specifyAbroad.add(jTextField3, java.awt.BorderLayout.CENTER);
+        jPanel32.setOpaque(false);
+        jPanel32.setLayout(new java.awt.BorderLayout());
 
-    abroad.add(specifyAbroad);
+        jLabel29.setFont(new java.awt.Font("Liberation Sans", 0, 9)); // NOI18N
+        jLabel29.setText("Inclusive date(end)  :");
+        jLabel29.setToolTipText("");
+        jPanel32.add(jLabel29, java.awt.BorderLayout.LINE_START);
 
-    jPanel25.add(abroad);
+        lblEnd.setFont(new java.awt.Font("Liberation Sans", 0, 9)); // NOI18N
+        lblEnd.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel32.add(lblEnd, java.awt.BorderLayout.CENTER);
 
-    jPanel23.setOpaque(false);
-    jPanel23.setLayout(new java.awt.GridLayout(2, 0));
+        jPanel29.add(jPanel32);
 
-    radioWithinPh.setText("Within the Philippines    ");
-    radioWithinPh.setPreferredSize(new java.awt.Dimension(170, 20));
-    jPanel23.add(radioWithinPh);
+        jPanel28.add(jPanel29, java.awt.BorderLayout.CENTER);
 
-    specifyWithinPh.setOpaque(false);
-    specifyWithinPh.setLayout(new java.awt.BorderLayout());
+        jPanel27.add(jPanel28, java.awt.BorderLayout.WEST);
 
-    jLabel19.setText("Specify:");
-    specifyWithinPh.add(jLabel19, java.awt.BorderLayout.LINE_START);
+        jPanel33.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(0, 0, 0)));
+        jPanel33.setOpaque(false);
+        jPanel33.setLayout(new java.awt.BorderLayout());
 
-    jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
-        public void focusLost(java.awt.event.FocusEvent evt) {
-            jTextField2FocusLost(evt);
-        }
-    });
-    specifyWithinPh.add(jTextField2, java.awt.BorderLayout.CENTER);
+        jLabel33.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        jLabel33.setText("6. D COMMUTATION");
+        jPanel33.add(jLabel33, java.awt.BorderLayout.PAGE_START);
 
-    jPanel23.add(specifyWithinPh);
+        jPanel34.setOpaque(false);
+        jPanel34.setLayout(new java.awt.GridLayout(2, 0));
 
-    jPanel25.add(jPanel23);
+        jLabel34.setFont(new java.awt.Font("Liberation Sans", 0, 9)); // NOI18N
+        jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel34.setText("_________________________");
+        jLabel34.setToolTipText("");
+        jLabel34.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jPanel34.add(jLabel34);
 
-    vacationLeavePanel.add(jPanel25, java.awt.BorderLayout.CENTER);
+        jLabel35.setFont(new java.awt.Font("Liberation Sans", 0, 9)); // NOI18N
+        jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel35.setText("(Signature of Applicant)");
+        jLabel35.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jPanel34.add(jLabel35);
 
-    jPanel27.setOpaque(false);
-    jPanel27.setPreferredSize(new java.awt.Dimension(100, 10));
-    vacationLeavePanel.add(jPanel27, java.awt.BorderLayout.SOUTH);
+        jPanel33.add(jPanel34, java.awt.BorderLayout.CENTER);
 
-    jLabel25.setFont(new java.awt.Font("Liberation Sans", 2, 13)); // NOI18N
-    jLabel25.setText("     In Case of Vacation/Special Privelege Leave");
-    jLabel25.setPreferredSize(new java.awt.Dimension(253, 30));
-    vacationLeavePanel.add(jLabel25, java.awt.BorderLayout.NORTH);
+        jPanel27.add(jPanel33, java.awt.BorderLayout.CENTER);
 
-    jPanel22.add(vacationLeavePanel);
+        jPanel18.add(jPanel27, java.awt.BorderLayout.SOUTH);
 
-    studyLeavePanel.setOpaque(false);
-    studyLeavePanel.setLayout(new java.awt.BorderLayout());
+        jPanel3.add(jPanel18, java.awt.BorderLayout.CENTER);
 
-    jPanel30.setOpaque(false);
-    jPanel30.setLayout(new java.awt.GridLayout(3, 0));
+        container.add(jPanel3, java.awt.BorderLayout.CENTER);
 
-    radioBar.setText("BAR/Board Examination");
-    jPanel30.add(radioBar);
+        jPanel23.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel23.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel23.setMinimumSize(new java.awt.Dimension(150, 37));
+        jPanel23.setPreferredSize(new java.awt.Dimension(200, 250));
+        jPanel23.setLayout(new java.awt.BorderLayout());
 
-    radioMaster.setText("Completion of Master's Degree");
-    jPanel30.add(radioMaster);
+        jPanel24.setOpaque(false);
 
-    studyLeavePanel.add(jPanel30, java.awt.BorderLayout.CENTER);
+        jLabel23.setFont(new java.awt.Font("Liberation Sans", 1, 12)); // NOI18N
+        jLabel23.setText("7. DETAILS OF ACTION ON APPLICATION");
+        jPanel24.add(jLabel23);
 
-    jLabel26.setFont(new java.awt.Font("Liberation Sans", 2, 13)); // NOI18N
-    jLabel26.setText("    In Case Of Study Leave");
-    jLabel26.setPreferredSize(new java.awt.Dimension(48, 30));
-    studyLeavePanel.add(jLabel26, java.awt.BorderLayout.PAGE_START);
+        jPanel23.add(jPanel24, java.awt.BorderLayout.PAGE_START);
 
-    jPanel32.setOpaque(false);
-    jPanel32.setPreferredSize(new java.awt.Dimension(20, 100));
-    studyLeavePanel.add(jPanel32, java.awt.BorderLayout.WEST);
+        jPanel25.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel25.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel25.setMinimumSize(new java.awt.Dimension(300, 13));
+        jPanel25.setOpaque(false);
+        jPanel25.setPreferredSize(new java.awt.Dimension(300, 100));
+        jPanel25.setLayout(new java.awt.BorderLayout());
 
-    jPanel22.add(studyLeavePanel);
+        jLabel24.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        jLabel24.setText("7. A CERTIFICATION OF LEAVE CREDITS");
+        jPanel25.add(jLabel24, java.awt.BorderLayout.PAGE_START);
 
-    sickLeavePanel.setOpaque(false);
-    sickLeavePanel.setLayout(new java.awt.BorderLayout());
+        jPanel35.setOpaque(false);
+        jPanel35.setLayout(new java.awt.GridLayout(4, 0));
+
+        jPanel37.setOpaque(false);
+        jPanel37.setLayout(new java.awt.GridLayout(1, 4));
 
-    jPanel26.setOpaque(false);
-    jPanel26.setLayout(new java.awt.GridLayout(2, 0));
+        jLabel37.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel37.add(jLabel37);
 
-    jPanel29.setOpaque(false);
-    jPanel29.setLayout(new java.awt.GridLayout(2, 0));
+        jLabel39.setFont(new java.awt.Font("Liberation Sans", 1, 9)); // NOI18N
+        jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel39.setText("Vacation leave");
+        jLabel39.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel37.add(jLabel39);
 
-    radioOutPatient.setText("Out Patient");
-    radioOutPatient.setPreferredSize(new java.awt.Dimension(170, 20));
-    jPanel29.add(radioOutPatient);
+        jLabel36.setFont(new java.awt.Font("Liberation Sans", 0, 7)); // NOI18N
+        jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel36.setText("<html><div style='text-align: center;'>Sick Leave/(Service Credit of Teachers)</div></html>");
+        jLabel36.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel37.add(jLabel36);
 
-    panelOutPatient.setOpaque(false);
-    panelOutPatient.setLayout(new java.awt.BorderLayout());
+        jLabel65.setFont(new java.awt.Font("Liberation Sans", 1, 9)); // NOI18N
+        jLabel65.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel65.setText("Total Days");
+        jLabel65.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel37.add(jLabel65);
 
-    jLabel22.setText("Specify:");
-    panelOutPatient.add(jLabel22, java.awt.BorderLayout.LINE_START);
+        jPanel35.add(jPanel37);
 
-    jTextField5.addFocusListener(new java.awt.event.FocusAdapter() {
-        public void focusLost(java.awt.event.FocusEvent evt) {
-            jTextField5FocusLost(evt);
-        }
-    });
-    panelOutPatient.add(jTextField5, java.awt.BorderLayout.CENTER);
+        jPanel39.setOpaque(false);
+        jPanel39.setLayout(new java.awt.GridLayout(1, 4));
 
-    jPanel29.add(panelOutPatient);
+        jLabel44.setFont(new java.awt.Font("Liberation Sans", 0, 9)); // NOI18N
+        jLabel44.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel44.setText("Total earned");
+        jLabel44.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel39.add(jLabel44);
 
-    jPanel26.add(jPanel29);
+        jLabel45.setFont(new java.awt.Font("Liberation Sans", 1, 9)); // NOI18N
+        jLabel45.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel45.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel39.add(jLabel45);
 
-    jPanel24.setOpaque(false);
-    jPanel24.setLayout(new java.awt.GridLayout(2, 0));
+        jLabel46.setFont(new java.awt.Font("Liberation Sans", 0, 7)); // NOI18N
+        jLabel46.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel46.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel39.add(jLabel46);
 
-    radioInHospital.setText("In Hospital");
-    radioInHospital.setPreferredSize(new java.awt.Dimension(170, 20));
-    radioInHospital.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            radioInHospitalActionPerformed(evt);
-        }
-    });
-    jPanel24.add(radioInHospital);
+        jLabel47.setFont(new java.awt.Font("Liberation Sans", 1, 9)); // NOI18N
+        jLabel47.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel47.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel39.add(jLabel47);
 
-    panelInHospital.setOpaque(false);
-    panelInHospital.setLayout(new java.awt.BorderLayout());
+        jPanel35.add(jPanel39);
 
-    jLabel21.setText("Specify:");
-    panelInHospital.add(jLabel21, java.awt.BorderLayout.LINE_START);
+        jPanel40.setOpaque(false);
+        jPanel40.setLayout(new java.awt.GridLayout(1, 4));
 
-    jTextField4.addFocusListener(new java.awt.event.FocusAdapter() {
-        public void focusLost(java.awt.event.FocusEvent evt) {
-            jTextField4FocusLost(evt);
-        }
-    });
-    panelInHospital.add(jTextField4, java.awt.BorderLayout.CENTER);
+        jLabel48.setFont(new java.awt.Font("Liberation Sans", 0, 9)); // NOI18N
+        jLabel48.setText("<html><div style='text-align: center;'>Less this application</div></html>");
+        jLabel48.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel40.add(jLabel48);
 
-    jPanel24.add(panelInHospital);
+        jLabel49.setFont(new java.awt.Font("Liberation Sans", 1, 9)); // NOI18N
+        jLabel49.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel49.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel40.add(jLabel49);
 
-    jPanel26.add(jPanel24);
+        jLabel50.setFont(new java.awt.Font("Liberation Sans", 0, 7)); // NOI18N
+        jLabel50.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel50.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel40.add(jLabel50);
 
-    sickLeavePanel.add(jPanel26, java.awt.BorderLayout.CENTER);
+        lblCreditUsed.setFont(new java.awt.Font("Liberation Sans", 1, 9)); // NOI18N
+        lblCreditUsed.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCreditUsed.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel40.add(lblCreditUsed);
 
-    jLabel28.setFont(new java.awt.Font("Liberation Sans", 2, 13)); // NOI18N
-    jLabel28.setText("     In Case Of Sick Leave");
-    jLabel28.setPreferredSize(new java.awt.Dimension(48, 30));
-    sickLeavePanel.add(jLabel28, java.awt.BorderLayout.NORTH);
+        jPanel35.add(jPanel40);
 
-    jPanel33.setOpaque(false);
-    jPanel33.setPreferredSize(new java.awt.Dimension(20, 100));
-    sickLeavePanel.add(jPanel33, java.awt.BorderLayout.WEST);
+        jPanel38.setOpaque(false);
+        jPanel38.setLayout(new java.awt.GridLayout(1, 4));
 
-    jPanel22.add(sickLeavePanel);
+        jLabel40.setFont(new java.awt.Font("Liberation Sans", 0, 9)); // NOI18N
+        jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel40.setText("Balance");
+        jLabel40.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel38.add(jLabel40);
 
-    otherPurposePanel.setOpaque(false);
-    otherPurposePanel.setLayout(new java.awt.BorderLayout());
+        jLabel41.setFont(new java.awt.Font("Liberation Sans", 1, 9)); // NOI18N
+        jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel41.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel38.add(jLabel41);
 
-    jLabel23.setFont(new java.awt.Font("Liberation Sans", 2, 13)); // NOI18N
-    jLabel23.setText("     Other Purpose");
-    jLabel23.setPreferredSize(new java.awt.Dimension(84, 30));
-    otherPurposePanel.add(jLabel23, java.awt.BorderLayout.NORTH);
+        jLabel42.setFont(new java.awt.Font("Liberation Sans", 0, 7)); // NOI18N
+        jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel42.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel38.add(jLabel42);
 
-    jPanel28.setOpaque(false);
-    jPanel28.setLayout(new java.awt.GridLayout(3, 0));
+        lblBalance.setFont(new java.awt.Font("Liberation Sans", 1, 9)); // NOI18N
+        lblBalance.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBalance.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel38.add(lblBalance);
 
-    radioMonetize.setText("Monetization of Leave");
-    jPanel28.add(radioMonetize);
+        jPanel35.add(jPanel38);
 
-    radioTerminal.setText("Terminal Leave");
-    jPanel28.add(radioTerminal);
+        jPanel25.add(jPanel35, java.awt.BorderLayout.CENTER);
 
-    otherPurposePanel.add(jPanel28, java.awt.BorderLayout.CENTER);
+        jPanel49.setOpaque(false);
+        jPanel49.setPreferredSize(new java.awt.Dimension(100, 30));
+        jPanel49.setLayout(new java.awt.GridLayout(1, 2));
 
-    jPanel34.setOpaque(false);
-    jPanel34.setPreferredSize(new java.awt.Dimension(20, 100));
-    otherPurposePanel.add(jPanel34, java.awt.BorderLayout.WEST);
+        jPanel50.setOpaque(false);
+        jPanel50.setPreferredSize(new java.awt.Dimension(100, 30));
+        jPanel50.setLayout(new java.awt.GridLayout(2, 0));
 
-    jPanel22.add(otherPurposePanel);
+        jLabel61.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel61.setText("____________________");
+        jPanel50.add(jLabel61);
 
-    jPanel20.add(jPanel22, java.awt.BorderLayout.CENTER);
+        jLabel62.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        jLabel62.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel62.setText("Administrative Officer IV");
+        jPanel50.add(jLabel62);
 
-    jPanel19.add(jPanel20, java.awt.BorderLayout.CENTER);
+        jPanel49.add(jPanel50);
 
-    jPanel16.add(jPanel19, java.awt.BorderLayout.CENTER);
+        jPanel51.setOpaque(false);
+        jPanel51.setPreferredSize(new java.awt.Dimension(100, 30));
+        jPanel51.setLayout(new java.awt.GridLayout(2, 0));
 
-    part1.add(jPanel16, java.awt.BorderLayout.EAST);
+        jLabel63.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel63.setText("_____________________");
+        jPanel51.add(jLabel63);
 
-    jPanel38.setOpaque(false);
-    jPanel38.setLayout(new java.awt.GridLayout());
+        jLabel64.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        jLabel64.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel64.setText("Administrative Officer IV");
+        jPanel51.add(jLabel64);
 
-    jLabel10.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
-    jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    jLabel10.setText("6. DETAILS OF APPLICATION");
-    jLabel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-    jPanel38.add(jLabel10);
+        jPanel49.add(jPanel51);
 
-    part1.add(jPanel38, java.awt.BorderLayout.NORTH);
+        jPanel25.add(jPanel49, java.awt.BorderLayout.SOUTH);
 
-    jPanel35.add(part1);
+        jPanel23.add(jPanel25, java.awt.BorderLayout.WEST);
 
-    jPanel1.add(jPanel35, java.awt.BorderLayout.CENTER);
+        jPanel26.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel26.setMinimumSize(new java.awt.Dimension(120, 100));
+        jPanel26.setOpaque(false);
+        jPanel26.setPreferredSize(new java.awt.Dimension(120, 90));
+        jPanel26.setLayout(new java.awt.BorderLayout());
 
-    getContentPane().add(jPanel1);
+        jLabel25.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        jLabel25.setText("7. B DETAILS OF LEAVE");
+        jPanel26.add(jLabel25, java.awt.BorderLayout.PAGE_START);
 
-    pack();
+        jPanel42.setOpaque(false);
+        jPanel42.setLayout(new java.awt.GridLayout(2, 0));
+
+        jCheckBox1.setFont(new java.awt.Font("Liberation Sans", 0, 9)); // NOI18N
+        jCheckBox1.setText("For Approval");
+        jPanel42.add(jCheckBox1);
+
+        jCheckBox2.setFont(new java.awt.Font("Liberation Sans", 0, 9)); // NOI18N
+        jCheckBox2.setText("<html>For disapproval due to:_____________________________________________________</html>");
+        jPanel42.add(jCheckBox2);
+
+        jPanel26.add(jPanel42, java.awt.BorderLayout.CENTER);
+
+        jPanel48.setOpaque(false);
+        jPanel48.setPreferredSize(new java.awt.Dimension(100, 30));
+        jPanel48.setLayout(new java.awt.GridLayout(2, 0));
+
+        jLabel59.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel59.setText("______________________________");
+        jPanel48.add(jLabel59);
+
+        jLabel60.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
+        jLabel60.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel60.setText("School Principal IV");
+        jPanel48.add(jLabel60);
+
+        jPanel26.add(jPanel48, java.awt.BorderLayout.SOUTH);
+
+        jPanel23.add(jPanel26, java.awt.BorderLayout.CENTER);
+
+        jPanel43.setOpaque(false);
+        jPanel43.setPreferredSize(new java.awt.Dimension(100, 90));
+        jPanel43.setLayout(new java.awt.BorderLayout());
+
+        jPanel44.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel44.setMinimumSize(new java.awt.Dimension(300, 13));
+        jPanel44.setOpaque(false);
+        jPanel44.setPreferredSize(new java.awt.Dimension(300, 100));
+        jPanel44.setLayout(new java.awt.BorderLayout());
+
+        jLabel52.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        jLabel52.setText("7. D DISSAPROVE DUE TO");
+        jPanel44.add(jLabel52, java.awt.BorderLayout.PAGE_START);
+
+        jPanel46.setOpaque(false);
+        jPanel46.setLayout(new java.awt.GridLayout(3, 0));
+
+        jLabel54.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel54.setText("_________________________________");
+        jPanel46.add(jLabel54);
+
+        jLabel55.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel55.setText("_________________________________");
+        jPanel46.add(jLabel55);
+
+        jLabel56.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel56.setText("_________________________________");
+        jPanel46.add(jLabel56);
+
+        jPanel44.add(jPanel46, java.awt.BorderLayout.CENTER);
+
+        jPanel43.add(jPanel44, java.awt.BorderLayout.CENTER);
+
+        jPanel45.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel45.setMinimumSize(new java.awt.Dimension(300, 13));
+        jPanel45.setOpaque(false);
+        jPanel45.setPreferredSize(new java.awt.Dimension(300, 100));
+        jPanel45.setLayout(new java.awt.BorderLayout());
+
+        jLabel53.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        jLabel53.setText("7. C APPROVED FOR");
+        jPanel45.add(jLabel53, java.awt.BorderLayout.PAGE_START);
+
+        jPanel36.setOpaque(false);
+        jPanel36.setLayout(new java.awt.GridLayout(3, 0));
+
+        jPanel41.setOpaque(false);
+        jPanel41.setLayout(new java.awt.GridLayout(1, 2));
+
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel18.setText("___________");
+        jPanel41.add(jLabel18);
+
+        jLabel17.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        jLabel17.setText("Day(s) with Pay");
+        jPanel41.add(jLabel17);
+
+        jPanel36.add(jPanel41);
+
+        jPanel52.setOpaque(false);
+        jPanel52.setLayout(new java.awt.GridLayout(1, 2));
+
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel19.setText("___________");
+        jPanel52.add(jLabel19);
+
+        jLabel30.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        jLabel30.setText("Day(s) without Pay");
+        jPanel52.add(jLabel30);
+
+        jPanel36.add(jPanel52);
+
+        jPanel53.setOpaque(false);
+        jPanel53.setLayout(new java.awt.GridLayout(1, 2));
+
+        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel31.setText("___________");
+        jPanel53.add(jLabel31);
+
+        jLabel32.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        jLabel32.setText("Other(s) (specify)");
+        jPanel53.add(jLabel32);
+
+        jPanel36.add(jPanel53);
+
+        jPanel45.add(jPanel36, java.awt.BorderLayout.CENTER);
+
+        jPanel43.add(jPanel45, java.awt.BorderLayout.WEST);
+
+        jPanel47.setOpaque(false);
+        jPanel47.setPreferredSize(new java.awt.Dimension(100, 30));
+        jPanel47.setLayout(new java.awt.GridLayout(2, 0));
+
+        jLabel57.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel57.setText("______________________________");
+        jPanel47.add(jLabel57);
+
+        jLabel58.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
+        jLabel58.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel58.setText("Administrative Officer V");
+        jPanel47.add(jLabel58);
+
+        jPanel43.add(jPanel47, java.awt.BorderLayout.SOUTH);
+
+        jPanel23.add(jPanel43, java.awt.BorderLayout.SOUTH);
+
+        container.add(jPanel23, java.awt.BorderLayout.SOUTH);
+
+        jScrollPane1.setViewportView(container);
+
+        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jButton1.setText("Print");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, java.awt.BorderLayout.NORTH);
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void radioOthersStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_radioOthersStateChanged
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        PrinterJob job = PrinterJob.getPrinterJob();
+        job.setJobName("Print Form");
 
-    }//GEN-LAST:event_radioOthersStateChanged
-
-    private void radioOthersFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_radioOthersFocusLost
-
-    }//GEN-LAST:event_radioOthersFocusLost
-
-    private void radioOthersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioOthersActionPerformed
-
-    }//GEN-LAST:event_radioOthersActionPerformed
-
-    private void txtOthersFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtOthersFocusLost
-     
-    }//GEN-LAST:event_txtOthersFocusLost
-
-    private void startDateOnSelectionChange(datechooser.events.SelectionChangedEvent evt) {//GEN-FIRST:event_startDateOnSelectionChange
-     
-    }//GEN-LAST:event_startDateOnSelectionChange
-
-    private void startDateOnCommit(datechooser.events.CommitEvent evt) {//GEN-FIRST:event_startDateOnCommit
-
-    }//GEN-LAST:event_startDateOnCommit
-
-    private void endDateOnSelectionChange(datechooser.events.SelectionChangedEvent evt) {//GEN-FIRST:event_endDateOnSelectionChange
-
-       
-
-    }//GEN-LAST:event_endDateOnSelectionChange
-
-    private void jTextField3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField3FocusLost
+        PageFormat pf = job.defaultPage();
+        Paper paper = pf.getPaper();
+        double width = container.getWidth();
+        double height = container.getHeight();
+        paper.setSize(595.0, 842.0); // Set size to A4
+        paper.setImageableArea(0, 0, width, height);
+        pf.setPaper(paper);
         
-    }//GEN-LAST:event_jTextField3FocusLost
-
-    private void jTextField2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField2FocusLost
-       
-    }//GEN-LAST:event_jTextField2FocusLost
-
-    private void jTextField5FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField5FocusLost
-       
-    }//GEN-LAST:event_jTextField5FocusLost
-
-    private void radioInHospitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioInHospitalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radioInHospitalActionPerformed
-
-    private void jTextField4FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField4FocusLost
+        job.setPrintable(new PanelPrintable(container), pf);
+      
         
-    }//GEN-LAST:event_jTextField4FocusLost
+        boolean doPrint = job.printDialog();
+        if (doPrint) {
+            try {
+                job.print();
+            } catch (PrinterException e) {
+                // Handle print job exception
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -866,8 +950,11 @@ endDate.addSelectionChangedListener(new datechooser.events.SelectionChangedListe
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel abroad;
-    private datechooser.beans.DateChooserCombo endDate;
+    private javax.swing.JPanel container;
+    private javax.swing.JLabel headerContent1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -884,6 +971,7 @@ endDate.addSelectionChangedListener(new datechooser.events.SelectionChangedListe
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
@@ -893,11 +981,39 @@ endDate.addSelectionChangedListener(new datechooser.events.SelectionChangedListe
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel58;
+    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel60;
+    private javax.swing.JLabel jLabel61;
+    private javax.swing.JLabel jLabel62;
+    private javax.swing.JLabel jLabel63;
+    private javax.swing.JLabel jLabel64;
+    private javax.swing.JLabel jLabel65;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -930,48 +1046,42 @@ endDate.addSelectionChangedListener(new datechooser.events.SelectionChangedListe
     private javax.swing.JPanel jPanel33;
     private javax.swing.JPanel jPanel34;
     private javax.swing.JPanel jPanel35;
+    private javax.swing.JPanel jPanel36;
     private javax.swing.JPanel jPanel37;
     private javax.swing.JPanel jPanel38;
     private javax.swing.JPanel jPanel39;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel40;
     private javax.swing.JPanel jPanel41;
+    private javax.swing.JPanel jPanel42;
+    private javax.swing.JPanel jPanel43;
+    private javax.swing.JPanel jPanel44;
+    private javax.swing.JPanel jPanel45;
+    private javax.swing.JPanel jPanel46;
+    private javax.swing.JPanel jPanel47;
+    private javax.swing.JPanel jPanel48;
+    private javax.swing.JPanel jPanel49;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel50;
+    private javax.swing.JPanel jPanel51;
+    private javax.swing.JPanel jPanel52;
+    private javax.swing.JPanel jPanel53;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JLabel lblDateOfFiling;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblBalance;
+    private javax.swing.JLabel lblCreditUsed;
+    private javax.swing.JLabel lblDateFiled;
+    private javax.swing.JLabel lblDateFiled2;
+    private javax.swing.JLabel lblDaysApplied;
+    private javax.swing.JLabel lblEnd;
     private javax.swing.JLabel lblFirstName;
     private javax.swing.JLabel lblLastName;
+    private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblMiddleName;
     private javax.swing.JLabel lblPosition;
-    private javax.swing.JPanel leaveTypeList;
-    private javax.swing.JPanel otherPurposePanel;
-    private javax.swing.JPanel othersPanel;
-    private javax.swing.JPanel panelInHospital;
-    private javax.swing.JPanel panelOutPatient;
-    private javax.swing.JPanel part1;
-    private javax.swing.JRadioButton radioAbroad;
-    private javax.swing.JRadioButton radioBar;
-    private javax.swing.JRadioButton radioInHospital;
-    private javax.swing.JRadioButton radioMaster;
-    private javax.swing.JRadioButton radioMonetize;
-    private javax.swing.JRadioButton radioOthers;
-    private javax.swing.JRadioButton radioOutPatient;
-    private javax.swing.JRadioButton radioTerminal;
-    private javax.swing.JRadioButton radioWithinPh;
-    private javax.swing.JPanel sickLeavePanel;
-    private javax.swing.JPanel specifyAbroad;
-    private javax.swing.JPanel specifyPanel;
-    private javax.swing.JPanel specifyWithinPh;
-    private datechooser.beans.DateChooserCombo startDate;
-    private javax.swing.JPanel studyLeavePanel;
-    private javax.swing.JTextField txtOthers;
-    private javax.swing.JPanel vacationLeavePanel;
+    private javax.swing.JLabel lblStart;
     // End of variables declaration//GEN-END:variables
 }
