@@ -9,7 +9,7 @@ import data.model.Employee;
 import data.model.EmployeeServiceCredit;
 import data.model.LeaveForm;
 import frames.components.LogsItem;
-import frames.components.windows.Form;
+import frames.components.printerForms.Form;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;

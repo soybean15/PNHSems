@@ -34,6 +34,16 @@ public class EmployeeServiceCreditItem extends javax.swing.JPanel {
         setDetails();
         setBackground();
     }
+    
+        public EmployeeServiceCreditItem( int index, EmployeeServiceCredit employeeServiceCredit) {
+        initComponents();
+        this.index = index;
+        this.employeeServiceCredit = employeeServiceCredit;
+       jPanel4.setVisible(false);
+
+        setDetails();
+        setBackground();
+    }
 
     private void setDetails() {
         lblOrderNo.setText(employeeServiceCredit.getServiceCredit().getOrderNo());

@@ -10,6 +10,7 @@ import data.model.EmployeeServiceCredit;
 import data.model.ServiceCredit;
 import frames.MainFrame;
 import frames.components.EmployeeServiceCreditItem;
+import frames.components.printerForms.PrintServiceCredit;
 import frames.components.windows.AddServiceCreditWindow;
 import frames.listener.EmployeeServiceCreditListener;
 import frames.listener.MainPanelListener;
@@ -106,6 +107,10 @@ public class EmployeeServiceCreditsPanel extends javax.swing.JPanel implements E
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
         jPanel15 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
@@ -195,6 +200,43 @@ public class EmployeeServiceCreditsPanel extends javax.swing.JPanel implements E
 
         jPanel3.add(jPanel5, java.awt.BorderLayout.LINE_END);
 
+        jPanel6.setPreferredSize(new java.awt.Dimension(766, 30));
+        jPanel6.setLayout(new java.awt.BorderLayout());
+
+        jPanel7.setBackground(new java.awt.Color(255, 153, 153));
+        jPanel7.setOpaque(false);
+        jPanel7.setPreferredSize(new java.awt.Dimension(20, 324));
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+
+        jPanel6.add(jPanel7, java.awt.BorderLayout.LINE_END);
+
+        jPanel8.setLayout(new java.awt.BorderLayout());
+
+        jButton2.setBackground(new java.awt.Color(0, 153, 0));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Print");
+        jButton2.setPreferredSize(new java.awt.Dimension(80, 23));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel8.add(jButton2, java.awt.BorderLayout.EAST);
+
+        jPanel6.add(jPanel8, java.awt.BorderLayout.CENTER);
+
+        jPanel3.add(jPanel6, java.awt.BorderLayout.SOUTH);
+
         add(jPanel3, java.awt.BorderLayout.PAGE_START);
 
         jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(employee.getFirstName()+"'s Service Credits"));
@@ -211,7 +253,7 @@ public class EmployeeServiceCreditsPanel extends javax.swing.JPanel implements E
         jPanel10.setMinimumSize(new java.awt.Dimension(150, 100));
         jPanel10.setOpaque(false);
         jPanel10.setPreferredSize(new java.awt.Dimension(150, 50));
-        jPanel10.setLayout(new java.awt.GridLayout());
+        jPanel10.setLayout(new java.awt.GridLayout(1, 0));
 
         lblOrderNo.setFont(Theme.PRIMARY.FONT.tableFontBig(12)
         );
@@ -226,7 +268,7 @@ public class EmployeeServiceCreditsPanel extends javax.swing.JPanel implements E
         jPanel11.setMinimumSize(new java.awt.Dimension(290, 50));
         jPanel11.setOpaque(false);
         jPanel11.setPreferredSize(new java.awt.Dimension(290, 50));
-        jPanel11.setLayout(new java.awt.GridLayout());
+        jPanel11.setLayout(new java.awt.GridLayout(1, 0));
 
         lblMemorandum.setFont(Theme.PRIMARY.FONT.tableFontBig(12)
         );
@@ -246,7 +288,7 @@ public class EmployeeServiceCreditsPanel extends javax.swing.JPanel implements E
         jPanel13.setOpaque(false);
         jPanel13.setPreferredSize(new java.awt.Dimension(100, 50));
         jPanel13.setRequestFocusEnabled(false);
-        jPanel13.setLayout(new java.awt.GridLayout());
+        jPanel13.setLayout(new java.awt.GridLayout(1, 0));
 
         lblDays.setFont(Theme.PRIMARY.FONT.tableFontBig(12)
         );
@@ -272,7 +314,7 @@ public class EmployeeServiceCreditsPanel extends javax.swing.JPanel implements E
         jButton1.setBackground(new java.awt.Color(0, 153, 0));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Add");
-        jButton1.setPreferredSize(new java.awt.Dimension(60, 23));
+        jButton1.setPreferredSize(new java.awt.Dimension(80, 23));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -325,9 +367,16 @@ public class EmployeeServiceCreditsPanel extends javax.swing.JPanel implements E
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        PrintServiceCredit print = new PrintServiceCredit();
+        print.setPrintServiceCredit(employeesWithServiceCredits);
+        print.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -341,6 +390,9 @@ public class EmployeeServiceCreditsPanel extends javax.swing.JPanel implements E
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDays;

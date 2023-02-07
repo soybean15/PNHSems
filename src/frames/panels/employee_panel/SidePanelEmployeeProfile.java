@@ -8,7 +8,7 @@ import data.controllers.LeaveFormController;
 import data.model.Employee;
 import data.model.EmployeeServiceCredit;
 import data.model.LeaveForm;
-import frames.components.windows.Form;
+import frames.components.printerForms.Form;
 
 
 import frames.panels.employee_panel.profile.EmployeeProfilePanel;

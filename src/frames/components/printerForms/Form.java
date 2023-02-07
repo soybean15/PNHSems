@@ -2,15 +2,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package frames.components.windows;
+package frames.components.printerForms;
 
 import data.controllers.LeaveFormController;
 import data.model.LeaveForm;
+import data.model.LeaveType;
+import frames.components.LeaveTypeRadioButton;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.print.PageFormat;
 import java.awt.print.Paper;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
-import java.util.Calendar;
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.ButtonGroup;
 import otherclasses.ImageHandler;
 import otherclasses.PanelPrintable;
 
@@ -26,14 +32,22 @@ public class Form extends javax.swing.JFrame {
     LeaveForm form ;
     LeaveFormController controller = new LeaveFormController();
     
+    List<LeaveType> leaveTypes;
+    
      boolean isBlank;
     public Form( ) {
         initComponents();
         
         ///root/NetBeansProjects/PNHSEMS/src/img/app_img/deped-logo.jpg
     
-        
-        
+            
+          try{
+            this.leaveTypes = controller.getLeaveTypes();
+            showLeaveTypes() ;
+        }catch(SQLException e){
+            
+        }
+        header();
     }
     
     private void header(){
@@ -46,6 +60,9 @@ public class Form extends javax.swing.JFrame {
         this.isBlank = isBlank;
          header();
          setDetails();
+         
+         
+     
         
     }
     
@@ -75,6 +92,46 @@ public class Form extends javax.swing.JFrame {
 //        long diff = milliseconds1 - milliseconds2;
 //        return (int) diff / (24 * 60 * 60 * 1000);
 //    }
+    
+      public void showLeaveTypes() {
+        int row = leaveTypes.size();
+         ButtonGroup btnGroupLeaveType = new ButtonGroup();
+
+        leaveTypeList.setLayout(new GridLayout(row, 0));
+
+        for (LeaveType leaveType : leaveTypes) {
+            LeaveTypeRadioButton radio = new LeaveTypeRadioButton(leaveType);
+            radio.setOpaque(false);
+          
+
+            
+            String text = "<html><b>" + leaveType.getName() + "</b>(" + leaveType.getReference() + ")</font></html>";
+
+
+            radio.setText(text);
+             radio.setFont(new Font("Liberation Sans 10 Plain",Font.PLAIN,8));
+            leaveTypeList.add(radio);
+            btnGroupLeaveType.add(radio);
+
+        }
+
+//        radioOthers.addItemListener((ItemEvent e) -> {
+//            if (e.getStateChange() == ItemEvent.SELECTED) {
+//
+//                specifyPanel.setVisible(true);
+//                selectedLeaveType =null;
+//                selectedDetails = radioOthers.getText();
+//                System.out.println(selectedDetails);
+//              
+//                if(activeDetailPanel!=null)activeDetailPanel.setVisible(false);
+//            } else {
+//                specifyPanel.setVisible(false);
+//
+//            }
+//        });
+//
+//        btnGroupLeaveType.add(radioOthers);
+    }
 
 
     /**
@@ -135,8 +192,35 @@ public class Form extends javax.swing.JFrame {
         jPanel20 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
+        leaveTypeList = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
+        jPanel54 = new javax.swing.JPanel();
+        jPanel55 = new javax.swing.JPanel();
+        jLabel38 = new javax.swing.JLabel();
+        jPanel56 = new javax.swing.JPanel();
+        jCheckBox4 = new javax.swing.JCheckBox();
+        jCheckBox5 = new javax.swing.JCheckBox();
+        jPanel57 = new javax.swing.JPanel();
+        jLabel43 = new javax.swing.JLabel();
+        jPanel58 = new javax.swing.JPanel();
+        jCheckBox6 = new javax.swing.JCheckBox();
+        jCheckBox7 = new javax.swing.JCheckBox();
+        jPanel59 = new javax.swing.JPanel();
+        jLabel51 = new javax.swing.JLabel();
+        jPanel60 = new javax.swing.JPanel();
+        jLabel66 = new javax.swing.JLabel();
+        jLabel67 = new javax.swing.JLabel();
+        jPanel61 = new javax.swing.JPanel();
+        jLabel68 = new javax.swing.JLabel();
+        jPanel62 = new javax.swing.JPanel();
+        jCheckBox8 = new javax.swing.JCheckBox();
+        jCheckBox10 = new javax.swing.JCheckBox();
+        jPanel63 = new javax.swing.JPanel();
+        jLabel69 = new javax.swing.JLabel();
+        jPanel64 = new javax.swing.JPanel();
+        jCheckBox9 = new javax.swing.JCheckBox();
+        jCheckBox11 = new javax.swing.JCheckBox();
         jPanel27 = new javax.swing.JPanel();
         jPanel28 = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
@@ -222,18 +306,19 @@ public class Form extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(595, 800));
+        setResizable(false);
 
         container.setLayout(new java.awt.BorderLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new java.awt.GridLayout(2, 0));
+        jPanel2.setLayout(new java.awt.BorderLayout());
 
         lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogo.setPreferredSize(new java.awt.Dimension(80, 80));
-        jPanel2.add(lblLogo);
+        jPanel2.add(lblLogo, java.awt.BorderLayout.NORTH);
 
         jPanel1.setOpaque(false);
-        jPanel1.setLayout(new java.awt.GridLayout());
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         headerContent1.setFont(new java.awt.Font("Liberation Sans", 2, 11)); // NOI18N
         headerContent1.setText("CSC Form No. 6");
@@ -244,22 +329,22 @@ public class Form extends javax.swing.JFrame {
         jPanel4.setOpaque(false);
         jPanel4.setLayout(new java.awt.GridLayout(4, 0));
 
-        jLabel1.setFont(new java.awt.Font("MathJax_Fraktur", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("MathJax_Fraktur", 1, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Republic of the Philippines");
         jPanel4.add(jLabel1);
 
-        jLabel2.setFont(new java.awt.Font("MathJax_Fraktur", 1, 13)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("MathJax_Fraktur", 1, 11)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Department of Education");
         jPanel4.add(jLabel2);
 
-        jLabel4.setFont(new java.awt.Font("MathJax_Main", 0, 13)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("MathJax_Main", 0, 11)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Schools Division of Nueva Ecija");
         jPanel4.add(jLabel4);
 
-        jLabel5.setFont(new java.awt.Font("MathJax_Main", 0, 13)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("MathJax_Main", 0, 11)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Sta. Rosa, Nueva Ecija");
         jPanel4.add(jLabel5);
@@ -267,7 +352,7 @@ public class Form extends javax.swing.JFrame {
         jPanel1.add(jPanel4);
         jPanel1.add(jLabel3);
 
-        jPanel2.add(jPanel1);
+        jPanel2.add(jPanel1, java.awt.BorderLayout.CENTER);
 
         container.add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
@@ -280,8 +365,9 @@ public class Form extends javax.swing.JFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         jPanel6.setOpaque(false);
+        jPanel6.setPreferredSize(new java.awt.Dimension(148, 20));
 
-        jLabel7.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Liberation Sans", 1, 13)); // NOI18N
         jLabel7.setText("APPLICATION FORM");
         jPanel6.add(jLabel7);
 
@@ -424,6 +510,7 @@ public class Form extends javax.swing.JFrame {
 
         jPanel19.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 1, new java.awt.Color(0, 0, 0)));
         jPanel19.setOpaque(false);
+        jPanel19.setPreferredSize(new java.awt.Dimension(171, 20));
 
         jLabel22.setFont(new java.awt.Font("Liberation Sans", 1, 12)); // NOI18N
         jLabel22.setText("6. DETAILS OF APPLICATION");
@@ -437,28 +524,152 @@ public class Form extends javax.swing.JFrame {
 
         jPanel21.setBackground(new java.awt.Color(255, 255, 255));
         jPanel21.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 1, new java.awt.Color(0, 0, 0)));
-        jPanel21.setPreferredSize(new java.awt.Dimension(300, 100));
+        jPanel21.setPreferredSize(new java.awt.Dimension(350, 100));
         jPanel21.setLayout(new java.awt.BorderLayout());
 
         jLabel11.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
         jLabel11.setText("6. A TYPE OF LEAVE TO BE AVAIL OF");
         jPanel21.add(jLabel11, java.awt.BorderLayout.PAGE_START);
 
+        leaveTypeList.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel21.add(leaveTypeList, java.awt.BorderLayout.CENTER);
+
         jPanel20.add(jPanel21, java.awt.BorderLayout.WEST);
 
+        jPanel22.setBackground(new java.awt.Color(255, 255, 255));
         jPanel22.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(0, 0, 0)));
-        jPanel22.setOpaque(false);
         jPanel22.setLayout(new java.awt.BorderLayout());
 
         jLabel12.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
         jLabel12.setText("6. B DETAILS OF LEAVE");
         jPanel22.add(jLabel12, java.awt.BorderLayout.PAGE_START);
 
+        jPanel54.setOpaque(false);
+        jPanel54.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel55.setOpaque(false);
+        jPanel55.setPreferredSize(new java.awt.Dimension(300, 40));
+        jPanel55.setLayout(new java.awt.BorderLayout());
+
+        jLabel38.setFont(new java.awt.Font("Liberation Sans", 2, 8)); // NOI18N
+        jLabel38.setText("In case of Vacation Special Privelege Leave");
+        jPanel55.add(jLabel38, java.awt.BorderLayout.NORTH);
+
+        jPanel56.setOpaque(false);
+        jPanel56.setLayout(new java.awt.GridLayout(2, 0));
+
+        jCheckBox4.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
+        jCheckBox4.setText(" Within the Philippines  ________________________________________________");
+        jPanel56.add(jCheckBox4);
+
+        jCheckBox5.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
+        jCheckBox5.setText("Abroad      (Specify)       ________________________________________________");
+        jPanel56.add(jCheckBox5);
+
+        jPanel55.add(jPanel56, java.awt.BorderLayout.CENTER);
+
+        jPanel54.add(jPanel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, -1, -1));
+
+        jPanel57.setOpaque(false);
+        jPanel57.setPreferredSize(new java.awt.Dimension(300, 40));
+        jPanel57.setLayout(new java.awt.BorderLayout());
+
+        jLabel43.setFont(new java.awt.Font("Liberation Sans", 2, 8)); // NOI18N
+        jLabel43.setText("In case of Sick Leave");
+        jPanel57.add(jLabel43, java.awt.BorderLayout.NORTH);
+
+        jPanel58.setOpaque(false);
+        jPanel58.setLayout(new java.awt.GridLayout(2, 0));
+
+        jCheckBox6.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
+        jCheckBox6.setText("In Hospital   (Specify Illness)   __________________________________________");
+        jPanel58.add(jCheckBox6);
+
+        jCheckBox7.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
+        jCheckBox7.setText("Out Patient      (Specify Illness)  _________________________________________");
+        jPanel58.add(jCheckBox7);
+
+        jPanel57.add(jPanel58, java.awt.BorderLayout.CENTER);
+
+        jPanel54.add(jPanel57, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 45, -1, -1));
+
+        jPanel59.setOpaque(false);
+        jPanel59.setPreferredSize(new java.awt.Dimension(300, 40));
+        jPanel59.setLayout(new java.awt.BorderLayout());
+
+        jLabel51.setFont(new java.awt.Font("Liberation Sans", 2, 8)); // NOI18N
+        jLabel51.setText("In Case of Special Leave Benefits for Women");
+        jPanel59.add(jLabel51, java.awt.BorderLayout.NORTH);
+
+        jPanel60.setOpaque(false);
+        jPanel60.setLayout(new java.awt.GridLayout(2, 0));
+
+        jLabel66.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
+        jLabel66.setText("(Specify Illness) ___________________________________________________________");
+        jPanel60.add(jLabel66);
+
+        jLabel67.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
+        jLabel67.setText("_________________________________________________________________________");
+        jPanel60.add(jLabel67);
+
+        jPanel59.add(jPanel60, java.awt.BorderLayout.CENTER);
+
+        jPanel54.add(jPanel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 85, -1, -1));
+
+        jPanel61.setOpaque(false);
+        jPanel61.setPreferredSize(new java.awt.Dimension(300, 40));
+        jPanel61.setLayout(new java.awt.BorderLayout());
+
+        jLabel68.setFont(new java.awt.Font("Liberation Sans", 2, 8)); // NOI18N
+        jLabel68.setText("In Case Of Study");
+        jPanel61.add(jLabel68, java.awt.BorderLayout.NORTH);
+
+        jPanel62.setOpaque(false);
+        jPanel62.setLayout(new java.awt.GridLayout(2, 0));
+
+        jCheckBox8.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
+        jCheckBox8.setText("Completion of Master's Degree");
+        jPanel62.add(jCheckBox8);
+
+        jCheckBox10.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
+        jCheckBox10.setText("BAR/Board Examination Review");
+        jPanel62.add(jCheckBox10);
+
+        jPanel61.add(jPanel62, java.awt.BorderLayout.CENTER);
+
+        jPanel54.add(jPanel61, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 125, -1, -1));
+
+        jPanel63.setOpaque(false);
+        jPanel63.setPreferredSize(new java.awt.Dimension(300, 40));
+        jPanel63.setLayout(new java.awt.BorderLayout());
+
+        jLabel69.setFont(new java.awt.Font("Liberation Sans", 2, 8)); // NOI18N
+        jLabel69.setText("Other Purposes");
+        jPanel63.add(jLabel69, java.awt.BorderLayout.NORTH);
+
+        jPanel64.setOpaque(false);
+        jPanel64.setLayout(new java.awt.GridLayout(2, 0));
+
+        jCheckBox9.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
+        jCheckBox9.setText("Monetization of Leave Credits");
+        jPanel64.add(jCheckBox9);
+
+        jCheckBox11.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
+        jCheckBox11.setText("Terminal Leave");
+        jPanel64.add(jCheckBox11);
+
+        jPanel63.add(jPanel64, java.awt.BorderLayout.CENTER);
+
+        jPanel54.add(jPanel63, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 165, -1, -1));
+
+        jPanel22.add(jPanel54, java.awt.BorderLayout.CENTER);
+
         jPanel20.add(jPanel22, java.awt.BorderLayout.CENTER);
 
         jPanel18.add(jPanel20, java.awt.BorderLayout.CENTER);
 
         jPanel27.setOpaque(false);
+        jPanel27.setPreferredSize(new java.awt.Dimension(426, 40));
         jPanel27.setLayout(new java.awt.BorderLayout());
 
         jPanel28.setBackground(new java.awt.Color(255, 255, 255));
@@ -557,10 +768,11 @@ public class Form extends javax.swing.JFrame {
         jPanel23.setBackground(new java.awt.Color(255, 255, 255));
         jPanel23.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel23.setMinimumSize(new java.awt.Dimension(150, 37));
-        jPanel23.setPreferredSize(new java.awt.Dimension(200, 250));
+        jPanel23.setPreferredSize(new java.awt.Dimension(200, 220));
         jPanel23.setLayout(new java.awt.BorderLayout());
 
         jPanel24.setOpaque(false);
+        jPanel24.setPreferredSize(new java.awt.Dimension(235, 20));
 
         jLabel23.setFont(new java.awt.Font("Liberation Sans", 1, 12)); // NOI18N
         jLabel23.setText("7. DETAILS OF ACTION ON APPLICATION");
@@ -594,7 +806,7 @@ public class Form extends javax.swing.JFrame {
         jLabel39.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 0, new java.awt.Color(0, 0, 0)));
         jPanel37.add(jLabel39);
 
-        jLabel36.setFont(new java.awt.Font("Liberation Sans", 0, 7)); // NOI18N
+        jLabel36.setFont(new java.awt.Font("Liberation Sans", 0, 6)); // NOI18N
         jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel36.setText("<html><div style='text-align: center;'>Sick Leave/(Service Credit of Teachers)</div></html>");
         jLabel36.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 0, new java.awt.Color(0, 0, 0)));
@@ -637,7 +849,8 @@ public class Form extends javax.swing.JFrame {
         jPanel40.setOpaque(false);
         jPanel40.setLayout(new java.awt.GridLayout(1, 4));
 
-        jLabel48.setFont(new java.awt.Font("Liberation Sans", 0, 9)); // NOI18N
+        jLabel48.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
+        jLabel48.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel48.setText("<html><div style='text-align: center;'>Less this application</div></html>");
         jLabel48.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         jPanel40.add(jLabel48);
@@ -891,14 +1104,18 @@ public class Form extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         PrinterJob job = PrinterJob.getPrinterJob();
         job.setJobName("Print Form");
+      
 
         PageFormat pf = job.defaultPage();
+        
         Paper paper = pf.getPaper();
         double width = container.getWidth();
         double height = container.getHeight();
-        paper.setSize(595.0, 842.0); // Set size to A4
+       // paper.setSize(595.0, 842.0); // Set size to A4\
+       paper.setSize(8.5* 72, 13.0* 72);
         paper.setImageableArea(0, 0, width, height);
         pf.setPaper(paper);
+        
         
         job.setPrintable(new PanelPrintable(container), pf);
       
@@ -954,7 +1171,15 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JLabel headerContent1;
     private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox10;
+    private javax.swing.JCheckBox jCheckBox11;
     private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox jCheckBox4;
+    private javax.swing.JCheckBox jCheckBox5;
+    private javax.swing.JCheckBox jCheckBox6;
+    private javax.swing.JCheckBox jCheckBox7;
+    private javax.swing.JCheckBox jCheckBox8;
+    private javax.swing.JCheckBox jCheckBox9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -986,11 +1211,13 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
@@ -999,6 +1226,7 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
@@ -1014,6 +1242,10 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
+    private javax.swing.JLabel jLabel66;
+    private javax.swing.JLabel jLabel67;
+    private javax.swing.JLabel jLabel68;
+    private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -1066,7 +1298,18 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel51;
     private javax.swing.JPanel jPanel52;
     private javax.swing.JPanel jPanel53;
+    private javax.swing.JPanel jPanel54;
+    private javax.swing.JPanel jPanel55;
+    private javax.swing.JPanel jPanel56;
+    private javax.swing.JPanel jPanel57;
+    private javax.swing.JPanel jPanel58;
+    private javax.swing.JPanel jPanel59;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel60;
+    private javax.swing.JPanel jPanel61;
+    private javax.swing.JPanel jPanel62;
+    private javax.swing.JPanel jPanel63;
+    private javax.swing.JPanel jPanel64;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
@@ -1083,5 +1326,6 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JLabel lblMiddleName;
     private javax.swing.JLabel lblPosition;
     private javax.swing.JLabel lblStart;
+    private javax.swing.JPanel leaveTypeList;
     // End of variables declaration//GEN-END:variables
 }
