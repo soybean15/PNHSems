@@ -4,6 +4,8 @@
  */
 package frames.components.printerForms;
 
+import data.controllers.EmployeeController;
+import data.model.Employee;
 import data.model.EmployeeServiceCredit;
 import frames.components.EmployeeServiceCreditItem;
 import java.awt.GridLayout;
@@ -14,6 +16,7 @@ import java.awt.print.PrinterJob;
 import java.util.List;
 import otherclasses.ImageHandler;
 import otherclasses.PanelPrintable;
+import otherclasses.UtilClass;
 
 /**
  *
@@ -26,16 +29,46 @@ public class PrintServiceCredit extends javax.swing.JFrame {
      */
     
      List<EmployeeServiceCredit> employeesWithServiceCredits;
+     EmployeeController controller = new EmployeeController();
     public PrintServiceCredit() {
         
         initComponents();
-        header();
+      
     }
     
     public void setPrintServiceCredit(  List<EmployeeServiceCredit> employeesWithServiceCredits){
+        header();
         this.employeesWithServiceCredits = employeesWithServiceCredits;
         display();
+        
+          if(!employeesWithServiceCredits.isEmpty()){
+              diplayInfo();
+          }
+        
     }
+    
+    private void diplayInfo(){
+       
+            Employee employee = getEmployee(employeesWithServiceCredits.get(0).getEmployeeId());
+            lblName.setText(employee.getFullname());
+            lblPosition.setText(employee.getPosition().getName());
+            lblId.setText(employee.getId());
+            lblDate.setText(UtilClass.getCurrent());
+        
+      
+        
+    
+    }
+    
+    private Employee getEmployee(String id){
+        
+        try{
+            return controller.getEmployee(id);
+        }catch(java.sql.SQLException e){
+            return null;
+        }
+        
+    } 
     
     private void header(){
          lblLogo.setIcon(ImageHandler.getImage(80, 80, ImageHandler.getIconPath("/img/app_img/deped-logo.png")));
@@ -93,6 +126,9 @@ public class PrintServiceCredit extends javax.swing.JFrame {
         lblDate = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
+        jPanel18 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        lblId = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
@@ -109,9 +145,16 @@ public class PrintServiceCredit extends javax.swing.JFrame {
         container = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
+        jPanel19 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jPanel20 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(731, 643));
         setResizable(false);
 
@@ -125,7 +168,7 @@ public class PrintServiceCredit extends javax.swing.JFrame {
         jPanel3.add(lblLogo, java.awt.BorderLayout.NORTH);
 
         jPanel4.setOpaque(false);
-        jPanel4.setLayout(new java.awt.GridLayout());
+        jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
         headerContent1.setFont(new java.awt.Font("Liberation Sans", 2, 11)); // NOI18N
         headerContent1.setText("CSC Form No. 6");
@@ -188,7 +231,7 @@ public class PrintServiceCredit extends javax.swing.JFrame {
         jPanel6.setLayout(new java.awt.BorderLayout());
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel7.setLayout(new java.awt.GridLayout(6, 0));
+        jPanel7.setLayout(new java.awt.GridLayout(7, 0));
 
         jPanel13.setOpaque(false);
         jPanel13.setLayout(new java.awt.BorderLayout());
@@ -214,6 +257,19 @@ public class PrintServiceCredit extends javax.swing.JFrame {
         jPanel15.add(jLabel16, java.awt.BorderLayout.CENTER);
 
         jPanel7.add(jPanel15);
+
+        jPanel18.setOpaque(false);
+        jPanel18.setLayout(new java.awt.BorderLayout());
+
+        jLabel14.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        jLabel14.setText("Employee Id:");
+        jLabel14.setPreferredSize(new java.awt.Dimension(100, 17));
+        jPanel18.add(jLabel14, java.awt.BorderLayout.WEST);
+
+        lblId.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
+        jPanel18.add(lblId, java.awt.BorderLayout.CENTER);
+
+        jPanel7.add(jPanel18);
 
         jPanel11.setOpaque(false);
         jPanel11.setLayout(new java.awt.BorderLayout());
@@ -298,17 +354,29 @@ public class PrintServiceCredit extends javax.swing.JFrame {
 
         jPanel16.setBackground(new java.awt.Color(255, 255, 255));
         jPanel16.setPreferredSize(new java.awt.Dimension(731, 200));
+        jPanel16.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
-        jPanel16.setLayout(jPanel16Layout);
-        jPanel16Layout.setHorizontalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 731, Short.MAX_VALUE)
-        );
-        jPanel16Layout.setVerticalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
-        );
+        jPanel19.setOpaque(false);
+        jPanel19.setLayout(new java.awt.GridLayout(2, 0));
+
+        jLabel7.setText("Prepared by:");
+        jPanel19.add(jLabel7);
+
+        jLabel9.setText("____________________________");
+        jPanel19.add(jLabel9);
+
+        jPanel16.add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 80, 210, 50));
+
+        jPanel20.setOpaque(false);
+        jPanel20.setLayout(new java.awt.GridLayout(2, 0));
+
+        jLabel11.setText("Requested by:");
+        jPanel20.add(jLabel11);
+
+        jLabel18.setText("____________________________");
+        jPanel20.add(jLabel18);
+
+        jPanel16.add(jPanel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 210, 50));
 
         jPanel1.add(jPanel16, java.awt.BorderLayout.SOUTH);
 
@@ -396,17 +464,22 @@ public class PrintServiceCredit extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -416,7 +489,10 @@ public class PrintServiceCredit extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -426,6 +502,7 @@ public class PrintServiceCredit extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel lblDate;
     private javax.swing.JLabel lblDepartment;
+    private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPosition;

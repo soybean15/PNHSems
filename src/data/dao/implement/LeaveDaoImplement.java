@@ -313,9 +313,10 @@ public class LeaveDaoImplement implements LeaveDao {
     }
 
     @Override
-    public int getLeaveCount() throws SQLException {
-        String query = "select count(*) as total from employee_leave";
+    public int getLeaveCount(String id) throws SQLException {
+        String query = "select count(*) as total from employee_leave where employeeId = ?";
         PreparedStatement pst = conn.prepareStatement(query);
+        pst.setString(1, id);
         ResultSet rs = pst.executeQuery();
         return  rs.next() ? rs.getInt("total") : 0;
     }

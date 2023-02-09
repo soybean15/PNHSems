@@ -8,6 +8,7 @@ import data.model.Employee;
 import data.model.EmployeeServiceCredit;
 import data.model.LeaveForm;
 import data.model.LeaveType;
+import data.model.Personnel;
 import data.model.ServiceCredit;
 import java.sql.SQLException;
 import data.services.impl.LeaveFormService;
@@ -65,9 +66,9 @@ public class LeaveFormController {
           return service.searchByReferenceNumber(employee, refNum);
       }
       
-      public int getLeaveCount(){
+      public int getLeaveCount(String id){
           try{
-             return service.getLeaveCount();
+             return service.getLeaveCount(id);
           }catch(SQLException e){
               e.printStackTrace();
               return 0;
@@ -76,5 +77,10 @@ public class LeaveFormController {
       
       public LeaveForm getRecet(Employee employee)throws SQLException {
           return service.getRecent(employee);
+      }
+      
+      
+      public List<Personnel> getPersonnels()throws SQLException {
+          return service.getPersonnels();
       }
 }

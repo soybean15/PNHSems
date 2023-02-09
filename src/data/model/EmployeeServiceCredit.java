@@ -45,6 +45,11 @@ public class EmployeeServiceCredit {
     public int getNo_of_days() {
         return no_of_days;
     }
+    
+    
+    
+    
+    
 
     public void setNo_of_days(int no_of_days) {
         this.no_of_days = no_of_days;

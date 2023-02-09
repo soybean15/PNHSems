@@ -47,7 +47,7 @@ public class PersonnelPanel extends javax.swing.JPanel {
         
         try {
             int n = controller.updatePersonnel(personnel);
-            System.out.println(n);
+          
             this.personnels = controller.getPersonnels();
             
             createPersonnelPanel();

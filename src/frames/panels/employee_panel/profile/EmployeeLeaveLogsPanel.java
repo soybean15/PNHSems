@@ -128,7 +128,7 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
     }
     
     private void createPagination(){
-          int totalItem = controller.getLeaveCount();
+          int totalItem = controller.getLeaveCount(employee.getId());
         PaginationHandler pagination = new PaginationHandler(SET,totalItem,2);
         pagination.modifyButton(label->{
             label.setBackground(Color.white);

@@ -4,6 +4,7 @@
  */
 package pagination;
 
+import java.awt.GridLayout;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import javax.swing.JLabel;
@@ -21,27 +22,27 @@ public class PaginationHandler implements CustomComponentListener {
     private final Pagination PAGINATION;
     private final PaginationComponent COMPONENT;
     private JPanel CONTAINER;
+    private int totalItems;
 
-  
     /**
-     * 
+     *
      * @param set how many items you want to show per page
      * @param totalItems total item of data you want to fetch
      * @param numberOfPageToShow how many page button you want to display
      */
     public PaginationHandler(int set, int totalItems, int numberOfPageToShow) {
 
-        this.PAGINATION = new Pagination(set, totalItems, numberOfPageToShow < 5 ? 5 : numberOfPageToShow);
+        this.PAGINATION = new Pagination(set, totalItems == 0 ? 1 : totalItems, numberOfPageToShow < 5 ? 5 : numberOfPageToShow);
         COMPONENT = new PaginationComponent(numberOfPageToShow < 5 ? 5 : numberOfPageToShow);
-
+        this.totalItems = totalItems;
         addListener();
         createPagination();
-        COMPONENT.addMouseListener(new PaginationMouseListener(){
+        COMPONENT.addMouseListener(new PaginationMouseListener() {
             @Override
             public void onClick(PaginationEvent e) {
-                
+
             }
-            
+
         });
 
     }
@@ -49,8 +50,9 @@ public class PaginationHandler implements CustomComponentListener {
     public void addListener() {
         COMPONENT.addListener(this);
     }
-    public void addMouseListener(PaginationMouseListener listener){
-         COMPONENT.addMouseListener(listener);
+
+    public void addMouseListener(PaginationMouseListener listener) {
+        COMPONENT.addMouseListener(listener);
     }
 
     private void createPagination() {
@@ -61,6 +63,8 @@ public class PaginationHandler implements CustomComponentListener {
                 PAGINATION.onFirst(),
                 PAGINATION.onLast()
         );
+
+        CONTAINER.setVisible(totalItems != 0);
 
     }
 
@@ -73,15 +77,14 @@ public class PaginationHandler implements CustomComponentListener {
     public void modifyButton(Consumer<JLabel> c) {
         COMPONENT.modifyButton(c);
     }
-    
-    
-    public void modifyNextAndPreviousButton(BiConsumer<JLabel,JLabel> c) {
+
+    public void modifyNextAndPreviousButton(BiConsumer<JLabel, JLabel> c) {
         COMPONENT.modifyPreviousAndNextButton(c);
     }
 
     @Override
     public PaginationEvent onClick() {
-       return new PaginationEvent(PAGINATION);
+        return new PaginationEvent(PAGINATION);
     }
 
     @Override
@@ -104,7 +107,5 @@ public class PaginationHandler implements CustomComponentListener {
                 PAGINATION.onLast()
         );
     }
-    
-   
 
 }

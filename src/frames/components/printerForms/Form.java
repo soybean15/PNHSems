@@ -5,8 +5,10 @@
 package frames.components.printerForms;
 
 import data.controllers.LeaveFormController;
+import data.model.Employee;
 import data.model.LeaveForm;
 import data.model.LeaveType;
+import data.model.Personnel;
 import frames.components.LeaveTypeRadioButton;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -33,6 +35,8 @@ public class Form extends javax.swing.JFrame {
     LeaveFormController controller = new LeaveFormController();
     
     List<LeaveType> leaveTypes;
+    List<Personnel> personnels;
+    
     
      boolean isBlank;
     public Form( ) {
@@ -43,11 +47,30 @@ public class Form extends javax.swing.JFrame {
             
           try{
             this.leaveTypes = controller.getLeaveTypes();
+            this.personnels = controller.getPersonnels();
             showLeaveTypes() ;
         }catch(SQLException e){
             
         }
         header();
+        setPersonnels();
+    }
+    
+    private String getName(Employee employee){
+        
+        if(employee.getFirstName() == null){
+            return null;
+        }else{
+            return employee.getFirstName()+" "+employee.getMiddleName()+" "+employee.getLastName();
+        }
+    }
+    
+    private void setPersonnels(){
+ //     String str =  personnels.get(0).getEmployee()==null ? "___________________________________": getName(personnels.get(0).getEmployee());
+       lblAdmin4.setText( personnels.get(0).getEmployee()==null ? "": getName(personnels.get(0).getEmployee()));
+       lblAdmin4_2.setText(personnels.get(1).getEmployee()==null ? "": getName(personnels.get(1).getEmployee()));
+       lblPrincipal.setText( personnels.get(2).getEmployee()==null ? "": getName(personnels.get(2).getEmployee()));
+       lblAdmin5.setText(personnels.get(3).getEmployee()==null ? "": getName(personnels.get(3).getEmployee()));
     }
     
     private void header(){
@@ -267,10 +290,10 @@ public class Form extends javax.swing.JFrame {
         lblBalance = new javax.swing.JLabel();
         jPanel49 = new javax.swing.JPanel();
         jPanel50 = new javax.swing.JPanel();
-        jLabel61 = new javax.swing.JLabel();
+        lblAdmin4 = new javax.swing.JLabel();
         jLabel62 = new javax.swing.JLabel();
         jPanel51 = new javax.swing.JPanel();
-        jLabel63 = new javax.swing.JLabel();
+        lblAdmin4_2 = new javax.swing.JLabel();
         jLabel64 = new javax.swing.JLabel();
         jPanel26 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
@@ -278,7 +301,7 @@ public class Form extends javax.swing.JFrame {
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
         jPanel48 = new javax.swing.JPanel();
-        jLabel59 = new javax.swing.JLabel();
+        lblPrincipal = new javax.swing.JLabel();
         jLabel60 = new javax.swing.JLabel();
         jPanel43 = new javax.swing.JPanel();
         jPanel44 = new javax.swing.JPanel();
@@ -300,7 +323,7 @@ public class Form extends javax.swing.JFrame {
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
         jPanel47 = new javax.swing.JPanel();
-        jLabel57 = new javax.swing.JLabel();
+        lblAdmin5 = new javax.swing.JLabel();
         jLabel58 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
@@ -675,7 +698,7 @@ public class Form extends javax.swing.JFrame {
         jPanel28.setBackground(new java.awt.Color(255, 255, 255));
         jPanel28.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 0, 1, new java.awt.Color(0, 0, 0)));
         jPanel28.setOpaque(false);
-        jPanel28.setPreferredSize(new java.awt.Dimension(300, 50));
+        jPanel28.setPreferredSize(new java.awt.Dimension(350, 50));
         jPanel28.setLayout(new java.awt.BorderLayout());
 
         jLabel26.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
@@ -784,7 +807,7 @@ public class Form extends javax.swing.JFrame {
         jPanel25.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         jPanel25.setMinimumSize(new java.awt.Dimension(300, 13));
         jPanel25.setOpaque(false);
-        jPanel25.setPreferredSize(new java.awt.Dimension(300, 100));
+        jPanel25.setPreferredSize(new java.awt.Dimension(350, 100));
         jPanel25.setLayout(new java.awt.BorderLayout());
 
         jLabel24.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
@@ -908,13 +931,15 @@ public class Form extends javax.swing.JFrame {
         jPanel50.setPreferredSize(new java.awt.Dimension(100, 30));
         jPanel50.setLayout(new java.awt.GridLayout(2, 0));
 
-        jLabel61.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel61.setText("____________________");
-        jPanel50.add(jLabel61);
+        lblAdmin4.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        lblAdmin4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAdmin4.setText("____________________");
+        jPanel50.add(lblAdmin4);
 
         jLabel62.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
         jLabel62.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel62.setText("Administrative Officer IV");
+        jLabel62.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
         jPanel50.add(jLabel62);
 
         jPanel49.add(jPanel50);
@@ -923,13 +948,15 @@ public class Form extends javax.swing.JFrame {
         jPanel51.setPreferredSize(new java.awt.Dimension(100, 30));
         jPanel51.setLayout(new java.awt.GridLayout(2, 0));
 
-        jLabel63.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel63.setText("_____________________");
-        jPanel51.add(jLabel63);
+        lblAdmin4_2.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        lblAdmin4_2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAdmin4_2.setText("_____________________");
+        jPanel51.add(lblAdmin4_2);
 
         jLabel64.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
         jLabel64.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel64.setText("Administrative Officer IV");
+        jLabel64.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
         jPanel51.add(jLabel64);
 
         jPanel49.add(jPanel51);
@@ -965,13 +992,15 @@ public class Form extends javax.swing.JFrame {
         jPanel48.setPreferredSize(new java.awt.Dimension(100, 30));
         jPanel48.setLayout(new java.awt.GridLayout(2, 0));
 
-        jLabel59.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel59.setText("______________________________");
-        jPanel48.add(jLabel59);
+        lblPrincipal.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        lblPrincipal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPrincipal.setText("______________________________");
+        jPanel48.add(lblPrincipal);
 
         jLabel60.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
         jLabel60.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel60.setText("School Principal IV");
+        jLabel60.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
         jPanel48.add(jLabel60);
 
         jPanel26.add(jPanel48, java.awt.BorderLayout.SOUTH);
@@ -1071,13 +1100,14 @@ public class Form extends javax.swing.JFrame {
         jPanel47.setPreferredSize(new java.awt.Dimension(100, 30));
         jPanel47.setLayout(new java.awt.GridLayout(2, 0));
 
-        jLabel57.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel57.setText("______________________________");
-        jPanel47.add(jLabel57);
+        lblAdmin5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAdmin5.setText("______________________________");
+        jPanel47.add(lblAdmin5);
 
         jLabel58.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
         jLabel58.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel58.setText("Administrative Officer V");
+        jLabel58.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
         jPanel47.add(jLabel58);
 
         jPanel43.add(jPanel47, java.awt.BorderLayout.SOUTH);
@@ -1088,7 +1118,7 @@ public class Form extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(container);
 
-        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        getContentPane().add(jScrollPane1, java.awt.BorderLayout.PAGE_END);
 
         jButton1.setText("Print");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -1232,14 +1262,10 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel56;
-    private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
-    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
-    private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
-    private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
     private javax.swing.JLabel jLabel66;
@@ -1314,6 +1340,9 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblAdmin4;
+    private javax.swing.JLabel lblAdmin4_2;
+    private javax.swing.JLabel lblAdmin5;
     private javax.swing.JLabel lblBalance;
     private javax.swing.JLabel lblCreditUsed;
     private javax.swing.JLabel lblDateFiled;
@@ -1325,6 +1354,7 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblMiddleName;
     private javax.swing.JLabel lblPosition;
+    private javax.swing.JLabel lblPrincipal;
     private javax.swing.JLabel lblStart;
     private javax.swing.JPanel leaveTypeList;
     // End of variables declaration//GEN-END:variables

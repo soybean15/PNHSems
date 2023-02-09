@@ -427,7 +427,7 @@ public class EmployeeDaoImplement implements EmployeeDao {
     public List<Employee> search(String item) throws SQLException {
         String query = "select * from employee INNER join"
                 + " employee_info on employee_info.employee_id = employee.id WHERE " 
-                +"employee.id = ? or employee.firstname like ? or employee.lastname like ?";
+                +"employee.id = ? or employee.firstname like ? or employee.lastname like ? limit 5";
         
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setString(1, item);

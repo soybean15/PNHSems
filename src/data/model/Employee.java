@@ -60,7 +60,7 @@ public class Employee {
     }
 
     public String getMiddleName() {
-        return middleName ;
+        return middleName == null?"":middleName ;
     }
 
     public void setMiddleName(String middleName) {
@@ -155,7 +155,7 @@ public class Employee {
     
     public String getFullname(){
         
-        String _middleName = middleName !=null? ", "+middleName.substring(0,1)+".":"";
+        String _middleName = middleName!=null ? ", "+middleName.substring(0,1)+".":"";
         String _nameExtension = nameExtension==null?" ": " "+nameExtension+", ";
         
         return lastName+_nameExtension+firstName + _middleName;

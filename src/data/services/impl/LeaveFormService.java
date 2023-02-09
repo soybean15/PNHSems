@@ -10,6 +10,7 @@ import data.model.Employee;
 import data.model.EmployeeServiceCredit;
 import data.model.LeaveForm;
 import data.model.LeaveType;
+import data.model.Personnel;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import pnhsems.InvalidInputException;
 public class LeaveFormService {
 
     LeaveDaoImplement leaveDao = new LeaveDaoImplement();
+    PersonnelService personnelService =new PersonnelService();
 
 
     EmployeeAndServiceCreditService employeeAndServiceCreditService = new EmployeeAndServiceCreditService();
@@ -117,11 +119,15 @@ public class LeaveFormService {
          return leaveDao.searchByReferenceNumber(employee, refNum);
      }
      
-     public int getLeaveCount()throws SQLException{
-         return leaveDao.getLeaveCount();
+     public int getLeaveCount(String id)throws SQLException{
+         return leaveDao.getLeaveCount(id);
      }
 
      public LeaveForm getRecent(Employee employee)throws SQLException{
          return leaveDao.getEmployeeRecentLeave(employee);
+     }
+     
+     public List<Personnel> getPersonnels() throws SQLException{
+         return personnelService.getPersonnels();
      }
 }

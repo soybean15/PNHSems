@@ -63,11 +63,20 @@ public class PersonnelDaoImplement implements PersonnelDao {
         ResultSet rs = pst.executeQuery();
         
         while(rs.next()){
+            
+            Position position = new Position();
+            position.setName(rs.getString("name"));
+            position.setId(rs.getInt("position_id"));
+            Employee employee = new Employee();
+            employee.setId(rs.getString("employee_id"));
+            employee.setFirstName(rs.getString("firstname"));
+            employee.setLastName(rs.getString("lastname"));
+            employee.setMiddleName(rs.getString("middlename"));
          
             Personnel personnel = new Personnel(
                     rs.getInt("id"),
-                    new Position().setId(rs.getInt("position_id")),
-                    new Employee().setId(rs.getString("employee_id"))
+                    position,
+                    employee
             );
             
             personnels.add(personnel);

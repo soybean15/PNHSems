@@ -41,7 +41,7 @@ public interface LeaveDao {
     public String getLastId()
             throws SQLException;
     
-     public int getLeaveCount()
+     public int getLeaveCount(String id)
             throws SQLException;
      
      public LeaveForm getEmployeeRecentLeave(Employee employee)
