@@ -574,7 +574,7 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
         jTextField1.setPreferredSize(new java.awt.Dimension(78, 25));
         jPanel20.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 10, 260, 30));
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/search.png"))); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(ImageHandler.getIconPath("/img/icons/search.png")));
         jPanel20.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(267, 10, 30, 30));
 
         jPanel2.add(jPanel20, java.awt.BorderLayout.LINE_START);

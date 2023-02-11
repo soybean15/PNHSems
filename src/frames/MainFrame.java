@@ -197,7 +197,7 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
         jLabel4.setToolTipText("   ");
         sidePanelEmployee.add(jLabel4, java.awt.BorderLayout.LINE_START);
 
-        sideLabelEmployee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/employees(1).png"))); // NOI18N
+        sideLabelEmployee.setIcon(new javax.swing.ImageIcon(ImageHandler.getIconPath("/img/icons/employees(1).png")));
         sideLabelEmployee.setText("Employee");
         sidePanelEmployee.add(sideLabelEmployee, java.awt.BorderLayout.CENTER);
 
@@ -219,7 +219,7 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
         jLabel5.setText("        ");
         sidePanelServiceCreds.add(jLabel5, java.awt.BorderLayout.LINE_START);
 
-        sideLabelServiceCreds.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/credit-card.png"))); // NOI18N
+        sideLabelServiceCreds.setIcon(new javax.swing.ImageIcon(ImageHandler.getIconPath("/img/icons/credit-card.png")));
         sideLabelServiceCreds.setText("Service Credits");
         sidePanelServiceCreds.add(sideLabelServiceCreds, java.awt.BorderLayout.CENTER);
 
@@ -241,7 +241,7 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
         jLabel6.setText("        ");
         sidePanelPersonnel.add(jLabel6, java.awt.BorderLayout.LINE_START);
 
-        sideLabelPersonnel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/networking.png"))); // NOI18N
+        sideLabelPersonnel.setIcon(new javax.swing.ImageIcon(ImageHandler.getIconPath("/img/icons/networking.png")));
         sideLabelPersonnel.setText("Personnels");
         sidePanelPersonnel.add(sideLabelPersonnel, java.awt.BorderLayout.CENTER);
 
@@ -263,7 +263,7 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
         jLabel7.setText("        ");
         sidePanelAccountSettings.add(jLabel7, java.awt.BorderLayout.LINE_START);
 
-        sideLabelAccountSettings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/settings.png"))); // NOI18N
+        sideLabelAccountSettings.setIcon(new javax.swing.ImageIcon(ImageHandler.getIconPath("/img/icons/settings.png")));
         sideLabelAccountSettings.setText("Account Settings");
         sidePanelAccountSettings.add(sideLabelAccountSettings, java.awt.BorderLayout.CENTER);
 
@@ -285,7 +285,7 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
         jLabel8.setText("        ");
         sidePanelUsers.add(jLabel8, java.awt.BorderLayout.LINE_START);
 
-        sideLabelUsers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/software-engineer.png"))); // NOI18N
+        sideLabelUsers.setIcon(new javax.swing.ImageIcon(ImageHandler.getIconPath("/img/icons/software-engineer.png")));
         sideLabelUsers.setText("Users");
         sidePanelUsers.add(sideLabelUsers, java.awt.BorderLayout.CENTER);
 
@@ -307,7 +307,7 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
         jLabel9.setText("        ");
         sidePanelLogOut.add(jLabel9, java.awt.BorderLayout.LINE_START);
 
-        sideLabeLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/log-out.png"))); // NOI18N
+        sideLabeLogOut.setIcon(new javax.swing.ImageIcon(ImageHandler.getIconPath("/img/icons/log-out.png")));
         sideLabeLogOut.setText("Log Out");
         sidePanelLogOut.add(sideLabeLogOut, java.awt.BorderLayout.CENTER);
 

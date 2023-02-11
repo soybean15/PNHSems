@@ -84,5 +84,17 @@ public class EmployeeController {
     {
         return service.deleteEmployee(employee);
     }
+    
+    public int getEmployeeCount()  {
+        try{
+            return service.getEmployeeCount();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        
+    
+        return 0;
+        
+    }
 
 }

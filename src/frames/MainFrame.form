@@ -158,8 +158,8 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="sideLabelEmployee">
                       <Properties>
-                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/img/icons/employees(1).png"/>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="new javax.swing.ImageIcon(ImageHandler.getIconPath(&quot;/img/icons/employees(1).png&quot;))" type="code"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Employee"/>
                       </Properties>
@@ -192,8 +192,8 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="sideLabelServiceCreds">
                       <Properties>
-                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/img/icons/credit-card.png"/>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="new javax.swing.ImageIcon(ImageHandler.getIconPath(&quot;/img/icons/credit-card.png&quot;))" type="code"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Service Credits"/>
                       </Properties>
@@ -226,8 +226,8 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="sideLabelPersonnel">
                       <Properties>
-                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/img/icons/networking.png"/>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="new javax.swing.ImageIcon(ImageHandler.getIconPath(&quot;/img/icons/networking.png&quot;))" type="code"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Personnels"/>
                       </Properties>
@@ -260,8 +260,8 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="sideLabelAccountSettings">
                       <Properties>
-                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/img/icons/settings.png"/>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="new javax.swing.ImageIcon(ImageHandler.getIconPath(&quot;/img/icons/settings.png&quot;))" type="code"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Account Settings"/>
                       </Properties>
@@ -294,8 +294,8 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="sideLabelUsers">
                       <Properties>
-                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/img/icons/software-engineer.png"/>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="new javax.swing.ImageIcon(ImageHandler.getIconPath(&quot;/img/icons/software-engineer.png&quot;))" type="code"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Users"/>
                       </Properties>
@@ -328,8 +328,8 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="sideLabeLogOut">
                       <Properties>
-                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/img/icons/log-out.png"/>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="new javax.swing.ImageIcon(ImageHandler.getIconPath(&quot;/img/icons/log-out.png&quot;))" type="code"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Log Out"/>
                       </Properties>

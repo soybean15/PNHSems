@@ -237,7 +237,7 @@ public class EmployeeDaoImplement implements EmployeeDao {
     @Override
     public List<Employee> getAll() throws SQLException {
         
-        String query ="select * from employee , employee_info WHERE employee.id = employee_info.employee_id limit 20";
+        String query ="select * from employee , employee_info WHERE employee.id = employee_info.employee_id ";
         PreparedStatement ps = conn.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
       
@@ -437,6 +437,15 @@ public class EmployeeDaoImplement implements EmployeeDao {
       
         
         return mapEmployees(rs);
+    }
+
+    @Override
+    public int getEmployeeCount() throws SQLException {
+       String query = "select count(*) as total from employee";
+       PreparedStatement pst = conn.prepareStatement(query);
+      
+        ResultSet rs = pst.executeQuery();
+        return  rs.next() ? rs.getInt("total") : 0;
     }
 
   

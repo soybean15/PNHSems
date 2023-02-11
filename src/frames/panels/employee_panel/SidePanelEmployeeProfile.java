@@ -243,7 +243,7 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         lblProfile.setFont(primary.FONT.defaultFont(15)
         );
         lblProfile.setForeground(primary.COLOR.foreground_white);
-        lblProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/user.png"))); // NOI18N
+        lblProfile.setIcon(new javax.swing.ImageIcon(ImageHandler.getIconPath("/img/icons/user.png")));
         lblProfile.setText("Profile");
         panelProfile.add(lblProfile, java.awt.BorderLayout.CENTER);
 
@@ -271,7 +271,7 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         lblServiceCredit.setFont(primary.FONT.defaultFont(15)
         );
         lblServiceCredit.setForeground(primary.COLOR.foreground_white);
-        lblServiceCredit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/credit-card(1).png"))); // NOI18N
+        lblServiceCredit.setIcon(new javax.swing.ImageIcon(ImageHandler.getIconPath("/img/icons/credit-card(1).png")));
         lblServiceCredit.setText("Service Credits");
         panelServiceCredit.add(lblServiceCredit, java.awt.BorderLayout.CENTER);
 
@@ -299,7 +299,7 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         lblLeaveLogs.setFont(primary.FONT.defaultFont(15)
         );
         lblLeaveLogs.setForeground(primary.COLOR.foreground_white);
-        lblLeaveLogs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/log-in.png"))); // NOI18N
+        lblLeaveLogs.setIcon(new javax.swing.ImageIcon(ImageHandler.getIconPath("/img/icons/log-in.png")));
         lblLeaveLogs.setText("Leave Logs");
         panelLeaveLogs.add(lblLeaveLogs, java.awt.BorderLayout.CENTER);
 
@@ -328,7 +328,7 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         );
         lblExit.setForeground(primary.COLOR.foreground_white
         );
-        lblExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/icons8-logout-rounded-24.png"))); // NOI18N
+        lblExit.setIcon(new javax.swing.ImageIcon(ImageHandler.getIconPath("/img/icons/icons8-logout-rounded-24.png")));
         lblExit.setText("Exit");
         panelExit.add(lblExit, java.awt.BorderLayout.CENTER);
 

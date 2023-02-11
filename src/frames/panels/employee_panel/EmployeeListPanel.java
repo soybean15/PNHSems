@@ -19,6 +19,9 @@ import javax.swing.border.MatteBorder;
 import frames.listener.MainPanelListener;
 import java.awt.Panel;
 import otherclasses.ImageHandler;
+import pagination.PaginationHandler;
+import pagination.event.PaginationEvent;
+import pagination.listener.PaginationMouseListener;
 
 /**
  *
@@ -30,34 +33,76 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
 
     EmployeeItem activeItem;
 
-    
-  
-    MainPanelListener listener ;
+    MainPanelListener listener;
 
+    private final int SET = 5;
+
+    List<Employee> employees;
 
     /**
      * Creates new form EmployeeListPanel
+     *
      * @param main
      */
-    public EmployeeListPanel(MainFrame main ) {
+    public EmployeeListPanel(MainFrame main) {
         initComponents();
-        
+
         btn1.setVisible(false);
         btn2.setVisible(false);
 
-       this.listener = main;
+        this.listener = main;
 
         txtSearch.setBorder(new MatteBorder(1, 1, 1, 1, Color.BLACK));
-        lblImage.setIcon(ImageHandler.getDefault(190,190));
+        lblImage.setIcon(ImageHandler.getDefault(190, 190));
 
     }
-    
-    public EmployeeListPanel displayAll() {
+
+    private void createPagination() {
+        int totalItem = employeeController.getEmployeeCount();
+        PaginationHandler pagination = new PaginationHandler(SET, totalItem, 2);
+        pagination.modifyButton(label -> {
+            label.setBackground(Color.white);
+            label.setForeground(Color.black);
+            label.setFont(Theme.PRIMARY.FONT.tableFontDefault(10));
+        });
+        pagination.modifyNextAndPreviousButton((label1, label2) -> {
+            label1.setBackground(Theme.PRIMARY.COLOR.background_primary);
+            label1.setForeground(Theme.PRIMARY.COLOR.foregroundOnTop);
+        });
+        pagination.addMouseListener(new PaginationMouseListener() {
+            @Override
+            public void onClick(PaginationEvent e) {
+
+                displayEmployees(employees.subList(e.startIndex(), e.endIndex() + 1));
+            }
+
+        });
+        pageContainer.add(pagination.getPagination());
+    }
+
+    private void loadData() {
         try {
-            displayEmployees(employeeController.getAllEmployees());
+            this.employees = employeeController.getAllEmployees();
+
+            int to = SET;
+
+            if (this.employees.size() < SET) {
+                to = this.employees.size();
+            }
+
+            displayEmployees(this.employees.subList(0, to));
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public EmployeeListPanel displayAll() {
+        pageContainer.removeAll();
+        pageContainer.repaint();
+        pageContainer.revalidate();
+        createPagination();
+        loadData();
 
         return this;
     }
@@ -68,11 +113,11 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
         employeeList.repaint();
         employeeList.revalidate();
 
-        int size = employees.size();
-        int rows = size;
-        if (size < 9) {
-            rows = 8;
-        }
+        //int size = employees.size();
+        int rows = SET;
+//        if (rows < SET) {
+//            rows = 8;
+//        }
 
         employeeList.setLayout(new GridLayout(rows, 0));
 
@@ -91,14 +136,14 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
 
         lblId.setText("ID: " + employee.getId());
         lblFirstname.setText(employee.getFirstName());
-      
-        lblLastname.setText( employee.getLastName() + " " + employee.getNameExtension());
+
+        lblLastname.setText(employee.getLastName() + " " + employee.getNameExtension());
         lblMiddlename.setText(employee.getMiddleName());
         lblGender.setText(employee.getGender());
         lblBday.setText(String.valueOf(employee.getBirthDate()));
         lblPob.setText(employee.getPlaceOfBirth());
         lblDateCreated.setText(String.valueOf(employee.getCreated_at()));
-        
+
         lblImage.setIcon(ImageHandler.getImage(190, 190, employee));
 
     }
@@ -150,16 +195,14 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
         label4 = new javax.swing.JLabel();
         lblDateCreated = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        employeeList = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         txtSearch = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        lblName2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        pageContainer = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel22 = new javax.swing.JPanel();
         lblId3 = new javax.swing.JLabel();
@@ -168,6 +211,7 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
         jPanel23 = new javax.swing.JPanel();
         btn1 = new javax.swing.JButton();
         btn2 = new javax.swing.JButton();
+        employeeList = new javax.swing.JPanel();
 
         setBackground(Theme.PRIMARY.COLOR.background_secondary);
         setLayout(new java.awt.GridLayout(2, 0));
@@ -353,16 +397,6 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
 
         jPanel12.setLayout(new java.awt.BorderLayout());
 
-        jScrollPane1.setBorder(null);
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setOpaque(false);
-
-        employeeList.setOpaque(false);
-        employeeList.setLayout(new java.awt.GridLayout(8, 0));
-        jScrollPane1.setViewportView(employeeList);
-
-        jPanel12.add(jScrollPane1, java.awt.BorderLayout.CENTER);
-
         jPanel13.setBackground(new java.awt.Color(0, 204, 204));
         jPanel13.setMinimumSize(new java.awt.Dimension(364, 70));
         jPanel13.setPreferredSize(new java.awt.Dimension(920, 70));
@@ -375,20 +409,24 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
                 jPanel17formMouseClicked(evt);
             }
         });
-        jPanel17.setLayout(new java.awt.GridBagLayout());
+        jPanel17.setLayout(new java.awt.BorderLayout());
 
-        jLabel3.setText("  ");
-        jPanel17.add(jLabel3, new java.awt.GridBagConstraints());
+        jPanel2.setOpaque(false);
+        jPanel2.setPreferredSize(new java.awt.Dimension(300, 120));
+        jPanel2.setLayout(new java.awt.BorderLayout());
 
         txtSearch.setBorder(new javax.swing.border.MatteBorder(null));
         txtSearch.setOpaque(true);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 16;
-        gridBagConstraints.ipady = 8;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 0.4;
-        jPanel17.add(txtSearch, gridBagConstraints);
+        txtSearch.setPreferredSize(new java.awt.Dimension(100, 19));
+        txtSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchActionPerformed(evt);
+            }
+        });
+        jPanel2.add(txtSearch, java.awt.BorderLayout.CENTER);
+
+        jLabel7.setText("     ");
+        jPanel2.add(jLabel7, java.awt.BorderLayout.WEST);
 
         jButton1.setBackground(new java.awt.Color(0, 51, 255));
         jButton1.setFont(Theme.PRIMARY.FONT.tableFontDefault(15)
@@ -400,20 +438,9 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel17.add(jButton1, new java.awt.GridBagConstraints());
+        jPanel2.add(jButton1, java.awt.BorderLayout.LINE_END);
 
-        lblName2.setBackground(new java.awt.Color(102, 255, 102));
-        lblName2.setFont(new java.awt.Font("Liberation Mono", 0, 12)); // NOI18N
-        lblName2.setMaximumSize(new java.awt.Dimension(60, 40));
-        lblName2.setMinimumSize(new java.awt.Dimension(70, 40));
-        lblName2.setPreferredSize(new java.awt.Dimension(70, 40));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 10;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 0.9;
-        jPanel17.add(lblName2, gridBagConstraints);
+        jPanel17.add(jPanel2, java.awt.BorderLayout.WEST);
 
         jButton2.setBackground(new java.awt.Color(0, 153, 0));
         jButton2.setFont(Theme.PRIMARY.FONT.tableFontDefault(15)
@@ -425,10 +452,11 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel17.add(jButton2, new java.awt.GridBagConstraints());
+        jPanel17.add(jButton2, java.awt.BorderLayout.EAST);
 
-        jLabel5.setText("  ");
-        jPanel17.add(jLabel5, new java.awt.GridBagConstraints());
+        pageContainer.setOpaque(false);
+        pageContainer.setLayout(new java.awt.GridLayout());
+        jPanel17.add(pageContainer, java.awt.BorderLayout.CENTER);
 
         jPanel13.add(jPanel17);
 
@@ -503,6 +531,10 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
 
         jPanel12.add(jPanel13, java.awt.BorderLayout.NORTH);
 
+        employeeList.setOpaque(false);
+        employeeList.setLayout(new java.awt.GridLayout(8, 0));
+        jPanel12.add(employeeList, java.awt.BorderLayout.CENTER);
+
         add(jPanel12);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -515,7 +547,7 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
     }//GEN-LAST:event_jPanel22formMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+
         listener.onAddEmployeeClick();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -528,6 +560,10 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn1;
@@ -539,10 +575,9 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -551,6 +586,7 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel3;
@@ -560,7 +596,6 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
@@ -579,10 +614,10 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
     private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblLastname;
     private javax.swing.JLabel lblMiddlename;
-    private javax.swing.JLabel lblName2;
     private javax.swing.JLabel lblName4;
     private javax.swing.JLabel lblPob;
     private javax.swing.JLabel lblPosition3;
+    private javax.swing.JPanel pageContainer;
     private javax.swing.JPanel panelImage;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
@@ -604,7 +639,7 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
 
     @Override
     public void onApplyLeaveClick(Employee employee) {
-     
-        listener.onOpeningLeaveForm(employee,null);
+
+        listener.onOpeningLeaveForm(employee, null);
     }
 }

@@ -1443,10 +1443,11 @@ public class AddEmployeePanel extends javax.swing.JPanel {
            employee.setImage(id);
            
            
-           btnUpload.setIcon(imgIcon);
+           if(imageSource !=null) btnUpload.setIcon(imgIcon);
            
        }catch(NullPointerException npe){
-           npe.printStackTrace();
+           //npe.printStackTrace();
+           btnUpload.setIcon(ImageHandler.getDefaultImage(50, 50,employee.getGender()));
           //do nothing
        }
     }//GEN-LAST:event_btnUploadActionPerformed

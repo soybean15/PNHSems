@@ -98,6 +98,9 @@ public class EmployeeServices {
         return employeeDao.delete(employee);
     }
 
+    public int getEmployeeCount() throws SQLException {
+        return employeeDao.getEmployeeCount();
+    }
   
 
 }
