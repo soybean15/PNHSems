@@ -17,7 +17,6 @@ import themes.Theme;
 import java.sql.SQLException;
 import javax.swing.border.MatteBorder;
 import frames.listener.MainPanelListener;
-import java.awt.Panel;
 import otherclasses.ImageHandler;
 import pagination.PaginationHandler;
 import pagination.event.PaginationEvent;
@@ -229,7 +228,7 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
         panelImage.setLayout(new java.awt.GridLayout(1, 0));
 
         lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/app_img/male-default-img.jpg"))); // NOI18N
+        lblImage.setIcon(new javax.swing.ImageIcon(ImageHandler.getIconPath("/img/app_img/male-default-img.jpg")));
         panelImage.add(lblImage);
 
         jPanel14.add(panelImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 190, 190));
@@ -254,6 +253,8 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
         jPanel5.setOpaque(false);
         jPanel5.setLayout(new java.awt.GridLayout(1, 0));
 
+        jSplitPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jSplitPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jSplitPane1.setDividerLocation(105);
         jSplitPane1.setDividerSize(0);
 
@@ -274,6 +275,8 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
         jPanel6.setOpaque(false);
         jPanel6.setLayout(new java.awt.GridLayout(1, 0));
 
+        jSplitPane2.setBackground(new java.awt.Color(255, 255, 255));
+        jSplitPane2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jSplitPane2.setDividerLocation(105);
         jSplitPane2.setDividerSize(0);
 
@@ -294,6 +297,8 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
         jPanel7.setOpaque(false);
         jPanel7.setLayout(new java.awt.GridLayout(1, 0));
 
+        jSplitPane3.setBackground(new java.awt.Color(255, 255, 255));
+        jSplitPane3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jSplitPane3.setDividerLocation(105);
         jSplitPane3.setDividerSize(0);
 
@@ -314,6 +319,8 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
         jPanel8.setOpaque(false);
         jPanel8.setLayout(new java.awt.GridLayout(1, 0));
 
+        jSplitPane4.setBackground(new java.awt.Color(255, 255, 255));
+        jSplitPane4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jSplitPane4.setDividerLocation(105);
         jSplitPane4.setDividerSize(0);
 
@@ -334,6 +341,8 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
         jPanel9.setOpaque(false);
         jPanel9.setLayout(new java.awt.GridLayout(1, 0));
 
+        jSplitPane5.setBackground(new java.awt.Color(255, 255, 255));
+        jSplitPane5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jSplitPane5.setDividerLocation(105);
         jSplitPane5.setDividerSize(0);
 
@@ -354,6 +363,8 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
         jPanel10.setOpaque(false);
         jPanel10.setLayout(new java.awt.GridLayout(1, 0));
 
+        jSplitPane6.setBackground(new java.awt.Color(255, 255, 255));
+        jSplitPane6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jSplitPane6.setDividerLocation(105);
         jSplitPane6.setDividerSize(0);
 
@@ -374,6 +385,8 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
         jPanel11.setOpaque(false);
         jPanel11.setLayout(new java.awt.GridLayout(1, 0));
 
+        jSplitPane7.setBackground(new java.awt.Color(255, 255, 255));
+        jSplitPane7.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jSplitPane7.setDividerLocation(105);
         jSplitPane7.setDividerSize(0);
 
@@ -455,7 +468,7 @@ public class EmployeeListPanel extends javax.swing.JPanel implements EmployeeIte
         jPanel17.add(jButton2, java.awt.BorderLayout.EAST);
 
         pageContainer.setOpaque(false);
-        pageContainer.setLayout(new java.awt.GridLayout());
+        pageContainer.setLayout(new java.awt.GridLayout(1, 0));
         jPanel17.add(pageContainer, java.awt.BorderLayout.CENTER);
 
         jPanel13.add(jPanel17);

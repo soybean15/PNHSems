@@ -4,11 +4,8 @@
  */
 package frames;
 
-import data.controllers.UserController;
 import data.model.Employee;
 import data.model.EmployeeServiceCredit;
-import data.model.ServiceCredit;
-import data.model.User;
 import frames.panels.AccountSettingPanel;
 import frames.panels.employee_panel.profile.EmployeeProfilePanel;
 import frames.panels.PersonnelPanel;
@@ -26,7 +23,6 @@ import frames.listener.SidePanelListener;
 import frames.panels.employee_panel.LeaveFormPanel;
 import frames.panels.employee_panel.profile.EmployeeLeaveLogsPanel;
 import frames.panels.employee_panel.profile.EmployeeServiceCreditsPanel;
-import java.awt.Panel;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import otherclasses.BaseClass;

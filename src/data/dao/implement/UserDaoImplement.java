@@ -4,8 +4,6 @@
  */
 package data.dao.implement;
 
-import data.controllers.form.LeaveFormValidation;
-import data.controllers.form.UserValidation;
 import data.database.DbConnection;
 import data.dao.UserDao;
 import data.model.User;
@@ -107,11 +105,13 @@ public class UserDaoImplement implements UserDao {
 
             String name = rs.getString("name");
             String user_name = rs.getString("username");
+            String _password = rs.getString("password");
+
             String email = rs.getString("email");
             boolean isEnable = rs.getString("isenable").equals("true");
             String role = rs.getString("role");
 
-            return new User(name, user_name, email,isEnable,role);
+            return new User(name, user_name, email,isEnable,role,_password);
         }
 
         return null;

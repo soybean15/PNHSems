@@ -4,9 +4,6 @@ package data.database;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-import java.sql.PreparedStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,6 +62,7 @@ public class Table {
                 .addField("place_of_birth varchar(255)")
                 .addField("image text")
                 .addField("position_id int(11) not null")
+                .addField("department_id int(11) ")
                 .addField("created_at timestamp NOT NULL DEFAULT current_timestamp()")
                 .addField("updated_at timestamp NOT NULL DEFAULT current_timestamp()")
                 .setPK("id"));
@@ -138,6 +136,13 @@ public class Table {
           tables.add(new Table("personnels")
                   .addField("id int(11) not null")
                   .addField("position_id int(11) not null")
+                  .addField("employee_id varchar(12)")
+                  .setPK("id"));
+          
+           
+          tables.add(new Table("department")
+                  .addField("id int(11) auto_increment")
+                  .addField("name varchar(50)")
                   .addField("employee_id varchar(12)")
                   .setPK("id"));
       

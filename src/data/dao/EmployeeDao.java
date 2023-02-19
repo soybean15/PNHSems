@@ -4,6 +4,7 @@
  */
 package data.dao;
 
+import data.model.Department;
 import data.model.Employee;
 import data.model.Position;
 import java.sql.SQLException;
@@ -46,6 +47,16 @@ public interface EmployeeDao {
             throws SQLException;
     
     public int getEmployeeCount()
+             throws SQLException;
+    
+     
+    public Department getDepartment(int id)
+             throws SQLException;
+    
+    public int addDepartment(Department department)
+             throws SQLException;
+    
+    public List<Department> getDepartments()
              throws SQLException;
     
 

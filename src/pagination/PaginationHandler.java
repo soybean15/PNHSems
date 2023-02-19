@@ -4,7 +4,6 @@
  */
 package pagination;
 
-import java.awt.GridLayout;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import javax.swing.JLabel;

@@ -4,7 +4,6 @@
  */
 package data.services.impl;
 
-import data.dao.ServiceCreditsDao;
 import data.dao.implement.ServiceCreditDaoImplement;
 
 import data.model.ServiceCredit;
@@ -51,5 +50,8 @@ public class ServiceCreditService {
         return serviceCreditDao.get(id);
     }
 
- 
+    public int reset() throws SQLException {
+       return serviceCreditDao.reset();
+    }
+
 }

@@ -110,7 +110,6 @@ public class EmployeeServiceCreditsPanel extends javax.swing.JPanel implements E
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
         jPanel15 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
@@ -124,6 +123,7 @@ public class EmployeeServiceCreditsPanel extends javax.swing.JPanel implements E
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         serviceCreditList = new javax.swing.JPanel();
 
@@ -220,19 +220,8 @@ public class EmployeeServiceCreditsPanel extends javax.swing.JPanel implements E
 
         jPanel6.add(jPanel7, java.awt.BorderLayout.LINE_END);
 
+        jPanel8.setOpaque(false);
         jPanel8.setLayout(new java.awt.BorderLayout());
-
-        jButton2.setBackground(new java.awt.Color(0, 153, 0));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Print");
-        jButton2.setPreferredSize(new java.awt.Dimension(80, 23));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel8.add(jButton2, java.awt.BorderLayout.EAST);
-
         jPanel6.add(jPanel8, java.awt.BorderLayout.CENTER);
 
         jPanel3.add(jPanel6, java.awt.BorderLayout.SOUTH);
@@ -320,7 +309,16 @@ public class EmployeeServiceCreditsPanel extends javax.swing.JPanel implements E
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel14.add(jButton1, java.awt.BorderLayout.EAST);
+        jPanel14.add(jButton1, java.awt.BorderLayout.CENTER);
+
+        jButton2.setText("Print");
+        jButton2.setPreferredSize(new java.awt.Dimension(80, 23));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel14.add(jButton2, java.awt.BorderLayout.LINE_END);
 
         jPanel12.add(jPanel14, java.awt.BorderLayout.CENTER);
 

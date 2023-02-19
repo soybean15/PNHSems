@@ -114,5 +114,16 @@ public class ServiceCreditDaoImplement implements ServiceCreditsDao{
         }
         return serviceCredit;
     }
+
+    @Override
+    public int reset() throws SQLException {
+        String query = "UPDATE employee_and_service_credits set remaining_days = (SELECT no_of_days FROM service_credits WHERE service_credits.id = employee_and_service_credits.service_credits_id)";
+        
+        PreparedStatement pst = conn.prepareStatement(query);
+        
+        return pst.executeUpdate();
+        
+                
+    }
     
 }

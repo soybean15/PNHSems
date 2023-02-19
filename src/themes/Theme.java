@@ -4,8 +4,6 @@
  */
 package themes;
 
-import java.awt.Color;
-
 
 /**
  *

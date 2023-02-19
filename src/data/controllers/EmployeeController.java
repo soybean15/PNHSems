@@ -4,9 +4,9 @@
  */
 package data.controllers;
 
+import data.model.Department;
 import data.model.Employee;
 import data.model.EmployeeServiceCredit;
-import data.model.Personnel;
 import data.model.Position;
 import data.model.ServiceCredit;
 
@@ -78,23 +78,32 @@ public class EmployeeController {
     public int deleteServiceCredit(String employeeId, int serviceCreditId) throws SQLException {
         return service.deleteEmployeeServiceCredits(employeeId, serviceCreditId);
     }
-    
-    
-    public int deleteEmployee(Employee employee)throws SQLException
-    {
+
+    public int deleteEmployee(Employee employee) throws SQLException {
         return service.deleteEmployee(employee);
     }
-    
-    public int getEmployeeCount()  {
-        try{
+
+    public int getEmployeeCount() {
+        try {
             return service.getEmployeeCount();
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        
-    
+
         return 0;
-        
+
+    }
+
+    public int addDepartment(Department department) throws SQLException {
+
+        return service.addDepartment(department);
+
+    }
+
+    public List<Department> getDepartments() {
+
+        return service.getDepartments();
+
     }
 
 }

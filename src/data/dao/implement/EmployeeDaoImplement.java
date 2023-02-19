@@ -6,16 +6,14 @@ package data.dao.implement;
 
 import data.dao.EmployeeDao;
 import data.model.Employee;
-import java.sql.SQLException;
-import java.util.List;
 
 /**
  *
  * @author root
  */
 import data.database.DbConnection;
+import data.model.Department;
 import data.model.Employee_PersonalInfo;
-import data.model.Personnel;
 import data.model.Position;
 
 import java.sql.SQLException;
@@ -32,7 +30,7 @@ public class EmployeeDaoImplement implements EmployeeDao {
     @Override
     public int add(Employee employee) throws SQLException {
         // String query="Start transaction;\n";
-        int n =0;
+        int n = 0;
         try {
             conn.setAutoCommit(false);
             String query = "Insert into employee("
@@ -45,8 +43,9 @@ public class EmployeeDaoImplement implements EmployeeDao {
                     + "birthdate,"
                     + "place_of_birth,"
                     + "image,"
-                    + "position_id"
-                    + ") values(?,?,?,?,?,?,?,?,?,?)";
+                    + "position_id,"
+                    + "department_id"
+                    + ") values(?,?,?,?,?,?,?,?,?,?,?)";
 
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, employee.getId());
@@ -59,6 +58,7 @@ public class EmployeeDaoImplement implements EmployeeDao {
             ps.setString(8, employee.getPlaceOfBirth());
             ps.setString(9, employee.getImage());
             ps.setInt(10, employee.getPosition().getId());
+            ps.setInt(11, employee.getDepartment().getId());
 
             ps.executeUpdate();
 
@@ -110,13 +110,13 @@ public class EmployeeDaoImplement implements EmployeeDao {
             ex.printStackTrace();
             conn.rollback();
         }
-       
+
         return n;
     }
 
     @Override
     public int update(Employee employee) throws SQLException {
-        int n =0;
+        int n = 0;
         try {
             conn.setAutoCommit(false);
             String query = "update employee set "
@@ -129,10 +129,11 @@ public class EmployeeDaoImplement implements EmployeeDao {
                     + "place_of_birth=?,"
                     + "image=?,"
                     + "position_id=?,"
+                    + "department_id =?,"
                     + " updated_at = CURRENT_TIMESTAMP where id =?";
 
             PreparedStatement ps = conn.prepareStatement(query);
-        
+
             ps.setString(1, employee.getFirstName());
             ps.setString(2, employee.getLastName());
             ps.setString(3, employee.getMiddleName());
@@ -142,7 +143,9 @@ public class EmployeeDaoImplement implements EmployeeDao {
             ps.setString(7, employee.getPlaceOfBirth());
             ps.setString(8, employee.getImage());
             ps.setInt(9, employee.getPosition().getId());
-             ps.setString(10, employee.getId());
+            ps.setInt(10, employee.getDepartment().getId());
+            ps.setString(11, employee.getId());
+            
 
             ps.executeUpdate();
 
@@ -169,7 +172,6 @@ public class EmployeeDaoImplement implements EmployeeDao {
 
             Employee_PersonalInfo personalInfo = employee.getPersonalInfo();
 
-            
             ps.setString(1, personalInfo.getCivilStatus());
             ps.setString(2, personalInfo.getCitizenship());
             ps.setString(3, personalInfo.getHeight());
@@ -194,68 +196,66 @@ public class EmployeeDaoImplement implements EmployeeDao {
             ex.printStackTrace();
             conn.rollback();
         }
-       
+
         return n;
     }
 
     @Override
     public int delete(Employee employee) throws SQLException {
         String id = employee.getId();
-        int n=0;
-        
+        int n = 0;
+
         try {
             conn.setAutoCommit(false);
             String query = "delete from employee where id = ?";
             PreparedStatement pst = conn.prepareStatement(query);
             pst.setString(1, id);
             n = pst.executeUpdate();
-            
-            
+
             query = "delete from employee_info where employee_id = ?";
             pst = conn.prepareStatement(query);
             pst.setString(1, id);
             n = pst.executeUpdate();
-            
+
             query = "delete from employee_and_service_credits where employeeId = ?";
             pst = conn.prepareStatement(query);
             pst.setString(1, id);
             n = pst.executeUpdate();
-            
+
             query = "delete from employee_leave where employeeId = ?";
             pst = conn.prepareStatement(query);
             pst.setString(1, id);
-            
+
             n = pst.executeUpdate();
-            
+
             conn.commit();
         } catch (SQLException e) {
-            
+
         }
         return n;
     }
 
     @Override
     public List<Employee> getAll() throws SQLException {
-        
-        String query ="select * from employee , employee_info WHERE employee.id = employee_info.employee_id ";
+
+        String query = "select * from employee , employee_info WHERE employee.id = employee_info.employee_id ";
         PreparedStatement ps = conn.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
-      
+
         return mapEmployees(rs);
     }
 
     @Override
     public Employee getEmployee(String id) throws SQLException {
-      String query = "select * from employee INNER JOIN employee_info on employee.id = employee_info.employee_id WHERE employee.id =?";
-      PreparedStatement ps = conn.prepareStatement(query);
-      ps.setString(1, id);
-      ResultSet rs = ps.executeQuery();
-      
-    
-      if(rs.next()){
+        String query = "select * from employee INNER JOIN employee_info on employee.id = employee_info.employee_id WHERE employee.id =?";
+        PreparedStatement ps = conn.prepareStatement(query);
+        ps.setString(1, id);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
             Employee employee = new Employee();
-           String employee_id =rs.getString("id");
-            
+            String employee_id = rs.getString("id");
+
             //basic info
             employee.setId(employee_id);
             employee.setFirstName(rs.getString("firstname"));
@@ -266,18 +266,21 @@ public class EmployeeDaoImplement implements EmployeeDao {
             employee.setBirthDate(rs.getDate("birthdate"));
             employee.setPlaceOfBirth(rs.getString("place_of_birth"));
             employee.setImage(rs.getString("image"));
-           
+
             employee.setCreated_at(rs.getTimestamp("created_at"));
             employee.setLast_updated(rs.getTimestamp("updated_at"));
-            
-          
+
             Position position = getPosition(rs.getInt("position_id"));
             employee.setPosition(position);
-            
-            
+
+            if (rs.getInt("department_id") != 0) {
+                Department department = getDepartment(rs.getInt("department_id"));
+                employee.setDepartment(department);
+            }
+
             //additional info
             Employee_PersonalInfo personalInfo = new Employee_PersonalInfo();
-                   
+
             personalInfo.setEmployeeId(employee_id);
             personalInfo.setPositionId(rs.getInt("position_id"));
             personalInfo.setCivilStatus(rs.getString("civil_status"));
@@ -295,11 +298,11 @@ public class EmployeeDaoImplement implements EmployeeDao {
             personalInfo.setEmail(rs.getString("email"));
             personalInfo.setCurrentAddress(rs.getString("current_address"));
             personalInfo.setPermanentAddress(rs.getString("permanent_address"));
-            
+
             employee.setPersonalInfo(personalInfo);
             return employee;
-      }
-      return null;
+        }
+        return null;
     }
 
     @Override
@@ -336,45 +339,42 @@ public class EmployeeDaoImplement implements EmployeeDao {
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setInt(1, id);
         ResultSet rs = ps.executeQuery();
-        
+
         Position position = new Position();
         rs.next();
-            position.setId(id);
-            position.setName(rs.getString("name"));
-            position.setCategory(rs.getString("category"));
-            
+        position.setId(id);
+        position.setName(rs.getString("name"));
+        position.setCategory(rs.getString("category"));
+
         return position;
     }
 
     @Override
     public List<Position> getPositions() throws SQLException {
         String query = "Select  * from positions";
-        PreparedStatement pst  = conn.prepareStatement(query);
+        PreparedStatement pst = conn.prepareStatement(query);
         ResultSet rs = pst.executeQuery();
-        
+
         List<Position> positions = new ArrayList<>();
-        while(rs.next()){
+        while (rs.next()) {
             Position position = new Position();
             position.setId(rs.getInt("id"));
             position.setName(rs.getString("name"));
             position.setCategory(rs.getString("category"));
-            
+
             positions.add(position);
         }
-        
+
         return positions;
     }
-    
-    
-    private List<Employee> mapEmployees(ResultSet rs) throws SQLException{
-      List<Employee> employees = new ArrayList<>();
-        
-        
-       
-        while( rs.next()){
+
+    private List<Employee> mapEmployees(ResultSet rs) throws SQLException {
+        List<Employee> employees = new ArrayList<>();
+
+        while (rs.next()) {
             Employee employee = new Employee();
-            String employee_id =rs.getString("id");
-            
+            String employee_id = rs.getString("id");
+
             //basic info
             employee.setId(employee_id);
             employee.setFirstName(rs.getString("firstname"));
@@ -387,15 +387,18 @@ public class EmployeeDaoImplement implements EmployeeDao {
             employee.setImage(rs.getString("image"));
             employee.setCreated_at(rs.getTimestamp("created_at"));
             employee.setLast_updated(rs.getTimestamp("updated_at"));
-            
-          
+
+            if (rs.getInt("department_id") != 0) {
+                Department department = getDepartment(rs.getInt("department_id"));
+                employee.setDepartment(department);
+            }
+
             Position position = getPosition(rs.getInt("position_id"));
             employee.setPosition(position);
-            
-            
+
             //additional info
             Employee_PersonalInfo personalInfo = new Employee_PersonalInfo();
-                   
+
             personalInfo.setEmployeeId(employee_id);
             personalInfo.setPositionId(rs.getInt("position_id"));
             personalInfo.setCivilStatus(rs.getString("civil_status"));
@@ -413,12 +416,11 @@ public class EmployeeDaoImplement implements EmployeeDao {
             personalInfo.setEmail(rs.getString("email"));
             personalInfo.setCurrentAddress(rs.getString("current_address"));
             personalInfo.setPermanentAddress(rs.getString("permanent_address"));
-            
+
             employee.setPersonalInfo(personalInfo);
-            
+
             employees.add(employee);
-           
-            
+
         }
         return employees;
     }
@@ -426,32 +428,72 @@ public class EmployeeDaoImplement implements EmployeeDao {
     @Override
     public List<Employee> search(String item) throws SQLException {
         String query = "select * from employee INNER join"
-                + " employee_info on employee_info.employee_id = employee.id WHERE " 
-                +"employee.id = ? or employee.firstname like ? or employee.lastname like ? limit 5";
-        
+                + " employee_info on employee_info.employee_id = employee.id WHERE "
+                + "employee.id = ? or employee.firstname like ? or employee.lastname like ? limit 5";
+
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setString(1, item);
-        ps.setString(2, item+"%");
-        ps.setString(3, item+"%");
+        ps.setString(2, item + "%");
+        ps.setString(3, item + "%");
         ResultSet rs = ps.executeQuery();
-      
-        
+
         return mapEmployees(rs);
     }
 
     @Override
     public int getEmployeeCount() throws SQLException {
-       String query = "select count(*) as total from employee";
-       PreparedStatement pst = conn.prepareStatement(query);
-      
+        String query = "select count(*) as total from employee";
+        PreparedStatement pst = conn.prepareStatement(query);
+
         ResultSet rs = pst.executeQuery();
-        return  rs.next() ? rs.getInt("total") : 0;
+        return rs.next() ? rs.getInt("total") : 0;
     }
 
-  
+    @Override
+    public Department getDepartment(int id) throws SQLException {
+        String query = "select * from department where id =?";
+        PreparedStatement pst = conn.prepareStatement(query);
+        pst.setInt(1, id);
+        ResultSet rs = pst.executeQuery();
 
+        if (rs.next()) {
 
- 
+            Department department = new Department();
+            department.setId(id);
+            department.setName(rs.getString("name"));
 
+            return department;
+        }
+        return null;
+    }
+
+    @Override
+    public int addDepartment(Department department) throws SQLException {
+        String query = "insert into department(name) values(?)";
+
+        PreparedStatement pst = conn.prepareStatement(query);
+        pst.setString(1, department.getName());
+
+        return pst.executeUpdate();
+
+    }
+
+    @Override
+    public List<Department> getDepartments() throws SQLException {
+        List<Department> departments = new ArrayList<>();
+        String query = "select * from department ";
+        PreparedStatement pst = conn.prepareStatement(query);
+        ResultSet rs = pst.executeQuery();
+
+        while (rs.next()) {
+
+            Department department = new Department();
+            department.setId(rs.getInt("id"));
+            department.setName(rs.getString("name"));
+
+            departments.add(department);
+        }
+        return departments;
+    }
 
 }

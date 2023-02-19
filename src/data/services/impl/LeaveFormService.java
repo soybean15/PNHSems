@@ -4,7 +4,6 @@
  */
 package data.services.impl;
 
-import data.dao.LeaveDao;
 import data.dao.implement.LeaveDaoImplement;
 import data.model.Employee;
 import data.model.EmployeeServiceCredit;
@@ -15,7 +14,6 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import otherclasses.UtilClass;
 import pnhsems.InvalidInputException;
 
 /**

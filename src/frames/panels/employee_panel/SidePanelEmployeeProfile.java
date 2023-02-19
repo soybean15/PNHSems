@@ -97,8 +97,12 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
     
     public void setDisplay(){
         
-        lblEmployeeName.setText(employee.getFirstName()+"'s Profile");
-       
+        lblEmployeeName.setText(employee.getFirstName() + "'s Profile");
+        if (employee.getDepartment() != null) {
+            lblDepartment.setText("Dept :" + employee.getDepartment().getName());
+
+        }
+
         lblImage.setIcon(ImageHandler.getImage(150, 150, employee));
     }
     
@@ -120,10 +124,10 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
 
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         lblEmployeeName = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         lblImage = new javax.swing.JLabel();
+        lblDepartment = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -154,16 +158,12 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         jPanel1.setOpaque(false);
         jPanel1.setLayout(new java.awt.BorderLayout(0, 10));
 
-        jLabel1.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
-        jLabel1.setText("    ");
-        jPanel1.add(jLabel1, java.awt.BorderLayout.PAGE_START);
-
         lblEmployeeName.setFont(primary.FONT.big(12)
         );
         lblEmployeeName.setForeground(primary.COLOR.foreground_white);
         lblEmployeeName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblEmployeeName.setText("Employee name profile");
-        jPanel1.add(lblEmployeeName, java.awt.BorderLayout.SOUTH);
+        jPanel1.add(lblEmployeeName, java.awt.BorderLayout.NORTH);
 
         jPanel8.setOpaque(false);
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -173,6 +173,13 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
         jPanel8.add(lblImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 150, 150));
 
         jPanel1.add(jPanel8, java.awt.BorderLayout.CENTER);
+
+        lblDepartment.setFont(primary.FONT.big(11)
+        );
+        lblDepartment.setForeground(primary.COLOR.foreground_white);
+        lblDepartment.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDepartment.setText(" ");
+        jPanel1.add(lblDepartment, java.awt.BorderLayout.PAGE_END);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
@@ -470,7 +477,6 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -485,6 +491,7 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JLabel lblDepartment;
     private javax.swing.JLabel lblEmployeeName;
     private javax.swing.JLabel lblExit;
     private javax.swing.JLabel lblImage;

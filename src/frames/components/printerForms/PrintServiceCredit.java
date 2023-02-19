@@ -54,6 +54,8 @@ public class PrintServiceCredit extends javax.swing.JFrame {
             lblPosition.setText(employee.getPosition().getName());
             lblId.setText(employee.getId());
             lblDate.setText(UtilClass.getCurrent());
+            if(employee.getDepartment()!=null)
+            lblDepartment.setText(employee.getDepartment().getName());
         
       
         
@@ -154,7 +156,6 @@ public class PrintServiceCredit extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(731, 643));
         setResizable(false);
 
@@ -382,7 +383,7 @@ public class PrintServiceCredit extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Print");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);

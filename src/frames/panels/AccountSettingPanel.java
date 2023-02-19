@@ -189,6 +189,7 @@ public class AccountSettingPanel extends javax.swing.JPanel {
                     controller.updateUser(user);
                     
                     JOptionPane.showMessageDialog(this, "User Updated");
+                    
 
                 } catch (java.sql.SQLException e) {
                     e.printStackTrace();
@@ -201,6 +202,9 @@ public class AccountSettingPanel extends javax.swing.JPanel {
         } catch (InvalidInputException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
+        
+         txtOld.setText("");
+         txtNew.setText("");
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -6,6 +6,7 @@ package frames.panels.employee_panel;
 
 import data.controllers.EmployeeController;
 import data.controllers.form.EmployeeValidation;
+import data.model.Department;
 import data.model.Employee;
 import data.model.Employee_PersonalInfo;
 import data.model.Position;
@@ -40,6 +41,7 @@ public class AddEmployeePanel extends javax.swing.JPanel {
     EmployeeValidation validation = new EmployeeValidation();
 
     List<Position> positions;
+    List<Department> departments;
     SidePanelListener listener ;
     JButton editButton;
     JLabel imageLabel;
@@ -70,6 +72,8 @@ public class AddEmployeePanel extends javax.swing.JPanel {
         activeLabel(jLabel51);
 
         positions = employeeController.getPositions();
+        
+        departments = employeeController.getDepartments();
         setComboBox();
 
         //start
@@ -105,6 +109,13 @@ public class AddEmployeePanel extends javax.swing.JPanel {
         for (Position pos : positions) {
             cmbPosition.addItem(pos.getName());
         }
+        
+        cmbDepartments.removeAllItems();;
+        cmbDepartments.addItem("-Select Department-");
+        
+        for(Department department: departments){
+            cmbDepartments.addItem(department.getName());
+        }
 
     }
     
@@ -114,6 +125,7 @@ public class AddEmployeePanel extends javax.swing.JPanel {
         employee.setPlaceOfBirth(validation.checkField(txtPlaceOfBirth.getText()));
         employee.setNameExtension(validation.checkField(txtExtension.getText()));
         employee.setGender(cmbGender.getSelectedItem().toString());
+
         
         
         personalInfo.setCitizenship(validation.checkField(txtCitizenship.getText()));
@@ -161,6 +173,7 @@ public class AddEmployeePanel extends javax.swing.JPanel {
         cmbGender.setSelectedIndex(0);
         cmbPosition.setSelectedIndex(0);
         cmbStatus.setSelectedIndex(0);
+        cmbDepartments.setSelectedIndex(0);
         
         
     }
@@ -194,6 +207,12 @@ public class AddEmployeePanel extends javax.swing.JPanel {
         cmbGender.setSelectedItem(employee.getGender());
         cmbPosition.setSelectedItem(employee.getPosition().getName());
         cmbStatus.setSelectedItem(personalInfo.getCivilStatus());
+        
+        if(employee.getDepartment()!=null){
+            cmbDepartments.setSelectedItem(employee.getDepartment().getName());
+        }else{
+            cmbDepartments.setSelectedIndex(0);
+        }
         
         if(employee.getImage() !=null){
             System.out.println(ImageHandler.getImagePath(employee.getImage()));
@@ -291,8 +310,13 @@ public class AddEmployeePanel extends javax.swing.JPanel {
         jLabel18 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         btnUpload = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        jSplitPane10 = new javax.swing.JSplitPane();
+        jPanel34 = new javax.swing.JPanel();
+        jLabel54 = new javax.swing.JLabel();
+        jLabel58 = new javax.swing.JLabel();
+        jPanel51 = new javax.swing.JPanel();
+        department_warning = new javax.swing.JLabel();
+        cmbDepartments = new javax.swing.JComboBox<>();
         jPanel32 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
@@ -578,6 +602,11 @@ public class AddEmployeePanel extends javax.swing.JPanel {
                 cmbGenderFocusLost(evt);
             }
         });
+        cmbGender.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cmbGenderMouseClicked(evt);
+            }
+        });
         jPanel19.add(cmbGender);
 
         jSplitPane5.setRightComponent(jPanel19);
@@ -705,6 +734,11 @@ public class AddEmployeePanel extends javax.swing.JPanel {
                 cmbPositionFocusLost(evt);
             }
         });
+        cmbPosition.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cmbPositionMouseClicked(evt);
+            }
+        });
         jPanel25.add(cmbPosition);
 
         jSplitPane9.setRightComponent(jPanel25);
@@ -760,17 +794,62 @@ public class AddEmployeePanel extends javax.swing.JPanel {
         jSplitPane8.setLeftComponent(jLabel18);
 
         jPanel7.setOpaque(false);
-        jPanel7.setLayout(new java.awt.GridLayout(1, 3));
+        jPanel7.setLayout(new java.awt.BorderLayout());
 
         btnUpload.setText("Upload");
+        btnUpload.setPreferredSize(new java.awt.Dimension(110, 100));
         btnUpload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUploadActionPerformed(evt);
             }
         });
-        jPanel7.add(btnUpload);
-        jPanel7.add(jLabel3);
-        jPanel7.add(jLabel6);
+        jPanel7.add(btnUpload, java.awt.BorderLayout.WEST);
+
+        jSplitPane10.setDividerLocation(110);
+        jSplitPane10.setDividerSize(0);
+
+        jPanel34.setOpaque(false);
+        jPanel34.setLayout(new java.awt.GridLayout(2, 0));
+        jPanel34.add(jLabel54);
+
+        jLabel58.setFont(Theme.PRIMARY.FONT.tableFontDefault(12)
+        );
+        jLabel58.setText("Department:");
+        jPanel34.add(jLabel58);
+
+        jSplitPane10.setLeftComponent(jPanel34);
+
+        jPanel51.setOpaque(false);
+        jPanel51.setLayout(new java.awt.GridLayout(2, 0));
+
+        department_warning.setFont(Theme.PRIMARY.FONT.tableFontDefault(12)
+        );
+        department_warning.setForeground(new java.awt.Color(255, 0, 0));
+        department_warning.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        department_warning.setText("*");
+        jPanel51.add(department_warning);
+
+        cmbDepartments.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbDepartments.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbDepartmentsItemStateChanged(evt);
+            }
+        });
+        cmbDepartments.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cmbDepartmentsFocusLost(evt);
+            }
+        });
+        cmbDepartments.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cmbDepartmentsMouseClicked(evt);
+            }
+        });
+        jPanel51.add(cmbDepartments);
+
+        jSplitPane10.setRightComponent(jPanel51);
+
+        jPanel7.add(jSplitPane10, java.awt.BorderLayout.CENTER);
 
         jSplitPane8.setRightComponent(jPanel7);
 
@@ -1452,15 +1531,67 @@ public class AddEmployeePanel extends javax.swing.JPanel {
        }
     }//GEN-LAST:event_btnUploadActionPerformed
 
+    private void cmbGenderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbGenderMouseClicked
+       
+        try {
+
+           validation.checkGender(cmbGender);
+           gender_warning.setText("*");
+            employee.setGender(validation.checkGender(cmbGender));
+        } catch (InvalidInputException iie) {
+            employee.setGender(null);
+            gender_warning.setText("*" + iie.getMessage());
+        }
+    }//GEN-LAST:event_cmbGenderMouseClicked
+
+    private void cmbPositionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbPositionMouseClicked
+         int index = cmbPosition.getSelectedIndex();
+        try {
+            employee.setPosition(validation.checkPosition(index, positions));
+
+           
+            position_warning.setText("*");
+
+        } catch (InvalidInputException iie) {
+            employee.setPosition(null);
+            position_warning.setText("*" + iie.getMessage());
+        }
+
+    }//GEN-LAST:event_cmbPositionMouseClicked
+
+    private void cmbDepartmentsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDepartmentsItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbDepartmentsItemStateChanged
+
+    private void cmbDepartmentsFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbDepartmentsFocusLost
+       int index = cmbDepartments.getSelectedIndex();
+        try {
+            employee.setDepartment(validation.checkDepartment(index, departments));
+          
+            department_warning.setText("*");
+
+        } catch (InvalidInputException iie) {
+            employee.setPosition(null);
+            department_warning.setText("*" + iie.getMessage());
+        }
+
+    }//GEN-LAST:event_cmbDepartmentsFocusLost
+
+    private void cmbDepartmentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbDepartmentsMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbDepartmentsMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel MainContainer;
     private javax.swing.JPanel PanelAdditionalInfo;
     private javax.swing.JPanel PanelBasicInfo;
     private javax.swing.JButton btnUpload;
+    private javax.swing.JComboBox<String> cmbDepartments;
     private javax.swing.JComboBox<String> cmbGender;
     private javax.swing.JComboBox<String> cmbPosition;
     private javax.swing.JComboBox<String> cmbStatus;
+    private javax.swing.JLabel department_warning;
     private javax.swing.JLabel gender_warning;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -1485,7 +1616,6 @@ public class AddEmployeePanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
@@ -1512,10 +1642,11 @@ public class AddEmployeePanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel57;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -1546,6 +1677,7 @@ public class AddEmployeePanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel33;
+    private javax.swing.JPanel jPanel34;
     private javax.swing.JPanel jPanel35;
     private javax.swing.JPanel jPanel36;
     private javax.swing.JPanel jPanel37;
@@ -1564,10 +1696,12 @@ public class AddEmployeePanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel49;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel50;
+    private javax.swing.JPanel jPanel51;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JSplitPane jSplitPane10;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JSplitPane jSplitPane3;
     private javax.swing.JSplitPane jSplitPane4;

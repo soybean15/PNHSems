@@ -6,7 +6,6 @@ package frames;
 
 import data.controllers.UserController;
 import data.model.User;
-import data.dao.implement.UserDaoImplement;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JPanel;

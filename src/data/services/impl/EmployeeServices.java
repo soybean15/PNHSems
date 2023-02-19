@@ -5,13 +5,12 @@
 package data.services.impl;
 
 import data.dao.implement.EmployeeDaoImplement;
+import data.model.Department;
 import data.model.Employee;
 import data.model.EmployeeServiceCredit;
-import data.model.Personnel;
 import data.model.Position;
 import data.model.ServiceCredit;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import otherclasses.UtilClass;
 
@@ -42,7 +41,11 @@ public class EmployeeServices {
     }
 
     public int updateEmployee(Employee employee) throws SQLException {
-        return employeeDao.update(employee);
+        if (employee.validate()) {
+            return employeeDao.update(employee);
+
+        }
+        return 0;
     }
 
     public Employee getEmployee(String id) throws SQLException {
@@ -93,14 +96,30 @@ public class EmployeeServices {
     public int deleteEmployeeServiceCredits(String employeeId, int serviceCreditId) throws SQLException {
         return employeeAndServiceCreditService.deleteEmployeeServiceCredits(employeeId, serviceCreditId);
     }
-    
-    public int deleteEmployee(Employee employee)throws SQLException{
+
+    public int deleteEmployee(Employee employee) throws SQLException {
         return employeeDao.delete(employee);
     }
 
     public int getEmployeeCount() throws SQLException {
         return employeeDao.getEmployeeCount();
     }
-  
+
+    public int addDepartment(Department department) throws SQLException {
+
+        return employeeDao.addDepartment(department);
+
+    }
+
+    public List<Department> getDepartments() {
+         try{
+            return employeeDao.getDepartments();
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+        
+    }
+
 
 }

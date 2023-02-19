@@ -7,7 +7,6 @@ package frames.components.windows;
 import data.controllers.EmployeeController;
 import data.model.Employee;
 import data.model.Personnel;
-import data.model.Position;
 import frames.panels.PersonnelPanel;
 import java.awt.Color;
 import java.awt.GridLayout;

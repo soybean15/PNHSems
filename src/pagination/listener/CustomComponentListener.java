@@ -4,8 +4,6 @@
  */
 package pagination.listener;
 
-import java.util.function.Consumer;
-import javax.swing.JLabel;
 import pagination.event.PaginationEvent;
 
 /**

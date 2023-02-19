@@ -9,7 +9,6 @@ import data.model.EmployeeServiceCredit;
 import data.model.LeaveForm;
 import data.model.LeaveType;
 import data.model.Personnel;
-import data.model.ServiceCredit;
 import java.sql.SQLException;
 import data.services.impl.LeaveFormService;
 import java.sql.Date;

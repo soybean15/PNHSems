@@ -4,6 +4,7 @@
  */
 package data.controllers.form;
 
+import data.model.Department;
 import otherclasses.UtilClass;
 import data.model.Position;
 import java.sql.Date;
@@ -131,6 +132,18 @@ public class EmployeeValidation {
             }
          
          return positions.get(index-1);
+        
+    }
+    
+     public Department checkDepartment(int index,List< Department> departments) throws InvalidInputException  {
+        
+         if (index < 1) {
+              
+                throw new InvalidInputException("Please Select a Department");
+               
+            }
+         
+         return departments.get(index-1);
         
     }
     

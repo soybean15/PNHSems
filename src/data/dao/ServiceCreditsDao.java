@@ -27,5 +27,7 @@ public interface ServiceCreditsDao {
    public ServiceCredit get(int id)
              throws SQLException ;
    
+   public int reset()
+           throws SQLException;
     
 }

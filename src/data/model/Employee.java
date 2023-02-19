@@ -25,6 +25,7 @@ public class Employee {
     private String placeOfBirth;
     private String image;
     private Position position;
+    private Department department;
     private Employee_PersonalInfo personalInfo;
     private java.sql.Timestamp created_at;
     private java.sql.Timestamp last_updated;
@@ -141,6 +142,18 @@ public class Employee {
     public void setPosition(Position position) {
         this.position = position;
     }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+    
+    
+    
+    
     
     
     public boolean validate(){
@@ -149,7 +162,8 @@ public class Employee {
                 lastName !=null &&
                 gender !=null &&
                 position !=null &&
-                birthDate !=null;
+                birthDate !=null &&
+                department !=null;
         
     }
     

@@ -10,6 +10,7 @@ import data.controllers.ServiceCreditController;
 import data.dao.implement.UserDaoImplement;
 import data.database.Database;
 import data.database.DbConnection;
+import data.model.Department;
 import data.model.Employee;
 import data.model.EmployeeServiceCredit;
 import data.model.Employee_PersonalInfo;
@@ -34,10 +35,12 @@ public class TempData {
         DbConnection.getConnection();
       
         addUsers();
+        addDepartment();
         addPositions();
         addEmployee();
         addEmployee();
         addEmployee();
+        
         addServiceCredit();
         addServiceCreditOnEmployee();
         addLeaveType();
@@ -309,5 +312,27 @@ public class TempData {
         }
 
     }
+    
+   static void addDepartment(){
+       EmployeeController controller = new EmployeeController();
+       try{
+           
+           Department department1 = new Department();
+           department1.setName("English");
+           controller.addDepartment(department1);
+           
+           Department department2 = new Department();
+           department2.setName("Math");
+           controller.addDepartment(department2);
+           
+           Department department3 = new Department();
+           department3.setName("Filipino");
+           controller.addDepartment(department3);
+           
+           
+       }catch(SQLException e){
+           
+       }
+   }
 
 }

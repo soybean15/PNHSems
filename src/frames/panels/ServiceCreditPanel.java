@@ -15,6 +15,7 @@ import java.awt.GridLayout;
 import java.util.List;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import otherclasses.BaseClass;
 import otherclasses.ImageHandler;
 import pnhsems.InvalidInputException;
 import themes.Theme;
@@ -28,6 +29,8 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
     /**
      * Creates new form ServiceCreditPanel
      */
+    
+    //UPDATE employee_and_service_credits set remaining_days = (SELECT no_of_days FROM service_credits WHERE service_credits.id = employee_and_service_credits.service_credits_id)
     ServiceCreditController controller = new ServiceCreditController();
     List<ServiceCredit> serviceCredits;
 
@@ -276,6 +279,8 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
         jPanel20 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
+        jPanel22 = new javax.swing.JPanel();
+        jButton4 = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
 
         setBackground(Theme.PRIMARY.COLOR.background_secondary);
@@ -579,6 +584,18 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
 
         jPanel2.add(jPanel20, java.awt.BorderLayout.LINE_START);
 
+        jPanel22.setLayout(new java.awt.BorderLayout());
+
+        jButton4.setIcon(new javax.swing.ImageIcon(ImageHandler.getIconPath("/img/icons/reset-icon.png")));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel22.add(jButton4, java.awt.BorderLayout.EAST);
+
+        jPanel2.add(jPanel22, java.awt.BorderLayout.CENTER);
+
         add(jPanel2, java.awt.BorderLayout.NORTH);
 
         jPanel11.setOpaque(false);
@@ -659,6 +676,19 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
 
     }//GEN-LAST:event_btn2ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+ 
+        String password = JOptionPane.showInputDialog(null, "Enter your password:", "Password Required", JOptionPane.PLAIN_MESSAGE);
+
+        
+        // Check if the password is correct
+        if (password != null && password.equals(BaseClass.user.getPassword())) {
+            JOptionPane.showMessageDialog(null, "All Service credits was reset .", "Success", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Invalid password, please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel addEditDetailPanel;
@@ -667,6 +697,7 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
     private javax.swing.JPanel detailContainer;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -689,6 +720,7 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;

@@ -4,10 +4,10 @@
  */
 package frames.components;
 
-import data.controllers.EmployeeController;
 import data.model.EmployeeServiceCredit;
 import frames.listener.EmployeeServiceCreditListener;
 import java.awt.Color;
+import otherclasses.ImageHandler;
 import themes.Theme;
 
 
@@ -151,7 +151,7 @@ public class EmployeeServiceCreditItem extends javax.swing.JPanel {
 
         jButton2.setBackground(new java.awt.Color(255, 0, 0));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Remove");
+        jButton2.setIcon(new javax.swing.ImageIcon(ImageHandler.getIconPath("/img/icons/delete-16.png")));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);

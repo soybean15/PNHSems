@@ -5,7 +5,6 @@
 package pagination.listener;
 
 import java.awt.Color;
-import javax.swing.JLabel;
 import pagination.event.PaginationEvent;
 
 /**

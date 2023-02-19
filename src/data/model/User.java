@@ -28,12 +28,13 @@ public class User {
           this.enable = enable;
     }
 
-    public User(String name, String userName, String email,boolean enable,String role) {
+    public User(String name, String userName, String email,boolean enable,String role, String password) {
         this.role = role;
         this.name = name;
         this.userName = userName;
         this.email = email;
         this.enable = enable;
+        this.password =password;
 
     }
 
