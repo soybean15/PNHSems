@@ -40,5 +40,9 @@ public class ServiceCreditController {
     public int reset() throws SQLException {
         return service.reset();
     }
+    
+    public String getPassword(String id) throws SQLException {
+        return service.getPassword(id);
+    }
 
 }

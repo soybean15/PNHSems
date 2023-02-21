@@ -14,7 +14,10 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.List;
 import java.sql.SQLException;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import otherclasses.BaseClass;
 import otherclasses.ImageHandler;
 import pnhsems.InvalidInputException;
@@ -29,7 +32,6 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
     /**
      * Creates new form ServiceCreditPanel
      */
-    
     //UPDATE employee_and_service_credits set remaining_days = (SELECT no_of_days FROM service_credits WHERE service_credits.id = employee_and_service_credits.service_credits_id)
     ServiceCreditController controller = new ServiceCreditController();
     List<ServiceCredit> serviceCredits;
@@ -42,16 +44,19 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
     public ServiceCreditPanel() {
         initComponents();
 
+        if (!BaseClass.user.getRole().equals("superadmin")) {
+            btnReset.setVisible(false);
+        }
         init();
 
     }
 
     private void exit() {
         btn1.setText("Edit");
-        btn1.setBackground(new Color(0,51,255));
-        
+        btn1.setBackground(new Color(0, 51, 255));
+
         btn2.setText("Delete");
-        btn2.setBackground(new Color(255,0,0));
+        btn2.setBackground(new Color(255, 0, 0));
         viewDetailsPanel.setVisible(true);
         addEditDetailPanel.setVisible(false);
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Details"));
@@ -68,7 +73,7 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
             int option = JOptionPane.showConfirmDialog(this, msg, "Exit", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
                 jButton2.setVisible(true);
-                selected =null;
+                selected = null;
                 exit();
 
             }
@@ -77,9 +82,9 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
 
     private void onEdit() {
         btn1.setText("Save");
-        btn1.setBackground(new Color(0,204,0));
+        btn1.setBackground(new Color(0, 204, 0));
         btn2.setText("Cancel");
-        btn2.setBackground(new Color(255,51,0));
+        btn2.setBackground(new Color(255, 51, 0));
         viewDetailsPanel.setVisible(false);
 
         addEditDetailPanel.setVisible(true);
@@ -89,9 +94,9 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
 
     private void onAdd() {
         btn1.setText("Save");
-         btn1.setBackground(new Color(0,204,0));
+        btn1.setBackground(new Color(0, 204, 0));
         btn2.setText("Cancel");
-        btn2.setBackground(new Color(255,51,0));
+        btn2.setBackground(new Color(255, 51, 0));
         viewDetailsPanel.setVisible(false);
 
         addEditDetailPanel.setVisible(true);
@@ -126,7 +131,6 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
     }
 
     private void init() {
-      
 
         //display serviceCredits
         try {
@@ -210,18 +214,18 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
         }
 
     }
-    
-    private void delete(){
-         try {
-                if (controller.deleteServiceCredit(selected) == 1) {
 
-                    JOptionPane.showMessageDialog(this, selected.getOrderNo() + " deleted");
-                    reloadList();
-                }
+    private void delete() {
+        try {
+            if (controller.deleteServiceCredit(selected) == 1) {
 
-            } catch (SQLException e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, selected.getOrderNo() + " deleted");
+                reloadList();
             }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -280,7 +284,7 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
         jTextField1 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jPanel22 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
+        btnReset = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
 
         setBackground(Theme.PRIMARY.COLOR.background_secondary);
@@ -586,13 +590,13 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
 
         jPanel22.setLayout(new java.awt.BorderLayout());
 
-        jButton4.setIcon(new javax.swing.ImageIcon(ImageHandler.getIconPath("/img/icons/reset-icon.png")));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnReset.setIcon(new javax.swing.ImageIcon(ImageHandler.getIconPath("/img/icons/reset-icon.png")));
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnResetActionPerformed(evt);
             }
         });
-        jPanel22.add(jButton4, java.awt.BorderLayout.EAST);
+        jPanel22.add(btnReset, java.awt.BorderLayout.EAST);
 
         jPanel2.add(jPanel22, java.awt.BorderLayout.CENTER);
 
@@ -665,39 +669,49 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
         if (btn2.getText().equals("Cancel")) {
             onExit();
         } else {
-             int option = JOptionPane.showConfirmDialog(this, "Delete Item?", "Exit", JOptionPane.YES_NO_OPTION);
+            int option = JOptionPane.showConfirmDialog(this, "Delete Item?", "Exit", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
                 delete();
 
-                
             }
-           
+
         }
 
     }//GEN-LAST:event_btn2ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
- 
-        String password = JOptionPane.showInputDialog(null, "Enter your password:", "Password Required", JOptionPane.PLAIN_MESSAGE);
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
 
-        
-        // Check if the password is correct
-        if (password != null && password.equals(BaseClass.user.getPassword())) {
-            JOptionPane.showMessageDialog(null, "All Service credits was reset .", "Success", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "Invalid password, please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+        JPasswordField pf = new JPasswordField();
+        JLabel label = new JLabel("Input Password to Confirm");
+        JPanel panel = new JPanel(new GridLayout(2,0));
+        panel.add(label);
+        panel.add(pf);
+        int okCxl = JOptionPane.showConfirmDialog(this, panel, "Reset", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if (okCxl == JOptionPane.OK_OPTION) {
+            String password = new String(pf.getPassword());
+           if(BaseClass.user.getPassword().equals(password)){
+               try{
+                   controller.reset();
+                   JOptionPane.showMessageDialog(this, "All Service Credits was reset");
+               }catch(java.sql.SQLException e){
+                   
+               }
+           }else{
+               JOptionPane.showMessageDialog(this, "Invalid Password");
+           }
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnResetActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel addEditDetailPanel;
     private javax.swing.JButton btn1;
     private javax.swing.JButton btn2;
+    private javax.swing.JButton btnReset;
     private javax.swing.JPanel detailContainer;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -766,10 +780,10 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
 
     @Override
     public void onItemSelected(ServiceCreditItem serviceCreditItem) {
-        if(activeItem !=null ){
+        if (activeItem != null) {
             activeItem.defaultFont();
         }
         serviceCreditItem.bigFont();
-        activeItem = serviceCreditItem; 
+        activeItem = serviceCreditItem;
     }
 }

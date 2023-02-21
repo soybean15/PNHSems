@@ -29,5 +29,8 @@ public interface ServiceCreditsDao {
    
    public int reset()
            throws SQLException;
+   
+   public String getPassword(String id)
+           throws SQLException;
     
 }

@@ -56,8 +56,6 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
     JPanel activeSidePanel;
     JPanel activeProfilePanel;
 
-   
-
     /**
      * Creates new form MainFrame
      */
@@ -67,12 +65,11 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
     }
 
     private void init() {
-        
-       //  BaseClass.user = UserController.getUser();
 
-         if(!BaseClass.user.getRole().equals("superadmin")){
-        sidePanelMenu.remove(sidePanelUsers);
-        sidePanelMenu.repaint();
+        //  BaseClass.user = UserController.getUser();
+        if (!BaseClass.user.getRole().equals("superadmin")) {
+            sidePanelMenu.remove(sidePanelUsers);
+            sidePanelMenu.repaint();
         }
         mainContainer.add(userPanel).setVisible(false);
 
@@ -399,13 +396,13 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
     }//GEN-LAST:event_sidePanelUsersMouseClicked
 
     private void sidePanelLogOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sidePanelLogOutMouseClicked
-         int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to Log out?","Log out",JOptionPane.YES_NO_OPTION);
-            if(option == JOptionPane.YES_OPTION){
-               BaseClass.user = null;
-               LoginFrame frame = new LoginFrame();
-               frame.setVisible(true);
-               dispose();
-            }
+        int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to Log out?", "Log out", JOptionPane.YES_NO_OPTION);
+        if (option == JOptionPane.YES_OPTION) {
+            BaseClass.user = null;
+            LoginFrame frame = new LoginFrame();
+            frame.setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_sidePanelLogOutMouseClicked
 
     /**
@@ -572,8 +569,8 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
         employeePanels.put("employee_service_credits", employeeServiceCreditsPanel);
         employeeLeaveLogsPanel = new EmployeeLeaveLogsPanel(employee);
         employeePanels.put("employee_leave_logs", employeeLeaveLogsPanel);
-        leaveFormPanel = new LeaveFormPanel(this,employee);
-         employeePanels.put("leave_form", leaveFormPanel);
+        leaveFormPanel = new LeaveFormPanel(this, employee);
+        employeePanels.put("leave_form", leaveFormPanel);
 
         mainContainer.add(employeeProfilePanel).setVisible(false);
         mainContainer.add(employeeServiceCreditsPanel).setVisible(false);
@@ -615,33 +612,34 @@ public class MainFrame extends javax.swing.JFrame implements MainPanelListener, 
     @Override
     public void onEmployeeProfileClick(Employee employee) {
 
-        onEmployeeProfileClick(false, employee,null);
+        onEmployeeProfileClick(false, employee, null);
 
     }
 
     @Override
-    public void onOpeningLeaveForm(Employee employee,EmployeeServiceCredit employeeServiceCredit ) {
-       
-        onEmployeeProfileClick(true, employee,employeeServiceCredit);
+    public void onOpeningLeaveForm(Employee employee, EmployeeServiceCredit employeeServiceCredit) {
+
+        onEmployeeProfileClick(true, employee, employeeServiceCredit);
 
     }
 
-    private void onEmployeeProfileClick(boolean openLeaveForm, Employee employee,EmployeeServiceCredit employeeServiceCredit) {
+    private void onEmployeeProfileClick(boolean openLeaveForm, Employee employee, EmployeeServiceCredit employeeServiceCredit) {
         sidePanelMenu.setVisible(false);
         activeMainPanel.setVisible(false);
-    
+
         if (sidePanelEmployeeProfile != null) {
-          
+
             sideContainer.remove(sidePanelEmployeeProfile);
             sideContainer.repaint();
             sideContainer.revalidate();
         }
 
         sidePanelEmployeeProfile = new SidePanelEmployeeProfile(this, employee, openLeaveForm);
-       
-       if(openLeaveForm) sidePanelEmployeeProfile.setLeaveFormServiceCredit(employeeServiceCredit);
+
+        if (openLeaveForm) {
+            sidePanelEmployeeProfile.setLeaveFormServiceCredit(employeeServiceCredit);
+        }
         sideContainer.add(sidePanelEmployeeProfile).setVisible(true);
     }
 
-   
 }

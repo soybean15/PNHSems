@@ -1,4 +1,5 @@
 
+import data.controllers.ServiceCreditController;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -22,5 +23,15 @@ public class TestClass {
         this.title = title;
         this.artist = artist;
         
+    }
+    public static void main(String[] args) {
+        ServiceCreditController controller = new ServiceCreditController();
+        
+        try{
+          
+            System.out.println(  controller.reset());
+        }catch(java.sql.SQLException e){
+            
+        }
     }
 }

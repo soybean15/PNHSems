@@ -53,5 +53,9 @@ public class ServiceCreditService {
     public int reset() throws SQLException {
        return serviceCreditDao.reset();
     }
+    
+    public String getPassword(String id) throws SQLException {
+        return serviceCreditDao.getPassword(id);
+    }
 
 }
