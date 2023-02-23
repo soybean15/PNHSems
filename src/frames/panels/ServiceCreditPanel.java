@@ -588,6 +588,8 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
 
         jPanel2.add(jPanel20, java.awt.BorderLayout.LINE_START);
 
+        jPanel22.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel22.setOpaque(false);
         jPanel22.setLayout(new java.awt.BorderLayout());
 
         btnReset.setIcon(new javax.swing.ImageIcon(ImageHandler.getIconPath("/img/icons/reset-icon.png")));

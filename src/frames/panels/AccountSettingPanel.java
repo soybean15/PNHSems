@@ -66,8 +66,10 @@ public class AccountSettingPanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new java.awt.BorderLayout());
 
+        jPanel1.setOpaque(false);
         jPanel1.setLayout(new java.awt.GridLayout(5, 0));
 
+        jPanel2.setOpaque(false);
         jPanel2.setLayout(new java.awt.BorderLayout());
 
         jLabel1.setText("   Name:");
@@ -75,11 +77,13 @@ public class AccountSettingPanel extends javax.swing.JPanel {
         jPanel2.add(jLabel1, java.awt.BorderLayout.WEST);
         jPanel2.add(txtName, java.awt.BorderLayout.CENTER);
 
+        jPanel3.setOpaque(false);
         jPanel3.setPreferredSize(new java.awt.Dimension(300, 30));
         jPanel2.add(jPanel3, java.awt.BorderLayout.EAST);
 
         jPanel1.add(jPanel2);
 
+        jPanel6.setOpaque(false);
         jPanel6.setLayout(new java.awt.BorderLayout());
 
         jLabel2.setText("   Email:");
@@ -87,35 +91,41 @@ public class AccountSettingPanel extends javax.swing.JPanel {
         jPanel6.add(jLabel2, java.awt.BorderLayout.WEST);
         jPanel6.add(txtEmail, java.awt.BorderLayout.CENTER);
 
+        jPanel7.setOpaque(false);
         jPanel7.setPreferredSize(new java.awt.Dimension(300, 30));
         jPanel6.add(jPanel7, java.awt.BorderLayout.EAST);
 
         jPanel1.add(jPanel6);
 
+        jPanel8.setOpaque(false);
         jPanel8.setLayout(new java.awt.BorderLayout());
 
         jLabel3.setText("   Old Password:");
         jLabel3.setPreferredSize(new java.awt.Dimension(120, 17));
         jPanel8.add(jLabel3, java.awt.BorderLayout.WEST);
 
+        jPanel9.setOpaque(false);
         jPanel9.setPreferredSize(new java.awt.Dimension(300, 30));
         jPanel8.add(jPanel9, java.awt.BorderLayout.EAST);
         jPanel8.add(txtOld, java.awt.BorderLayout.CENTER);
 
         jPanel1.add(jPanel8);
 
+        jPanel10.setOpaque(false);
         jPanel10.setLayout(new java.awt.BorderLayout());
 
         jLabel4.setText("   New Password:");
         jLabel4.setPreferredSize(new java.awt.Dimension(120, 17));
         jPanel10.add(jLabel4, java.awt.BorderLayout.WEST);
 
+        jPanel11.setOpaque(false);
         jPanel11.setPreferredSize(new java.awt.Dimension(300, 30));
         jPanel10.add(jPanel11, java.awt.BorderLayout.EAST);
         jPanel10.add(txtNew, java.awt.BorderLayout.CENTER);
 
         jPanel1.add(jPanel10);
 
+        jPanel12.setOpaque(false);
         jPanel12.setLayout(new java.awt.BorderLayout());
 
         jButton1.setText("Save");
@@ -126,9 +136,11 @@ public class AccountSettingPanel extends javax.swing.JPanel {
         });
         jPanel12.add(jButton1, java.awt.BorderLayout.CENTER);
 
+        jPanel13.setOpaque(false);
         jPanel13.setPreferredSize(new java.awt.Dimension(300, 100));
         jPanel12.add(jPanel13, java.awt.BorderLayout.LINE_END);
 
+        jPanel14.setOpaque(false);
         jPanel14.setPreferredSize(new java.awt.Dimension(200, 100));
         jPanel12.add(jPanel14, java.awt.BorderLayout.LINE_START);
 
@@ -136,9 +148,11 @@ public class AccountSettingPanel extends javax.swing.JPanel {
 
         add(jPanel1, java.awt.BorderLayout.CENTER);
 
+        jPanel4.setOpaque(false);
         jPanel4.setPreferredSize(new java.awt.Dimension(100, 70));
         add(jPanel4, java.awt.BorderLayout.NORTH);
 
+        jPanel5.setOpaque(false);
         jPanel5.setPreferredSize(new java.awt.Dimension(100, 300));
         add(jPanel5, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
