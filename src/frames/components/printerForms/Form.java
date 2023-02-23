@@ -166,7 +166,9 @@ public class Form extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
+        formContainer = new javax.swing.JPanel();
         container = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
@@ -325,12 +327,38 @@ public class Form extends javax.swing.JFrame {
         jPanel47 = new javax.swing.JPanel();
         lblAdmin5 = new javax.swing.JLabel();
         jLabel58 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jPanel65 = new javax.swing.JPanel();
+        jPanel66 = new javax.swing.JPanel();
+        jLabel57 = new javax.swing.JLabel();
+        jLabel59 = new javax.swing.JLabel();
+        jLabel61 = new javax.swing.JLabel();
+        jLabel63 = new javax.swing.JLabel();
+        jLabel70 = new javax.swing.JLabel();
+        jPanel67 = new javax.swing.JPanel();
+        jLabel71 = new javax.swing.JLabel();
+        jLabel72 = new javax.swing.JLabel();
+        jLabel73 = new javax.swing.JLabel();
+        jLabel74 = new javax.swing.JLabel();
+        jLabel75 = new javax.swing.JLabel();
+        jLabel76 = new javax.swing.JLabel();
+        jLabel77 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(595, 800));
+        setPreferredSize(new java.awt.Dimension(600, 723));
         setResizable(false);
 
+        jButton1.setText("Print");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, java.awt.BorderLayout.NORTH);
+
+        formContainer.setPreferredSize(new java.awt.Dimension(600, 850));
+        formContainer.setLayout(new java.awt.BorderLayout());
+
+        container.setPreferredSize(new java.awt.Dimension(600, 723));
         container.setLayout(new java.awt.BorderLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -1116,17 +1144,79 @@ public class Form extends javax.swing.JFrame {
 
         container.add(jPanel23, java.awt.BorderLayout.SOUTH);
 
-        jScrollPane1.setViewportView(container);
+        formContainer.add(container, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(jScrollPane1, java.awt.BorderLayout.PAGE_END);
+        jPanel65.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel65.setPreferredSize(new java.awt.Dimension(731, 150));
+        jPanel65.setLayout(new java.awt.BorderLayout());
 
-        jButton1.setText("Print");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1, java.awt.BorderLayout.NORTH);
+        jPanel66.setOpaque(false);
+        jPanel66.setPreferredSize(new java.awt.Dimension(731, 55));
+        jPanel66.setLayout(new java.awt.GridLayout(5, 0));
+
+        jLabel57.setFont(new java.awt.Font("Liberation Serif", 0, 12)); // NOI18N
+        jLabel57.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel57.setText("GUIDELINES ON THE FILING OF APPLICATION");
+        jPanel66.add(jLabel57);
+
+        jLabel59.setFont(new java.awt.Font("Liberation Serif", 0, 12)); // NOI18N
+        jLabel59.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel59.setText("FOR VACATION/SICK LEAVE OF ABSENCE");
+        jPanel66.add(jLabel59);
+
+        jLabel61.setFont(new java.awt.Font("Liberation Serif", 0, 12)); // NOI18N
+        jLabel61.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel61.setText("(MECS ORDER NO. 26, s. 1985)");
+        jPanel66.add(jLabel61);
+
+        jLabel63.setFont(new java.awt.Font("Liberation Serif", 0, 14)); // NOI18N
+        jLabel63.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel66.add(jLabel63);
+
+        jLabel70.setFont(new java.awt.Font("Liberation Serif", 0, 12)); // NOI18N
+        jLabel70.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel70.setText("INSTRUCTION");
+        jPanel66.add(jLabel70);
+
+        jPanel65.add(jPanel66, java.awt.BorderLayout.NORTH);
+
+        jPanel67.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel67.setPreferredSize(new java.awt.Dimension(731, 100));
+        jPanel67.setLayout(new java.awt.GridLayout(5, 0));
+
+        jLabel71.setFont(new java.awt.Font("FreeSerif", 0, 10)); // NOI18N
+        jLabel71.setText("<html>         1. Application for vacation or sick Leave for one(1) full day or more shall be made on this Form, and to accomplished at least in duplicate.</html>");
+        jPanel67.add(jLabel71);
+
+        jLabel72.setFont(new java.awt.Font("FreeSerif", 0, 10)); // NOI18N
+        jLabel72.setText("<html>         2. Application for vacation Leave shall filed in advance or whenever possible five(5) days before going on such leave.</html>");
+        jPanel67.add(jLabel72);
+
+        jLabel73.setFont(new java.awt.Font("FreeSerif", 0, 10)); // NOI18N
+        jLabel73.setText("<html>         3. Application for sick leave filed in advace or exceeding five(5) days shall be accomplished by a medical certificate. In case medical consultation was not availed of, an affidavit should be executed by the applicant.</html>");
+        jPanel67.add(jLabel73);
+
+        jLabel74.setFont(new java.awt.Font("FreeSerif", 0, 10)); // NOI18N
+        jLabel74.setText("<html>         4. An employee who is absent without approved leave shall not entitled to receive salary corresponding to the period of his unautorized leave of absence.</html>");
+        jPanel67.add(jLabel74);
+
+        jLabel75.setFont(new java.awt.Font("FreeSerif", 0, 10)); // NOI18N
+        jLabel75.setText("<html>        5.An application for leave of absence for thirty(30) calendar days or more shall accompanied by a clearance from money and property accountabilities.</html>");
+        jPanel67.add(jLabel75);
+
+        jPanel65.add(jPanel67, java.awt.BorderLayout.CENTER);
+
+        jLabel76.setText("       ");
+        jPanel65.add(jLabel76, java.awt.BorderLayout.WEST);
+
+        jLabel77.setText("       ");
+        jPanel65.add(jLabel77, java.awt.BorderLayout.EAST);
+
+        formContainer.add(jPanel65, java.awt.BorderLayout.SOUTH);
+
+        jScrollPane1.setViewportView(formContainer);
+
+        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1139,15 +1229,15 @@ public class Form extends javax.swing.JFrame {
         PageFormat pf = job.defaultPage();
         
         Paper paper = pf.getPaper();
-        double width = container.getWidth();
-        double height = container.getHeight();
+        double width = formContainer.getWidth();
+        double height = formContainer.getHeight();
        // paper.setSize(595.0, 842.0); // Set size to A4\
        paper.setSize(8.5* 72, 13.0* 72);
         paper.setImageableArea(0, 0, width, height);
         pf.setPaper(paper);
         
         
-        job.setPrintable(new PanelPrintable(container), pf);
+        job.setPrintable(new PanelPrintable(formContainer), pf);
       
         
         boolean doPrint = job.printDialog();
@@ -1198,6 +1288,7 @@ public class Form extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel container;
+    private javax.swing.JPanel formContainer;
     private javax.swing.JLabel headerContent1;
     private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
@@ -1262,10 +1353,14 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
+    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
+    private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
+    private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
     private javax.swing.JLabel jLabel66;
@@ -1273,6 +1368,14 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel70;
+    private javax.swing.JLabel jLabel71;
+    private javax.swing.JLabel jLabel72;
+    private javax.swing.JLabel jLabel73;
+    private javax.swing.JLabel jLabel74;
+    private javax.swing.JLabel jLabel75;
+    private javax.swing.JLabel jLabel76;
+    private javax.swing.JLabel jLabel77;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -1336,6 +1439,9 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel62;
     private javax.swing.JPanel jPanel63;
     private javax.swing.JPanel jPanel64;
+    private javax.swing.JPanel jPanel65;
+    private javax.swing.JPanel jPanel66;
+    private javax.swing.JPanel jPanel67;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;

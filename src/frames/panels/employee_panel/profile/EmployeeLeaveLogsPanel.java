@@ -22,6 +22,7 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import otherclasses.ImageHandler;
 import otherclasses.UtilClass;
 import pagination.PaginationHandler;
 import pagination.event.PaginationEvent;
@@ -466,7 +467,7 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
         jLabel3.setText("    Filter:  ");
         jPanel20.add(jLabel3, java.awt.BorderLayout.WEST);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/refresh.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(ImageHandler.getIconPath("/img/icons/refresh.png")));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
