@@ -179,6 +179,10 @@ public class TempData {
             personalInfo.setPermanentAddress("");
 
             employee.setPersonalInfo(personalInfo);
+            Department department = new Department();
+            department.setId(1);
+            
+            employee.setDepartment(department);
 
             employeeController.addEmployee(employee);
             System.out.println(employee.getId() + " added");

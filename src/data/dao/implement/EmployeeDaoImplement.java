@@ -104,11 +104,13 @@ public class EmployeeDaoImplement implements EmployeeDao {
             ps.setString(16, personalInfo.getPermanentAddress());
 
             n = ps.executeUpdate();
+           
 
             conn.commit();
         } catch (SQLException ex) {
             ex.printStackTrace();
             conn.rollback();
+            System.out.print("ROLLBACK<<<<<<<<<<<<<<<<<<<");
         }
 
         return n;
@@ -470,11 +472,21 @@ public class EmployeeDaoImplement implements EmployeeDao {
     @Override
     public int addDepartment(Department department) throws SQLException {
         String query = "insert into department(name) values(?)";
+        int n=0;
+        try{
+            conn.setAutoCommit(false);
+            PreparedStatement pst = conn.prepareStatement(query);
+             pst.setString(1, department.getName());
+             n=pst.executeUpdate();
+             conn.commit();
+        }catch(SQLException e){
+            e.printStackTrace();
+            conn.rollback();
+        }
 
-        PreparedStatement pst = conn.prepareStatement(query);
-        pst.setString(1, department.getName());
 
-        return pst.executeUpdate();
+
+        return n;
 
     }
 

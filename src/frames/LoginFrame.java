@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import otherclasses.BaseClass;
+import otherclasses.ImageHandler;
 import pnhsems.InvalidInputException;
 import themes.Theme;
 
@@ -20,7 +21,7 @@ import themes.Theme;
  * @author root
  */
 public class LoginFrame extends javax.swing.JFrame {
-    
+
     UserController controller = new UserController();
 
     /**
@@ -30,18 +31,34 @@ public class LoginFrame extends javax.swing.JFrame {
 
     JLabel selectedLabel;
     JPanel selectedPanel;
-    
-    boolean username, password, name,email;
 
-  
-  
+    boolean username, password, name, email;
 
     public LoginFrame() {
         initComponents();
         init();
     }
-    
-    
+
+    private void login() {
+        String username = txtLoginUsername.getText();
+        String password = String.valueOf(txtLoginPassword.getPassword());
+        try {
+
+            BaseClass.user = controller.login(username, password);
+
+            if (BaseClass.user != null) {
+                System.out.println(BaseClass.user.getRole());
+                new MainFrame().setVisible(true);
+                dispose();
+            } else {
+                lblWarning.setText("Invalid Username and Password");
+            }
+        } catch (SQLException e) {
+            lblWarning.setText("Something went wrong");
+        } catch (InvalidInputException iie) {
+            lblWarning.setText("<html><center>" + iie.getMessage() + "</center></html>");
+        }
+    }
 
     private void init() {
         //set up frame
@@ -67,32 +84,26 @@ public class LoginFrame extends javax.swing.JFrame {
         lblLogin.setForeground(primary.COLOR.foreground_white);
         lblLogin.setFont(primary.FONT.defaultFont(13));
 
-       
-
         selectedLabel(jLabel1, panelLogin);
         hideWarningLabel();
         checkAllField();
-        
-       
+
     }
-    
-    
-    
-    private void checkAllField(){
-        
-        if( username && password && name && email){
-            
-            
-        lblSave.setBackground(primary.COLOR.background_primary);
-        lblSave.setForeground(primary.COLOR.foreground_white);
-        lblSave.setFont(primary.FONT.defaultFont(13));
-            
-        }else{
-            lblSave.setBackground(new Color(102,102,102));
+
+    private void checkAllField() {
+
+        if (username && password && name && email) {
+
+            lblSave.setBackground(primary.COLOR.background_primary);
+            lblSave.setForeground(primary.COLOR.foreground_white);
+            lblSave.setFont(primary.FONT.defaultFont(13));
+
+        } else {
+            lblSave.setBackground(new Color(102, 102, 102));
             lblSave.setForeground(primary.COLOR.foreground_white);
             lblSave.setFont(primary.FONT.defaultFont(13));
         }
-       
+
     }
 
     /**
@@ -105,6 +116,8 @@ public class LoginFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         sidePanel = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -140,17 +153,16 @@ public class LoginFrame extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         sidePanel.setBackground(new java.awt.Color(204, 204, 255));
+        sidePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout sidePanelLayout = new javax.swing.GroupLayout(sidePanel);
-        sidePanel.setLayout(sidePanelLayout);
-        sidePanelLayout.setHorizontalGroup(
-            sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 180, Short.MAX_VALUE)
-        );
-        sidePanelLayout.setVerticalGroup(
-            sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 390, Short.MAX_VALUE)
-        );
+        jLabel10.setIcon(ImageHandler.getLogo(130, 130));
+        sidePanel.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 130, 130));
+        jLabel10.getAccessibleContext().setAccessibleDescription("");
+
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Copyright© 2023");
+        sidePanel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 180, -1));
 
         getContentPane().add(sidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 390));
 
@@ -222,6 +234,12 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("AnjaliOldLipi", 1, 14)); // NOI18N
         jLabel5.setText("Password");
         panelLogin.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
+
+        txtLoginPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtLoginPasswordKeyPressed(evt);
+            }
+        });
         panelLogin.add(txtLoginPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 250, 25));
 
         lblLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -424,56 +442,55 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLoginMouseReleased
 
     private void lblSaveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSaveMouseEntered
-        if( username && password && name && email)
-        lblSave.setBackground(primary.COLOR.backgroundOnTop);
+        if (username && password && name && email)
+            lblSave.setBackground(primary.COLOR.backgroundOnTop);
     }//GEN-LAST:event_lblSaveMouseEntered
 
     private void lblSaveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSaveMouseExited
-       if( username && password && name && email){
-        lblSave.setFont(primary.FONT.defaultFont(13));
-        lblSave.setBackground(primary.COLOR.background_primary);
-       }
+        if (username && password && name && email) {
+            lblSave.setFont(primary.FONT.defaultFont(13));
+            lblSave.setBackground(primary.COLOR.background_primary);
+        }
     }//GEN-LAST:event_lblSaveMouseExited
 
     private void lblSaveMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSaveMousePressed
-        if( username && password && name && email){
-        lblSave.setForeground(primary.COLOR.foregroundOnTop);
-        lblSave.setBackground(primary.COLOR.background_primary);
+        if (username && password && name && email) {
+            lblSave.setForeground(primary.COLOR.foregroundOnTop);
+            lblSave.setBackground(primary.COLOR.background_primary);
         }
     }//GEN-LAST:event_lblSaveMousePressed
 
     private void lblSaveMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSaveMouseReleased
-        if( username && password && name && email){
-        lblSave.setForeground(primary.COLOR.foreground_white);
-        lblSave.setBackground(primary.COLOR.backgroundOnTop);
+        if (username && password && name && email) {
+            lblSave.setForeground(primary.COLOR.foreground_white);
+            lblSave.setBackground(primary.COLOR.backgroundOnTop);
         }
     }//GEN-LAST:event_lblSaveMouseReleased
 
     private void txtRegUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRegUsernameFocusLost
-       
-           
+
         try {
             if (controller.checkUserName(txtRegUsername.getText())) {
 
                 throw new InvalidInputException("Username Already exist");
 
-            }else if(txtRegUsername.getText().equals("")){
+            } else if (txtRegUsername.getText().equals("")) {
                 throw new InvalidInputException("Username field is empty");
             }
             username_warning.setVisible(false);
-            username=true;
+            username = true;
         } catch (InvalidInputException iie) {
-            
+
             username_warning.setVisible(true);
             username_warning.setText(iie.getMessage());
-            username =false;
+            username = false;
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally{
-              checkAllField();
+        } finally {
+            checkAllField();
         }
-        
-       
+
+
     }//GEN-LAST:event_txtRegUsernameFocusLost
 
     private void txtRegUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRegUsernameFocusGained
@@ -481,18 +498,17 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_txtRegUsernameFocusGained
 
     private void txtRegEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRegEmailFocusLost
-       
-          
+
         try {
             if (controller.checkEmail(txtRegEmail.getText())) {
 
                 throw new InvalidInputException("Email Already exist");
 
-            }else if(txtRegEmail.getText().equals("")){
+            } else if (txtRegEmail.getText().equals("")) {
                 throw new InvalidInputException("Email field is Empty");
             }
             email_warning.setVisible(false);
-            email =true;
+            email = true;
         } catch (InvalidInputException iie) {
             email_warning.setVisible(true);
             email_warning.setText(iie.getMessage());
@@ -500,112 +516,93 @@ public class LoginFrame extends javax.swing.JFrame {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally{
-              checkAllField();
+        } finally {
+            checkAllField();
         }
-        
-       
+
+
     }//GEN-LAST:event_txtRegEmailFocusLost
 
     private void lblLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLoginMouseClicked
-       String username = txtLoginUsername.getText();
-       String password = String.valueOf(txtLoginPassword.getPassword());
-        try{
-            
-            
-           
-            
-            BaseClass.user = controller.login(username, password);
-            
-            if(BaseClass.user != null){
-                System.out.println( BaseClass.user.getRole());
-                new MainFrame().setVisible(true);
-                dispose();
-            }else{
-                lblWarning.setText("Invalid Username and Password");
-            }
-        }catch(SQLException e){
-            lblWarning.setText("Something went wrong");
-        }catch(InvalidInputException iie){
-            lblWarning.setText("<html><center>"+iie.getMessage()+"</center></html>");
-        }
+        login();
     }//GEN-LAST:event_lblLoginMouseClicked
 
     private void txtRegNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRegNameFocusLost
-         
-        try{
-            if(txtRegName.getText().equals("")){
-                 throw new InvalidInputException("Name field is empty");
+
+        try {
+            if (txtRegName.getText().equals("")) {
+                throw new InvalidInputException("Name field is empty");
             }
             name_warning.setVisible(false);
             name = true;
-        }catch(InvalidInputException iie){
+        } catch (InvalidInputException iie) {
             name_warning.setVisible(true);
             name_warning.setText(iie.getMessage());
-            name=false;
-        }finally{
-              checkAllField();
+            name = false;
+        } finally {
+            checkAllField();
         }
-        
-     
+
+
     }//GEN-LAST:event_txtRegNameFocusLost
 
     private void txtRegPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRegPasswordFocusLost
-          
-          
-          
-        try{
-            if(String.valueOf(txtRegPassword.getPassword()).equals("")){
-                 throw new InvalidInputException("Password field is empty");
+
+        try {
+            if (String.valueOf(txtRegPassword.getPassword()).equals("")) {
+                throw new InvalidInputException("Password field is empty");
             }
-             password_warning.setVisible(false);
-             password = true;
-        }catch(InvalidInputException iie){
+            password_warning.setVisible(false);
+            password = true;
+        } catch (InvalidInputException iie) {
             password_warning.setVisible(true);
             password_warning.setText(iie.getMessage());
             password = false;
-        }finally{
-              checkAllField();
+        } finally {
+            checkAllField();
         }
-          
-        
+
+
     }//GEN-LAST:event_txtRegPasswordFocusLost
 
     private void lblSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSaveMouseClicked
-        if( username && password && name && email){
-            try{
+        if (username && password && name && email) {
+            try {
                 String _name = txtRegName.getText();
                 String _email = txtRegEmail.getText();
                 String _password = String.valueOf(txtRegPassword.getPassword());
                 String _username = txtRegUsername.getText();
-            
-                User user = new User(_name, _username, _email, _password,false);
+
+                User user = new User(_name, _username, _email, _password, false);
 
                 controller.addUser(user);
-                
+
                 JOptionPane.showMessageDialog(this, "New user successfully added");
-                
+
                 txtRegName.setText("");
                 txtRegEmail.setText("");
                 txtRegPassword.setText("");
                 txtRegUsername.setText("");
-                
-                
-                username= false;
-                name =false ;
+
+                username = false;
+                name = false;
                 email = false;
                 password = false;
-                
+
                 checkAllField();
-                
-            }catch(SQLException ex){
+
+            } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-         
-            
-          
+
         }
     }//GEN-LAST:event_lblSaveMouseClicked
+
+    private void txtLoginPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLoginPasswordKeyPressed
+        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER ){
+            login();
+        }
+    }//GEN-LAST:event_txtLoginPasswordKeyPressed
 
     /**
      * @param args the command line arguments
@@ -645,6 +642,8 @@ public class LoginFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel email_warning;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -672,7 +671,6 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.JLabel username_warning;
     // End of variables declaration//GEN-END:variables
 
-
     private void hideWarningLabel() {
         username_warning.setVisible(false);
         name_warning.setVisible(false);
@@ -698,4 +696,3 @@ public class LoginFrame extends javax.swing.JFrame {
 
     }
 }
-
