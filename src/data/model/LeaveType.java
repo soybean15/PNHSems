@@ -14,9 +14,8 @@ public class LeaveType {
     private int id;
     private String name;
     private String reference;
+    private boolean isSelected;
    
-    
-    
 
     public int getId() {
         return id;
@@ -41,6 +40,16 @@ public class LeaveType {
     public void setReference(String reference) {
         this.reference = reference;
     }
+
+    public boolean isIsSelected() {
+        return isSelected;
+    }
+
+    public void setIsSelected(boolean isSelected) {
+        this.isSelected = isSelected;
+    }
+    
+    
     
     
     

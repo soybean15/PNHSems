@@ -156,10 +156,12 @@ public class LeaveFormPanel extends javax.swing.JPanel {
                     } else if (selectedLeaveType.getId() == 3) {
                         sickLeavePanel.setVisible(true);
                         activeDetailPanel = sickLeavePanel;
-                    } else if (selectedLeaveType.getId() == 4) {
+                    } else if (selectedLeaveType.getId() == 8) {
                         studyLeavePanel.setVisible(true);
                         activeDetailPanel = studyLeavePanel;
-                    } else {
+                    } 
+                    
+                    else {
                         otherPurposePanel.setVisible(true);
                         activeDetailPanel = otherPurposePanel;
                     }
@@ -940,7 +942,7 @@ endDate.addSelectionChangedListener(new datechooser.events.SelectionChangedListe
     jPanel23.setOpaque(false);
     jPanel23.setLayout(new java.awt.GridLayout(2, 0));
 
-    radioWithinPh.setText("Within the Philippines    ");
+    radioWithinPh.setText("Within the Philippines");
     radioWithinPh.setPreferredSize(new java.awt.Dimension(170, 20));
     jPanel23.add(radioWithinPh);
 

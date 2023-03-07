@@ -29,8 +29,8 @@ public class LeaveFormService {
     EmployeeAndServiceCreditService employeeAndServiceCreditService = new EmployeeAndServiceCreditService();
 
     public List<LeaveType> getAllLeaveTypes() throws SQLException {
-
-        return leaveDao.getAllLeaveTypes();
+        List<LeaveType> leavetypes = leaveDao.getAllLeaveTypes();
+        return leavetypes;
     }
 
     public int addLeaveType(LeaveType leaveType) throws SQLException {
@@ -92,7 +92,7 @@ public class LeaveFormService {
          
       
          for(LeaveForm item:leaveLogs){
-             item.setEmployee(employee);
+             item.setEmployee(employee);        
              item.setServiceCredit(leaveDao.getLeaveLogServiceCredit(item.getId()));
            
         }
@@ -107,8 +107,7 @@ public class LeaveFormService {
         
        // System.out.println("size = "+(timestamp)+""+randomNumber).length() );
 
-        System.out.println("size===="+(String.valueOf(timestamp).substring(6)+randomNumber).length());
-        
+      
         return String.valueOf(timestamp).substring(6)+randomNumber;
     }
     

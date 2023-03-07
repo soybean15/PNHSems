@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
 import java.util.List;
+import javax.swing.JCheckBox;
 
 /**
  *
@@ -127,6 +128,38 @@ public class UtilClass {
 //        int month = calendar.get(Calendar.MONTH + 1);
 //        int day = calendar.get(Calendar.DATE);
         return new  java.sql.Date(calendar.getTimeInMillis());
+    }
+    
+    
+    
+    public static String[] parseDetails(String details){
+        String[] arr = details.split("[{}]+");
+        
+        if(arr.length>1){
+            String[] s = arr[1].split(" ");
+            String str ="";
+            for(int i = 1; i<s.length;i++){
+                str+=s[i]+" ";
+            }
+            arr[1] = str;
+           
+        }
+        
+        return arr;
+    }
+    
+    public static void setDetailsButton(JCheckBox cb, String employeeDetail,String checkBoxLabel){
+        String[] details = parseDetails(employeeDetail);
+        if(details[0].equals(checkBoxLabel)){
+            cb.setSelected(true);
+            if (details.length > 1) {
+                String d = "<html>" + checkBoxLabel + ": " + "<u>" + details[1] + "</u></html>";
+                cb.setText(d);
+            }
+            
+        }
+       
+        
     }
    
 
