@@ -20,7 +20,7 @@ import otherclasses.UtilClass;
  *
  * @author root
  */
-public class LeaveServiceCreditWindow extends javax.swing.JDialog implements EmployeeServiceCreditItemListener {
+public class LeaveServiceCreditWindow extends javax.swing.JFrame implements EmployeeServiceCreditItemListener {
 
     /**
      * Creates new form LeaveServiceCreditWindow
