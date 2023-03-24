@@ -48,6 +48,7 @@ public class EmployeeServiceCreditItem extends javax.swing.JPanel {
     private void setDetails() {
         lblOrderNo.setText(employeeServiceCredit.getServiceCredit().getOrderNo());
         lblMemorandum.setText(employeeServiceCredit.getServiceCredit().getMemorandum());
+        lbltitle.setText(employeeServiceCredit.getServiceCredit().getTitle());
         String remaining = String.valueOf(employeeServiceCredit.getNo_of_days());
         String total = String.valueOf(employeeServiceCredit.getServiceCredit().getNumberOfDays());
         lblDays.setText(remaining + "/" + total);
@@ -71,6 +72,7 @@ public class EmployeeServiceCreditItem extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         lblOrderNo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        lbltitle = new javax.swing.JLabel();
         lblMemorandum = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -102,10 +104,14 @@ public class EmployeeServiceCreditItem extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(255, 204, 204));
         jPanel2.setMaximumSize(new java.awt.Dimension(500, 2147483647));
-        jPanel2.setMinimumSize(new java.awt.Dimension(300, 50));
+        jPanel2.setMinimumSize(new java.awt.Dimension(200, 50));
         jPanel2.setOpaque(false);
         jPanel2.setPreferredSize(new java.awt.Dimension(300, 50));
-        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel2.setLayout(new java.awt.GridLayout(2, 0));
+
+        lbltitle.setFont(Theme.PRIMARY.FONT.tableFontDefault(13));
+        lbltitle.setText("Title");
+        jPanel2.add(lbltitle);
 
         lblMemorandum.setFont(Theme.PRIMARY.FONT.tableFontDefault(12)
         );
@@ -195,5 +201,6 @@ public class EmployeeServiceCreditItem extends javax.swing.JPanel {
     private javax.swing.JLabel lblDays;
     private javax.swing.JLabel lblMemorandum;
     private javax.swing.JLabel lblOrderNo;
+    private javax.swing.JLabel lbltitle;
     // End of variables declaration//GEN-END:variables
 }

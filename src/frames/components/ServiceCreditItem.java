@@ -37,7 +37,8 @@ public class ServiceCreditItem extends javax.swing.JPanel {
     private void setDisplay(){
         lbl1.setText(" "+serviceCredit.getOrderNo());
         lbl2.setText("  "+serviceCredit.getMemorandum());
-        //lbl2.setText("<html>For me, the layout is wrong every other time when I decrease the window; increasing works better but if it goes wrong, it's also incorrect every other time. I tried debugging and printing values to console; it seems that view.getLayout().preferredLayoutSize( view ) depends not only on view.setPreferredSize but also on the current size of the panel and scrollpane. The code of GridBagLayout is too complicated to dive into.</html>");
+
+        //lbl2.setText("<html>For me, the layout is wrong ev ery other time when I decrease the window; increasing works better but if it goes wrong, it's also incorrect every other time. I tried debugging and printing values to console; it seems that view.getLayout().preferredLayoutSize( view ) depends not only on view.setPreferredSize but also on the current size of the panel and scrollpane. The code of GridBagLayout is too complicated to dive into.</html>");
         
         if(index%2==1){
             this.setBackground(Theme.PRIMARY.COLOR.background_secondary);
@@ -68,6 +69,7 @@ public class ServiceCreditItem extends javax.swing.JPanel {
     private void initComponents() {
 
         lbl1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         lbl2 = new javax.swing.JLabel();
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -87,10 +89,13 @@ public class ServiceCreditItem extends javax.swing.JPanel {
         lbl1.setPreferredSize(new java.awt.Dimension(130, 40));
         add(lbl1, java.awt.BorderLayout.WEST);
 
-        lbl2.setFont(Theme.PRIMARY.FONT.tableFontDefault(12)
-        );
-        lbl2.setText("For me, the layout is wrong every other time when I decrease the window; increasing works better but if it goes wrong, it's also incorrect every other time. I tried debugging and printing values to console; it seems that view.getLayout().preferredLayoutSize( view ) depends not only on view.setPreferredSize but also on the current size of the panel and scrollpane. The code of GridBagLayout is too complicated to dive into.");
-        add(lbl2, java.awt.BorderLayout.CENTER);
+        jPanel1.setOpaque(false);
+        jPanel1.setLayout(new java.awt.GridLayout());
+
+        lbl2.setText("jLabel1");
+        jPanel1.add(lbl2);
+
+        add(jPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
@@ -100,6 +105,7 @@ public class ServiceCreditItem extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbl1;
     private javax.swing.JLabel lbl2;
     // End of variables declaration//GEN-END:variables

@@ -8,15 +8,22 @@ import data.controllers.EmployeeController;
 import data.model.Employee;
 import data.model.EmployeeServiceCredit;
 import frames.components.EmployeeServiceCreditItem;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.print.PageFormat;
 import java.awt.print.Paper;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.util.List;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import otherclasses.ImageHandler;
 import otherclasses.PanelPrintable;
 import otherclasses.UtilClass;
+import themes.Theme;
 
 /**
  *
@@ -74,7 +81,7 @@ public class PrintServiceCredit extends javax.swing.JFrame {
     
     private void header(){
          lblLogo.setIcon(ImageHandler.getImage(80, 80, ImageHandler.getIconPath("/img/app_img/deped-logo.png")));
-        headerContent1.setText("<html>Service Credits</html>");
+        headerContent1.setText("<html>   Service Credits</html>");
 
     }
     
@@ -85,14 +92,39 @@ public class PrintServiceCredit extends javax.swing.JFrame {
         container.revalidate();
         int size = employeesWithServiceCredits.size();
         int row = size;
-        if (row < 9) {
-            row = 8;
-        }
+        if(row<5) row =5;
+
         container.setLayout(new GridLayout(row, 0));
 
         int index = 0;
         for (EmployeeServiceCredit item : employeesWithServiceCredits) {
-            container.add(new EmployeeServiceCreditItem( index, item));
+            
+            JPanel itemContainer = new JPanel(new BorderLayout());
+            Dimension d =new Dimension(120,20);
+            JLabel lbl1 = new JLabel(item.getServiceCredit().getOrderNo());
+            lbl1.setPreferredSize(d);
+            itemContainer.add(lbl1,BorderLayout.WEST);
+            
+            JPanel itemPanel = new JPanel(new GridLayout(2,0));
+            itemPanel.setOpaque(false);
+            
+            itemPanel.add(new JLabel(item.getServiceCredit().getTitle()),BorderLayout.NORTH);
+            
+            JLabel memo =new JLabel(item.getServiceCredit().getMemorandum());
+            memo.setFont(Theme.PRIMARY.FONT.defaultFont(13));
+            itemPanel.add(memo,BorderLayout.CENTER);
+            itemContainer.add(itemPanel);
+            itemContainer.setOpaque(true);
+            itemContainer.add(new JLabel(item.getNo_of_days()+"/"+item.getServiceCredit().getNumberOfDays()),BorderLayout.EAST);
+            
+            if(index%1==0) {
+                itemContainer.setBackground(Color.WHITE)  ;
+            }else itemContainer.setBackground(Color.lightGray)  ;
+            container.add(itemContainer);
+            
+            //container.add(new EmployeeServiceCreditItem( index, item));
+            
+                 
             index++;
         }
 
@@ -153,15 +185,21 @@ public class PrintServiceCredit extends javax.swing.JFrame {
         jPanel20 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        jPanel21 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(731, 643));
+        setMaximumSize(new java.awt.Dimension(600, 850));
+        setMinimumSize(new java.awt.Dimension(600, 850));
+        setPreferredSize(new java.awt.Dimension(600, 850));
         setResizable(false);
 
+        jPanel1.setMinimumSize(new java.awt.Dimension(600, 850));
+        jPanel1.setPreferredSize(new java.awt.Dimension(600, 850));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new java.awt.GridLayout());
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new java.awt.BorderLayout());
@@ -182,22 +220,22 @@ public class PrintServiceCredit extends javax.swing.JFrame {
         jPanel5.setOpaque(false);
         jPanel5.setLayout(new java.awt.GridLayout(4, 0));
 
-        jLabel1.setFont(new java.awt.Font("MathJax_Fraktur", 1, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Republic of the Philippines");
         jPanel5.add(jLabel1);
 
-        jLabel2.setFont(new java.awt.Font("MathJax_Fraktur", 1, 11)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Calibri", 1, 11)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Department of Education");
         jPanel5.add(jLabel2);
 
-        jLabel4.setFont(new java.awt.Font("MathJax_Main", 0, 11)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Calibri", 0, 8)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Schools Division of Nueva Ecija");
         jPanel5.add(jLabel4);
 
-        jLabel5.setFont(new java.awt.Font("MathJax_Main", 0, 11)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Calibri", 0, 8)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Sta. Rosa, Nueva Ecija");
         jPanel5.add(jLabel5);
@@ -207,26 +245,7 @@ public class PrintServiceCredit extends javax.swing.JFrame {
 
         jPanel3.add(jPanel4, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 790, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 731, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 132, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        jPanel2.add(jPanel3);
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
@@ -245,12 +264,12 @@ public class PrintServiceCredit extends javax.swing.JFrame {
         jPanel9.setOpaque(false);
         jPanel9.setLayout(new java.awt.BorderLayout());
 
-        jLabel6.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Calibri", 1, 10)); // NOI18N
         jLabel6.setText("Date :");
         jLabel6.setPreferredSize(new java.awt.Dimension(100, 17));
         jPanel9.add(jLabel6, java.awt.BorderLayout.WEST);
 
-        lblDate.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
+        lblDate.setFont(new java.awt.Font("Calibri", 0, 10)); // NOI18N
         jPanel9.add(lblDate, java.awt.BorderLayout.CENTER);
 
         jPanel7.add(jPanel9);
@@ -264,12 +283,12 @@ public class PrintServiceCredit extends javax.swing.JFrame {
         jPanel18.setOpaque(false);
         jPanel18.setLayout(new java.awt.BorderLayout());
 
-        jLabel14.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Calibri", 1, 10)); // NOI18N
         jLabel14.setText("Employee Id:");
         jLabel14.setPreferredSize(new java.awt.Dimension(100, 17));
         jPanel18.add(jLabel14, java.awt.BorderLayout.WEST);
 
-        lblId.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
+        lblId.setFont(new java.awt.Font("Calibri", 0, 10)); // NOI18N
         jPanel18.add(lblId, java.awt.BorderLayout.CENTER);
 
         jPanel7.add(jPanel18);
@@ -277,12 +296,12 @@ public class PrintServiceCredit extends javax.swing.JFrame {
         jPanel11.setOpaque(false);
         jPanel11.setLayout(new java.awt.BorderLayout());
 
-        jLabel8.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Calibri", 1, 10)); // NOI18N
         jLabel8.setText("Name");
         jLabel8.setPreferredSize(new java.awt.Dimension(100, 17));
         jPanel11.add(jLabel8, java.awt.BorderLayout.WEST);
 
-        lblName.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
+        lblName.setFont(new java.awt.Font("Calibri", 0, 10)); // NOI18N
         jPanel11.add(lblName, java.awt.BorderLayout.CENTER);
 
         jPanel7.add(jPanel11);
@@ -290,12 +309,12 @@ public class PrintServiceCredit extends javax.swing.JFrame {
         jPanel12.setOpaque(false);
         jPanel12.setLayout(new java.awt.BorderLayout());
 
-        jLabel10.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Calibri", 1, 10)); // NOI18N
         jLabel10.setText("Position:");
         jLabel10.setPreferredSize(new java.awt.Dimension(100, 17));
         jPanel12.add(jLabel10, java.awt.BorderLayout.WEST);
 
-        lblPosition.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
+        lblPosition.setFont(new java.awt.Font("Calibri", 0, 10)); // NOI18N
         jPanel12.add(lblPosition, java.awt.BorderLayout.CENTER);
 
         jPanel7.add(jPanel12);
@@ -303,12 +322,12 @@ public class PrintServiceCredit extends javax.swing.JFrame {
         jPanel14.setOpaque(false);
         jPanel14.setLayout(new java.awt.BorderLayout());
 
-        jLabel12.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Calibri", 1, 10)); // NOI18N
         jLabel12.setText("Department:");
         jLabel12.setPreferredSize(new java.awt.Dimension(100, 17));
         jPanel14.add(jLabel12, java.awt.BorderLayout.WEST);
 
-        lblDepartment.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
+        lblDepartment.setFont(new java.awt.Font("Calibri", 0, 10)); // NOI18N
         jPanel14.add(lblDepartment, java.awt.BorderLayout.CENTER);
 
         jPanel7.add(jPanel14);
@@ -332,7 +351,7 @@ public class PrintServiceCredit extends javax.swing.JFrame {
         jPanel8.add(jPanel17, java.awt.BorderLayout.PAGE_START);
 
         container.setBackground(new java.awt.Color(255, 255, 255));
-        container.setLayout(new java.awt.BorderLayout());
+        container.setLayout(new java.awt.GridLayout());
         jPanel8.add(container, java.awt.BorderLayout.CENTER);
 
         jPanel6.add(jPanel8, java.awt.BorderLayout.CENTER);
@@ -362,6 +381,7 @@ public class PrintServiceCredit extends javax.swing.JFrame {
         jPanel19.setOpaque(false);
         jPanel19.setLayout(new java.awt.GridLayout(2, 0));
 
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jLabel7.setText("Prepared by:");
         jPanel19.add(jLabel7);
 
@@ -373,6 +393,7 @@ public class PrintServiceCredit extends javax.swing.JFrame {
         jPanel20.setOpaque(false);
         jPanel20.setLayout(new java.awt.GridLayout(2, 0));
 
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jLabel11.setText("Requested by:");
         jPanel20.add(jLabel11);
 
@@ -382,6 +403,22 @@ public class PrintServiceCredit extends javax.swing.JFrame {
         jPanel16.add(jPanel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 210, 50));
 
         jPanel1.add(jPanel16, java.awt.BorderLayout.SOUTH);
+
+        jPanel21.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel21.setPreferredSize(new java.awt.Dimension(35, 112));
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 35, Short.MAX_VALUE)
+        );
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel21, java.awt.BorderLayout.EAST);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -410,6 +447,8 @@ public class PrintServiceCredit extends javax.swing.JFrame {
        paper.setSize(8.5* 72, 13.0* 72);
         paper.setImageableArea(0, 0, width, height);
         pf.setPaper(paper);
+        
+
         
         
         job.setPrintable(new PanelPrintable(jPanel1), pf);
@@ -496,6 +535,7 @@ public class PrintServiceCredit extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;

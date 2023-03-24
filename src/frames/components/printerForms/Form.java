@@ -19,6 +19,7 @@ import java.awt.print.PrinterJob;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.ButtonGroup;
+import javax.swing.JRadioButton;
 import otherclasses.ImageHandler;
 import otherclasses.PanelPrintable;
 import otherclasses.UtilClass;
@@ -134,7 +135,7 @@ public class Form extends javax.swing.JFrame {
 //    }
     
       public void showLeaveTypes() {
-        int row = leaveTypes.size();
+        int row = leaveTypes.size()+1;
          ButtonGroup btnGroupLeaveType = new ButtonGroup();
 
         leaveTypeList.setLayout(new GridLayout(row, 0));
@@ -157,6 +158,14 @@ public class Form extends javax.swing.JFrame {
             btnGroupLeaveType.add(radio);
 
         }
+        
+        JRadioButton others = new JRadioButton();
+        others.setText("Others");
+        others.setFont(new Font("Liberation Sans 10 Plain",Font.BOLD,7));
+        btnGroupLeaveType.add(others);
+        others.setOpaque(false);
+        leaveTypeList.add(others);
+        
 
 //        radioOthers.addItemListener((ItemEvent e) -> {
 //            if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -439,9 +448,11 @@ public class Form extends javax.swing.JFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         jPanel6.setOpaque(false);
-        jPanel6.setPreferredSize(new java.awt.Dimension(148, 20));
+        jPanel6.setPreferredSize(new java.awt.Dimension(148, 15));
+        jPanel6.setLayout(new java.awt.GridLayout());
 
-        jLabel7.setFont(new java.awt.Font("Liberation Sans", 1, 11)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Liberation Sans", 1, 10)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("APPLICATION FORM");
         jPanel6.add(jLabel7);
 
@@ -464,7 +475,7 @@ public class Form extends javax.swing.JFrame {
         jLabel6.setText("1. OFFICE/DEPARTMENT:");
         jPanel9.add(jLabel6, java.awt.BorderLayout.PAGE_START);
 
-        jLabel8.setFont(new java.awt.Font("Liberation Sans", 1, 11)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Liberation Sans", 1, 8)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("<html>DEPED - PENARANDA NATIONAL HIGH SCHOOL<br>\nSchool Division of Nueva Ecija\n\n</html>");
         jPanel9.add(jLabel8, java.awt.BorderLayout.CENTER);
@@ -584,9 +595,11 @@ public class Form extends javax.swing.JFrame {
 
         jPanel19.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 1, new java.awt.Color(0, 0, 0)));
         jPanel19.setOpaque(false);
-        jPanel19.setPreferredSize(new java.awt.Dimension(171, 20));
+        jPanel19.setPreferredSize(new java.awt.Dimension(171, 15));
+        jPanel19.setLayout(new java.awt.GridLayout());
 
-        jLabel22.setFont(new java.awt.Font("Liberation Sans", 1, 11)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Liberation Sans", 1, 10)); // NOI18N
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel22.setText("6. DETAILS OF APPLICATION");
         jPanel19.add(jLabel22);
 
@@ -626,7 +639,7 @@ public class Form extends javax.swing.JFrame {
         jPanel55.setPreferredSize(new java.awt.Dimension(300, 40));
         jPanel55.setLayout(new java.awt.BorderLayout());
 
-        jLabel38.setFont(new java.awt.Font("Liberation Sans", 2, 8)); // NOI18N
+        jLabel38.setFont(new java.awt.Font("Calibri", 2, 8)); // NOI18N
         jLabel38.setText("In case of Vacation Special Privelege Leave");
         jPanel55.add(jLabel38, java.awt.BorderLayout.NORTH);
 
@@ -634,13 +647,13 @@ public class Form extends javax.swing.JFrame {
         jPanel56.setLayout(new java.awt.GridLayout(2, 0));
 
         withinPh.setBackground(new java.awt.Color(255, 255, 255));
-        withinPh.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
+        withinPh.setFont(new java.awt.Font("Calibri", 0, 8)); // NOI18N
         withinPh.setText(" Within the Philippines  ________________________________________________");
         withinPh.setOpaque(true);
         jPanel56.add(withinPh);
 
         abroad.setBackground(new java.awt.Color(255, 255, 255));
-        abroad.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
+        abroad.setFont(new java.awt.Font("Calibri", 0, 8)); // NOI18N
         abroad.setText("Abroad      (Specify)       ________________________________________________");
         abroad.setOpaque(true);
         jPanel56.add(abroad);
@@ -661,13 +674,13 @@ public class Form extends javax.swing.JFrame {
         jPanel58.setLayout(new java.awt.GridLayout(2, 0));
 
         inHospital.setBackground(new java.awt.Color(255, 255, 255));
-        inHospital.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
+        inHospital.setFont(new java.awt.Font("Calibri", 0, 8)); // NOI18N
         inHospital.setText("In Hospital   (Specify Illness)   __________________________________________");
         inHospital.setOpaque(true);
         jPanel58.add(inHospital);
 
         outPatient.setBackground(new java.awt.Color(255, 255, 255));
-        outPatient.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
+        outPatient.setFont(new java.awt.Font("Calibri", 0, 8)); // NOI18N
         outPatient.setText("Out Patient      (Specify Illness)  _________________________________________");
         outPatient.setOpaque(true);
         jPanel58.add(outPatient);
@@ -680,7 +693,7 @@ public class Form extends javax.swing.JFrame {
         jPanel59.setPreferredSize(new java.awt.Dimension(300, 40));
         jPanel59.setLayout(new java.awt.BorderLayout());
 
-        jLabel51.setFont(new java.awt.Font("Liberation Sans", 2, 8)); // NOI18N
+        jLabel51.setFont(new java.awt.Font("Calibri", 2, 8)); // NOI18N
         jLabel51.setText("In Case of Special Leave Benefits for Women");
         jPanel59.add(jLabel51, java.awt.BorderLayout.NORTH);
 
@@ -688,7 +701,7 @@ public class Form extends javax.swing.JFrame {
         jPanel60.setLayout(new java.awt.GridLayout(2, 0));
 
         jLabel66.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel66.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
+        jLabel66.setFont(new java.awt.Font("Calibri", 0, 8)); // NOI18N
         jLabel66.setText("(Specify Illness) ___________________________________________________________");
         jLabel66.setOpaque(true);
         jPanel60.add(jLabel66);
@@ -715,13 +728,15 @@ public class Form extends javax.swing.JFrame {
         jPanel62.setLayout(new java.awt.GridLayout(2, 0));
 
         masters.setBackground(new java.awt.Color(255, 255, 255));
-        masters.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
+        masters.setFont(new java.awt.Font("Calibri", 0, 8)); // NOI18N
         masters.setText("Completion of Master's Degree");
         masters.setOpaque(true);
         jPanel62.add(masters);
 
-        bar.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
+        bar.setBackground(new java.awt.Color(255, 255, 255));
+        bar.setFont(new java.awt.Font("Calibri", 0, 8)); // NOI18N
         bar.setText("BAR/Board Examination Review");
+        bar.setOpaque(true);
         jPanel62.add(bar);
 
         jPanel61.add(jPanel62, java.awt.BorderLayout.CENTER);
@@ -740,13 +755,13 @@ public class Form extends javax.swing.JFrame {
         jPanel64.setLayout(new java.awt.GridLayout(2, 0));
 
         monetize.setBackground(new java.awt.Color(255, 255, 255));
-        monetize.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
+        monetize.setFont(new java.awt.Font("Calibri", 0, 8)); // NOI18N
         monetize.setText("Monetization of Leave Credits");
         monetize.setOpaque(true);
         jPanel64.add(monetize);
 
         terminal.setBackground(new java.awt.Color(255, 255, 255));
-        terminal.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
+        terminal.setFont(new java.awt.Font("Calibri", 0, 8)); // NOI18N
         terminal.setText("Terminal Leave");
         terminal.setOpaque(true);
         jPanel64.add(terminal);
@@ -861,13 +876,15 @@ public class Form extends javax.swing.JFrame {
         jPanel23.setBackground(new java.awt.Color(255, 255, 255));
         jPanel23.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel23.setMinimumSize(new java.awt.Dimension(150, 37));
-        jPanel23.setPreferredSize(new java.awt.Dimension(200, 200));
+        jPanel23.setPreferredSize(new java.awt.Dimension(200, 190));
         jPanel23.setLayout(new java.awt.BorderLayout());
 
         jPanel24.setOpaque(false);
-        jPanel24.setPreferredSize(new java.awt.Dimension(235, 20));
+        jPanel24.setPreferredSize(new java.awt.Dimension(235, 15));
+        jPanel24.setLayout(new java.awt.GridLayout());
 
-        jLabel23.setFont(new java.awt.Font("Liberation Sans", 1, 11)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("Liberation Sans", 1, 10)); // NOI18N
+        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel23.setText("7. DETAILS OF ACTION ON APPLICATION");
         jPanel24.add(jLabel23);
 
@@ -893,21 +910,21 @@ public class Form extends javax.swing.JFrame {
         jLabel37.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         jPanel37.add(jLabel37);
 
-        jLabel39.setFont(new java.awt.Font("Liberation Sans", 1, 9)); // NOI18N
+        jLabel39.setFont(new java.awt.Font("Calibri", 1, 8)); // NOI18N
         jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel39.setText("Vacation leave");
+        jLabel39.setText("<html><div style='text-align: center;'>Vacation Leave</div></html>");
         jLabel39.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 0, new java.awt.Color(0, 0, 0)));
         jPanel37.add(jLabel39);
 
-        jLabel36.setFont(new java.awt.Font("Liberation Sans", 0, 6)); // NOI18N
+        jLabel36.setFont(new java.awt.Font("Calibri", 1, 8)); // NOI18N
         jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel36.setText("<html><div style='text-align: center;'>Sick Leave/(Service Credit of Teachers)</div></html>");
+        jLabel36.setText("<html><div style='text-align: center;'>Sick Leave</div></html>");
         jLabel36.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 0, new java.awt.Color(0, 0, 0)));
         jPanel37.add(jLabel36);
 
-        jLabel65.setFont(new java.awt.Font("Liberation Sans", 1, 9)); // NOI18N
+        jLabel65.setFont(new java.awt.Font("Calibri", 1, 8)); // NOI18N
         jLabel65.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel65.setText("Total Days");
+        jLabel65.setText("<html><div style='text-align: center;'>Total Days</div></html>");
         jLabel65.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 0, new java.awt.Color(0, 0, 0)));
         jPanel37.add(jLabel65);
 
@@ -916,7 +933,7 @@ public class Form extends javax.swing.JFrame {
         jPanel39.setOpaque(false);
         jPanel39.setLayout(new java.awt.GridLayout(1, 4));
 
-        jLabel44.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
+        jLabel44.setFont(new java.awt.Font("Calibri", 0, 8)); // NOI18N
         jLabel44.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel44.setText("Total earned");
         jLabel44.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
@@ -942,7 +959,7 @@ public class Form extends javax.swing.JFrame {
         jPanel40.setOpaque(false);
         jPanel40.setLayout(new java.awt.GridLayout(1, 4));
 
-        jLabel48.setFont(new java.awt.Font("Liberation Sans", 0, 7)); // NOI18N
+        jLabel48.setFont(new java.awt.Font("Calibri", 0, 8)); // NOI18N
         jLabel48.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel48.setText("<html><div style='text-align: center;'>Less this application</div></html>");
         jLabel48.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
@@ -968,7 +985,7 @@ public class Form extends javax.swing.JFrame {
         jPanel38.setOpaque(false);
         jPanel38.setLayout(new java.awt.GridLayout(1, 4));
 
-        jLabel40.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
+        jLabel40.setFont(new java.awt.Font("Calibri", 0, 8)); // NOI18N
         jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel40.setText("Balance");
         jLabel40.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
@@ -1003,7 +1020,6 @@ public class Form extends javax.swing.JFrame {
 
         lblAdmin4.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
         lblAdmin4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblAdmin4.setText("____________________");
         jPanel50.add(lblAdmin4);
 
         jLabel62.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
@@ -1020,7 +1036,6 @@ public class Form extends javax.swing.JFrame {
 
         lblAdmin4_2.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
         lblAdmin4_2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblAdmin4_2.setText("_____________________");
         jPanel51.add(lblAdmin4_2);
 
         jLabel64.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
@@ -1048,12 +1063,16 @@ public class Form extends javax.swing.JFrame {
         jPanel42.setOpaque(false);
         jPanel42.setLayout(new java.awt.GridLayout(2, 0));
 
-        jCheckBox1.setFont(new java.awt.Font("Liberation Sans", 0, 9)); // NOI18N
+        jCheckBox1.setBackground(new java.awt.Color(255, 255, 255));
+        jCheckBox1.setFont(new java.awt.Font("Calibri", 0, 9)); // NOI18N
         jCheckBox1.setText("For Approval");
+        jCheckBox1.setOpaque(true);
         jPanel42.add(jCheckBox1);
 
-        jCheckBox2.setFont(new java.awt.Font("Liberation Sans", 0, 9)); // NOI18N
+        jCheckBox2.setBackground(new java.awt.Color(255, 255, 255));
+        jCheckBox2.setFont(new java.awt.Font("Calibri", 0, 9)); // NOI18N
         jCheckBox2.setText("<html>For disapproval due to:_____________________________________________________</html>");
+        jCheckBox2.setOpaque(true);
         jPanel42.add(jCheckBox2);
 
         jPanel26.add(jPanel42, java.awt.BorderLayout.CENTER);
@@ -1064,7 +1083,6 @@ public class Form extends javax.swing.JFrame {
 
         lblPrincipal.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
         lblPrincipal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPrincipal.setText("______________________________");
         jPanel48.add(lblPrincipal);
 
         jLabel60.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
@@ -1171,7 +1189,6 @@ public class Form extends javax.swing.JFrame {
         jPanel47.setLayout(new java.awt.GridLayout(2, 0));
 
         lblAdmin5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblAdmin5.setText("______________________________");
         jPanel47.add(lblAdmin5);
 
         jLabel58.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
@@ -1226,23 +1243,23 @@ public class Form extends javax.swing.JFrame {
         jPanel67.setPreferredSize(new java.awt.Dimension(731, 80));
         jPanel67.setLayout(new java.awt.GridLayout(5, 0));
 
-        jLabel71.setFont(new java.awt.Font("FreeSerif", 0, 8)); // NOI18N
+        jLabel71.setFont(new java.awt.Font("Calibri", 0, 8)); // NOI18N
         jLabel71.setText("<html>         1. Application for vacation or sick Leave for one(1) full day or more shall be made on this Form, and to accomplished at least in duplicate.</html>");
         jPanel67.add(jLabel71);
 
-        jLabel72.setFont(new java.awt.Font("FreeSerif", 0, 8)); // NOI18N
+        jLabel72.setFont(new java.awt.Font("Calibri", 0, 8)); // NOI18N
         jLabel72.setText("<html>         2. Application for vacation Leave shall filed in advance or whenever possible five(5) days before going on such leave.</html>");
         jPanel67.add(jLabel72);
 
-        jLabel73.setFont(new java.awt.Font("FreeSerif", 0, 8)); // NOI18N
+        jLabel73.setFont(new java.awt.Font("Calibri", 0, 8)); // NOI18N
         jLabel73.setText("<html>         3. Application for sick leave filed in advace or exceeding five(5) days shall be accomplished by a medical certificate. In case medical consultation was not availed of, an affidavit should be executed by the applicant.</html>");
         jPanel67.add(jLabel73);
 
-        jLabel74.setFont(new java.awt.Font("FreeSerif", 0, 8)); // NOI18N
+        jLabel74.setFont(new java.awt.Font("Calibri", 0, 8)); // NOI18N
         jLabel74.setText("<html>         4. An employee who is absent without approved leave shall not entitled to receive salary corresponding to the period of his unautorized leave of absence.</html>");
         jPanel67.add(jLabel74);
 
-        jLabel75.setFont(new java.awt.Font("FreeSerif", 0, 8)); // NOI18N
+        jLabel75.setFont(new java.awt.Font("Calibri", 0, 8)); // NOI18N
         jLabel75.setText("<html>        5.An application for leave of absence for thirty(30) calendar days or more shall accompanied by a clearance from money and property accountabilities.</html>");
         jPanel67.add(jLabel75);
 

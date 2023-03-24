@@ -61,7 +61,7 @@ public class EmployeeAndServiceCreditsDaoImplement implements EmployeeAndService
             serviceCredit.setOrderNo(rs.getString("order_no"));
             serviceCredit.setMemorandum(rs.getString("memorandum"));
 
-            serviceCredit.setTitle("title");
+            serviceCredit.setTitle(rs.getString("title"));
             serviceCredit.setNumberOfDays(rs.getInt("no_of_days"));
             serviceCredit.setCreated_at(rs.getTimestamp("created_at"));
             serviceCredit.setUpdated_at(rs.getTimestamp("updated_at"));

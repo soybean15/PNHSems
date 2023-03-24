@@ -29,13 +29,21 @@ public class Config {
 //    }
     
     public static String getClassPath(){
-         return System.getProperty("user.dir");
+        String path =System.getProperty("user.dir");
+        if( path.endsWith("\\dist") || path.endsWith("/dist")){
+            int index = path.lastIndexOf("\\",path.length()-2);
+            if(index != -1){
+                path = path.substring(0,index);
+            }
+        }
+         return path;
     }
     
     
         
     public static String getImagePath(){
-       
+        
+
         return System.getProperty("user.dir")+"/assets/image";
            
     }

@@ -102,7 +102,7 @@ public class ImageHandler {
     }
     
     public static String getIconPath(String iconPath){
-        String path = System.getProperty("user.dir");
+        String path =Config.getClassPath();
         return path+"/src"+iconPath;
     }
 

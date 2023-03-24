@@ -40,14 +40,13 @@ public class UserDaoImplement implements UserDao {
        String query = "update users set  password =?, name=?, email =?, isenable=?, role=?, updated_at = CURRENT_TIMESTAMP where username =?";
         PreparedStatement ps = conn.prepareStatement(query);
        
-          System.out.println("from dao "+user.getUserName());
-        System.out.println("from dao "+user.getPassword());
+     
       
         ps.setString(1, user.getPassword());
         ps.setString(2, user.getName());
         ps.setString(3, user.getEmail());
         ps.setString(4, user.isEnable()?"true":"false");
-         ps.setString(5, user.getRole());
+        ps.setString(5, user.getRole());
         ps.setString(6, user.getUserName());
        
        
@@ -83,11 +82,13 @@ public class UserDaoImplement implements UserDao {
           String name = rs.getString("name");
           String username = rs.getString("username");
           String email = rs.getString("email");
-           String password = rs.getString("password");
+          String password = rs.getString("password");
+          String role = rs.getString("role");
           boolean enable= rs.getString("isenable").equals("true");
          
          
           User user = new User(name, username, email,password,enable);
+          user.setRole(role);
           users.add(user);
       }
        return users;

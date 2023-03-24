@@ -47,20 +47,13 @@ public class TempData {
     }
     
     static void addUsers(){
-        User user = new User("Marlon", "user123", "user@gmail.com", "password123", false);
-        User user2 = new User("George", "george123", "george@gmail.com", "george123", false);
-        User user3 = new User("Maymay", "Maymay123", "Maymay@gmail.com", "Maymay123", false);
-        User user4 = new User("TobeDeleted1", "TobeDeleted1", "To be Deleted", "To be Deleted", false);
-        User user5 = new User("TobeDeleted2", "TobeDeleted2", "To be Deleted", "To be Deleted", false);
+        User user = new User("Joy Miranda", "joymiranda", "user@gmail.com", "admin", false);
+       
         UserDaoImplement userImp = new UserDaoImplement();
         try {
             userImp.add(user);
-            userImp.add(user2);
-            userImp.add(user3);
-            userImp.add(user4);
-            userImp.add(user5);
 
-            userImp.createSuperAdmin("user123");
+            userImp.createSuperAdmin("joymiranda");
 
             System.out.println("User" + user.getName() + " added");
 
@@ -320,18 +313,40 @@ public class TempData {
    static void addDepartment(){
        EmployeeController controller = new EmployeeController();
        try{
+           Department department3 = new Department();
+           department3.setName("Filipino");
+           controller.addDepartment(department3);
+           
            
            Department department1 = new Department();
            department1.setName("English");
            controller.addDepartment(department1);
            
            Department department2 = new Department();
-           department2.setName("Math");
+           department2.setName("Mathematics");
            controller.addDepartment(department2);
            
-           Department department3 = new Department();
-           department3.setName("Filipino");
-           controller.addDepartment(department3);
+           Department department4 = new Department();
+           department4.setName("Science");
+           controller.addDepartment(department4);
+           
+           Department department5 = new Department();
+           department5.setName("Araling Panlipunan");
+           controller.addDepartment(department5);
+           
+           
+           Department department6 = new Department();
+           department6.setName("Edukasyon sa Pagpapakatao");
+           controller.addDepartment(department6);
+           
+           Department department7 = new Department();
+           department7.setName("MAPEH");
+           controller.addDepartment(department7);
+           
+                      
+           Department department8 = new Department();
+           department8.setName("Technology and Livelihood Education (TLE)");
+           controller.addDepartment(department8);
            
            
        }catch(SQLException e){

@@ -140,8 +140,8 @@ public class EmployeeItem extends javax.swing.JPanel {
         lblPosition.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPosition.setText("Position");
         lblPosition.setMaximumSize(new java.awt.Dimension(60, 40));
-        lblPosition.setMinimumSize(new java.awt.Dimension(70, 40));
-        lblPosition.setPreferredSize(new java.awt.Dimension(70, 40));
+        lblPosition.setMinimumSize(new java.awt.Dimension(200, 40));
+        lblPosition.setPreferredSize(new java.awt.Dimension(400, 40));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;

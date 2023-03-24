@@ -4,7 +4,9 @@
  */
 package pnhsems;
 
+import config.Config;
 import frames.LoginFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,12 +19,17 @@ public class PNHSEMS {
      */
     public static void main(String[] args) {
 
-        //TempData.start();
-      
-          
+       // TempData.start();
+       try{
+                   
         LoginFrame main = new LoginFrame();
+     
         main.show();
       
+       }catch(Exception e){
+           JOptionPane.showMessageDialog(null,e.getMessage());
+       }
+  
 
     }
 
