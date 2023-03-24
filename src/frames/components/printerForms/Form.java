@@ -33,94 +33,89 @@ public class Form extends javax.swing.JFrame {
     /**
      * Creates new form Form
      */
-    LeaveForm form ;
+    LeaveForm form;
     LeaveFormController controller = new LeaveFormController();
-    
+
     List<LeaveType> leaveTypes;
     List<Personnel> personnels;
-    
-    
+
     boolean isBlank;
-    public Form( ) {
+
+    public Form() {
         initComponents();
-        
+
         ///root/NetBeansProjects/PNHSEMS/src/img/app_img/deped-logo.jpg
-    
-            
-          try{
+        try {
             this.leaveTypes = controller.getLeaveTypes();
             this.personnels = controller.getPersonnels();
-        
-        }catch(SQLException e){
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         header();
-        //setPersonnels();
+        setPersonnels();
     }
-    
-    private String getName(Employee employee){
-        
-        if(employee.getFirstName() == null){
+
+    private String getName(Employee employee) {
+
+        if (employee.getFirstName() == null) {
             return null;
-        }else{
-            return employee.getFirstName()+" "+employee.getMiddleName()+" "+employee.getLastName();
+        } else {
+            return employee.getFirstName() + " " + employee.getMiddleName() + " " + employee.getLastName();
         }
     }
-    
-    private void setPersonnels(){
- //     String str =  personnels.get(0).getEmployee()==null ? "___________________________________": getName(personnels.get(0).getEmployee());
-      
-        lblAdmin4.setText( personnels.get(0).getEmployee()==null ? "": getName(personnels.get(0).getEmployee()));
-       lblAdmin4_2.setText(personnels.get(1).getEmployee()==null ? "": getName(personnels.get(1).getEmployee()));
-       lblPrincipal.setText( personnels.get(2).getEmployee()==null ? "": getName(personnels.get(2).getEmployee()));
-       lblAdmin5.setText(personnels.get(3).getEmployee()==null ? "": getName(personnels.get(3).getEmployee()));
+
+    private void setPersonnels() {
+        //     String str =  personnels.get(0).getEmployee()==null ? "___________________________________": getName(personnels.get(0).getEmployee());
+
+        lblAdmin4.setText(personnels.get(0).getEmployee() == null ? "" : getName(personnels.get(0).getEmployee()));
+        lblAdmin4_2.setText(personnels.get(1).getEmployee() == null ? "" : getName(personnels.get(1).getEmployee()));
+        lblPrincipal.setText(personnels.get(2).getEmployee() == null ? "" : getName(personnels.get(2).getEmployee()));
+        lblAdmin5.setText(personnels.get(3).getEmployee() == null ? "" : getName(personnels.get(3).getEmployee()));
     }
-    
-    private void header(){
+
+    private void header() {
         lblLogo.setIcon(ImageHandler.getImage(80, 80, ImageHandler.getIconPath("/img/app_img/deped-logo.png")));
         headerContent1.setText("<html>CSC Form No.6<br>Revised 1984</html>");
 
     }
-    public void setLeaveForm(LeaveForm form, boolean isBlank){
-        this.form= form;
-       
+
+    public void setLeaveForm(LeaveForm form, boolean isBlank) {
+        
+
+        this.form = form;
+
         this.isBlank = isBlank;
-        
-        
-        showLeaveTypes() ;
+
+        showLeaveTypes();
         header();
         setDetails();
-         
-         
-     
-        
+
     }
-    
-    private void setDetails(){
-        lblDateFiled.setText(form.getDateFiled().toString());
+
+    private void setDetails() {
+        if(!isBlank)lblDateFiled.setText(form.getDateFiled().toString());
         lblFirstName.setText(form.getEmployee().getFirstName());
         lblLastName.setText(form.getEmployee().getLastName());
-        lblMiddleName.setText(form.getEmployee().getMiddleName() == null ? "" :form.getEmployee().getMiddleName());
+        lblMiddleName.setText(form.getEmployee().getMiddleName() == null ? "" : form.getEmployee().getMiddleName());
         lblPosition.setText(form.getEmployee().getPosition().getName());
-        
-        if(!isBlank){
-             lblDaysApplied.setText(""+form.getCreditUsed());
-             lblStart.setText(form.getInclusiveDate_start().toString());
-             lblEnd.setText(form.getInclusiveDate_end().toString());
-          
+
+        if (!isBlank) {
+            lblDaysApplied.setText("" + form.getCreditUsed());
+            lblStart.setText(form.getInclusiveDate_start().toString());
+            lblEnd.setText(form.getInclusiveDate_end().toString());
+            
+            UtilClass.setDetailsButton(abroad, form.getDetails(), "Abroad");
+            UtilClass.setDetailsButton(withinPh, form.getDetails(), "Within the Philippines");
+            UtilClass.setDetailsButton(inHospital, form.getDetails(), "In Hospital");
+            UtilClass.setDetailsButton(outPatient, form.getDetails(), "Out Patient");
+            UtilClass.setDetailsButton(masters, form.getDetails(), "Completion of Master's Degree");
+            UtilClass.setDetailsButton(bar, form.getDetails(), "BAR/Board Examination");
+            UtilClass.setDetailsButton(monetize, form.getDetails(), "Monetization of Leave");
+            UtilClass.setDetailsButton(terminal, form.getDetails(), "Terminal Leave");
+
         }
-        
-        
-        
-        UtilClass.setDetailsButton(abroad, form.getDetails(), "Abroad");
-        UtilClass.setDetailsButton(withinPh, form.getDetails(), "Within the Philippines");
-        UtilClass.setDetailsButton(inHospital, form.getDetails(), "In Hospital");
-        UtilClass.setDetailsButton(outPatient, form.getDetails(), "Out Patient");
-        UtilClass.setDetailsButton(masters, form.getDetails(), "Completion of Master's Degree");
-        UtilClass.setDetailsButton(bar, form.getDetails(), "BAR/Board Examination");
-        UtilClass.setDetailsButton(monetize, form.getDetails(), "Monetization of Leave");
-        UtilClass.setDetailsButton(terminal, form.getDetails(), "Terminal Leave");
-       
+
     }
 
 //    private int subtractDate(java.sql.Date start, java.sql.Date end) {
@@ -133,39 +128,34 @@ public class Form extends javax.swing.JFrame {
 //        long diff = milliseconds1 - milliseconds2;
 //        return (int) diff / (24 * 60 * 60 * 1000);
 //    }
-    
-      public void showLeaveTypes() {
-        int row = leaveTypes.size()+1;
-         ButtonGroup btnGroupLeaveType = new ButtonGroup();
+    public void showLeaveTypes() {
+        int row = leaveTypes.size() + 1;
+        ButtonGroup btnGroupLeaveType = new ButtonGroup();
 
         leaveTypeList.setLayout(new GridLayout(row, 0));
 
         for (LeaveType leaveType : leaveTypes) {
             LeaveTypeRadioButton radio = new LeaveTypeRadioButton(leaveType);
             radio.setOpaque(false);
-          
 
-            
             String text = "<html><b>" + leaveType.getName() + "</b>(" + leaveType.getReference() + ")</font></html>";
 
-
-            if(form.getLeaveType().getId()==leaveType.getId()){
+            if (form.getLeaveType() !=null && form.getLeaveType().getId() == leaveType.getId()) {
                 radio.setSelected(true);
             }
             radio.setText(text);
-            radio.setFont(new Font("Liberation Sans 10 Plain",Font.PLAIN,7));
+            radio.setFont(new Font("Liberation Sans 10 Plain", Font.PLAIN, 7));
             leaveTypeList.add(radio);
             btnGroupLeaveType.add(radio);
 
         }
-        
+
         JRadioButton others = new JRadioButton();
         others.setText("Others");
-        others.setFont(new Font("Liberation Sans 10 Plain",Font.BOLD,7));
+        others.setFont(new Font("Liberation Sans 10 Plain", Font.BOLD, 7));
         btnGroupLeaveType.add(others);
         others.setOpaque(false);
         leaveTypeList.add(others);
-        
 
 //        radioOthers.addItemListener((ItemEvent e) -> {
 //            if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -184,7 +174,6 @@ public class Form extends javax.swing.JFrame {
 //
 //        btnGroupLeaveType.add(radioOthers);
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -321,9 +310,11 @@ public class Form extends javax.swing.JFrame {
         lblBalance = new javax.swing.JLabel();
         jPanel49 = new javax.swing.JPanel();
         jPanel50 = new javax.swing.JPanel();
+        jLabel80 = new javax.swing.JLabel();
         lblAdmin4 = new javax.swing.JLabel();
         jLabel62 = new javax.swing.JLabel();
         jPanel51 = new javax.swing.JPanel();
+        jLabel81 = new javax.swing.JLabel();
         lblAdmin4_2 = new javax.swing.JLabel();
         jLabel64 = new javax.swing.JLabel();
         jPanel26 = new javax.swing.JPanel();
@@ -354,6 +345,7 @@ public class Form extends javax.swing.JFrame {
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
         jPanel47 = new javax.swing.JPanel();
+        jLabel82 = new javax.swing.JLabel();
         lblAdmin5 = new javax.swing.JLabel();
         jLabel58 = new javax.swing.JLabel();
         jPanel65 = new javax.swing.JPanel();
@@ -449,7 +441,7 @@ public class Form extends javax.swing.JFrame {
         jPanel6.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         jPanel6.setOpaque(false);
         jPanel6.setPreferredSize(new java.awt.Dimension(148, 15));
-        jPanel6.setLayout(new java.awt.GridLayout());
+        jPanel6.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel7.setFont(new java.awt.Font("Liberation Sans", 1, 10)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -534,15 +526,15 @@ public class Form extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jPanel15.add(jLabel16);
 
-        lblLastName.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
+        lblLastName.setFont(new java.awt.Font("Calibri", 0, 10)); // NOI18N
         lblLastName.setText("Padilla");
         jPanel15.add(lblLastName);
 
-        lblFirstName.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
+        lblFirstName.setFont(new java.awt.Font("Calibri", 0, 10)); // NOI18N
         lblFirstName.setText("Marlon");
         jPanel15.add(lblFirstName);
 
-        lblMiddleName.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
+        lblMiddleName.setFont(new java.awt.Font("Calibri", 0, 10)); // NOI18N
         lblMiddleName.setText("Tampos");
         jPanel15.add(lblMiddleName);
 
@@ -557,7 +549,7 @@ public class Form extends javax.swing.JFrame {
         jPanel13.setPreferredSize(new java.awt.Dimension(200, 13));
         jPanel13.setLayout(new java.awt.BorderLayout());
 
-        lblPosition.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
+        lblPosition.setFont(new java.awt.Font("Calibri", 0, 10)); // NOI18N
         lblPosition.setAutoscrolls(true);
         jPanel13.add(lblPosition, java.awt.BorderLayout.CENTER);
 
@@ -596,7 +588,7 @@ public class Form extends javax.swing.JFrame {
         jPanel19.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 1, new java.awt.Color(0, 0, 0)));
         jPanel19.setOpaque(false);
         jPanel19.setPreferredSize(new java.awt.Dimension(171, 15));
-        jPanel19.setLayout(new java.awt.GridLayout());
+        jPanel19.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel22.setFont(new java.awt.Font("Liberation Sans", 1, 10)); // NOI18N
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -881,7 +873,7 @@ public class Form extends javax.swing.JFrame {
 
         jPanel24.setOpaque(false);
         jPanel24.setPreferredSize(new java.awt.Dimension(235, 15));
-        jPanel24.setLayout(new java.awt.GridLayout());
+        jPanel24.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel23.setFont(new java.awt.Font("Liberation Sans", 1, 10)); // NOI18N
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1011,15 +1003,17 @@ public class Form extends javax.swing.JFrame {
         jPanel25.add(jPanel35, java.awt.BorderLayout.CENTER);
 
         jPanel49.setOpaque(false);
-        jPanel49.setPreferredSize(new java.awt.Dimension(100, 30));
+        jPanel49.setPreferredSize(new java.awt.Dimension(100, 45));
         jPanel49.setLayout(new java.awt.GridLayout(1, 2));
 
         jPanel50.setOpaque(false);
         jPanel50.setPreferredSize(new java.awt.Dimension(100, 30));
-        jPanel50.setLayout(new java.awt.GridLayout(2, 0));
+        jPanel50.setLayout(new java.awt.GridLayout(3, 0));
+        jPanel50.add(jLabel80);
 
-        lblAdmin4.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        lblAdmin4.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
         lblAdmin4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAdmin4.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel50.add(lblAdmin4);
 
         jLabel62.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
@@ -1032,10 +1026,12 @@ public class Form extends javax.swing.JFrame {
 
         jPanel51.setOpaque(false);
         jPanel51.setPreferredSize(new java.awt.Dimension(100, 30));
-        jPanel51.setLayout(new java.awt.GridLayout(2, 0));
+        jPanel51.setLayout(new java.awt.GridLayout(3, 0));
+        jPanel51.add(jLabel81);
 
-        lblAdmin4_2.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        lblAdmin4_2.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
         lblAdmin4_2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAdmin4_2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel51.add(lblAdmin4_2);
 
         jLabel64.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
@@ -1071,17 +1067,17 @@ public class Form extends javax.swing.JFrame {
 
         jCheckBox2.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBox2.setFont(new java.awt.Font("Calibri", 0, 9)); // NOI18N
-        jCheckBox2.setText("<html>For disapproval due to:_____________________________________________________</html>");
+        jCheckBox2.setText("<html>For disapproval due to:________________________________________________</html>");
         jCheckBox2.setOpaque(true);
         jPanel42.add(jCheckBox2);
 
         jPanel26.add(jPanel42, java.awt.BorderLayout.CENTER);
 
         jPanel48.setOpaque(false);
-        jPanel48.setPreferredSize(new java.awt.Dimension(100, 30));
+        jPanel48.setPreferredSize(new java.awt.Dimension(100, 40));
         jPanel48.setLayout(new java.awt.GridLayout(2, 0));
 
-        lblPrincipal.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        lblPrincipal.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
         lblPrincipal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanel48.add(lblPrincipal);
 
@@ -1096,7 +1092,7 @@ public class Form extends javax.swing.JFrame {
         jPanel23.add(jPanel26, java.awt.BorderLayout.CENTER);
 
         jPanel43.setOpaque(false);
-        jPanel43.setPreferredSize(new java.awt.Dimension(100, 90));
+        jPanel43.setPreferredSize(new java.awt.Dimension(100, 80));
         jPanel43.setLayout(new java.awt.BorderLayout());
 
         jPanel44.setBackground(new java.awt.Color(255, 255, 255));
@@ -1112,14 +1108,17 @@ public class Form extends javax.swing.JFrame {
         jPanel46.setOpaque(false);
         jPanel46.setLayout(new java.awt.GridLayout(3, 0));
 
+        jLabel54.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jLabel54.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel54.setText("_________________________________");
         jPanel46.add(jLabel54);
 
+        jLabel55.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jLabel55.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel55.setText("_________________________________");
         jPanel46.add(jLabel55);
 
+        jLabel56.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jLabel56.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel56.setText("_________________________________");
         jPanel46.add(jLabel56);
@@ -1144,11 +1143,12 @@ public class Form extends javax.swing.JFrame {
         jPanel41.setOpaque(false);
         jPanel41.setLayout(new java.awt.GridLayout(1, 2));
 
+        jLabel18.setFont(new java.awt.Font("Calibri", 0, 10)); // NOI18N
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("___________");
         jPanel41.add(jLabel18);
 
-        jLabel17.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Calibri", 0, 9)); // NOI18N
         jLabel17.setText("Day(s) with Pay");
         jPanel41.add(jLabel17);
 
@@ -1157,11 +1157,12 @@ public class Form extends javax.swing.JFrame {
         jPanel52.setOpaque(false);
         jPanel52.setLayout(new java.awt.GridLayout(1, 2));
 
+        jLabel19.setFont(new java.awt.Font("Calibri", 0, 10)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel19.setText("___________");
         jPanel52.add(jLabel19);
 
-        jLabel30.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        jLabel30.setFont(new java.awt.Font("Calibri", 0, 9)); // NOI18N
         jLabel30.setText("Day(s) without Pay");
         jPanel52.add(jLabel30);
 
@@ -1170,11 +1171,12 @@ public class Form extends javax.swing.JFrame {
         jPanel53.setOpaque(false);
         jPanel53.setLayout(new java.awt.GridLayout(1, 2));
 
+        jLabel31.setFont(new java.awt.Font("Calibri", 0, 10)); // NOI18N
         jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel31.setText("___________");
         jPanel53.add(jLabel31);
 
-        jLabel32.setFont(new java.awt.Font("Liberation Sans", 0, 10)); // NOI18N
+        jLabel32.setFont(new java.awt.Font("Calibri", 0, 9)); // NOI18N
         jLabel32.setText("Other(s) (specify)");
         jPanel53.add(jLabel32);
 
@@ -1185,9 +1187,11 @@ public class Form extends javax.swing.JFrame {
         jPanel43.add(jPanel45, java.awt.BorderLayout.WEST);
 
         jPanel47.setOpaque(false);
-        jPanel47.setPreferredSize(new java.awt.Dimension(100, 30));
-        jPanel47.setLayout(new java.awt.GridLayout(2, 0));
+        jPanel47.setPreferredSize(new java.awt.Dimension(100, 40));
+        jPanel47.setLayout(new java.awt.GridLayout(3, 0));
+        jPanel47.add(jLabel82);
 
+        lblAdmin5.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         lblAdmin5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanel47.add(lblAdmin5);
 
@@ -1206,7 +1210,7 @@ public class Form extends javax.swing.JFrame {
         formContainer.add(container, java.awt.BorderLayout.CENTER);
 
         jPanel65.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel65.setPreferredSize(new java.awt.Dimension(731, 150));
+        jPanel65.setPreferredSize(new java.awt.Dimension(731, 140));
         jPanel65.setLayout(new java.awt.BorderLayout());
 
         jPanel66.setOpaque(false);
@@ -1296,22 +1300,19 @@ public class Form extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         PrinterJob job = PrinterJob.getPrinterJob();
         job.setJobName("Print Form");
-      
 
         PageFormat pf = job.defaultPage();
-        
+
         Paper paper = pf.getPaper();
         double width = formContainer.getWidth();
         double height = formContainer.getHeight();
-       // paper.setSize(595.0, 842.0); // Set size to A4\
-       paper.setSize(8.5* 72, 13.0* 72);
+        // paper.setSize(595.0, 842.0); // Set size to A4\
+        paper.setSize(8.5 * 72, 13.0 * 72);
         paper.setImageableArea(0, 0, width, height);
         pf.setPaper(paper);
-        
-        
+
         job.setPrintable(new PanelPrintable(formContainer), pf);
-      
-        
+
         boolean doPrint = job.printDialog();
         if (doPrint) {
             try {
@@ -1446,6 +1447,9 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel80;
+    private javax.swing.JLabel jLabel81;
+    private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;

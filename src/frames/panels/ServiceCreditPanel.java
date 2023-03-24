@@ -44,9 +44,7 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
     public ServiceCreditPanel() {
         initComponents();
 
-        if (!BaseClass.user.getRole().equals("superadmin")) {
-            btnReset.setVisible(false);
-        }
+   
         init();
 
     }
@@ -284,7 +282,6 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
         jTextField1 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jPanel22 = new javax.swing.JPanel();
-        btnReset = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
 
         setBackground(Theme.PRIMARY.COLOR.background_secondary);
@@ -311,7 +308,7 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
 
         jLabel1.setFont(Theme.PRIMARY.FONT.tableFontBig(12)
         );
-        jLabel1.setText("Order No.:");
+        jLabel1.setText("Special Order");
         jLabel1.setPreferredSize(new java.awt.Dimension(120, 17));
         jPanel4.add(jLabel1, java.awt.BorderLayout.NORTH);
 
@@ -591,15 +588,6 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
         jPanel22.setBackground(new java.awt.Color(255, 255, 255));
         jPanel22.setOpaque(false);
         jPanel22.setLayout(new java.awt.BorderLayout());
-
-        btnReset.setIcon(new javax.swing.ImageIcon(ImageHandler.getIconPath("/img/icons/reset-icon.png")));
-        btnReset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnResetActionPerformed(evt);
-            }
-        });
-        jPanel22.add(btnReset, java.awt.BorderLayout.EAST);
-
         jPanel2.add(jPanel22, java.awt.BorderLayout.CENTER);
 
         add(jPanel2, java.awt.BorderLayout.NORTH);
@@ -681,36 +669,11 @@ public class ServiceCreditPanel extends javax.swing.JPanel implements ServiceCre
 
     }//GEN-LAST:event_btn2ActionPerformed
 
-    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-
-        JPasswordField pf = new JPasswordField();
-        JLabel label = new JLabel("Input Password to Confirm");
-        JPanel panel = new JPanel(new GridLayout(2,0));
-        panel.add(label);
-        panel.add(pf);
-        int okCxl = JOptionPane.showConfirmDialog(this, panel, "Reset", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-
-        if (okCxl == JOptionPane.OK_OPTION) {
-            String password = new String(pf.getPassword());
-           if(BaseClass.user.getPassword().equals(password)){
-               try{
-                   controller.reset();
-                   JOptionPane.showMessageDialog(this, "All Service Credits was reset");
-               }catch(java.sql.SQLException e){
-                   
-               }
-           }else{
-               JOptionPane.showMessageDialog(this, "Invalid Password");
-           }
-        }
-    }//GEN-LAST:event_btnResetActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel addEditDetailPanel;
     private javax.swing.JButton btn1;
     private javax.swing.JButton btn2;
-    private javax.swing.JButton btnReset;
     private javax.swing.JPanel detailContainer;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

@@ -1484,7 +1484,7 @@ public class AddEmployeePanel extends javax.swing.JPanel {
                     //reset
                     
                     personalInfo = null;
-                    init();
+                  
                     resetFields();
 
                 } else {
@@ -1496,7 +1496,7 @@ public class AddEmployeePanel extends javax.swing.JPanel {
                 ImageHandler.copyToTargetFolder(imageSource, employee.getId());
             }
             employee = null;
-            
+            init();
             
            if(editButton !=null) {editButton.setText("Edit");
               imageLabel.setIcon(ImageHandler.getImage(150, 150, employee));

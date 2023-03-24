@@ -4,7 +4,7 @@
  */
 package pnhsems;
 
-import config.Config;
+
 import frames.LoginFrame;
 import javax.swing.JOptionPane;
 

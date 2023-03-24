@@ -453,24 +453,19 @@ public class SidePanelEmployeeProfile extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try {
+     
 
-            LeaveForm form = controller.getRecet(employee);
-            Form printForm = new Form();
-            if (form == null) {
-                form = new LeaveForm();
-                form.setEmployee(employee);
-                form.setDateFiled(UtilClass.getCurrentDate());
+        Form printForm = new Form();
 
-            }
-            printForm.setLeaveForm(form, true);
+        LeaveForm form = new LeaveForm();
+        form.setEmployee(employee);
+        form.setDateFiled(UtilClass.getCurrentDate());
 
-            printForm.setVisible(true);
+        printForm.setLeaveForm(form, true);
 
-           
-        }catch(java.sql.SQLException e){
-            
-        }
+        printForm.setVisible(true);
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
 

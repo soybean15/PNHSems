@@ -130,7 +130,7 @@ public class AddServiceCreditWindow extends javax.swing.JDialog implements Servi
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Add Service Credit", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Liberation Sans", 0, 13), new java.awt.Color(0, 102, 0))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Add Service Credit", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(0, 102, 0))); // NOI18N
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         jPanel3.setPreferredSize(new java.awt.Dimension(400, 40));
