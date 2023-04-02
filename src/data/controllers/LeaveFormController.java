@@ -53,6 +53,8 @@ public class LeaveFormController {
     }
     
     public List<LeaveForm> getLeaveLogs(Employee employee)throws SQLException{
+        
+    
         return service.getLeaveLogs(employee);
     }
     

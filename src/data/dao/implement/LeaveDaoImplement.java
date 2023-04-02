@@ -184,8 +184,8 @@ public class LeaveDaoImplement implements LeaveDao {
 
     @Override
     public List<EmployeeServiceCredit> getLeaveLogServiceCredit(String leaveId) throws SQLException {
-        String query = "Select * from leave_service_credits inner join service_credits on service_credits.id = service_credit_id"
-                + " where leave_id =?";
+        String query = "Select * from leave_service_credits inner join service_credits on service_credits.id = leave_service_credits.service_credit_id inner join employee_and_service_credits on  leave_service_credits.service_credit_id = employee_and_service_credits.service_credits_id "
+                + " where leave_id =? group by leave_id";
         
         PreparedStatement pst = conn.prepareStatement(query);
         pst.setString(1, leaveId);
@@ -202,6 +202,7 @@ public class LeaveDaoImplement implements LeaveDao {
            serviceCredit.setNumberOfDays(rs.getInt("service_credits.no_of_days"));
            serviceCredit.setTitle(rs.getString("service_credits.title"));
            
+           item.setNo_of_days(rs.getInt("remaining_days"));
            item.setDays_used(rs.getInt("credit_used"));
            item.setServiceCredits(serviceCredit);
            list.add(item);

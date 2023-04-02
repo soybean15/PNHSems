@@ -63,6 +63,7 @@ public class EmployeeAndServiceCreditsDaoImplement implements EmployeeAndService
 
             serviceCredit.setTitle(rs.getString("title"));
             serviceCredit.setNumberOfDays(rs.getInt("no_of_days"));
+
             serviceCredit.setCreated_at(rs.getTimestamp("created_at"));
             serviceCredit.setUpdated_at(rs.getTimestamp("updated_at"));
 
@@ -71,7 +72,7 @@ public class EmployeeAndServiceCreditsDaoImplement implements EmployeeAndService
             employeeServiceCredit.setEmployeeId(employeeId);
             employeeServiceCredit.setServiceCredits(serviceCredit);
             employeeServiceCredit.setNo_of_days(rs.getInt("employee_and_service_credits.remaining_days"));
-            
+                       
             
             employeeServiceCredits.add(employeeServiceCredit);
         }

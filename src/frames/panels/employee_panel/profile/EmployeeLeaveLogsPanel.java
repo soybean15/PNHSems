@@ -120,6 +120,7 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
         if (leaveLogs.size() < SET) {
             to = leaveLogs.size();
         }
+        
 
         populateList(leaveLogs.subList(0, to));
 //         setPagination();
@@ -299,6 +300,11 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
 
         int i = 0;
         for (LeaveForm item : leaveLogs) {
+            
+            
+                            
+          
+            
             LogsItem logItem = new LogsItem(i, item);
             logItem.addMouseListener(new MouseAdapter() {
                 @Override
@@ -333,6 +339,8 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
         panelServiceCredits.removeAll();
         panelServiceCredits.repaint();
         panelServiceCredits.revalidate();
+        
+     
 
         for (EmployeeServiceCredit item : selectedLeaveForm.getServiceCredit()) {
             JPanel panel = new JPanel(new BorderLayout());
@@ -817,6 +825,9 @@ public class EmployeeLeaveLogsPanel extends javax.swing.JPanel {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if(selectedLeaveForm != null){
             Form form = new Form();
+    
+            
+            
             form.setLeaveForm(selectedLeaveForm, false);
             form.setVisible(true);
         }else{

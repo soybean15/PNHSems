@@ -6,9 +6,11 @@ package frames.components.printerForms;
 
 import data.controllers.LeaveFormController;
 import data.model.Employee;
+import data.model.EmployeeServiceCredit;
 import data.model.LeaveForm;
 import data.model.LeaveType;
 import data.model.Personnel;
+import data.model.ServiceCredit;
 import frames.components.LeaveTypeRadioButton;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -84,6 +86,7 @@ public class Form extends javax.swing.JFrame {
         
 
         this.form = form;
+        
 
         this.isBlank = isBlank;
 
@@ -99,7 +102,29 @@ public class Form extends javax.swing.JFrame {
         lblLastName.setText(form.getEmployee().getLastName());
         lblMiddleName.setText(form.getEmployee().getMiddleName() == null ? "" : form.getEmployee().getMiddleName());
         lblPosition.setText(form.getEmployee().getPosition().getName());
+       
+        
+       int totalUsed=0;
+        for(EmployeeServiceCredit service: form.getServiceCredit()){
+              
+            System.out.println(service.getNo_of_days());
+            
+            totalUsed+= service.getNo_of_days();
+            
+        }
+        int earned = form.getCreditUsed()+totalUsed;
 
+       label1.setText(earned+"");
+       
+       label2.setText(form.getCreditUsed()+"");
+       label3 .setText(earned -form.getCreditUsed()+"" );
+       
+       tlabel1.setText(earned+"");
+       
+       tlabel2.setText(form.getCreditUsed()+"");
+       tlabel3 .setText(earned -form.getCreditUsed()+"" );
+       
+       
         if (!isBlank) {
             lblDaysApplied.setText("" + form.getCreditUsed());
             lblStart.setText(form.getInclusiveDate_start().toString());
@@ -296,18 +321,18 @@ public class Form extends javax.swing.JFrame {
         jPanel39 = new javax.swing.JPanel();
         jLabel44 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
-        jLabel46 = new javax.swing.JLabel();
-        jLabel47 = new javax.swing.JLabel();
+        label1 = new javax.swing.JLabel();
+        tlabel1 = new javax.swing.JLabel();
         jPanel40 = new javax.swing.JPanel();
         jLabel48 = new javax.swing.JLabel();
         jLabel49 = new javax.swing.JLabel();
-        jLabel50 = new javax.swing.JLabel();
-        lblCreditUsed = new javax.swing.JLabel();
+        label2 = new javax.swing.JLabel();
+        tlabel2 = new javax.swing.JLabel();
         jPanel38 = new javax.swing.JPanel();
         jLabel40 = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
-        jLabel42 = new javax.swing.JLabel();
-        lblBalance = new javax.swing.JLabel();
+        label3 = new javax.swing.JLabel();
+        tlabel3 = new javax.swing.JLabel();
         jPanel49 = new javax.swing.JPanel();
         jPanel50 = new javax.swing.JPanel();
         jLabel80 = new javax.swing.JLabel();
@@ -936,15 +961,15 @@ public class Form extends javax.swing.JFrame {
         jLabel45.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
         jPanel39.add(jLabel45);
 
-        jLabel46.setFont(new java.awt.Font("Liberation Sans", 0, 7)); // NOI18N
-        jLabel46.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel46.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
-        jPanel39.add(jLabel46);
+        label1.setFont(new java.awt.Font("Liberation Sans", 0, 7)); // NOI18N
+        label1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel39.add(label1);
 
-        jLabel47.setFont(new java.awt.Font("Liberation Sans", 1, 9)); // NOI18N
-        jLabel47.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel47.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
-        jPanel39.add(jLabel47);
+        tlabel1.setFont(new java.awt.Font("Liberation Sans", 1, 9)); // NOI18N
+        tlabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tlabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel39.add(tlabel1);
 
         jPanel35.add(jPanel39);
 
@@ -962,15 +987,15 @@ public class Form extends javax.swing.JFrame {
         jLabel49.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
         jPanel40.add(jLabel49);
 
-        jLabel50.setFont(new java.awt.Font("Liberation Sans", 0, 7)); // NOI18N
-        jLabel50.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel50.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
-        jPanel40.add(jLabel50);
+        label2.setFont(new java.awt.Font("Liberation Sans", 0, 7)); // NOI18N
+        label2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel40.add(label2);
 
-        lblCreditUsed.setFont(new java.awt.Font("Liberation Sans", 1, 9)); // NOI18N
-        lblCreditUsed.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCreditUsed.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
-        jPanel40.add(lblCreditUsed);
+        tlabel2.setFont(new java.awt.Font("Liberation Sans", 1, 9)); // NOI18N
+        tlabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tlabel2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel40.add(tlabel2);
 
         jPanel35.add(jPanel40);
 
@@ -988,15 +1013,15 @@ public class Form extends javax.swing.JFrame {
         jLabel41.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
         jPanel38.add(jLabel41);
 
-        jLabel42.setFont(new java.awt.Font("Liberation Sans", 0, 7)); // NOI18N
-        jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel42.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
-        jPanel38.add(jLabel42);
+        label3.setFont(new java.awt.Font("Liberation Sans", 0, 7)); // NOI18N
+        label3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel38.add(label3);
 
-        lblBalance.setFont(new java.awt.Font("Liberation Sans", 1, 9)); // NOI18N
-        lblBalance.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblBalance.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
-        jPanel38.add(lblBalance);
+        tlabel3.setFont(new java.awt.Font("Liberation Sans", 1, 9)); // NOI18N
+        tlabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tlabel3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel38.add(tlabel3);
 
         jPanel35.add(jPanel38);
 
@@ -1405,16 +1430,12 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
@@ -1520,11 +1541,12 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel label1;
+    private javax.swing.JLabel label2;
+    private javax.swing.JLabel label3;
     private javax.swing.JLabel lblAdmin4;
     private javax.swing.JLabel lblAdmin4_2;
     private javax.swing.JLabel lblAdmin5;
-    private javax.swing.JLabel lblBalance;
-    private javax.swing.JLabel lblCreditUsed;
     private javax.swing.JLabel lblDateFiled;
     private javax.swing.JLabel lblDateFiled2;
     private javax.swing.JLabel lblDaysApplied;
@@ -1541,6 +1563,9 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JCheckBox monetize;
     private javax.swing.JCheckBox outPatient;
     private javax.swing.JCheckBox terminal;
+    private javax.swing.JLabel tlabel1;
+    private javax.swing.JLabel tlabel2;
+    private javax.swing.JLabel tlabel3;
     private javax.swing.JCheckBox withinPh;
     // End of variables declaration//GEN-END:variables
 }

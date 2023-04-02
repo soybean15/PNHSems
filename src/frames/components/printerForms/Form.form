@@ -1610,7 +1610,7 @@
                                     </Property>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JLabel" name="jLabel46">
+                                <Component class="javax.swing.JLabel" name="label1">
                                   <Properties>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Liberation Sans" size="7" style="0"/>
@@ -1623,7 +1623,7 @@
                                     </Property>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JLabel" name="jLabel47">
+                                <Component class="javax.swing.JLabel" name="tlabel1">
                                   <Properties>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Liberation Sans" size="9" style="1"/>
@@ -1675,7 +1675,7 @@
                                     </Property>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JLabel" name="jLabel50">
+                                <Component class="javax.swing.JLabel" name="label2">
                                   <Properties>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Liberation Sans" size="7" style="0"/>
@@ -1688,7 +1688,7 @@
                                     </Property>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JLabel" name="lblCreditUsed">
+                                <Component class="javax.swing.JLabel" name="tlabel2">
                                   <Properties>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Liberation Sans" size="9" style="1"/>
@@ -1740,7 +1740,7 @@
                                     </Property>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JLabel" name="jLabel42">
+                                <Component class="javax.swing.JLabel" name="label3">
                                   <Properties>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Liberation Sans" size="7" style="0"/>
@@ -1753,7 +1753,7 @@
                                     </Property>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JLabel" name="lblBalance">
+                                <Component class="javax.swing.JLabel" name="tlabel3">
                                   <Properties>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Liberation Sans" size="9" style="1"/>
