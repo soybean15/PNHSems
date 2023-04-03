@@ -1238,6 +1238,7 @@ public class Form extends javax.swing.JFrame {
         jPanel70.add(lblAdmin5, java.awt.BorderLayout.CENTER);
 
         jPanel71.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel71.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         jPanel71.setPreferredSize(new java.awt.Dimension(200, 20));
         jPanel71.setRequestFocusEnabled(false);
         jPanel71.setLayout(new java.awt.BorderLayout());
@@ -1245,8 +1246,9 @@ public class Form extends javax.swing.JFrame {
         memo.setFont(new java.awt.Font("Liberation Sans", 0, 6)); // NOI18N
         jPanel71.add(memo, java.awt.BorderLayout.CENTER);
 
-        jLabel46.setFont(new java.awt.Font("Liberation Sans", 0, 6)); // NOI18N
-        jLabel46.setText("Service Credit(s)");
+        jLabel46.setFont(new java.awt.Font("Liberation Sans", 2, 6)); // NOI18N
+        jLabel46.setText("Note: Write Title Service Credits of Teacher Only");
+        jLabel46.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         jPanel71.add(jLabel46, java.awt.BorderLayout.NORTH);
 
         jPanel70.add(jPanel71, java.awt.BorderLayout.WEST);
