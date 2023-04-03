@@ -105,13 +105,19 @@ public class Form extends javax.swing.JFrame {
        
         
        int totalUsed=0;
+       String _title= "<html>";
+       
         for(EmployeeServiceCredit service: form.getServiceCredit()){
               
             System.out.println(service.getNo_of_days());
+            _title+="("+service.getServiceCredit().getMemorandum()+")<br>";
+            
             
             totalUsed+= service.getNo_of_days();
             
         }
+        _title +="</html>";
+        title.setText(_title);
         int earned = form.getCreditUsed()+totalUsed;
 
        label1.setText(earned+"");
@@ -335,7 +341,7 @@ public class Form extends javax.swing.JFrame {
         tlabel3 = new javax.swing.JLabel();
         jPanel49 = new javax.swing.JPanel();
         jPanel50 = new javax.swing.JPanel();
-        jLabel80 = new javax.swing.JLabel();
+        title = new javax.swing.JLabel();
         lblAdmin4 = new javax.swing.JLabel();
         jLabel62 = new javax.swing.JLabel();
         jPanel51 = new javax.swing.JPanel();
@@ -1034,7 +1040,10 @@ public class Form extends javax.swing.JFrame {
         jPanel50.setOpaque(false);
         jPanel50.setPreferredSize(new java.awt.Dimension(100, 30));
         jPanel50.setLayout(new java.awt.GridLayout(3, 0));
-        jPanel50.add(jLabel80);
+
+        title.setFont(new java.awt.Font("Liberation Sans", 0, 6)); // NOI18N
+        title.setText("<html>sample text  here sample text  here sample text  here sample text  here sample text  here sample text  here sample text  here sample text  here sample text  here sample text  here </html>");
+        jPanel50.add(title);
 
         lblAdmin4.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
         lblAdmin4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1468,7 +1477,6 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel9;
@@ -1563,6 +1571,7 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JCheckBox monetize;
     private javax.swing.JCheckBox outPatient;
     private javax.swing.JCheckBox terminal;
+    private javax.swing.JLabel title;
     private javax.swing.JLabel tlabel1;
     private javax.swing.JLabel tlabel2;
     private javax.swing.JLabel tlabel3;
