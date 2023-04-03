@@ -1228,6 +1228,7 @@ public class Form extends javax.swing.JFrame {
         jPanel47.setPreferredSize(new java.awt.Dimension(100, 40));
         jPanel47.setLayout(new java.awt.BorderLayout());
 
+        jPanel70.setBackground(new java.awt.Color(255, 255, 255));
         jPanel70.setLayout(new java.awt.BorderLayout());
 
         lblAdmin5.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
@@ -1236,6 +1237,7 @@ public class Form extends javax.swing.JFrame {
         lblAdmin5.setPreferredSize(new java.awt.Dimension(0, 15));
         jPanel70.add(lblAdmin5, java.awt.BorderLayout.CENTER);
 
+        jPanel71.setBackground(new java.awt.Color(255, 255, 255));
         jPanel71.setPreferredSize(new java.awt.Dimension(200, 20));
         jPanel71.setRequestFocusEnabled(false);
         jPanel71.setLayout(new java.awt.BorderLayout());
@@ -1249,6 +1251,7 @@ public class Form extends javax.swing.JFrame {
 
         jPanel70.add(jPanel71, java.awt.BorderLayout.WEST);
 
+        jPanel72.setBackground(new java.awt.Color(255, 255, 255));
         jPanel72.setPreferredSize(new java.awt.Dimension(200, 20));
         jPanel72.setRequestFocusEnabled(false);
         jPanel70.add(jPanel72, java.awt.BorderLayout.EAST);
