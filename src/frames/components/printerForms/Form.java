@@ -117,7 +117,7 @@ public class Form extends javax.swing.JFrame {
             
         }
         _title +="</html>";
-        title.setText(_title);
+        memo.setText(_title);
         int earned = form.getCreditUsed()+totalUsed;
 
        label1.setText(earned+"");
@@ -376,8 +376,13 @@ public class Form extends javax.swing.JFrame {
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
         jPanel47 = new javax.swing.JPanel();
-        jLabel82 = new javax.swing.JLabel();
+        jPanel70 = new javax.swing.JPanel();
         lblAdmin5 = new javax.swing.JLabel();
+        jPanel71 = new javax.swing.JPanel();
+        memo = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        jPanel72 = new javax.swing.JPanel();
+        jPanel69 = new javax.swing.JPanel();
         jLabel58 = new javax.swing.JLabel();
         jPanel65 = new javax.swing.JPanel();
         jPanel66 = new javax.swing.JPanel();
@@ -1042,7 +1047,6 @@ public class Form extends javax.swing.JFrame {
         jPanel50.setLayout(new java.awt.GridLayout(3, 0));
 
         title.setFont(new java.awt.Font("Liberation Sans", 0, 6)); // NOI18N
-        title.setText("<html>sample text  here sample text  here sample text  here sample text  here sample text  here sample text  here sample text  here sample text  here sample text  here sample text  here </html>");
         jPanel50.add(title);
 
         lblAdmin4.setFont(new java.awt.Font("Liberation Sans", 0, 8)); // NOI18N
@@ -1222,18 +1226,46 @@ public class Form extends javax.swing.JFrame {
 
         jPanel47.setOpaque(false);
         jPanel47.setPreferredSize(new java.awt.Dimension(100, 40));
-        jPanel47.setLayout(new java.awt.GridLayout(3, 0));
-        jPanel47.add(jLabel82);
+        jPanel47.setLayout(new java.awt.BorderLayout());
+
+        jPanel70.setLayout(new java.awt.BorderLayout());
 
         lblAdmin5.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         lblAdmin5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel47.add(lblAdmin5);
+        lblAdmin5.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        lblAdmin5.setPreferredSize(new java.awt.Dimension(0, 15));
+        jPanel70.add(lblAdmin5, java.awt.BorderLayout.CENTER);
+
+        jPanel71.setPreferredSize(new java.awt.Dimension(200, 20));
+        jPanel71.setRequestFocusEnabled(false);
+        jPanel71.setLayout(new java.awt.BorderLayout());
+
+        memo.setFont(new java.awt.Font("Liberation Sans", 0, 6)); // NOI18N
+        jPanel71.add(memo, java.awt.BorderLayout.CENTER);
+
+        jLabel46.setFont(new java.awt.Font("Liberation Sans", 0, 6)); // NOI18N
+        jLabel46.setText("Service Credit(s)");
+        jPanel71.add(jLabel46, java.awt.BorderLayout.NORTH);
+
+        jPanel70.add(jPanel71, java.awt.BorderLayout.WEST);
+
+        jPanel72.setPreferredSize(new java.awt.Dimension(200, 20));
+        jPanel72.setRequestFocusEnabled(false);
+        jPanel70.add(jPanel72, java.awt.BorderLayout.EAST);
+
+        jPanel47.add(jPanel70, java.awt.BorderLayout.CENTER);
+
+        jPanel69.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel69.setPreferredSize(new java.awt.Dimension(100, 15));
+        jPanel69.setLayout(new java.awt.GridLayout());
 
         jLabel58.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
         jLabel58.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel58.setText("Administrative Officer V");
         jLabel58.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
-        jPanel47.add(jLabel58);
+        jPanel69.add(jLabel58);
+
+        jPanel47.add(jPanel69, java.awt.BorderLayout.SOUTH);
 
         jPanel43.add(jPanel47, java.awt.BorderLayout.SOUTH);
 
@@ -1442,6 +1474,7 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
@@ -1478,7 +1511,6 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel81;
-    private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -1545,7 +1577,11 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel66;
     private javax.swing.JPanel jPanel67;
     private javax.swing.JPanel jPanel68;
+    private javax.swing.JPanel jPanel69;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel70;
+    private javax.swing.JPanel jPanel71;
+    private javax.swing.JPanel jPanel72;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
@@ -1568,6 +1604,7 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JLabel lblStart;
     private javax.swing.JPanel leaveTypeList;
     private javax.swing.JCheckBox masters;
+    private javax.swing.JLabel memo;
     private javax.swing.JCheckBox monetize;
     private javax.swing.JCheckBox outPatient;
     private javax.swing.JCheckBox terminal;
